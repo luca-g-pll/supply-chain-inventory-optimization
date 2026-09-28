@@ -1,0 +1,16 @@
+# Runtime dependencies (pipeline + dashboard). Also used by Streamlit Community Cloud.
+# Development tools are in requirements-dev.txt.
+pandas==3.0.6
+numpy==2.5.3
+pyarrow==25.0.1
+duckdb==1.5.6
+PyYAML==6.0.3
+statsmodels==0.15.0
+lightgbm==4.7.0
+scikit-learn==1.9.1   # ships the OpenMP runtime used by scripts/fix_lightgbm_macos.py
+scipy==1.18.1
+joblib==1.6.0
+matplotlib==3.11.2
+plotly==7.1.0
+streamlit==1.64.0
+openpyxl==3.1.5

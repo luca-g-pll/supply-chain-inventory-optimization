@@ -1,0 +1,6 @@
+[server]
+maxUploadSize = 50          # MB, same limit as input.limits.max_file_mb
+headless = true
+
+[browser]
+gatherUsageStats = false

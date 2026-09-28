@@ -1,0 +1,127 @@
+# Business assumptions and settings — the single source of truth.
+# The Kaggle demo has no prices, costs or lead times: every value below is an ASSUMPTION
+# and is used whenever the input data does not provide the value itself.
+# Meaning of every key: docs/07_data_dictionary.md §4.
+
+paths:
+  raw_train: data/raw/train.csv              # Kaggle demo file (git-ignored)
+  duckdb: data/processed/inventory.duckdb    # demo database (git-ignored)
+  prices: data/reference/item_prices.csv     # synthetic demo prices (committed)
+  work: data/processed/work                  # intermediate step outputs (git-ignored)
+  artefacts: data/processed/artefacts        # small results read by the dashboard (committed)
+  figures: reports/figures                   # PNG charts embedded in the README
+  sql: sql/kpi_queries.sql
+  validation_report: reports/validation.md
+
+# Data source: the Kaggle demo dataset, or any daily sales history that follows
+# the input contract in docs/07_data_dictionary.md §0.
+input:
+  source: demo                   # demo | file
+  path: null                     # used when source = file (.csv, .xlsx, .parquet)
+  sheet: null                    # Excel sheet name or index (default: first sheet)
+  item_master: null              # optional file with price / cost / lead time per item
+  column_map: {}                 # e.g. {date: Data, item: SKU, quantity: Qta, store: Negozio}
+  date_format: auto              # auto | ISO | dayfirst | monthfirst
+  missing_days_as_zero: true     # a day with no row = zero sales
+  negative_quantity: clip        # clip (returns -> 0) | reject
+  limits:                        # public dashboard upload; larger files -> run the CLI locally
+    max_file_mb: 50
+    max_rows: 2000000
+    max_series: 1000
+  min_history_days: 56           # series with less history before the test period are excluded
+
+# Periods are derived from the length of the history (docs/08_methodology.md §1).
+# Explicit values here override the automatic split.
+periods:
+  test_days: null                # null = min(365, max(28, 25% of history))
+  valid_days: null               # null = same length as test if the history allows (min 14)
+  test_start: null               # explicit test period (dates, YYYY-MM-DD)
+  test_end: null
+  valid_start: null              # explicit start of the validation period
+
+prices:                          # synthetic prices for items without a price in the data
+  min: 5.0                       # EUR
+  max: 50.0                      # EUR
+  round_to: 0.05
+  seed: 42
+
+classification:
+  abc_thresholds: [0.80, 0.95]   # cumulative revenue share
+  xyz_thresholds: [0.5, 1.0]     # CV of weekly demand
+  # classes are computed on the validation period (the one just before the test period)
+
+forecast:
+  horizon: 14                    # days ahead; >= review gap (6) + lead time (7)
+  origin_step: 7                 # a new forecast every 7 days
+  baseline: seasonal_naive
+  models: [seasonal_naive, moving_average, holt_winters, lightgbm]
+  ma_window: 28
+  holt_winters:
+    seasonal_periods: 7
+    refit_every: 13              # re-estimate parameters every 13 origins (quarterly);
+                                 # in between, states are updated with new actuals
+  lightgbm:
+    refit_every: 13
+    lags: [14, 21, 28, 35, 364]  # lag 364 used only with >= 400 days of training history
+    rolling_windows: [7, 28, 91] # rolling means ending at lag 14
+    params:
+      objective: tweedie
+      learning_rate: 0.05
+      num_leaves: 63
+      min_data_in_leaf: 50
+      feature_fraction: 0.8
+      bagging_fraction: 0.8
+      bagging_freq: 1
+      lambda_l2: 1.0
+      seed: 42
+      verbose: -1
+    num_boost_round: 600
+
+# Fast mode = live analysis of an uploaded file in the dashboard (NFR-13).
+fast_mode:
+  refit_every: 1000              # i.e. fit once at the start of each period
+  lightgbm_num_boost_round: 300
+  holt_winters_max_series: 300   # above this, Holt-Winters is skipped
+
+inventory:
+  lead_time_days: 7
+  order_cost: 50.0               # EUR per order line
+  holding_rate: 0.25             # per year, fraction of unit cost
+  cost_to_price_ratio: 0.60      # unit_cost = 0.60 * unit_price when the cost is unknown
+  service_level: 0.95
+  service_type: cycle            # cycle (Type 1) | fill_rate (Type 2)
+  days_per_year: 365
+
+# Scenario = which part of the business to analyse (null = everything in the data).
+# The dashboard changes this at runtime; these defaults are used by the CLI report.
+scenario:
+  n_stores: null
+  n_items: null
+  item_selection: top_revenue    # top_revenue | random | manual
+  random_seed: 42
+  manual_items: []               # used only when item_selection = manual
+  online_stores: []              # store IDs run as online channel, e.g. ["9", "10"]
+
+# Channel-specific overrides of the `inventory` block (keys not listed are inherited).
+channels:
+  physical:
+    backorder_share: 0.0         # unmet demand fully lost (walk-away customer)
+    backorder_cost: 0.0
+  online:
+    holding_rate: 0.20           # cheaper warehouse space than a shop floor
+    backorder_share: 0.80        # 80% of unmet online demand waits, 20% cancels
+    backorder_cost: 2.0          # EUR per backordered unit (goodwill / expedited shipping)
+
+simulation:
+  policies: [P0_naive, P1_static_sq, P2_forecast_sq]
+  channels: [physical, online]   # every series is simulated under both channels
+  naive_order_weekday: 0         # Monday
+  calibrate_to_fill_rate: true
+  target_fill_rate: 0.95
+  calibration_tol: 0.002
+  detail_stores: ["1"]           # stores whose daily detail is published with the demo
+                                 # (Kaggle licence: no full copy of the daily data)
+
+sensitivity:
+  lead_times: [3, 7, 14]
+  service_levels: [0.90, 0.95, 0.98, 0.99]

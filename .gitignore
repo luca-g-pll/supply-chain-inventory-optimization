@@ -1,0 +1,32 @@
+# Data
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*.duckdb
+data/processed/*.duckdb.wal
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
+
+# Secrets
+kaggle.json
+.streamlit/secrets.toml
+
+# Pipeline cache and local builds
+data/processed/work/
+*.egg-info/
+.hypothesis/
+build/
