@@ -94,6 +94,11 @@ Priority uses **MoSCoW**: **M**ust, **S**hould, **C**ould, **W**on't (this time)
 | FR-57 | Weekly or monthly input data (all logic in periods instead of days). | C |
 | FR-58 | Intermittent-demand classification (ADI / CV², Syntetos-Boylan) and a Croston/SBA model for sparse series. | C |
 
+### Sample data
+| ID | Requirement | Priority |
+|---|---|---|
+| FR-59 | Invented but realistic sample datasets (chain with online shop, Italian-format CSV, Excel order lines with returns) with a seeded generator, selectable in the dashboard without uploading anything. | S |
+
 ## 2. Non-functional requirements
 
 | ID | Category | Requirement |
@@ -154,7 +159,7 @@ Priority uses **MoSCoW**: **M**ust, **S**hould, **C**ould, **W**on't (this time)
 
 | Status | Requirements |
 |---|---|
-| ✅ Done | FR-01 – FR-15, FR-17 – FR-22, FR-25 – FR-33, FR-35 – FR-41, FR-45 – FR-56; NFR-01 – NFR-14 |
+| ✅ Done | FR-01 – FR-15, FR-17 – FR-22, FR-25 – FR-33, FR-35 – FR-41, FR-45 – FR-56, FR-59; NFR-01 – NFR-14 |
 | ⏭ Not in v1 (Could) | FR-16 quantile forecasts, FR-23 periodic review (R, S), FR-24 stochastic lead time in the simulation (the formula is in `src.inventory.sigma_lead_time`), FR-34 Power BI, FR-42 scenario in the URL, FR-43 online risk pooling, FR-57 weekly/monthly input, FR-58 intermittent-demand models |
 | ✖ Dropped | FR-44 (synthetic generator for bigger scenarios) — replaced by user uploads (ADR-0006); `src/synthetic.py` exists only for tests and CI |
 

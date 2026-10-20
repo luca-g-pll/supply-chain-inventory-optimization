@@ -15,7 +15,7 @@ Any daily sales history can be analysed if it can be mapped to the fields below.
 | `channel` | ➖ | `physical` / `online` | Per store (first value wins if inconsistent → warning) | `physical` |
 | `lead_time_days` | ➖ | integer ≥ 1 | Supplier lead time per item | `inventory.lead_time_days` |
 
-Price, cost and lead time may also come from a separate **item master** file (`item, unit_price, unit_cost, lead_time_days`). If a value appears on several dates, the **most recent** one is used.
+Price, cost and lead time may also come from a separate **item master** file (`item, unit_price, unit_cost, lead_time_days`). When a value changes over time, price and cost are the **median of the item's last 90 days** (a promotion at the end of the history does not become the list price) and the lead time is the most recent value.
 
 **Standardisation rules**
 1. A day with **no row** for a series, from its first sale to the last date in the file, = **0 units sold**.
@@ -127,6 +127,7 @@ The file is committed so that results can be checked even without running the ge
 | `inventory.order_cost` | 50 | € / order | `S` |
 | `inventory.holding_rate` | 0.25 | 1 / year | `i` → `h = i · c` |
 | `inventory.cost_to_price_ratio` | 0.60 | – | `c = 0.6 · p` when the cost is unknown |
+| `inventory.max_cover_days` | 28 | days | The lot never exceeds this many days of demand (null = pure EOQ) |
 | `inventory.service_level` | 0.95 | – | Target used to set `z` (fixed variant) |
 | `inventory.service_type` | cycle | – | `cycle` (Type 1) or `fill_rate` (Type 2) |
 | `scenario.n_stores` / `n_items` | null | – | null = all stores / items in the data |

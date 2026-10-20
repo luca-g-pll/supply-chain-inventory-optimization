@@ -137,7 +137,9 @@ The CLI can run an uploaded file in full mode (`--input … ` without `--fast`);
   General case with a random lead time: `σ_L = √(L·σ_d² + d̄²·σ_LT²)`.
 - **Safety stock:** `SS = z · σ_L`
 - **Reorder point:** `s = d̄ · L + SS`
-- **Economic order quantity:** `Q* = √(2 · D · S / h)`
+- **Economic order quantity:** `Q* = √(2 · D · S / h)`, **capped at `max_cover_days` (28) days of demand**:
+  `Q = min(Q*, 28 · d̄)`. Without the cap, cheap fast movers (pasta at €0.99 with S = €50 per order) get EOQ lots of
+  4–9 months of demand, which no store would hold; the sample retail data made this visible.
 - **Expected annual cost** (analytic check): `S·D/Q + h·(Q/2 + SS)`
 
 ### 5.3 Two meanings of "95% service" — stated clearly

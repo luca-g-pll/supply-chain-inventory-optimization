@@ -122,6 +122,7 @@ class InventoryParams:
     service_level: float = 0.95
     service_type: Literal["cycle", "fill_rate"] = "cycle"
     days_per_year: int = 365
+    max_cover_days: int | None = 28    # cap the EOQ lot at this many days of demand (None = no cap)
 
 
 @dataclass(frozen=True)
@@ -248,6 +249,8 @@ def _inventory(raw: dict[str, Any], base: InventoryParams | None = None) -> Inve
         service_level=float(raw.get("service_level", base.service_level)),
         service_type=raw.get("service_type", base.service_type),
         days_per_year=int(raw.get("days_per_year", base.days_per_year)),
+        max_cover_days=(None if raw.get("max_cover_days", base.max_cover_days) is None
+                        else int(raw.get("max_cover_days", base.max_cover_days))),
     )
     validate_inventory(inv)
     return inv
@@ -262,6 +265,7 @@ def validate_inventory(inv: InventoryParams) -> None:
     _check(0.5 < inv.service_level < 1, "inventory.service_level must be in (0.5, 1)")
     _check(inv.service_type in ("cycle", "fill_rate"), "inventory.service_type must be cycle or fill_rate")
     _check(inv.days_per_year > 0, "inventory.days_per_year must be > 0")
+    _check(inv.max_cover_days is None or inv.max_cover_days >= 1, "inventory.max_cover_days must be >= 1 or null")
 
 
 def _thresholds(values: Any, key: str) -> tuple[float, float]:

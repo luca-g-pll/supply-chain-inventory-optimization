@@ -32,7 +32,7 @@ from src.inventory import (
 from src.series import DemandMatrix
 from src.simulation import BatchResult, calibrate_to_fill_rate, simulate_batch
 
-KNOB_RANGE = {"P0_naive": (0.5, 4.0), "P1_static_sq": (-12.0, 8.0), "P2_forecast_sq": (-12.0, 8.0)}
+KNOB_RANGE = {"P0_naive": (0.0, 4.0), "P1_static_sq": (-12.0, 8.0), "P2_forecast_sq": (-12.0, 8.0)}
 POLICY_LABELS = {"P0_naive": "P0 · Naive weekly order", "P1_static_sq": "P1 · Static (s, Q)",
                  "P2_forecast_sq": "P2 · Forecast-driven (s, Q)"}
 
@@ -155,6 +155,8 @@ def policy_parameters(inp: PolicyInputs, channel: ChannelParams, cfg: Config,
     annual = inp.mean_daily * inv.days_per_year
     h = inv.holding_rate * inp.unit_cost
     Q = lot_size(np.maximum(annual, 0.0), inv.order_cost, h)
+    if inv.max_cover_days:
+        Q = np.minimum(Q, np.maximum(np.ceil(inp.mean_daily * inv.max_cover_days - 1e-9), 1.0))
     sig_hist = inp.sigma_daily * np.sqrt(L)
     sig_fc = forecast_error_sigma(inp, L)
     if inv.service_type == "fill_rate":

@@ -399,7 +399,7 @@ def standardise(raw: pd.DataFrame, mapping: ColumnMapping, cfg: InputConfig, pri
     attrs.loc[attrs["unit_price"] <= 0, "unit_price"] = np.nan
     attrs.loc[attrs["unit_cost"] <= 0, "unit_cost"] = np.nan
     attrs.loc[attrs["lead_time_days"] < 1, "lead_time_days"] = np.nan
-    master = attrs.sort_values("date").groupby("item")[["unit_price", "unit_cost", "lead_time_days"]].last()
+    master = current_item_values(attrs)
     items = natural_sorted(sales["item"].unique())
     master = master.reindex(items)
     master.index.name = "item"
@@ -423,6 +423,23 @@ def standardise(raw: pd.DataFrame, mapping: ColumnMapping, cfg: InputConfig, pri
 
     return StandardisedData(sales=sales, item_master=master, stores=stores, source=source,
                             file_name=file_name, file_hash=file_hash_value, notes=notes)
+
+
+def current_item_values(attrs: pd.DataFrame, window_days: int = 90) -> pd.DataFrame:
+    """Current price, cost and lead time per item from dated rows.
+
+    Price and cost are the **median of the last ``window_days``** of each item's
+    rows, so a promotion running at the end of the history does not become the
+    item's price; the lead time is the most recent known value.
+    """
+    attrs = attrs.sort_values("date")
+    last = attrs.groupby("item")["date"].transform("max")
+    recent = attrs[attrs["date"] > last - pd.Timedelta(days=window_days)]
+    out = recent.groupby("item")[["unit_price", "unit_cost"]].median()
+    out["lead_time_days"] = attrs.groupby("item")["lead_time_days"].last()
+    # items whose price only appears before the window: fall back to their last known value
+    older = attrs.groupby("item")[["unit_price", "unit_cost"]].last()
+    return out.combine_first(older)[["unit_price", "unit_cost", "lead_time_days"]]
 
 
 def _fill_item_master(master: pd.DataFrame, prices: PricesConfig, inventory: InventoryParams) -> pd.DataFrame:
@@ -585,6 +602,4 @@ def validate(data: StandardisedData, cfg: InputConfig, enforce_limits: bool = Fa
     if report.pct_zero_days > 0.5:
         report.warnings.append(
             f"{report.pct_zero_days:.0%} of the days have zero sales (intermittent demand): forecasts will be less reliable.")
-    if 0 < history < 400 + 28:
-        report.warnings.append("Less than about 14 months of history: yearly seasonality will not be modelled.")
     return report

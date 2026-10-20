@@ -1,7 +1,7 @@
 # Shortcuts. Run from the project root with the virtual environment active (or use .venv/bin/...).
 PY ?= .venv/bin/python
 
-.PHONY: install demo notebooks app test lint
+.PHONY: install demo sample-data notebooks app test lint
 
 install:            ## create the environment and install everything
 	python3 -m venv .venv
@@ -12,6 +12,9 @@ install:            ## create the environment and install everything
 demo:               ## full run on data/raw/train.csv: README numbers, charts, dashboard artefacts, notebooks
 	$(PY) -m src.pipeline --all
 	$(MAKE) notebooks
+
+sample-data:        ## (re)generate the invented sample datasets in data/samples
+	$(PY) -m src.sample_data --out data/samples
 
 notebooks:          ## re-execute the three notebooks on the cached results
 	.venv/bin/jupyter nbconvert --to notebook --execute --inplace notebooks/*.ipynb

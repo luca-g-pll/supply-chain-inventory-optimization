@@ -1,0 +1,9 @@
+store,name,city,channel,opened,note
+MI01,Milano Centro,Milano,physical,before 2022-01-01,
+MI02,Milano Città Studi,Milano,physical,before 2022-01-01,closed on Sundays
+TO01,Torino Lingotto,Torino,physical,before 2022-01-01,closed for renovation 7–20 Aug 2023
+BO01,Bologna Centro,Bologna,physical,before 2022-01-01,closed on Sundays
+FI01,Firenze Campo di Marte,Firenze,physical,before 2022-01-01,
+RM01,Roma Prati,Roma,physical,before 2022-01-01,
+NA01,Napoli Vomero,Napoli,physical,2022-06-01,opened on 1 Jun 2022 (ramp-up over 6 months)
+WEB,Online shop,Italy,online,before 2022-01-01,"e-commerce, +25% per year, Black Friday peak"

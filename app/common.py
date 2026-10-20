@@ -19,17 +19,15 @@ if str(ROOT) not in sys.path:
 
 import pandas as pd  # noqa: E402
 import streamlit as st  # noqa: E402
+from i18n import channel_name, policy_name, scenario_label, tx  # noqa: E402
 
 from src.config import Config, load_config  # noqa: E402
 from src.kpi import aggregate_kpis  # noqa: E402
 from src.metrics import evaluate  # noqa: E402
-from src.policy import POLICY_LABELS  # noqa: E402
 from src.scenario import Scenario, apply_scenario, build_scenario  # noqa: E402
 from src.series import natural_sorted  # noqa: E402
 
 ARTEFACTS = ROOT / "data" / "processed" / "artefacts"
-POLICY_SHORT = {"P0_naive": "P0 · naive weekly", "P1_static_sq": "P1 · static (s, Q)",
-                "P2_forecast_sq": "P2 · forecast-driven"}
 MODEL_LABELS = {"seasonal_naive": "Seasonal naive", "moving_average": "Moving average",
                 "holt_winters": "Holt-Winters", "lightgbm": "LightGBM"}
 
@@ -73,7 +71,7 @@ def config() -> Config:
     return load_config()
 
 
-@st.cache_data(show_spinner="Loading the demo results…")
+@st.cache_data(show_spinner=False)
 def _load_demo(folder: str, stamp: float) -> tuple[dict[str, pd.DataFrame], dict]:
     path = Path(folder)
     tables = {p.stem: pd.read_parquet(p) for p in sorted(path.glob("*.parquet"))}
@@ -91,9 +89,23 @@ def demo_data() -> ActiveData | None:
     stamp = (ARTEFACTS / "meta.json").stat().st_mtime
     tables, meta = _load_demo(str(ARTEFACTS), stamp)
     detail = ", ".join(json.loads((ARTEFACTS / "manifest.json").read_text()).get("detail_stores", []))
-    return ActiveData("demo", "Demo · Kaggle store-item sales", tables, meta,
-                      detail_note=f"Daily detail is published for store {detail} only (dataset licence). "
-                                  "Run the project locally to explore every store.")
+    return ActiveData("demo", "Demo · Kaggle", tables, meta, extra={"detail_stores": detail})
+
+
+def data_label(data: ActiveData) -> str:
+    if data.source == "demo":
+        return tx("Demo · Kaggle store-item sales", "Demo · vendite negozio-articolo Kaggle")
+    return tx("Your data · ", "I tuoi dati · ") + data.meta.get("file_name", "")
+
+
+def detail_note(data: ActiveData) -> str:
+    if data.source != "demo":
+        return ""
+    d = data.extra.get("detail_stores", "")
+    return tx(f"Daily detail is published for store {d} only (dataset licence). "
+              "Run the project locally to explore every store.",
+              f"Il dettaglio giornaliero è pubblicato solo per il negozio {d} (licenza del dataset). "
+              "Esegui il progetto in locale per vedere tutti i negozi.")
 
 
 def active_data() -> ActiveData | None:
@@ -118,37 +130,43 @@ def scenario_sidebar(data: ActiveData) -> Scenario:
         st.session_state["scenario_key"] = key
         st.session_state["sc_n_stores"] = len(stores)
         st.session_state["sc_n_items"] = len(items_all)
-        st.session_state["sc_rule"] = "Top revenue"
+        st.session_state["sc_rule"] = "top_revenue"
         st.session_state["sc_manual"] = []
         st.session_state["sc_online"] = [s for s in data.default_online if s in stores]
 
     with st.sidebar:
-        st.markdown("### Scenario")
-        st.caption(data.label)
+        st.markdown(tx("### Scenario", "### Scenario"))
+        st.caption(data_label(data))
         if len(stores) > 1:
-            n_stores = st.slider("Number of stores", 1, len(stores), key="sc_n_stores")
+            n_stores = st.slider(tx("Number of stores", "Numero di negozi"), 1, len(stores), key="sc_n_stores")
         else:
             n_stores = 1
-        rule = st.segmented_control("Products", ["Top revenue", "Random", "Manual"], key="sc_rule") or "Top revenue"
+        rules = {"top_revenue": tx("Top revenue", "Più venduti"), "random": tx("Random", "Casuali"),
+                 "manual": tx("Manual", "A scelta")}
+        rule = st.segmented_control(tx("Products", "Prodotti"), list(rules), format_func=rules.get,
+                                    key="sc_rule") or "top_revenue"
         manual: list[str] = []
-        if rule == "Manual":
-            manual = st.multiselect("Choose products", items_all, key="sc_manual")
+        if rule == "manual":
+            manual = st.multiselect(tx("Choose products", "Scegli i prodotti"), items_all, key="sc_manual")
             n_items = len(manual) or len(items_all)
         elif len(items_all) > 1:
-            n_items = st.slider("Number of products", 1, len(items_all), key="sc_n_items")
+            n_items = st.slider(tx("Number of products", "Numero di prodotti"), 1, len(items_all), key="sc_n_items")
         else:
             n_items = 1
         chosen_stores = natural_sorted(stores)[:n_stores]
         current_online = [s for s in st.session_state.get("sc_online", []) if s in chosen_stores]
         st.session_state["sc_online"] = current_online
-        st.multiselect("Stores sold online", chosen_stores, key="sc_online",
-                       help="Online: 80% of unmet demand waits for the next delivery instead of being lost; "
-                            "warehouse holding cost 20% instead of 25%.")
+        st.multiselect(tx("Stores sold online", "Negozi che vendono online"), chosen_stores, key="sc_online",
+                       help=tx("Online: 80% of unmet demand waits for the next delivery instead of being lost; "
+                               "warehouse holding cost 20% instead of 25%.",
+                               "Online: l'80% della domanda non servita aspetta la consegna successiva invece di "
+                               "andare persa; costo di magazzino 20% invece del 25%."))
         b1, b2 = st.columns(2)
-        b1.button("All physical", width="stretch", on_click=_set_online, args=([],))
-        b2.button("All online", width="stretch", on_click=_set_online, args=(list(chosen_stores),))
+        b1.button(tx("All physical", "Tutti fisici"), width="stretch", on_click=_set_online, args=([],))
+        b2.button(tx("All online", "Tutti online"), width="stretch", on_click=_set_online,
+                  args=(list(chosen_stores),))
 
-    rule_key = {"Top revenue": "top_revenue", "Random": "random", "Manual": "manual"}[rule]
+    rule_key = rule
     try:
         scenario = build_scenario(stores, data.revenue_ref, n_stores=n_stores,
                                   n_items=None if rule_key == "manual" else n_items, item_rule=rule_key,
@@ -164,8 +182,8 @@ def scenario_sidebar(data: ActiveData) -> Scenario:
 def scenario_badge(data: ActiveData, scenario: Scenario) -> None:
     h = data.meta.get("headline", {})
     period = h.get("test_period", ["", ""])
-    st.caption(f"**{scenario.label}** · test period {period[0]} → {period[1]} · {data.label}"
-               + (" · fast mode" if data.meta.get("fast") else ""))
+    st.caption(f"**{scenario_label(scenario)}** · {tx('test period', 'periodo di test')} {period[0]} → {period[1]}"
+               f" · {data_label(data)}" + (tx(" · fast mode", " · modalità veloce") if data.meta.get("fast") else ""))
 
 
 # --------------------------------------------------------------------------- tables for a scenario
@@ -204,13 +222,19 @@ def pct(x: float, digits: int = 1) -> str:
 
 
 def policy_label(p: str) -> str:
-    return POLICY_SHORT.get(p, POLICY_LABELS.get(p, p))
+    return policy_name(p)
+
+
+def channel_label(c: str) -> str:
+    return channel_name(c)
 
 
 def no_data_message() -> None:
-    st.warning(
-        "No results to show yet. Either upload your own sales history on the **Data** page, "
-        "or build the demo results locally with `python -m src.pipeline --all` (see the README).")
+    st.warning(tx(
+        "No results to show yet. Open the **Data** page and use a sample dataset or upload your own sales history, "
+        "or build the demo results locally with `python -m src.pipeline --all` (see the README).",
+        "Ancora nessun risultato. Apri la pagina **Dati** e usa un dataset di esempio o carica il tuo storico "
+        "vendite, oppure crea i risultati demo in locale con `python -m src.pipeline --all` (vedi il README)."))
 
 
 def csv_download(df: pd.DataFrame, label: str, file_name: str, key: str) -> None:

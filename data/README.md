@@ -33,6 +33,10 @@ data/
 
 Check: `train.csv` has the columns `date,store,item,sales` and 913,000 rows.
 
+## Sample datasets (hypothetical)
+
+[`samples/`](samples/README.md) contains invented but realistic sales files of a fictional Italian retailer (chain with an online shop, Italian-format CSV, Excel order lines with returns), to try the software without your own data — including in the dashboard (*Use a sample dataset*). Rebuild them with `python -m src.sample_data`.
+
 ## No download? Synthetic data for testing
 
 `src/synthetic.py` generates Kaggle-shaped data (trend, weekly and yearly seasonality, Poisson noise). The tests

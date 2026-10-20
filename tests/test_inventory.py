@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import pytest
 
 from src.inventory import (
@@ -86,3 +87,24 @@ def test_forecast_policy_uses_the_daily_reorder_point():
     pol = ForecastSQPolicy(ltd=np.array([[10.0, 100.0]]), ss=np.array([5.0]), Q=np.array([20.0]))
     assert pol.order(0, 0, np.array([50.0])).tolist() == [0.0]      # s_0 = 15
     assert pol.order(1, 0, np.array([50.0])).tolist() == [60.0]     # s_1 = 105 -> 3 lots
+
+
+def test_lot_size_is_capped_at_max_cover_days():
+    from src.config import load_config
+    from src.policy import PolicyInputs, policy_parameters
+
+    cfg = load_config()
+    n, days = 1, 30
+    inp = PolicyInputs(
+        keys=pd.DataFrame({"store": ["1"], "item": ["A"]}),
+        test_dates=pd.date_range("2024-01-01", periods=days), test_days=np.arange(8, 8 + days),
+        demand=np.full((n, days), 20.0), mean_daily=np.array([20.0]), sigma_daily=np.array([5.0]),
+        unit_cost=np.array([0.6]), unit_price=np.array([1.0]), item_lead_time=np.array([np.nan]),
+        fc_test=np.full((n, 6, 14), 20.0), origins_test=np.arange(7, 7 + 42, 7), fc_valid=np.full((n, 2, 14), 20.0),
+        origins_valid=np.array([0, 7]), valid_days=np.arange(1, 8), valid_actual=np.full((n, 7), 20.0),
+        best_model="seasonal_naive")
+    capped = policy_parameters(inp, cfg.channel("physical"), cfg)
+    # cheap fast mover: the raw EOQ would be months of demand; the lot stops at 28 days
+    assert capped.Q[0] == 28 * 20
+    uncapped_cfg = load_config(overrides={"inventory": {"max_cover_days": None}})
+    assert policy_parameters(inp, uncapped_cfg.channel("physical"), uncapped_cfg).Q[0] > 28 * 20

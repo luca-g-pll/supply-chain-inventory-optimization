@@ -1,11 +1,34 @@
-# 📦 Demand Forecasting & Inventory Optimization
+<p align="center"><img src="app/assets/logo.png" alt="Logo" width="120"></p>
 
-**Forecast daily demand for every store and product, turn it into a reorder policy, and prove with a day-by-day
-simulation that it needs less stock for the same service.** Works on the built-in demo (Kaggle, 10 stores × 50
-products × 5 years) or on **your own sales history** (CSV / Excel upload).
+# Demand Forecasting & Inventory Optimization
 
-**Live dashboard:** _deploy link — see [How to deploy](#8-deploy-the-dashboard-streamlit-community-cloud)_ ·
-**Docs:** [`docs/`](docs/README.md) · **Notebooks:** [`notebooks/`](notebooks/)
+**Forecast daily demand for every store and product, turn the forecast into a reorder policy, and prove with a
+day-by-day simulation that it needs less stock for the same service level.**
+
+It works on the built-in demo (Kaggle: 10 stores × 50 products × 5 years of daily sales), on invented sample data
+of a fictional Italian retailer, or on **your own sales history** (CSV / Excel upload, any column names).
+
+**Live dashboard:** _link after deployment — see [§10](#10-deploy-the-dashboard-online)_ ·
+**Docs:** [`docs/`](docs/README.md) · **Notebooks:** [`notebooks/`](notebooks/) ·
+**Run it on your computer:** [step-by-step guide for Windows and macOS](#13-step-by-step-run-it-on-your-computer)
+
+---
+
+## Contents
+
+1. [The business problem](#1-the-business-problem)
+2. [Key results](#2-key-results)
+3. [How it works](#3-how-it-works)
+4. [The dashboard](#4-the-dashboard)
+5. [Use your own sales history](#5-use-your-own-sales-history)
+6. [Sample data (no download needed)](#6-sample-data-no-download-needed)
+7. [Assumptions](#7-assumptions)
+8. [Command line](#8-command-line)
+9. [Repository structure](#9-repository-structure)
+10. [Deploy the dashboard online](#10-deploy-the-dashboard-online)
+11. [Tech stack and quality](#11-tech-stack-and-quality)
+12. [Limitations and next steps](#12-limitations-and-next-steps)
+13. [Step by step: run it on your computer (Windows · macOS)](#13-step-by-step-run-it-on-your-computer)
 
 ---
 
@@ -13,8 +36,8 @@ products × 5 years) or on **your own sales history** (CSV / Excel upload).
 
 A distributor with **10 stores** and **50 products** has to decide **how much** and **when** to reorder.
 
-- **Too much stock** → cash tied up in inventory, storage costs, obsolescence risk.
-- **Too little stock** → stock-outs, lost sales, unhappy customers.
+- **Too much stock** → cash tied up in inventory, storage costs, products that expire or go out of fashion.
+- **Too little stock** → empty shelves, lost sales, unhappy customers.
 
 Today the rule is simple: *order about the same quantity every week*. This project forecasts demand and uses the
 forecast to set a **reorder policy** that keeps a **95% service level with less inventory and lower cost**.
@@ -24,6 +47,9 @@ forecast to set a **reorder policy** that keeps a **95% service level with less 
 <!-- RESULTS:START -->
 *Results appear here after the first full run on the Kaggle data (`python -m src.pipeline --all`).*
 <!-- RESULTS:END -->
+
+The block above is written by the pipeline itself from the same results the dashboard shows, so the numbers in
+this README can never drift from the analysis.
 
 | | |
 |---|---|
@@ -47,12 +73,17 @@ forecast to set a **reorder policy** that keeps a **95% service level with less 
 
 </details>
 
+**On the sample retail data** (invented, see [§6](#6-sample-data-no-download-needed)): LightGBM makes 27% less
+forecast error than "like last week", and at the same 95% fill rate the forecast-driven policy holds 19% less stock
+than the weekly order and 9% less than a classic static policy. On a Christmas-only product it keeps 41 units on
+the shelf out of season instead of 92, and serves 96% of the Christmas demand instead of 85%.
+
 ## 3. How it works
 
 ```mermaid
 flowchart LR
     A1[Demo: Kaggle<br/>10 stores × 50 items × 5 yrs] --> V
-    A2[Your file<br/>CSV · Excel · Parquet] --> V[Column mapping<br/>+ validation]
+    A2[Your file or a sample<br/>CSV · Excel · Parquet] --> V[Column mapping<br/>+ validation]
     V --> B[DuckDB<br/>SQL KPIs]
     V --> C[ABC / XYZ]
     V --> D[Forecasts<br/>naive · MA · Holt-Winters · LightGBM]
@@ -65,25 +96,39 @@ flowchart LR
 |---|---|---|
 | 1. Explore | Trend, weekly and yearly seasonality; **ABC** by revenue, **XYZ** by weekly variability; 13 KPI queries in **SQL (DuckDB)** | [`01_eda_abc_xyz.ipynb`](notebooks/01_eda_abc_xyz.ipynb), [`sql/kpi_queries.sql`](sql/kpi_queries.sql) |
 | 2. Forecast | Seasonal naive ("like last week"), 28-day moving average, **Holt-Winters**, one global **LightGBM**; rolling-origin back-test (a forecast every 7 days, 1–14 days ahead); **WAPE**, MAPE, bias | [`02_forecasting.ipynb`](notebooks/02_forecasting.ipynb), [`src/forecast.py`](src/forecast.py) |
-| 3. Policy | Per store-item: safety stock `z·σ_L`, reorder point, **EOQ**; three policies: **P0** naive weekly order · **P1** static (s, Q) · **P2** forecast-driven (s, Q) | [`src/inventory.py`](src/inventory.py), [`src/policy.py`](src/policy.py) |
+| 3. Policy | Per store-item: safety stock `z·σ_L`, reorder point, **EOQ** lot (capped at 28 days of demand); three policies: **P0** same order every Monday · **P1** static (s, Q) · **P2** forecast-driven (s, Q) | [`src/inventory.py`](src/inventory.py), [`src/policy.py`](src/policy.py) |
 | 4. Simulate | Every day of the test period: deliveries arrive after the lead time, demand is served or lost, the policy decides the next order; fill rate, stock-outs, average stock, total cost | [`03_inventory_simulation.ipynb`](notebooks/03_inventory_simulation.ipynb), [`src/simulation.py`](src/simulation.py) |
-| 5. Dashboard | Scenario (stores · products · online/physical), leaderboards, what-if on service level / lead time / costs, **upload of your own data** | [`app/`](app/streamlit_app.py) |
+| 5. Dashboard | Scenario (stores · products · online/physical), leaderboards, what-if, upload of your own data | [`app/`](app/streamlit_app.py) |
 
-**Fair comparison.** A textbook `z = 1.645` gives a 95% *cycle* service level, which with large EOQ lots means a
-fill rate close to 100% — policies would not be comparable. So each policy's knob is **calibrated per series** until
-the simulated fill rate reaches 95%, and only then is the stock compared ([methodology](docs/08_methodology.md),
+**Fair comparison.** A textbook `z = 1.645` gives a 95% *cycle* service level, which with large lots means a fill
+rate close to 100%: policies would not be comparable. So each policy's knob is **calibrated per series** until the
+simulated fill rate reaches 95%, and only then is the stock compared ([methodology](docs/08_methodology.md),
 [ADR-0004](docs/adr/0004-lost-sales-and-iso-service-comparison.md)).
 
-**No leakage.** Models are chosen on the validation year and scored on the test year; every forecast uses only
-data up to its origin (checked by tests that change the future and verify the forecast does not move).
+**No leakage.** Models are chosen on the validation period and scored on the test period; every forecast uses only
+data up to the day it is made (tests change the future and check that the forecast does not move).
 
-## 4. Use your own sales history
+**Adapts to the data.** The train / validation / test split, the features (yearly seasonality only with enough
+history) and the models are chosen from the length of the history, so the same code runs on 8 weeks or 5 years.
 
-In the dashboard open **Data → My sales history**, upload a file, check the column mapping, run. Or from the terminal:
+## 4. The dashboard
 
-```bash
-python -m src.pipeline --all --input my_sales.xlsx --map date=Data item=Articolo quantity=Qta store=Negozio
-```
+| Page | What you see |
+|---|---|
+| **Overview** | The headline in one sentence, KPI tiles, inventory and cost of the three policies at the same fill rate, breakdown by ABC class and by channel |
+| **Demand** | Monthly trend, weekday and month indices, ABC Pareto curve, ABC × XYZ matrix, the SQL behind the KPIs |
+| **Forecast** | Model leaderboard, error by horizon / class / store, actual vs. forecast for one series, what LightGBM relies on |
+| **Inventory** | Inventory vs. fill rate curves, reorder point and lot for one series, its stock day by day, a **what-if** (service level, lead time, ordering and holding cost), sensitivity |
+| **Data** | Switch between the demo, a sample dataset and your own file; column mapping, data checks, one-click analysis, downloads (reorder plan CSV, results Excel) |
+
+The **sidebar** on every page selects the scenario: **how many stores**, **which products** (top-N by revenue,
+random or manual) and **which stores sell online** (online, 80% of unmet demand waits for the next delivery instead
+of being lost, and warehouse holding costs less). Every number updates instantly
+([ADR-0005](docs/adr/0005-configurable-scenario-and-channels.md)).
+
+## 5. Use your own sales history
+
+In the dashboard: **Data → My sales history → Upload a file**, check the column mapping, press **Run analysis**.
 
 | Column | Required | If missing |
 |---|---|---|
@@ -93,57 +138,63 @@ python -m src.pipeline --all --input my_sales.xlsx --map date=Data item=Articolo
 | `channel` (physical / online) | | physical |
 | `lead_time_days` | | 7 days |
 
-Any column names (mapped in the app, Italian and English names are recognised) · transaction-level rows are summed
-per day · a day without rows = zero sales · at least 8 weeks of daily history; the train / validation / test split
-and the features adapt to the length ([template](data/templates/sales_history_template.csv),
-[full contract](docs/07_data_dictionary.md)). 🔒 Uploads stay in memory for the session and are never saved.
+- Column names can be anything: English and Italian names are recognised (`Data`, `Articolo`, `Qtà`, `Negozio`…).
+- CSV (any separator, decimal commas), Excel (sheet picker) and Parquet; one row per day or per transaction
+  (rows are summed per day); a day without rows counts as zero sales; returns (negative quantities) are set to zero.
+- At least 8 weeks of daily history. Prices, costs and lead times can come from a separate item-master file.
+- 🔒 Uploads stay in memory for your session only and are never saved. For confidential data run the app locally.
+- Template: [`data/templates/sales_history_template.csv`](data/templates/sales_history_template.csv) ·
+  full contract: [`docs/07_data_dictionary.md`](docs/07_data_dictionary.md).
 
-## 5. Scenario: stores · products · channel
+## 6. Sample data (no download needed)
 
-The sidebar of every dashboard page selects **how many stores**, **which products** (top-N by revenue, random or
-manual) and **which stores sell online** (80% of unmet online demand waits for the next delivery instead of being
-lost; warehouse holding cost 20% instead of 25%). Every KPI updates instantly: results are computed once per
-series for both channels and a scenario only filters and sums them ([ADR-0005](docs/adr/0005-configurable-scenario-and-channels.md)).
+[`data/samples/`](data/samples/README.md) contains **invented but realistic** sales data of a fictional Italian
+retailer, to try every feature without your own data (in the dashboard: **Data → My sales history → Use a sample
+dataset**):
 
-## 6. Assumptions (the demo has no cost data)
+| File | Content |
+|---|---|
+| `retail_chain_sales.csv` + `retail_chain_items.csv` | 8 stores (one online) × 32 products × 3 years, with item master (prices, costs, lead times) |
+| `single_store_it.csv` | a neighbourhood shop exported "the Italian way": `;`, dates `dd/mm/yyyy`, decimal commas |
+| `ecommerce_order_lines.xlsx` | one year of online order lines with timestamps and returns |
+
+Hidden inside: Christmas and Easter products, promotions with discounted prices, Italian holidays and August
+closures, a store opening mid-way, a renovation, a product launch, a discontinued product, intermittent and lumpy
+demand. Rebuild them identically with `python -m src.sample_data`. No real company or sales figure is represented.
+
+## 7. Assumptions
+
+The Kaggle demo has no prices, costs or lead times; these values are used whenever the data does not provide them:
 
 | Parameter | Value | Notes |
 |---|---|---|
 | Lead time `L` | 7 days | sensitivity at 3 and 14 days |
 | Ordering cost `S` | €50 per order | per store-item order |
-| Selling price `p` | €5–€50 per item | synthetic, fixed seed ([`item_prices.csv`](data/reference/item_prices.csv)) |
+| Selling price `p` | €5–€50 per item | synthetic, fixed seed (Kaggle demo only) |
 | Unit cost `c` | 60% of the price | |
 | Holding cost | 25% of the unit cost per year | capital, space, obsolescence |
+| Lot size | EOQ, capped at 28 days of demand | shelf space and freshness |
 | Stock-out cost | lost margin `p − c` | physical stores: unmet demand is lost |
-| Service target | 95% fill rate | policies are calibrated to it |
+| Service target | 95% fill rate | every policy is calibrated to it |
 
-All in [`config/params.yaml`](config/params.yaml), and adjustable in the dashboard's what-if.
+All in [`config/params.yaml`](config/params.yaml); the dashboard's what-if and the *Cost assumptions* box on the
+Data page change them without editing files.
 
-## 7. Run it locally
+## 8. Command line
+
+With the environment active (see [§13](#13-step-by-step-run-it-on-your-computer)):
 
 ```bash
-git clone <this repository> && cd supply-chain-inventory-optimization
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements-dev.txt && pip install -e .
-python scripts/fix_lightgbm_macos.py      # macOS without Homebrew only (or: brew install libomp)
-# put train.csv from Kaggle in data/raw/ (see data/README.md)
-python -m src.pipeline --all              # about 2 minutes: SQL, back-tests, simulations, charts, artefacts
-streamlit run app/streamlit_app.py
-pytest                                    # 88 tests on synthetic data, under 10 seconds
+python -m src.pipeline --all                                   # Kaggle demo (data/raw/train.csv): charts, artefacts, README results
+python -m src.pipeline --all --input data/samples/retail_chain_sales.csv --item-master data/samples/retail_chain_items.csv
+python -m src.pipeline --all --input my_sales.xlsx --map date=Data item=Articolo quantity=Qta store=Negozio
+python -m src.sample_data                                      # rebuild the sample datasets
+streamlit run app/streamlit_app.py                             # dashboard
+pytest                                                         # 96 tests, about 10 seconds
 ```
 
-Shortcuts: `make install` · `make demo` (pipeline + notebooks) · `make app` · `make test`.
-
-## 8. Deploy the dashboard (Streamlit Community Cloud)
-
-1. Push the repository to GitHub (the artefacts in `data/processed/artefacts/` are committed, ≈ 4 MB, the raw
-   Kaggle file is not).
-2. On [share.streamlit.io](https://share.streamlit.io) → *Create app* → pick the repository, branch `main`, main
-   file `app/streamlit_app.py`, Python 3.12.
-3. Copy the app URL into the top of this README.
-
-The public app shows the demo from the committed artefacts (daily detail only for store 1, because of the Kaggle
-licence) and runs uploads in fast mode (≤ 50 MB, ≤ 1,000 series).
+On macOS / Linux the same steps have shortcuts: `make install` · `make app` · `make demo` · `make sample-data` ·
+`make test`.
 
 ## 9. Repository structure
 
@@ -151,7 +202,11 @@ licence) and runs uploads in fast mode (≤ 50 MB, ≤ 1,000 series).
 supply-chain-inventory-optimization/
 ├── README.md                 ← you are here
 ├── config/params.yaml        ← every business assumption in one place
-├── data/                     ← download instructions, upload template, demo artefacts (raw data git-ignored)
+├── data/
+│   ├── raw/                  ← put the Kaggle train.csv here (not in git)
+│   ├── samples/              ← invented sample datasets + their story
+│   ├── templates/            ← upload template
+│   └── processed/            ← database and dashboard results (created by the pipeline)
 ├── sql/kpi_queries.sql       ← 13 named KPI queries (DuckDB)
 ├── notebooks/                ← 01 EDA & ABC/XYZ · 02 forecasting · 03 inventory simulation
 ├── src/                      ← the Python package (ingest, forecast, inventory, simulation, KPIs, pipeline…)
@@ -159,23 +214,213 @@ supply-chain-inventory-optimization/
 ├── reports/                  ← README charts and the data validation report
 ├── tests/                    ← pytest, synthetic data only
 ├── docs/                     ← charter, requirements, use cases, WBS, architecture, API, methodology, ADRs
-└── scripts/                  ← macOS LightGBM helper
+├── scripts/                  ← macOS LightGBM helper
+└── Makefile                  ← shortcuts for macOS / Linux
 ```
 
-## 10. Tech stack
+## 10. Deploy the dashboard online
+
+1. Push the repository to GitHub (the dashboard results in `data/processed/artefacts/` are committed, about 4 MB;
+   the raw Kaggle file is not).
+2. On [share.streamlit.io](https://share.streamlit.io) → *Create app* → choose the repository, branch `main`,
+   main file `app/streamlit_app.py`, Python 3.12.
+3. Copy the app address to the top of this README.
+
+The public app shows the demo from the committed results (daily detail only for store 1, because of the Kaggle
+licence) and runs uploads and sample datasets in fast mode (≤ 50 MB, ≤ 1,000 store-item series).
+
+## 11. Tech stack and quality
 
 Python · pandas · NumPy · **DuckDB (SQL)** · statsmodels (Holt-Winters) · **LightGBM** · SciPy · matplotlib ·
-Plotly · **Streamlit** · pytest + hypothesis · ruff · GitHub Actions
+Plotly · **Streamlit** · pytest + hypothesis · ruff · GitHub Actions.
 
-## 11. Limitations & next steps
+96 automated tests (formulas, simulation invariants, no-leakage checks, SQL vs. pandas, messy input files, the
+whole pipeline) run on every push. Design documents: charter, requirements, use cases, WBS, architecture, API,
+methodology, KPI definitions, test plan, risks and decision records in [`docs/`](docs/README.md).
 
-- Costs, prices and lead times are assumptions (§6) unless the uploaded data provides them.
+## 12. Limitations and next steps
+
+- Costs, prices and lead times are assumptions (§7) unless the data provides them.
 - Sales are treated as demand: real stock-outs in an uploaded history would hide some demand.
-- The calibration uses the year it evaluates (an *oracle* setting, used only to compare policies on equal terms);
-  the dashboard also shows the policies with `z` fixed in advance.
+- The calibration uses the period it evaluates (an *oracle* setting, used only to compare policies on equal terms);
+  the dashboard also shows the policies with `z` set in advance.
 - Each store-item is independent: no shared supplier orders, capacity limits or transfers between stores.
 - Next: quantile forecasts for the safety stock, periodic-review (R, S) policy, stochastic lead times, pooling of
-  online stock, weekly / intermittent demand (Croston).
+  online stock, weekly / intermittent demand models (Croston).
+
+---
+
+## 13. Step by step: run it on your computer
+
+A simple guide that assumes nothing. It takes about 10 minutes the first time; afterwards starting the dashboard
+takes two commands. Pick your system:
+
+- [Windows](#windows)
+- [macOS](#macos)
+
+### What you get at the end
+
+The dashboard runs in your browser at **http://localhost:8501**. It runs only on your computer: nothing is sent
+online.
+
+---
+
+### Windows
+
+**1. Install Python (once)**
+
+1. Go to [python.org/downloads](https://www.python.org/downloads/) and download **Python 3.12** or **3.13**
+   ("Windows installer 64-bit").
+2. Run the installer and, on the first screen, **tick "Add python.exe to PATH"**. Then click *Install Now*.
+3. Check it worked: open the **Start menu**, type `PowerShell`, open *Windows PowerShell* and type:
+   ```powershell
+   py --version
+   ```
+   You should see `Python 3.12.x` (or 3.13).
+
+**2. Get the project folder**
+
+- If you have the folder (e.g. a zip): unzip it, for example into `Documents\supply-chain-inventory-optimization`.
+  Do **not** copy a `.venv` folder made on another computer: delete it if present.
+- If it is on GitHub: install [Git for Windows](https://git-scm.com/download/win), then in PowerShell
+  `git clone <repository address>`.
+
+**3. Open PowerShell in the project folder**
+
+Open the folder in File Explorer, click the address bar, type `powershell` and press Enter. A PowerShell window
+opens already inside the folder. (Or type `cd` followed by the folder path, e.g.
+`cd $HOME\Documents\supply-chain-inventory-optimization`.)
+
+**4. Create the environment and install everything (once, 3–5 minutes)**
+
+Copy these commands one at a time:
+
+```powershell
+py -m venv .venv
+.venv\Scripts\python -m pip install --upgrade pip
+.venv\Scripts\python -m pip install -r requirements-dev.txt
+.venv\Scripts\python -m pip install -e .
+```
+
+The `.venv` folder is a private copy of Python for this project: nothing else on your computer changes.
+
+**5. (Optional) Create the sample data**
+
+If the folder `data\samples` is missing or empty:
+
+```powershell
+.venv\Scripts\python -m src.sample_data
+```
+
+**6. Start the dashboard**
+
+```powershell
+.venv\Scripts\python -m streamlit run app\streamlit_app.py
+```
+
+When the window shows `Local URL: http://localhost:8501`, open your browser (Edge, Chrome…) at
+**http://localhost:8501**. The first time, Windows may ask whether to allow network access for Python: **Allow**
+(it is only for your own computer). Leave the PowerShell window open while you use the dashboard.
+
+**7. Try it**
+
+Go to **Data → My sales history → Use a sample dataset**, choose *Retail chain*, scroll down and press
+**Run analysis**. After about 10 seconds every page shows the results.
+
+**8. Stop it**
+
+Go back to the PowerShell window and press **Ctrl + C**. Next time, only steps 3 and 6 are needed.
+
+**9. (Optional) The Kaggle demo**
+
+Download `train.csv` as explained in [`data/README.md`](data/README.md), put it in `data\raw\`, then run
+`.venv\Scripts\python -m src.pipeline --all` (about 2–3 minutes) and restart the dashboard (step 6).
+
+**If something goes wrong on Windows**
+
+| Message | What to do |
+|---|---|
+| `py` / `python` is not recognized | Python is not installed or not on PATH: reinstall it ticking *Add python.exe to PATH*, then open a new PowerShell |
+| `running scripts is disabled on this system` | You tried `.venv\Scripts\activate`: not needed with the commands above. If you want it, run once `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` |
+| `No matching distribution found` during install | Your Python is too old or too new: install Python 3.12 and repeat step 4 after deleting the `.venv` folder |
+| `Port 8501 is already in use` | The dashboard is already running in another window: use that one, or close it with Ctrl + C |
+| Microsoft Visual C++ error when importing LightGBM | Install the [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist) (x64) and try again |
+
+---
+
+### macOS
+
+**1. Install Python (once)**
+
+1. Go to [python.org/downloads](https://www.python.org/downloads/) and download the latest **macOS 64-bit
+   universal2 installer** (Python 3.12 or newer), then open it and follow the steps.
+2. Open the **Terminal** app (press `Cmd + Space`, type `Terminal`, press Enter) and check:
+   ```bash
+   python3 --version
+   ```
+   On macOS the command is **`python3`**, not `python`.
+3. The first time you use developer tools macOS may propose to install the *Command Line Tools*: accept, it takes a
+   few minutes (it gives you `make` and `git`).
+
+**2. Get the project folder**
+
+Put the folder somewhere easy, e.g. `Desktop`. If it comes from GitHub: `git clone <repository address>`.
+
+**3. Open Terminal in the project folder**
+
+Type `cd ` (with a space), drag the project folder from Finder into the Terminal window, press Enter. Check with
+`ls`: you should see `README.md`, `app`, `src`…
+
+**4. Install everything (once, 3–5 minutes)**
+
+```bash
+make install
+```
+
+This creates the private environment `.venv`, installs the libraries and, on Macs without Homebrew, fixes LightGBM
+automatically. (Without `make`: `python3 -m venv .venv`, then `.venv/bin/pip install -r requirements-dev.txt`,
+`.venv/bin/pip install -e .` and `.venv/bin/python scripts/fix_lightgbm_macos.py`.)
+
+**5. (Optional) Create the sample data**
+
+If the folder `data/samples` is missing or empty:
+
+```bash
+make sample-data
+```
+
+**6. Start the dashboard**
+
+```bash
+make app
+```
+
+When Terminal shows `Local URL: http://localhost:8501`, open your browser (Safari, Chrome…) at
+**http://localhost:8501**. Leave the Terminal window open while you use the dashboard.
+
+**7. Try it**
+
+Go to **Data → My sales history → Use a sample dataset**, choose *Retail chain*, scroll down and press
+**Run analysis**. After about 10 seconds every page shows the results.
+
+**8. Stop it**
+
+In Terminal press **Ctrl + C**. Next time, only steps 3 and 6 are needed.
+
+**9. (Optional) The Kaggle demo**
+
+Download `train.csv` as explained in [`data/README.md`](data/README.md), put it in `data/raw/`, then run
+`make demo` (about 2–3 minutes: results, charts, notebooks) and restart the dashboard (`make app`).
+
+**If something goes wrong on macOS**
+
+| Message | What to do |
+|---|---|
+| `command not found: python` / `pip` | Use `python3`, or use the commands above that start with `make` or `.venv/bin/…` |
+| `command not found: streamlit` | The environment is not active: use `make app` (or `.venv/bin/streamlit run app/streamlit_app.py`) |
+| `command not found: make` | Run `xcode-select --install`, accept, then retry |
+| `Library not loaded: @rpath/libomp.dylib` | Run `.venv/bin/python scripts/fix_lightgbm_macos.py` (or `brew install libomp` if you use Homebrew) |
+| `Port 8501 is already in use` | The dashboard is already running in another Terminal window: use that one, or stop it with Ctrl + C |
 
 ---
 

@@ -91,6 +91,8 @@ inventory:
   service_level: 0.95
   service_type: cycle            # cycle (Type 1) | fill_rate (Type 2)
   days_per_year: 365
+  max_cover_days: 28             # lot never above 4 weeks of demand (shelf space, freshness, cash);
+                                 # cheap fast movers would otherwise get EOQ lots of several months. null = no cap
 
 # Scenario = which part of the business to analyse (null = everything in the data).
 # The dashboard changes this at runtime; these defaults are used by the CLI report.
