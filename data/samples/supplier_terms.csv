@@ -1,0 +1,6 @@
+﻿Fornitore;Giorni ordine;Giorni consegna;Ordine minimo €;Sconto da pezzi;Sconto %
+Beverage distributor (regional);lun mer ven;lun mar mer gio ven sab;150;;
+Grocery wholesaler;mar gio;lun mar mer gio ven sab;300;120;3.0
+Household goods supplier;mar;lun mar mer gio ven sab;250;60;5.0
+Confectionery (seasonal);lun gio;lun mar mer gio ven sab;200;;
+Small appliances importer;mer;lun mar mer gio ven sab;400;;

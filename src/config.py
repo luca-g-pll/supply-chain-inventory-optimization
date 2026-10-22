@@ -114,6 +114,16 @@ class FastModeConfig:
 
 
 @dataclass(frozen=True)
+class PromotionsConfig:
+    enabled: bool = True
+    min_discount: float = 0.08         # a day is a promotion when the price is at least 8% below the regular price
+    regular_price_window: int = 63     # days of the centred window that defines the regular price
+    default_discount: float = 0.20     # discount assumed for a promo flag without a price
+    post_promo_days: int = 7           # days after a promotion with a possible demand dip
+    shrinkage_days: float = 14.0       # promo days needed before an item's own lift outweighs the average one
+
+
+@dataclass(frozen=True)
 class InventoryParams:
     lead_time_days: int = 7
     order_cost: float = 50.0
@@ -175,6 +185,7 @@ class Config:
     scenario: ScenarioConfig
     simulation: SimulationConfig
     sensitivity: SensitivityConfig
+    promotions: PromotionsConfig = field(default_factory=PromotionsConfig)
     raw: dict[str, Any] = field(default_factory=dict, repr=False, compare=False)
 
     def replace(self, **changes: Any) -> Config:
@@ -418,6 +429,20 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
     _check(all(0.5 < x < 1 for x in sensitivity.service_levels), "sensitivity.service_levels must be in (0.5, 1)")
     _check(all(x >= 1 for x in sensitivity.lead_times), "sensitivity.lead_times must be >= 1")
 
+    pm = raw.get("promotions", {})
+    promotions = PromotionsConfig(
+        enabled=bool(pm.get("enabled", True)),
+        min_discount=float(pm.get("min_discount", 0.08)),
+        regular_price_window=int(pm.get("regular_price_window", 63)),
+        default_discount=float(pm.get("default_discount", 0.20)),
+        post_promo_days=int(pm.get("post_promo_days", 7)),
+        shrinkage_days=float(pm.get("shrinkage_days", 14.0)),
+    )
+    _check(0 < promotions.min_discount < 1, "promotions.min_discount must be in (0, 1)")
+    _check(0 < promotions.default_discount < 1, "promotions.default_discount must be in (0, 1)")
+    _check(promotions.regular_price_window >= 7, "promotions.regular_price_window must be >= 7")
+    _check(promotions.post_promo_days >= 0, "promotions.post_promo_days must be >= 0")
+
     return Config(
         root=root,
         paths=paths,
@@ -432,5 +457,6 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
         scenario=scenario,
         simulation=simulation,
         sensitivity=sensitivity,
+        promotions=promotions,
         raw=raw,
     )

@@ -83,6 +83,16 @@ fast_mode:
   lightgbm_num_boost_round: 300
   holt_winters_max_series: 300   # above this, Holt-Winters is skipped
 
+# Promotions (docs/08_methodology.md §4.5). They come from a promo column in the file or,
+# when there is none, from days whose price is clearly below the regular price.
+promotions:
+  enabled: true
+  min_discount: 0.08             # price at least 8% below the regular price = promotion day
+  regular_price_window: 63       # regular price = 75th percentile of the prices in a centred 9-week window
+  default_discount: 0.20         # discount assumed when the file only says "promo: yes"
+  post_promo_days: 7             # week after a promotion: customers stocked up, demand may dip
+  shrinkage_days: 14             # items with few promo days borrow the average lift of all items
+
 inventory:
   lead_time_days: 7
   order_cost: 50.0               # EUR per order line

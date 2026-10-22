@@ -1,6 +1,6 @@
-date,store,item,quantity,unit_price,unit_cost,channel,lead_time_days
-2024-01-01,Milano-01,SKU-0001,12,19.90,11.00,physical,7
-2024-01-01,Milano-01,SKU-0002,3,49.00,29.50,physical,10
-2024-01-01,Web,SKU-0001,25,19.90,11.00,online,7
-2024-01-02,Milano-01,SKU-0001,9,19.90,11.00,physical,7
-2024-01-02,Web,SKU-0002,6,49.00,29.50,online,10
+date,store,item,quantity,unit_price,unit_cost,channel,lead_time_days,promo
+2024-01-01,Milano-01,SKU-0001,12,19.90,11.00,physical,7,0
+2024-01-01,Milano-01,SKU-0002,3,39.20,29.50,physical,10,20%
+2024-01-01,Web,SKU-0001,25,19.90,11.00,online,7,0
+2024-01-02,Milano-01,SKU-0001,9,19.90,11.00,physical,7,0
+2024-01-02,Web,SKU-0002,6,49.00,29.50,online,10,0

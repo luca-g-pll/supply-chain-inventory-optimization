@@ -13,9 +13,12 @@ No real company, store or sales figure is represented. In the dashboard: **Data 
 | File | What it is | Size |
 |---|---|---|
 | `retail_chain_sales.csv` | Daily sales of a chain: 8 stores (7 physical + 1 online) × 32 products, 2022-01-01 → 2024-12-31. Columns `date, store, item, quantity, unit_price, channel`; days without sales have no row (as in most ERP exports) | ≈ 190k rows |
-| `retail_chain_items.csv` | Item master: name, category, supplier, `lead_time_days`, list `unit_price`, `unit_cost`, status | 32 rows |
+| `retail_chain_items.csv` | Item master: name, category, supplier, `lead_time_days`, `pack_size` (units per carton), `min_order_qty`, list `unit_price`, `unit_cost`, status | 32 rows |
 | `retail_chain_stores.csv` | Store list (reference only, not read by the software) | 8 rows |
 | `single_store_it.csv` | A neighbourhood shop, 15 products, 2023-07-01 → 2024-12-31, exported "the Italian way": `Data;Codice;Descrizione;Quantità;Prezzo`, dates `dd/mm/yyyy`, decimal commas | ≈ 5.6k rows |
+| `promo_calendar_2025.csv` | Promotions planned for January–March 2025, after the end of the data: `item, store, start, end, discount` (empty store = every store). Load it in the planner of the **Promotions** page | 4 rows |
+| `supplier_terms.csv` | Ordering terms of the five suppliers (`Fornitore;Giorni ordine;Giorni consegna;Ordine minimo €;Sconto da pezzi;Sconto %`): e.g. the grocery wholesaler takes orders on Tuesday and Thursday, minimum €300 per store, 3% off from 120 units per line. Loaded automatically on the **Orders** page with this sample | 5 rows |
+| `stock_snapshot.csv` | Stock "today" for every store and item (`Negozio;Articolo;Giacenza;Ordinato`, 4–20 days of recent sales, some quantity on order). Load it on the **Orders** page instead of the estimated stock | 256 rows |
 | `ecommerce_order_lines.xlsx` | Online shop order lines for 2024 (sheet **Ordini**; sheet *Note* explains it): one row per order line with a timestamp, several lines per order, **returns as negative quantities** | ≈ 16k rows |
 
 ## What is hidden in the data
@@ -33,13 +36,17 @@ No real company, store or sales figure is represented. In the dashboard: **Data 
 |---|---|---|
 | Summer peak + heat waves | water, iced tea, beer, ice lollies, sun cream, desk fan | yearly seasonality, harder forecasts in hot spells |
 | Winter peak | hot chocolate, flour, hand soap, toaster | yearly seasonality |
-| Stable staples with promotions | pasta, rice, coffee, sugar, paper towels… (2–6 flyer promotions a year, −20/−30% price, +40–110% volume, a dip the week after) | promotions are not in the data as a flag → forecast errors around them |
+| Stable staples with promotions | pasta, rice, coffee, sugar, paper towels… (2–6 flyer promotions a year, −20/−30% price, +40–110% volume, a dip the week after) | promotions are not marked in the file: the software finds them from the discounted price (≥ 8% below the usual price), measures their effect and uses them in the forecasts |
 | Christmas only | panettone, pandoro (Nov–Dec, leftovers at −40% after Christmas) | class **Z**; the static policy (P1) cannot follow the season, the forecast-driven one (P2) can |
 | Easter only | colomba (5 weeks before Easter) | as above; no Easter in the 2024 test period |
 | Launch | energy drink (March 2023), EcoPlus detergent (October 2023, replaces the old one) | short history, growing demand |
 | Discontinued | old detergent formula (last sale 30 Sep 2023, clearance before) | zero demand in the test period: P0 keeps ordering → dead stock |
 | Intermittent | kettle, toaster (≈ 0.1–0.2 units/day per store) | many zero days, high relative error |
 | Lumpy | water crates bought by businesses (rare large orders) | class **Z**, spiky demand |
+
+**Planned promotions**: [`promo_calendar_2025.csv`](promo_calendar_2025.csv) is an example of a promotion calendar for
+January–March 2025 (right after the end of the data), to load on the **Promotions** page. When the Orders page
+brings the history to today's date, change the dates to the coming weeks.
 
 **Prices**: list prices rise in January 2023 (+5%) and January 2024 (+3%); promotion days carry the discounted price.
 The software takes the **median of the last 90 days** as the item price, so a promotion at the end of the history
@@ -52,10 +59,15 @@ runs in about 25 seconds:
 
 - Periods chosen automatically: train 2022-01-01 → 2023-07-02 · validation → 2024-04-01 · test 2024-04-02 → 2024-12-31;
   yearly seasonality is modelled.
-- **LightGBM** is the best model: WAPE **36.9%** vs **50.4%** for "like last week" (−27%). Errors are much higher than on
-  very regular data such as the Kaggle demo, because promotions, holidays, closures and intermittent items are hard to forecast — as in real life.
-- At the same **95% fill rate**: average stock **€43.9K** (P2, forecast-driven) vs **€48.2K** (P1, static) vs **€53.3K**
-  (P0, same order every Monday) → **−19% vs P0, −9% vs P1**; total cost −70% vs P0 (P0 orders every week, at €50 per order).
+- **LightGBM** is the best model: WAPE **34.1%** vs **50.4%** for "like last week" (−32%). Errors are much higher than on
+  very regular data such as the Kaggle demo, because holidays, closures and intermittent items are hard to forecast — as in real life.
+- **Promotions**: 16,675 promotion days found from the prices (6% of the days, 13% of the units). Estimated effect:
+  +54% sales at 20% off, −16% the week after (generated: +40–110% at 20–30% off, −15%). Using them in the forecasts
+  cuts the error of LightGBM from 36.9% to 34.1% and of Holt-Winters from 39.3% to 35.2% (fast mode); on promotion
+  days LightGBM's error is 31% vs 48% for "like last week", and in the week after 36% vs 97% (the naive rule repeats
+  the peak).
+- At the same **95% fill rate**: average stock **€43.3K** (P2, forecast-driven) vs **€48.0K** (P1, static) vs **€53.9K**
+  (P0, same order every Monday) → **−20% vs P0, −10% vs P1**; total cost −70% vs P0 (P0 orders every week, at €50 per order).
 - Panettone in Milano Centro over the test period: P0 keeps ~120 units on the shelf from April to October and P1 ~92,
   P2 ~41; in November–December P1 serves only 85% of demand (4 stock-out days), P2 96%.
 

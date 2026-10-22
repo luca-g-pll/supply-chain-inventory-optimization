@@ -24,7 +24,7 @@ import numpy as np
 import pandas as pd
 
 from src.classification import abc_xyz_matrix, classify_items
-from src.config import KNOWN_MODELS, KNOWN_POLICIES, Config, load_config
+from src.config import KNOWN_MODELS, KNOWN_POLICIES, Config, PromotionsConfig, load_config
 from src.data import build_duckdb, demo_mapping, load_demo
 from src.forecast import MODEL_LABELS, BacktestResult, get_model, refit_schedule, run_backtest
 from src.ingest import (
@@ -52,6 +52,15 @@ from src.policy import (
     tradeoff_curves,
 )
 from src.profile import DataProfile, apply_exclusions, profile_history
+from src.promotions import (
+    estimate_effects,
+    has_promotions,
+    promo_accuracy,
+    promo_baseline,
+    promo_day_types,
+    promo_events,
+)
+from src.replenishment import plan_tables
 from src.scenario import Scenario, apply_scenario, scenario_from_config
 from src.series import DemandMatrix, natural_sorted
 from src.simulation import simulate_batch
@@ -89,7 +98,7 @@ def load_input(cfg: Config) -> StandardisedData:
         digest = file_hash(Path(path).read_bytes())
         source = "file"
     data = standardise(raw, mapping, cfg.input, cfg.prices, cfg.inventory, source=source,
-                       file_name=name, file_hash_value=digest)
+                       file_name=name, file_hash_value=digest, promotions=cfg.promotions)
     if cfg.input.item_master:
         data = merge_item_master(data, read_any(cfg.input.item_master), cfg.prices, cfg.inventory)
     return data
@@ -117,6 +126,8 @@ class AnalysisResults:
     importance: pd.Series | None = None
     timings: dict = field(default_factory=dict)
     fast: bool = False
+    promotions_cfg: PromotionsConfig = field(default_factory=PromotionsConfig)
+    plan: dict[str, pd.DataFrame] = field(default_factory=dict)
 
     # ---- tables shared by the artefacts and the live dashboard (same schemas)
     def tables(self, detail_stores: tuple[str, ...] | None = None) -> dict[str, pd.DataFrame]:
@@ -142,6 +153,16 @@ class AnalysisResults:
                                        bt_t.paths_frame(self.best_model, rows).assign(period="test")],
                                       ignore_index=True),
         }
+        out["forecasts"] = with_promo_columns(out["forecasts"], self.dm, self.promotions_cfg)
+        out["detail_actuals"] = with_promo_columns(out["detail_actuals"], self.dm, self.promotions_cfg)
+        if self.dm.promo is not None:
+            cfg_p = self.promotions_cfg
+            effects = estimate_effects(self.dm, self.dm.n_days - 1, cfg_p)
+            out["promo_items"] = effects.item_table
+            out["promo_events"] = promo_events(self.dm, cfg_p)
+            out["promo_accuracy"] = promo_accuracy(bt_t, self.dm, cfg_p)
+        out["promo_baseline"] = promo_baseline(self.dm, self.promotions_cfg)
+        out.update(self.plan)
         for name, df in self.sql.items():
             out[f"sql_{name}"] = df
         if self.importance is not None:
@@ -159,7 +180,42 @@ class AnalysisResults:
             "fast": self.fast,
             "timings": self.timings,
             "default_scenario": self.scenario.to_dict(),
+            "promotions": promo_meta(self),
+            "plan": {"data_end": str(self.dm.dates[-1].date()),
+                     "test_end": str(self.profile.test[1]), "model": self.best_model},
         }
+
+
+def promo_meta(res: AnalysisResults) -> dict:
+    """Where the promotions come from and their average effect (``{}`` without promotions)."""
+    dm = res.dm
+    if dm.promo is None:
+        return {"source": None, "last_date": str(dm.dates[-1].date())}
+    effects = estimate_effects(dm, dm.n_days - 1, res.promotions_cfg)
+    on = dm.promo > 0
+    return {
+        "source": res.data.notes.get("promo_source"),
+        "promo_days": int(on.sum()),
+        "share_days": float(on.sum() / max(1, (~np.isnan(dm.values)).sum())),
+        "beta_global": effects.beta_global,
+        "lift_20_global": float(np.exp(effects.beta_global * 0.20)),
+        "dip_global": effects.dip_global,
+        "units_share_promo": float(np.nansum(np.where(on, dm.values, 0)) / max(1e-9, np.nansum(dm.values))),
+        "post_promo_days": res.promotions_cfg.post_promo_days,
+        "min_discount": res.promotions_cfg.min_discount,
+        "last_date": str(dm.dates[-1].date()),
+    }
+
+
+def with_promo_columns(df: pd.DataFrame, dm: DemandMatrix, cfg: PromotionsConfig) -> pd.DataFrame:
+    """Add ``discount`` and ``day_type`` (normal / promo / post_promo) to a daily detail table."""
+    if dm.promo is None or df.empty:
+        return df
+    rows = pd.MultiIndex.from_frame(dm.keys).get_indexer(pd.MultiIndex.from_frame(df[["store", "item"]]))
+    cols = (pd.to_datetime(df["date"]) - dm.dates[0]).dt.days.to_numpy()
+    types = promo_day_types(dm, cfg)
+    names = np.array(["normal", "promo", "post_promo"])
+    return df.assign(discount=dm.promo[rows, cols].astype("float32"), day_type=names[types[rows, cols]])
 
 
 def leaderboard_table(errors: pd.DataFrame, classification: pd.DataFrame) -> pd.DataFrame:
@@ -217,8 +273,9 @@ def stage_forecast(dm: DemandMatrix, profile: DataProfile, cfg: Config, fast: bo
     backtests: dict[str, BacktestResult] = {}
     importance = None
     periods = {"validation": profile.valid, "test": profile.test}
+    promos = has_promotions(dm, cfg.promotions)
     for k, (period, (a, b)) in enumerate(periods.items()):
-        models = [get_model(m, cfg, profile, fast, n_jobs) for m in profile.models]
+        models = [get_model(m, cfg, profile, fast, n_jobs, promotions=promos) for m in profile.models]
 
         def _p(msg, frac, k=k):
             progress(f"Forecasting · {msg}", 0.30 + 0.45 * (k + frac) / 2)
@@ -301,6 +358,11 @@ def run_analysis(data: StandardisedData, cfg: Config, fast: bool = False, n_jobs
     sens = sensitivity(inp, cfg)
     timings["policy"] = round(time.perf_counter() - t, 2)
 
+    t = time.perf_counter()
+    progress("Purchase plan: forecast from the last day of data", 0.97)
+    plan = plan_tables(dm, inp, cfg, summary, best, profile, fast, n_jobs)
+    timings["plan"] = round(time.perf_counter() - t, 2)
+
     stores = natural_sorted(data.stores["store"])
     online_default = data.stores.loc[data.stores["channel"] == "online", "store"].tolist()
     revenue_ref = classification.set_index("item")["revenue"]
@@ -311,7 +373,8 @@ def run_analysis(data: StandardisedData, cfg: Config, fast: bool = False, n_jobs
                            classification=classification, backtests=backtests, errors=errors,
                            leaderboard=leaderboard, best_model=best, policy_inputs=inp, summary=summary,
                            tradeoff=tradeoff, sensitivity=sens, scenario=scenario, headline=head,
-                           importance=importance, timings=timings, fast=fast)
+                           importance=importance, timings=timings, fast=fast, promotions_cfg=cfg.promotions,
+                           plan=plan)
 
 
 def build_headline(summary: pd.DataFrame, leaderboard: pd.DataFrame, best: str, cfg: Config,
@@ -503,9 +566,10 @@ def _quick_subset(data: StandardisedData, n: int = 20, seed: int = 0) -> Standar
     keys = data.sales[["store", "item"]].drop_duplicates()
     keys = keys.sample(min(n, len(keys)), random_state=seed)
     sales = data.sales.merge(keys, on=["store", "item"])
+    promo = None if data.promo is None else data.promo.merge(keys, on=["store", "item"])
     return StandardisedData(sales, data.item_master[data.item_master["item"].isin(keys["item"])],
                             data.stores[data.stores["store"].isin(keys["store"])], data.source,
-                            data.file_name, data.file_hash, data.notes)
+                            data.file_name, data.file_hash, data.notes, promo)
 
 
 def main(argv: list[str] | None = None) -> int:

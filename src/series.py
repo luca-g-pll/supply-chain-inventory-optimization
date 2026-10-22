@@ -31,14 +31,17 @@ class DemandMatrix:
     dates: pd.DatetimeIndex       # consecutive days
     values: np.ndarray            # float64 (n_series, n_days); NaN before the series' start
     start: np.ndarray             # int (n_series,): index of the first observed day
+    promo: np.ndarray | None = None  # float (n_series, n_days): discount of the day, 0 = no promotion
 
     # ------------------------------------------------------------------ build
     @classmethod
-    def from_long(cls, sales: pd.DataFrame, end: pd.Timestamp | None = None) -> DemandMatrix:
+    def from_long(cls, sales: pd.DataFrame, end: pd.Timestamp | None = None,
+                  promo: pd.DataFrame | None = None) -> DemandMatrix:
         """Pivot ``[date, store, item, sales]`` into a dense matrix.
 
         Series are ordered by natural (store, item) order. Days after a series'
-        first observation that have no row are treated as zero sales.
+        first observation that have no row are treated as zero sales. ``promo``
+        (``[date, store, item, discount]``, promotion days only) fills ``promo``.
         """
         if sales.empty:
             raise ValueError("No sales rows to build the demand matrix from.")
@@ -67,7 +70,9 @@ class DemandMatrix:
         start = np.full(len(keys), len(dates), dtype=int)
         np.minimum.at(start, row[keep], col[keep])
         values[np.arange(len(dates))[None, :] < start[:, None]] = np.nan
-        return cls(keys=keys, dates=dates, values=values, start=start)
+        from src.promotions import promo_matrix
+
+        return cls(keys=keys, dates=dates, values=values, start=start, promo=promo_matrix(promo, keys, dates))
 
     # ------------------------------------------------------------------ helpers
     @property
@@ -99,6 +104,7 @@ class DemandMatrix:
             dates=self.dates,
             values=self.values[rows],
             start=self.start[rows],
+            promo=None if self.promo is None else self.promo[rows],
         )
 
     def history_before(self, day_index: int) -> np.ndarray:

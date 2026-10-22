@@ -14,6 +14,11 @@ Any daily sales history can be analysed if it can be mapped to the fields below.
 | `unit_cost` | ➖ | number > 0 | Purchase cost per unit, € | `cost_to_price_ratio × unit_price` |
 | `channel` | ➖ | `physical` / `online` | Per store (first value wins if inconsistent → warning) | `physical` |
 | `lead_time_days` | ➖ | integer ≥ 1 | Supplier lead time per item | `inventory.lead_time_days` |
+| `supplier` | ➖ | text | Supplier of the item (most recent value); orders are grouped by it | "Supplier not set" |
+| `item_name` | ➖ | text | Description shown next to the code | empty |
+| `pack_size` | ➖ | integer ≥ 1 | Units per pack: orders are rounded up to whole packs | 1 |
+| `min_order_qty` | ➖ | integer | Minimum units per order line | none |
+| `promo` | ➖ | flag or % | Promotion of the row: `1` / yes / sì / x, or the discount (`20`, `20%`, `0.2`); `0` / no / empty = none | Found from `unit_price` (days ≥ 8% below the regular price); none without prices |
 
 Price, cost and lead time may also come from a separate **item master** file (`item, unit_price, unit_cost, lead_time_days`). When a value changes over time, price and cost are the **median of the item's last 90 days** (a promotion at the end of the history does not become the list price) and the lead time is the most recent value.
 
@@ -32,6 +37,28 @@ Price, cost and lead time may also come from a separate **item master** file (`i
 - Negative quantities clipped; share of zero days > 50% (intermittent demand → FR-58).
 - Prices / costs / lead times assumed for N items.
 - History < 1 year → no yearly seasonality.
+
+**Promotions** (methodology §4.5): a `promo` column wins; a flag without a discount takes the discount implied by the
+price of that day, or `promotions.default_discount` (20%) without a price. Without a `promo` column, the regular price
+of each store-item is the 75th percentile of its prices in a centred 9-week window, and every day at least
+`promotions.min_discount` (8%) below it is a promotion day. A day without a sale (no price) takes the median
+discount of the item's other stores. A list-price increase is not a promotion.
+
+**Promotion calendar** (Promotions page, optional): `item, start, end, discount[, store]` — e.g.
+[`data/samples/promo_calendar_2025.csv`](../data/samples/promo_calendar_2025.csv). An empty store = every store
+of the scenario.
+
+**Current stock** (Orders page, optional): `store, item, on_hand[, on_order, arrival]` — Italian names work
+(`Negozio, Articolo, Giacenza, Ordinato, Data arrivo`), e.g.
+[`data/samples/stock_snapshot.csv`](../data/samples/stock_snapshot.csv). `store` may be omitted with one location.
+On-order quantities without an arrival date are assumed to arrive in half the lead time. Series missing from the
+file start from zero stock.
+
+**Supplier terms** (Orders page, optional): `supplier, order days, delivery days, minimum order €, discount from
+units, discount %` — Italian names work (`Fornitore; Giorni ordine; Giorni consegna; Ordine minimo €; Sconto da
+pezzi; Sconto %`), days as `lun mer ven`, `Mon, Thu` or `1 4`; e.g.
+[`data/samples/supplier_terms.csv`](../data/samples/supplier_terms.csv). Weekly budget and warehouse capacity per
+store are set on the page.
 
 Template: [`data/templates/sales_history_template.csv`](../data/templates/sales_history_template.csv).
 
@@ -123,6 +150,12 @@ The file is committed so that results can be checked even without running the ge
 | `forecast.lightgbm.lags` / `rolling_windows` | [14, 21, 28, 35, 364] / [7, 28, 91] | days | Lags must be ≥ horizon (checked) |
 | `forecast.lightgbm.params` / `num_boost_round` | tweedie, lr 0.05, 63 leaves / 600 | – | LightGBM settings |
 | `fast_mode.*` | refit once · 300 trees · HW ≤ 300 series | – | Dashboard uploads |
+| `promotions.enabled` | true | – | Use promotions when the data has them |
+| `promotions.min_discount` | 0.08 | share | A price this far below the regular price = promotion day |
+| `promotions.regular_price_window` | 63 | days | Centred window of the regular price (75th percentile) |
+| `promotions.default_discount` | 0.20 | share | Discount of a promo flag without a price |
+| `promotions.post_promo_days` | 7 | days | Days after a promotion with a possible demand dip |
+| `promotions.shrinkage_days` | 14 | days | Promo days needed before an item's own effect outweighs the average one |
 | `inventory.lead_time_days` | 7 | days | `L` (per-item lead time from the data wins) |
 | `inventory.order_cost` | 50 | € / order | `S` |
 | `inventory.holding_rate` | 0.25 | 1 / year | `i` → `h = i · c` |

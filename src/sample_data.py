@@ -15,6 +15,9 @@ Files (see data/samples/README.md for the story behind each one):
 * ``retail_chain_stores.csv``  store list (for reference)
 * ``single_store_it.csv``      one neighbourhood shop, Italian headers, ``;``, dd/mm/yyyy, decimal commas
 * ``ecommerce_order_lines.xlsx``  one year of online order lines with returns (negative quantities)
+* ``promo_calendar_2025.csv``  planned flyer promotions after the end of the data (Promotions page planner)
+* ``stock_snapshot.csv``       stock on hand and on order per store and item, Italian headers (Orders page)
+* ``supplier_terms.csv``       order days, minimum order value and quantity discount of each supplier (Orders page)
 
 All of it is invented: no real company, store or sales figure is represented.
 """
@@ -36,6 +39,18 @@ SUPPLIERS = {
     "SEA": ("Confectionery (seasonal)", 12),
     "APP": ("Small appliances importer", 21),
 }
+# units per carton and minimum units per order line, by family (single items for small appliances)
+PACKS = {"BEV": (6, 0), "GRO": (12, 0), "HOM": (6, 0), "SEA": (6, 12), "APP": (1, 2)}
+# supplier terms: order days (0 = Monday), minimum order value per store (EUR), quantity discount;
+# every supplier delivers Monday to Saturday (a Friday beverage order would arrive on Sunday: not allowed)
+SUPPLIER_TERMS = {
+    "BEV": ("0 2 4", 150, 0, 0.0),
+    "GRO": ("1 3", 300, 120, 0.03),
+    "HOM": ("1", 250, 60, 0.05),
+    "SEA": ("0 3", 200, 0, 0.0),
+    "APP": ("2", 400, 0, 0.0),
+}
+DELIVERY_DAYS = "0 1 2 3 4 5"
 CATEGORIES = {"BEV": "Beverages", "GRO": "Grocery", "HOM": "Household", "SEA": "Seasonal confectionery",
               "APP": "Small appliances"}
 PHYSICAL_WEEK = (0.85, 0.85, 0.90, 0.95, 1.15, 1.45, 0.85)   # Mon .. Sun
@@ -348,6 +363,7 @@ def generate_chain(start: str = "2022-01-01", end: str = "2024-12-31", stores=CH
     items = pd.DataFrame([{
         "item": p.code, "name": p.name, "category": CATEGORIES[p.family], "supplier": SUPPLIERS[p.family][0],
         "lead_time_days": SUPPLIERS[p.family][1],
+        "pack_size": PACKS[p.family][0], "min_order_qty": PACKS[p.family][1] or None,
         "unit_price": float(list_price(pd.DatetimeIndex([f"{last_year}-06-30"]), p.price)[0]),
         "unit_cost": round(float(list_price(pd.DatetimeIndex([f"{last_year}-06-30"]), p.price)[0]) * p.cost_ratio, 2),
         "status": ("discontinued " + p.discontinued) if p.discontinued else
@@ -416,12 +432,51 @@ def ecommerce_order_lines(seed: int = 11) -> pd.DataFrame:
     return out
 
 
+def promo_calendar_2025() -> pd.DataFrame:
+    """Planned promotions for January-March 2025 (an empty store = every store)."""
+    return pd.DataFrame({
+        "item": ["GRO-002", "BEV-003", "HOM-001", "GRO-006"],
+        "store": ["", "", "", "MI01"],
+        "start": ["2025-01-20", "2025-02-03", "2025-02-10", "2025-02-24"],
+        "end": ["2025-01-26", "2025-02-16", "2025-02-16", "2025-03-02"],
+        "discount": ["25%", "30%", "20%", "25%"],
+    })
+
+
+def supplier_terms() -> pd.DataFrame:
+    """Ordering terms of the five suppliers (Italian headers, as a buyer would keep them)."""
+    names = ["lun", "mar", "mer", "gio", "ven", "sab", "dom"]
+    out = pd.DataFrame([{
+        "Fornitore": SUPPLIERS[f][0],
+        "Giorni ordine": " ".join(names[int(d)] for d in days.split()),
+        "Giorni consegna": " ".join(names[int(d)] for d in DELIVERY_DAYS.split()),
+        "Ordine minimo €": minimum, "Sconto da pezzi": qty or None, "Sconto %": round(pct * 100, 1) or None,
+    } for f, (days, minimum, qty, pct) in SUPPLIER_TERMS.items()])
+    out["Sconto da pezzi"] = out["Sconto da pezzi"].astype("Int64")
+    return out
+
+
+def stock_snapshot(sales: pd.DataFrame, seed: int = 7) -> pd.DataFrame:
+    """Stock on hand today per store and item: 4–20 days of recent sales, some quantity on order."""
+    rng = np.random.default_rng(seed)
+    recent = sales[pd.to_datetime(sales["date"]) > pd.to_datetime(sales["date"]).max() - pd.Timedelta(days=28)]
+    daily = recent.groupby(["store", "item"])["quantity"].sum() / 28
+    keys = sales[["store", "item"]].drop_duplicates().set_index(["store", "item"]).index
+    daily = daily.reindex(keys, fill_value=0.0)
+    days = rng.uniform(4, 20, len(daily))
+    on_order = np.where(rng.random(len(daily)) < 0.3, np.ceil(daily.to_numpy() * rng.uniform(5, 15, len(daily))), 0)
+    out = pd.DataFrame({"Negozio": daily.index.get_level_values(0), "Articolo": daily.index.get_level_values(1),
+                        "Giacenza": np.round(daily.to_numpy() * days).astype(int), "Ordinato": on_order.astype(int)})
+    return out.sort_values(["Negozio", "Articolo"]).reset_index(drop=True)
+
+
 def write_samples(out_dir: str | Path, seed: int = 2024) -> list[Path]:
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     sales, items, stores = generate_chain(seed=seed)
     paths = [out / "retail_chain_sales.csv", out / "retail_chain_items.csv", out / "retail_chain_stores.csv",
-             out / "single_store_it.csv", out / "ecommerce_order_lines.xlsx"]
+             out / "single_store_it.csv", out / "ecommerce_order_lines.xlsx", out / "promo_calendar_2025.csv",
+             out / "stock_snapshot.csv", out / "supplier_terms.csv"]
     sales.to_csv(paths[0], index=False)
     items.to_csv(paths[1], index=False)
     stores.to_csv(paths[2], index=False)
@@ -435,6 +490,9 @@ def write_samples(out_dir: str | Path, seed: int = 2024) -> list[Path]:
     with pd.ExcelWriter(paths[4], engine="openpyxl") as xw:
         notes.to_excel(xw, sheet_name="Note", index=False)
         lines.to_excel(xw, sheet_name="Ordini", index=False)
+    promo_calendar_2025().to_csv(paths[5], index=False)
+    stock_snapshot(sales).to_csv(paths[6], sep=";", index=False, encoding="utf-8-sig")
+    supplier_terms().to_csv(paths[7], sep=";", index=False, encoding="utf-8-sig")
     return paths
 
 

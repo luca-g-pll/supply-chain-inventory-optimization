@@ -34,6 +34,9 @@ class BatchResult:
     sums: dict[str, np.ndarray]                   # additive counters per series
     n_days: int
     daily: dict[str, np.ndarray] | None = None    # (n_series, n_days) arrays if recorded
+    end_on_hand: np.ndarray | None = None         # (n_series,) stock at the end of the last day
+    end_backlog: np.ndarray | None = None
+    pipeline: np.ndarray | None = None            # (n_series, k) orders arriving k days after the last day
 
     @property
     def fill_rate(self) -> np.ndarray:
@@ -49,8 +52,13 @@ class BatchResult:
 
 def simulate_batch(demand: np.ndarray, dates: pd.DatetimeIndex, policy, lead_time,
                    initial_on_hand, backorder_share: float = 0.0,
-                   record_daily: bool = False) -> BatchResult:
-    """Simulate every series (rows of ``demand``) over the days of ``dates``."""
+                   record_daily: bool = False, initial_arrivals: np.ndarray | None = None,
+                   initial_backlog=None) -> BatchResult:
+    """Simulate every series (rows of ``demand``) over the days of ``dates``.
+
+    ``initial_arrivals`` ``(n, k)``: orders already placed, arriving on days 0..k-1
+    (they count as *on order* from the start).
+    """
     demand = np.asarray(demand, dtype="float64")
     n, T = demand.shape
     if len(dates) != T:
@@ -62,8 +70,13 @@ def simulate_batch(demand: np.ndarray, dates: pd.DatetimeIndex, policy, lead_tim
         raise ValueError("lead_time must be >= 1")
     on_hand = np.broadcast_to(np.asarray(initial_on_hand, dtype="float64"), (n,)).copy()
     on_order = np.zeros(n)
-    backlog = np.zeros(n)
-    arrivals = np.zeros((n, T + int(L.max()) + 1))
+    backlog = np.zeros(n) if initial_backlog is None else \
+        np.broadcast_to(np.asarray(initial_backlog, dtype="float64"), (n,)).copy()
+    k0 = 0 if initial_arrivals is None else np.asarray(initial_arrivals).shape[1]
+    arrivals = np.zeros((n, max(T, k0) + int(L.max()) + 1))
+    if k0:
+        arrivals[:, :k0] = initial_arrivals
+        on_order += arrivals[:, :k0].sum(axis=1)
     rows = np.arange(n)
     weekday = dates.dayofweek.to_numpy()
 
@@ -129,7 +142,8 @@ def simulate_batch(demand: np.ndarray, dates: pd.DatetimeIndex, policy, lead_tim
 
     s["cycles"] += 1  # the cycle still open at the end
     s["cycles_with_stockout"] += so_since_receipt
-    return BatchResult(sums=s, n_days=T, daily=daily)
+    return BatchResult(sums=s, n_days=T, daily=daily, end_on_hand=on_hand, end_backlog=backlog,
+                       pipeline=arrivals[:, T:].copy())
 
 
 def simulate(demand, dates: pd.DatetimeIndex, policy, lead_time: int, initial_on_hand: float,

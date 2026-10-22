@@ -59,12 +59,18 @@ LABELS = {
     "unit_cost": tx("Unit cost (optional)", "Costo unitario (facoltativo)"),
     "channel": tx("Channel physical/online (optional)", "Canale fisico/online (facoltativo)"),
     "lead_time_days": tx("Lead time in days (optional)", "Tempo di consegna in giorni (facoltativo)"),
+    "promo": tx("Promotion: yes/no or discount % (optional)", "Promozione: sì/no o sconto % (facoltativo)"),
+    "supplier": tx("Supplier (optional)", "Fornitore (facoltativo)"),
+    "item_name": tx("Item description (optional)", "Descrizione articolo (facoltativo)"),
+    "pack_size": tx("Pack size, units (optional)", "Pezzi per confezione (facoltativo)"),
+    "min_order_qty": tx("Minimum order quantity (optional)", "Quantità minima d'ordine (facoltativo)"),
 }
 PROGRESS = {
     "Validating and profiling the data": "Controllo e profilo dei dati",
     "Running the SQL KPIs": "Calcolo dei KPI in SQL",
     "Classifying items (ABC / XYZ)": "Classificazione degli articoli (ABC / XYZ)",
     "Trade-off curves and sensitivity": "Curve di confronto e sensibilità",
+    "Purchase plan: forecast from the last day of data": "Piano acquisti: previsione dall'ultimo giorno dei dati",
     "Done": "Fatto",
 }
 
@@ -237,7 +243,7 @@ if missing:
 st.subheader(tx("3 · Check the data", "3 · Controllo dei dati"))
 try:
     data = standardise(raw, ColumnMapping.from_dict(mapping), cfg.input, cfg.prices, cfg.inventory,
-                       source="file", file_name=file_name, file_hash_value=digest)
+                       source="file", file_name=file_name, file_hash_value=digest, promotions=cfg.promotions)
     if master_bytes is not None:
         data = merge_item_master(data, read_any(io.BytesIO(master_bytes), filename=master_name),
                                  cfg.prices, cfg.inventory)

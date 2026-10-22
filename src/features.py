@@ -3,7 +3,9 @@
 Every demand-based feature at target day ``t`` uses only data up to
 ``t - min_lag`` with ``min_lag = horizon``. One model can therefore forecast every
 horizon h = 1..H from any origin ``o >= t - H`` without recursion (the *direct,
-single-model* approach, ADR-0002).
+single-model* approach, ADR-0002). Promotion features describe the promotion
+planned on day ``t`` itself: the promotion calendar is decided in advance, so it is
+known at the origin (it is not demand data).
 """
 
 from __future__ import annotations
@@ -71,10 +73,11 @@ class FeatureSet:
 
 def build_features(values: np.ndarray, dates: pd.DatetimeIndex, store_codes: np.ndarray,
                    item_codes: np.ndarray, lags, rolling_windows, min_lag: int,
-                   yearly: bool = True) -> FeatureSet:
+                   yearly: bool = True, promo: np.ndarray | None = None, post_promo_days: int = 7) -> FeatureSet:
     """Build every feature over the (possibly extended) calendar ``dates``.
 
-    ``values`` must have ``len(dates)`` columns; future days are NaN. Raises
+    ``values`` must have ``len(dates)`` columns; future days are NaN. ``promo``
+    (same shape, discount of the day) adds the promotion features. Raises
     ``ValueError`` if a lag is shorter than ``min_lag`` (leakage guard).
     """
     lags = sorted(set(int(x) for x in lags))
@@ -102,6 +105,12 @@ def build_features(values: np.ndarray, dates: pd.DatetimeIndex, store_codes: np.
     if "roll_mean_28" in series and "roll_mean_91" in series:
         with np.errstate(divide="ignore", invalid="ignore"):
             series["trend_28_91"] = series["roll_mean_28"] / series["roll_mean_91"]
+    if promo is not None:
+        from src.promotions import post_promo_mask, promo_day_counter
+
+        series["promo_discount"] = promo
+        series["promo_day"] = promo_day_counter(promo)
+        series["post_promo"] = post_promo_mask(promo, post_promo_days).astype("float64")
 
     cal: dict[str, np.ndarray] = {
         "dow": dates.dayofweek.to_numpy(dtype="float64"),

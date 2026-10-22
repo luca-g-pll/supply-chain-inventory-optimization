@@ -237,6 +237,20 @@ def no_data_message() -> None:
         "vendite, oppure crea i risultati demo in locale con `python -m src.pipeline --all` (vedi il README)."))
 
 
+def plan_calendar_for(data: ActiveData):
+    """Calendar shown on the Orders and Promotions pages (today and the shift that brings the data to today)."""
+    from datetime import date
+
+    from src.replenishment import plan_calendar
+
+    meta = data.meta.get("plan") or {}
+    end = meta.get("data_end") or (data.meta.get("promotions") or {}).get("last_date")
+    if not end:
+        return None
+    today = st.session_state.get("plan_today") or date.today()
+    return plan_calendar(end, today, st.session_state.get("plan_bring", True))
+
+
 def csv_download(df: pd.DataFrame, label: str, file_name: str, key: str) -> None:
     st.download_button(label, df.to_csv(index=False).encode("utf-8"), file_name=file_name, mime="text/csv",
                        key=key, icon=":material/download:")

@@ -34,6 +34,9 @@ class _Names:
     def __getitem__(self, key):
         return self.fn(key)
 
+    def __call__(self, key):
+        return self.fn(key)
+
     def get(self, key, default=None):
         return self.fn(key)
 
@@ -237,9 +240,93 @@ def forecast_series(view: pd.DataFrame, models: list[str], best: str) -> go.Figu
         fig.add_scatter(x=d["date"], y=d["forecast"], mode="lines", name=MODEL_NAMES.get(m, m),
                         line=dict(color=color, width=width),
                         hovertemplate="%{y:,.1f}<extra>" + MODEL_NAMES.get(m, m) + "</extra>")
+    if "discount" in first:
+        promo_bands(fig, first["date"], first["discount"])
     fig.update_layout(hovermode="x unified")
     fig.update_yaxes(rangemode="tozero", title=tx("Units per day", "Pezzi al giorno"))
     return layout(fig, None, height=360)
+
+
+def promo_bands(fig: go.Figure, dates: pd.Series, discount: pd.Series) -> None:
+    """Shade the promotion days (one band per run of consecutive days) and add a legend entry."""
+    c = pal()
+    d = pd.DataFrame({"date": pd.to_datetime(dates).to_numpy(), "on": discount.to_numpy() > 0}).sort_values("date")
+    if not d["on"].any():
+        return
+    run = (d["on"] != d["on"].shift()).cumsum()
+    for _, g in d[d["on"]].groupby(run[d["on"]]):
+        fig.add_vrect(x0=g["date"].min() - pd.Timedelta(hours=12), x1=g["date"].max() + pd.Timedelta(hours=12),
+                      fillcolor=_alpha(c["orange"], 0.13 if c is LIGHT else 0.28), line_width=0, layer="below")
+    fig.add_scatter(x=[None], y=[None], mode="markers", name=tx("Promotion", "Promozione"),
+                    marker=dict(symbol="square", size=12, color=_alpha(c["orange"], 0.35 if c is LIGHT else 0.55)),
+                    hoverinfo="skip")
+
+
+# --------------------------------------------------------------------------- promotions
+def promo_lift_bars(items: pd.DataFrame, discount: float = 0.20, top: int = 15) -> go.Figure:
+    """Expected extra sales per item at a given discount (estimated), observed lift as a marker."""
+    c = pal()
+    d = items.assign(lift=np.exp(items["beta"] * discount)).sort_values("lift").tail(top)
+    fig = go.Figure(go.Bar(
+        y=d["item"], x=d["lift"] - 1, orientation="h", marker_color=c["blue"], width=0.5,
+        name=tx(f"Estimated at {discount:.0%} off", f"Stimato con sconto {discount:.0%}"),
+        customdata=d[["promo_days"]], hovertemplate="<b>%{x:+.0%}</b> " + tx("sales", "vendite")
+        + "<br>%{customdata[0]} " + tx("promo days in the data", "giorni di promozione nei dati") + "<extra>%{y}</extra>"))
+    seen = d.dropna(subset=["observed_lift"])
+    fig.add_scatter(y=seen["item"], x=seen["observed_lift"] - 1, mode="markers",
+                    name=tx("Observed (at its own average discount)", "Osservato (al suo sconto medio)"),
+                    marker=dict(symbol="line-ns-open", size=14, color=c["ink2"], line=dict(width=2)),
+                    customdata=seen[["avg_discount"]],
+                    hovertemplate="<b>%{x:+.0%}</b> " + tx("observed at", "osservato con sconto") + " %{customdata[0]:.0%}"
+                    + "<extra>%{y}</extra>")
+    fig.update_xaxes(tickformat="+.0%")
+    return layout(fig, tx(f"Extra sales during a promotion at {discount:.0%} off",
+                          f"Vendite in più durante una promozione con sconto del {discount:.0%}"),
+                  height=max(300, 26 * len(d) + 110))
+
+
+def promo_timeline(daily: pd.DataFrame, item: str) -> go.Figure:
+    """Daily units of one item (selected stores) with the promotion days shaded."""
+    c = pal()
+    fig = go.Figure(go.Scatter(x=daily["date"], y=daily["sales"], mode="lines", line=dict(color=c["blue"], width=1.4),
+                               name=tx("Units sold", "Pezzi venduti"),
+                               hovertemplate="%{x|%d %b %Y}<br><b>%{y:,.0f}</b><extra></extra>"))
+    promo_bands(fig, daily["date"], daily["discount"])
+    fig.update_yaxes(rangemode="tozero")
+    return layout(fig, tx(f"Item {item}: units per day and promotions", f"Articolo {item}: pezzi al giorno e promozioni"),
+                  height=320)
+
+
+def promo_accuracy_bars(acc: pd.DataFrame, best: str, baseline: str) -> go.Figure:
+    """WAPE by day type (normal / promotion / after a promotion) for each model."""
+    c = pal()
+    labels = {"normal": tx("Normal days", "Giorni normali"), "promo": tx("Promotion days", "Giorni di promozione"),
+              "post_promo": tx("Week after", "Settimana dopo")}
+    fig = go.Figure()
+    for m in [x for x in ("lightgbm", "holt_winters", "moving_average", "seasonal_naive") if x in set(acc["model"])]:
+        d = acc[acc["model"] == m].set_index("day_type").reindex(list(labels)).dropna(subset=["wape"])
+        color = c["blue"] if m == best else (c["muted"] if m == baseline else c["context"])
+        fig.add_bar(x=[labels[k] for k in d.index], y=d["wape"], name=MODEL_NAMES[m], marker_color=color,
+                    marker_line=dict(width=2, color="rgba(0,0,0,0)"),
+                    hovertemplate="<b>%{y:.1%}</b> WAPE<extra>" + MODEL_NAMES[m] + "</extra>")
+    fig.update_layout(barmode="group", bargroupgap=0.08)
+    fig.update_yaxes(tickformat=".0%", rangemode="tozero")
+    return layout(fig, tx("Forecast error on normal and promotion days", "Errore di previsione nei giorni normali e in promozione"),
+                  height=340)
+
+
+def promo_plan_profile(profile: pd.DataFrame) -> go.Figure:
+    """Planned promotion: normal vs expected units per day around it."""
+    c = pal()
+    fig = go.Figure()
+    fig.add_bar(x=profile["date"], y=profile["normal"], name=tx("Normal sales", "Vendite normali"),
+                marker_color=c["context"], hovertemplate="%{y:,.0f}<extra>" + tx("normal", "normali") + "</extra>")
+    fig.add_bar(x=profile["date"], y=profile["expected"], name=tx("Expected with the promotion", "Attese con la promozione"),
+                marker_color=c["blue"], hovertemplate="<b>%{y:,.0f}</b><extra>" + tx("expected", "attese") + "</extra>")
+    fig.update_layout(barmode="group", bargap=0.25, bargroupgap=0.05, hovermode="x unified")
+    fig.update_yaxes(rangemode="tozero", title=tx("Units per day", "Pezzi al giorno"))
+    return layout(fig, tx("Units per day before, during and after the promotion",
+                          "Pezzi al giorno prima, durante e dopo la promozione"), height=330)
 
 
 def importance(imp: pd.DataFrame) -> go.Figure:
@@ -324,3 +411,50 @@ def _alpha(hex_color: str, a: float) -> str:
     h = hex_color.lstrip("#")
     r, g, b = (int(h[i: i + 2], 16) for i in (0, 2, 4))
     return f"rgba({r},{g},{b},{a})"
+
+
+# --------------------------------------------------------------------------- purchase plan
+def plan_order_values(days: pd.DataFrame, today: pd.Timestamp) -> go.Figure:
+    """Value of the orders to place and of the deliveries expected, day by day."""
+    c = pal()
+    fig = go.Figure()
+    fig.add_bar(x=days["date"], y=days["order_value"], name=tx("Orders to place", "Ordini da fare"),
+                marker_color=c["blue"], customdata=days[["n_orders"]],
+                hovertemplate="<b>€%{y:,.0f}</b> · %{customdata[0]} " + tx("lines", "righe") + "<extra>"
+                + tx("orders", "ordini") + "</extra>")
+    fig.add_bar(x=days["date"], y=days["delivery_value"], name=tx("Deliveries expected", "Consegne attese"),
+                marker_color=c["context"], hovertemplate="<b>€%{y:,.0f}</b><extra>" + tx("deliveries", "consegne")
+                + "</extra>")
+    fig.add_vline(x=today, line=dict(color=c["orange"], width=2))
+    fig.update_layout(barmode="group", bargap=0.25, bargroupgap=0.05, hovermode="x unified")
+    fig.update_yaxes(tickprefix="€", rangemode="tozero")
+    return layout(fig, tx("Orders and deliveries in the next 4 weeks (value at cost)",
+                          "Ordini e consegne nelle prossime 4 settimane (valore al costo)"), height=320)
+
+
+def plan_projection(d: pd.DataFrame, today: pd.Timestamp, reorder_point: pd.Series | None = None) -> go.Figure:
+    """One series: projected stock, expected demand, orders and deliveries."""
+    c = pal()
+    fig = go.Figure()
+    fig.add_bar(x=d["date"], y=d["demand"], name=tx("Expected sales", "Vendite previste"), marker_color=c["context"],
+                hovertemplate="%{y:,.1f}<extra>" + tx("expected sales", "vendite previste") + "</extra>")
+    fig.add_scatter(x=d["date"], y=d["on_hand"], mode="lines", line=dict(color=c["blue"], width=2.2, shape="hv"),
+                    name=tx("Stock at end of day", "Scorta a fine giornata"),
+                    hovertemplate="<b>%{y:,.0f}</b><extra>" + tx("stock", "scorta") + "</extra>")
+    if reorder_point is not None:
+        fig.add_scatter(x=d["date"], y=reorder_point, mode="lines", line=dict(color=c["muted"], width=1.2, dash="dot"),
+                        name=tx("Reorder point", "Punto di riordino"),
+                        hovertemplate="%{y:,.0f}<extra>" + tx("reorder point", "punto di riordino") + "</extra>")
+    o = d[d["order"] > 0]
+    fig.add_scatter(x=o["date"], y=o["on_hand"], mode="markers+text", text=[f"+{q:,.0f}" for q in o["order"]],
+                    textposition="top center", textfont=dict(color=c["orange"]),
+                    marker=dict(symbol="triangle-up", size=12, color=c["orange"]), name=tx("Order", "Ordine"),
+                    hovertemplate=tx("order", "ordine") + " <b>%{text}</b><extra></extra>")
+    r = d[d["receipt"] > 0]
+    fig.add_scatter(x=r["date"], y=r["on_hand"], mode="markers", marker=dict(symbol="square", size=9, color=c["aqua"]),
+                    name=tx("Delivery", "Consegna"), customdata=r["receipt"],
+                    hovertemplate=tx("delivery", "consegna") + " <b>%{customdata:,.0f}</b><extra></extra>")
+    fig.add_vline(x=today, line=dict(color=c["orange"], width=1.5))
+    fig.update_layout(hovermode="x unified")
+    fig.update_yaxes(rangemode="tozero", title=tx("Units", "Pezzi"))
+    return layout(fig, tx("Projected stock, orders and deliveries", "Scorta prevista, ordini e consegne"), height=360)

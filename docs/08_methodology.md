@@ -78,6 +78,10 @@ Weekly (not daily) aggregation removes the day-of-week pattern, which is predict
 - Rolling mean of the last 7, 28, 91 days and rolling std of the last 28 / 91 days, ending at lag 14; trend ratio `mean_28 / mean_91`.
 - Objective `tweedie` (non-negative, count-like demand), 600 trees, 63 leaves, learning rate 0.05.
 
+**Promotion features** (only when the data has promotions): discount of the target day, day number inside the
+promotion (1, 2, …), and a flag for the 7 days after a promotion. They describe the **target** day: a promotion
+calendar is decided weeks in advance, so it is known at the forecast origin (it is not demand data, no leakage).
+
 ### 4.2 Back-test design (rolling origin)
 
 - **Origins:** the day before the period starts, then every 7 days (53 origins in a 1-year period). At the end of day *o* the planner knows sales up to *o* and forecasts *o+1 … o+14*.
@@ -113,6 +117,44 @@ Measured: a 600-day file with 8 series runs end-to-end in the app in a few secon
 5 years, full mode) takes about 90 s on a laptop.
 
 The CLI can run an uploaded file in full mode (`--input … ` without `--fast`); the app states which mode produced the numbers.
+
+### 4.5 Promotions
+
+**Where they come from.** A `promo` column in the file (flag or discount) or, without one, the selling price: a day
+is a promotion when the price is at least 8% below the store-item's *regular price* (75th percentile of the prices in
+a centred 9-week window — it follows list-price changes and is not pulled down by the promotions themselves).
+
+**Effect, per item** (stores pooled), estimated on training days only:
+
+| Quantity | Estimate |
+|---|---|
+| Normal level `b(t)` | mean of the previous 28 days without promotion or post-promotion dip |
+| Lift at discount `d` | `lift(d) = exp(β · d)`, `β = ln(Σ y / Σ b) / d̄` over the item's promotion days (`d̄` = b-weighted mean discount) |
+| Post-promotion dip | `Σ y / Σ b` over the 7 days after a promotion (customers stocked up) |
+| Shrinkage | `β_item = (n · β_own + 14 · β_all) / (n + 14)`, n = promo days; same for the dip. β ∈ [0, 10], dip ∈ [0.5, 1.2] |
+
+The exponential form lets the planner evaluate a promotion with a discount the item never had. Clearance sales after
+a season (discount but falling demand) give β ≈ 0: the discount follows the end of the season, it does not create
+demand.
+
+**Use in the models.**
+- *Moving average* and *Holt-Winters* (`PromoAware` wrapper): past demand is divided by the effect (lift on
+  promotion days, dip after them) so a promotion week looks like a normal week; the model is fitted and run on that
+  clean demand; its forecast is multiplied back by the lift of the promotions planned on the target days.
+- *LightGBM*: the promotion features above; trees learn the effect by item and store.
+- *Seasonal naive* stays promotion-blind on purpose: it is the "like last week" rule used without software, the
+  reference all improvements are measured against.
+- The forecast-driven policy P2 therefore raises its reorder point before a promotion and lowers it in the week after.
+
+**Measured on the sample chain** (`data/samples/retail_chain_sales.csv`, fast mode, test 2024): WAPE LightGBM
+36.9% → 34.3%, Holt-Winters 39.3% → 35.2%, moving average 44.4% → 41.3% when promotions are used. Estimated lift at
+the true discounts 1.6–1.9× and dip 0.84 (generated: 1.4–2.1× and 0.85).
+
+**Planner** (Promotions page): for a planned promotion (item, stores, dates, discount) — normal units = weekday
+profile of the last 8 normal weeks; expected units = normal × lift(d); extra units to order; order-by date = start −
+lead time; margin vs no promotion = promo units × discounted margin + dip-reduced week after − normal units × full
+margin. A permanent price change uses half the promotion response (`exp(−β/2 · Δp)`), a rough estimate stated as
+such.
 
 ## 5. Inventory theory
 
@@ -250,12 +292,61 @@ a lost unit costs its margin (40% of the price) while holding it for a whole yea
 price, so total cost keeps falling until the fill rate is almost 100%: the 95% of the brief is a conservative,
 not a cost-optimal, target. The dashboard's what-if lets the reader change these assumptions.
 
+### 6.9 Purchase plan on the current calendar (Orders page)
+
+The policy comparison runs on the past; the purchase plan applies the chosen policy — **P2, forecast-driven
+(s, Q)** — from today on ([`src/replenishment.py`](../src/replenishment.py)).
+
+1. **Forward forecast.** The best model is refitted on the whole history and forecasts the 14 days after the last day
+   of data; days 15–28 (and the lead time beyond) reuse the same weekday of the last forecast week. Planned
+   promotions (Promotions page) multiply it by their lift, and the week after by the dip.
+2. **Bringing the data to today.** When the history ends ≥ 7 days before today, every date is moved forward by
+   `7·⌊gap / 7⌋` days: weekdays are kept, the last day of data becomes one of the last 7 days, and the 0–6 days left
+   until today are projected with the forecast (orders the rule would have placed in those days are shown as
+   "assumed already placed"). Seasons move with the dates: this is a simulation on old data; with sales up to yesterday
+   no shift is applied.
+3. **Starting stock.** By default the state reached at the end of the test period by the P2 simulation (stock on
+   hand, back-orders, orders on the way with their arrival days). Or the user's stock file (stock of today: the
+   projection then starts today). Both can be corrected by hand.
+4. **Projection.** Day by day: deliveries arrive, the forecast demand is served, and the rule orders `n·Q` when the
+   inventory position falls to `s_t = Σ forecast(t+1 … t+L) + SS`. `SS = max(z·σ_E, 0)` with z the calibrated knob
+   ("minimum for the target") or the textbook z ("cautious"). A **negative** safety stock — common after calibration,
+   because large lots already protect most demand — reaches the fill rate on average over a year, but in a day-by-day
+   plan of expected demand it would schedule a stock-out at the end of every cycle, so the plan floors it at zero.
+5. **Outputs.** Orders of each day (supplier, quantity, value at cost, arrival = order day + lead time, stock and
+   days of cover), deliveries, and **risks**: series whose expected stock runs out (≥ 1 unit) even with the planned
+   orders — typically stock too low for the supplier's lead time.
+
+### 6.10 Supplier terms and limits in the purchase plan
+
+The plan can respect the constraints of real purchasing ([`src/constraints.py`](../src/constraints.py)). They are
+applied every day in this order:
+
+| Constraint | Rule |
+|---|---|
+| **Order days / delivery days** (per supplier) | a series orders only on an order day whose delivery (day + L) falls on a delivery day. The reorder point covers the lead time **plus the days until the next chance to order**: `s_t = Σ forecast(t+1 … t+L+g−1) + SS·√((L+g−1)/L)`, g = days to the next allowed day (g = 1 when every day is allowed, which gives back the plain rule) |
+| **Minimum quantity, packs** (per item) | `q = max(q, MOQ)`, then rounded up to whole packs |
+| **Quantity discount** (per supplier) | a line within `break_extra_days` (default 7) days of demand of the threshold is raised to it; lines at or above it are bought at `cost · (1 − discount)`; the saving is reported |
+| **Warehouse space** (per store, units) | stock + on order never above the capacity; lines served by days of cover (most urgent first), cut to whole packs or postponed |
+| **Minimum order value** (per supplier and store) | a smaller order is postponed to the next order day, unless a line is **urgent** (its position is below the demand until the next chance arrives): then the order is topped up with whole packs of the supplier's items with the fewest days of cover |
+| **Weekly budget** (all suppliers, Monday–Sunday) | lines accepted urgent first, then by days of cover, until the budget is used; the others are postponed |
+
+Every order line records what changed it (minimum, packs, discount, space, top-up); postponed lines are listed with
+the reason. The page compares the plan **with and without constraints** over the next 28 days (order lines,
+purchases, average stock, units not served, discounts, postponed lines) — the cost of the constraints in euros. When
+fixed order days are introduced, most of the extra shortfall falls in the first one or two weeks (a stock built for
+daily ordering meets weekly deliveries); the page says so when it happens.
+
 ## 7. Limitations
 
 - Sales are treated as uncensored demand. In an uploaded history with real stock-outs, days at zero because of empty shelves would lower the forecasts; a future version could take an optional `stock_on_hand` column to mask those days.
 - Daily data only (v1); intermittent series (many zeros) are handled by the same models, which is not ideal (Croston/SBA = FR-58).
 - Costs, prices and lead time are assumptions.
 - Holt-Winters ignores yearly seasonality.
+- Purchase plan: orders are proposed, not sent; one discount threshold per supplier; space in units (not volume);
+  the plan uses expected demand (risks show where it does not cover it).
+- Promotions: one effect per item for every store; no cannibalisation between items, no halo on other products, no
+  pre-promotion dip; the price-change estimate is derived from promotions and only indicative.
 - The iso-service calibration uses the evaluation year (see the note in §6.4).
 - Each series is independent: no shared supplier orders, no capacity limits, no transfers between stores.
 - "Online" reuses a physical store's demand history; a real online channel would have its own demand pattern (e.g. different weekday peaks). This is a what-if on the operating rules, not a model of online demand.

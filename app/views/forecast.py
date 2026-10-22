@@ -36,6 +36,12 @@ st.caption(tx(
     "validation period; the numbers here are on the test period.",
     "Back-test a origine mobile: una nuova previsione ogni 7 giorni, da 1 a 14 giorni avanti. Il modello migliore è "
     "stato scelto sul periodo di validazione; i numeri qui sono sul periodo di test."))
+if (data.meta.get("promotions") or {}).get("source"):
+    st.caption(tx(
+        ":material/sell: Promotions found in the data: the moving average, Holt-Winters and LightGBM use the "
+        "promotion calendar (shaded in the chart below); the baseline does not. Details on the **Promotions** page.",
+        ":material/sell: Nei dati ci sono promozioni: media mobile, Holt-Winters e LightGBM usano il calendario delle "
+        "promozioni (in evidenza nel grafico qui sotto); la regola di base no. Dettagli nella pagina **Promozioni**."))
 
 c1, c2 = st.columns([1, 1])
 with c1:

@@ -86,18 +86,23 @@ flowchart LR
     A2[Your file or a sample<br/>CSV · Excel · Parquet] --> V[Column mapping<br/>+ validation]
     V --> B[DuckDB<br/>SQL KPIs]
     V --> C[ABC / XYZ]
+    V --> P[Promotions<br/>found · measured]
+    P --> D
     V --> D[Forecasts<br/>naive · MA · Holt-Winters · LightGBM]
     D --> E[Reorder policies<br/>safety stock · ROP · EOQ]
     E --> F[Day-by-day simulation<br/>of the test period]
     F --> G[KPIs · README charts<br/>Streamlit dashboard]
+    E --> O[Purchase plan<br/>today's orders · 4-week calendar]
 ```
 
 | Phase | What | Where |
 |---|---|---|
 | 1. Explore | Trend, weekly and yearly seasonality; **ABC** by revenue, **XYZ** by weekly variability; 13 KPI queries in **SQL (DuckDB)** | [`01_eda_abc_xyz.ipynb`](notebooks/01_eda_abc_xyz.ipynb), [`sql/kpi_queries.sql`](sql/kpi_queries.sql) |
 | 2. Forecast | Seasonal naive ("like last week"), 28-day moving average, **Holt-Winters**, one global **LightGBM**; rolling-origin back-test (a forecast every 7 days, 1–14 days ahead); **WAPE**, MAPE, bias | [`02_forecasting.ipynb`](notebooks/02_forecasting.ipynb), [`src/forecast.py`](src/forecast.py) |
+| 2b. Promotions | Found from a promo column or from discounted prices; effect per product (extra sales during, dip after); the forecasts use the promotion calendar; a **planner** for future promotions | [`src/promotions.py`](src/promotions.py) |
 | 3. Policy | Per store-item: safety stock `z·σ_L`, reorder point, **EOQ** lot (capped at 28 days of demand); three policies: **P0** same order every Monday · **P1** static (s, Q) · **P2** forecast-driven (s, Q) | [`src/inventory.py`](src/inventory.py), [`src/policy.py`](src/policy.py) |
 | 4. Simulate | Every day of the test period: deliveries arrive after the lead time, demand is served or lost, the policy decides the next order; fill rate, stock-outs, average stock, total cost | [`03_inventory_simulation.ipynb`](notebooks/03_inventory_simulation.ipynb), [`src/simulation.py`](src/simulation.py) |
+| 4b. Order | The chosen policy on today's calendar: forward forecast, current stock (estimated or uploaded), **today's orders by supplier** and a 4-week calendar of orders and deliveries | [`src/replenishment.py`](src/replenishment.py) |
 | 5. Dashboard | Scenario (stores · products · online/physical), leaderboards, what-if, upload of your own data | [`app/`](app/streamlit_app.py) |
 
 **Fair comparison.** A textbook `z = 1.645` gives a 95% *cycle* service level, which with large lots means a fill
@@ -118,7 +123,9 @@ history) and the models are chosen from the length of the history, so the same c
 | **Overview** | The headline in one sentence, KPI tiles, inventory and cost of the three policies at the same fill rate, breakdown by ABC class and by channel |
 | **Demand** | Monthly trend, weekday and month indices, ABC Pareto curve, ABC × XYZ matrix, the SQL behind the KPIs |
 | **Forecast** | Model leaderboard, error by horizon / class / store, actual vs. forecast for one series, what LightGBM relies on |
+| **Promotions** | How much each product sells more on promotion and less the week after, past promotions on a chart, forecast error on promotion days, a **planner** (item, dates, discount → extra units to order, order-by date, margin) and a price-change estimate |
 | **Inventory** | Inventory vs. fill rate curves, reorder point and lot for one series, its stock day by day, a **what-if** (service level, lead time, ordering and holding cost), sensitivity |
+| **Orders** | **What to order today**, grouped by supplier (quantity, value, arrival date, CSV per supplier); a **4-week calendar** of orders and deliveries; expected stock-outs; stock day by day for one item. **Supplier terms and limits**: order and delivery days, minimum order value, pack sizes, minimum quantities, quantity discounts, weekly budget, warehouse space — with what they cost compared with no constraints. Works on today's date: old data are moved forward by whole weeks |
 | **Data** | Switch between the demo, a sample dataset and your own file; column mapping, data checks, one-click analysis, downloads (reorder plan CSV, results Excel) |
 
 The **sidebar** on every page selects the scenario: **how many stores**, **which products** (top-N by revenue,
@@ -137,11 +144,21 @@ In the dashboard: **Data → My sales history → Upload a file**, check the col
 | `unit_price`, `unit_cost` | | assumed prices (flagged "assumed" everywhere they are used) |
 | `channel` (physical / online) | | physical |
 | `lead_time_days` | | 7 days |
+| `promo` (yes/no or discount, e.g. `20%`) | | found from the prices (a day ≥ 8% below the usual price); none without prices |
+| `supplier`, `item_name` | | orders grouped under "supplier not set" |
+| `pack_size`, `min_order_qty` | | orders in single units, no minimum |
 
 - Column names can be anything: English and Italian names are recognised (`Data`, `Articolo`, `Qtà`, `Negozio`…).
 - CSV (any separator, decimal commas), Excel (sheet picker) and Parquet; one row per day or per transaction
   (rows are summed per day); a day without rows counts as zero sales; returns (negative quantities) are set to zero.
 - At least 8 weeks of daily history. Prices, costs and lead times can come from a separate item-master file.
+- **Promotions**: with a `promo` column or a daily price, the software finds the promotion days, measures their
+  effect per product and uses them in the forecasts. Planned promotions (e.g. next month's flyer) can be typed in
+  or loaded on the **Promotions** page — example: [`data/samples/promo_calendar_2025.csv`](data/samples/promo_calendar_2025.csv).
+- **Orders**: the order list uses your current stock if you upload it (`store, item, stock on hand[, on order,
+  arrival date]`, e.g. [`data/samples/stock_snapshot.csv`](data/samples/stock_snapshot.csv)); otherwise the software
+  estimates it. For a real list, upload sales up to yesterday and today's stock. Supplier terms (order days, minimum
+  order, discounts) can be typed in or loaded, e.g. [`data/samples/supplier_terms.csv`](data/samples/supplier_terms.csv).
 - 🔒 Uploads stay in memory for your session only and are never saved. For confidential data run the app locally.
 - Template: [`data/templates/sales_history_template.csv`](data/templates/sales_history_template.csv) ·
   full contract: [`docs/07_data_dictionary.md`](docs/07_data_dictionary.md).
@@ -160,7 +177,8 @@ dataset**):
 
 Hidden inside: Christmas and Easter products, promotions with discounted prices, Italian holidays and August
 closures, a store opening mid-way, a renovation, a product launch, a discontinued product, intermittent and lumpy
-demand. Rebuild them identically with `python -m src.sample_data`. No real company or sales figure is represented.
+demand. The promotions are not marked in the file: the software finds them from the discounted prices, and using
+them cuts LightGBM's error from 36.9% to 34.1%. Rebuild the data identically with `python -m src.sample_data`. No real company or sales figure is represented.
 
 ## 7. Assumptions
 
@@ -245,6 +263,10 @@ methodology, KPI definitions, test plan, risks and decision records in [`docs/`]
 - The calibration uses the period it evaluates (an *oracle* setting, used only to compare policies on equal terms);
   the dashboard also shows the policies with `z` set in advance.
 - Each store-item is independent: no shared supplier orders, capacity limits or transfers between stores.
+- Promotions: one effect per product for all stores; no cannibalisation between products; the price-change estimate
+  is derived from promotions and only indicative.
+- Orders: the plan proposes orders, it does not send them (no link to an ERP or to suppliers); one discount
+  threshold per supplier; warehouse space in units, not volume; without uploaded stock the stock is an estimate.
 - Next: quantile forecasts for the safety stock, periodic-review (R, S) policy, stochastic lead times, pooling of
   online stock, weekly / intermittent demand models (Croston).
 

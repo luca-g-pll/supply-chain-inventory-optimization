@@ -15,11 +15,11 @@ st.markdown(tx(
     "Tutto quello che fa il software, spiegato in modo semplice e con piccoli esempi. I numeri degli esempi sono "
     "calcolati al momento con le stesse funzioni usate dall'analisi."))
 
-(t_data, t_class, t_fc, t_inv, t_sim, t_kpi, t_charts, t_glossary) = st.tabs([
+(t_data, t_class, t_fc, t_promo, t_inv, t_sim, t_kpi, t_charts, t_glossary) = st.tabs([
     tx("1 · Data", "1 · Dati"), "2 · ABC / XYZ", tx("3 · Forecasts", "3 · Previsioni"),
-    tx("4 · Reorder rules", "4 · Regole di riordino"), tx("5 · Simulation", "5 · Simulazione"),
-    tx("6 · KPIs & costs", "6 · KPI e costi"), tx("7 · Reading the charts", "7 · Leggere i grafici"),
-    tx("8 · Glossary", "8 · Glossario")])
+    tx("4 · Promotions", "4 · Promozioni"), tx("5 · Reorder rules", "5 · Regole di riordino"),
+    tx("6 · Simulation", "6 · Simulazione"), tx("7 · KPIs & costs", "7 · KPI e costi"),
+    tx("8 · Reading the charts", "8 · Leggere i grafici"), tx("9 · Glossary", "9 · Glossario")])
 
 # --------------------------------------------------------------------------- 1 data
 with t_data:
@@ -201,7 +201,98 @@ periodo di **test**.
     except ValueError:
         st.warning(tx("Write the same number of values in both boxes.", "Scrivi lo stesso numero di valori nei due campi."))
 
-# --------------------------------------------------------------------------- 4 reorder rules
+# --------------------------------------------------------------------------- 4 promotions
+with t_promo:
+    st.header(tx("Promotions: found, measured, planned", "Promozioni: trovate, misurate, pianificate"))
+    st.markdown(tx("""
+**1 · Finding them.** If the file has a **promo** column (yes/no or the discount, e.g. 20%) it is used. Otherwise the
+software looks at the **price of each day**: the *regular price* is a high value of the prices of the 9 weeks around
+that day; a day at least **8% cheaper** is a promotion day.
+
+Example: coffee usually costs €3.29; for a week it costs €2.47 → 25% discount → promotion. In January the list
+price goes up to €3.45: the regular price follows it, so it is not a promotion.
+
+**2 · Measuring them.** For each product the software compares the sales on promotion days with its **normal level**
+(the average of the previous 28 days without promotions):
+""", """
+**1 · Trovarle.** Se il file ha una colonna **promozione** (sì/no o lo sconto, es. 20%) si usa quella. Altrimenti il
+software guarda il **prezzo di ogni giorno**: il *prezzo normale* è un valore alto dei prezzi delle 9 settimane
+intorno a quel giorno; un giorno almeno **l'8% più economico** è un giorno di promozione.
+
+Esempio: il caffè costa di solito €3,29; per una settimana costa €2,47 → sconto del 25% → promozione. A gennaio il
+listino sale a €3,45: il prezzo normale lo segue, quindi non è una promozione.
+
+**2 · Misurarle.** Per ogni prodotto il software confronta le vendite nei giorni di promozione con il suo **livello
+normale** (la media dei 28 giorni precedenti senza promozioni):
+"""))
+    st.latex(r"\text{lift}(d) = e^{\beta \cdot d} \qquad \beta = \frac{\ln(\text{sold} \,/\, \text{normal})}{d}")
+    c1, c2, c3 = st.columns(3)
+    normal = c1.number_input(tx("Normal sales per day", "Vendite normali al giorno"), 1.0, 10_000.0, 20.0)
+    sold = c2.number_input(tx("Sold per day in a past promotion", "Vendute al giorno in una promozione passata"),
+                           1.0, 10_000.0, 36.0)
+    past = c3.slider(tx("Its discount", "Il suo sconto"), 5, 60, 25, 5, format="%d%%") / 100
+    beta = np.log(sold / normal) / past
+    new = st.slider(tx("Discount of the next promotion", "Sconto della prossima promozione"), 5, 60, 20, 5,
+                    format="%d%%") / 100
+    st.success(tx(
+        f"β = ln({sold:g} / {normal:g}) / {past:.2f} = **{beta:.2f}** → at {new:.0%} off: lift = e^({beta:.2f} × "
+        f"{new:.2f}) = **{np.exp(beta * new):.2f}** → about **{normal * np.exp(beta * new):.0f} units a day** instead of "
+        f"{normal:g}.",
+        f"β = ln({sold:g} / {normal:g}) / {past:.2f} = **{beta:.2f}** → con il {new:.0%} di sconto: lift = "
+        f"e^({beta:.2f} × {new:.2f}) = **{np.exp(beta * new):.2f}** → circa **{normal * np.exp(beta * new):.0f} pezzi al "
+        f"giorno** invece di {normal:g}."))
+    st.markdown(tx("""
+The same comparison on the **7 days after** a promotion measures the **dip**: customers stocked up, so sales are
+often 10–20% below normal. Products with few promotions borrow part of the average effect of all products (so one
+lucky week does not decide everything).
+
+**3 · Using them in the forecasts.** The promotion calendar is decided in advance, so the forecast may use it:
+
+| Model | How it uses promotions |
+|---|---|
+| Like last week (baseline) | it doesn't: it copies last week, so it misses the start of a promotion and repeats its peak the week after |
+| Moving average, Holt-Winters | past sales are "cleaned" (promotion weeks divided by their lift), the model forecasts normal demand, then the planned promotions are added back |
+| LightGBM | it receives the discount of the day, the day number inside the promotion and a "week after" flag, and learns the effect by itself |
+""", """
+Lo stesso confronto sui **7 giorni dopo** una promozione misura il **calo**: i clienti hanno fatto scorta, quindi le
+vendite sono spesso il 10–20% sotto il normale. I prodotti con poche promozioni prendono in prestito parte
+dell'effetto medio di tutti i prodotti (così una sola settimana fortunata non decide tutto).
+
+**3 · Usarle nelle previsioni.** Il calendario delle promozioni è deciso in anticipo, quindi la previsione può usarlo:
+
+| Modello | Come usa le promozioni |
+|---|---|
+| Come la settimana scorsa (base) | non le usa: copia la settimana prima, quindi manca l'inizio di una promozione e ne ripete il picco la settimana dopo |
+| Media mobile, Holt-Winters | le vendite passate vengono "ripulite" (le settimane in promozione divise per il loro effetto), il modello prevede la domanda normale, poi si aggiungono le promozioni pianificate |
+| LightGBM | riceve lo sconto del giorno, il numero del giorno dentro la promozione e un segnale "settimana dopo", e impara l'effetto da solo |
+"""))
+    weeks = pd.DataFrame({
+        tx("week", "settimana"): [1, 2, 3, 4],
+        tx("promotion", "promozione"): ["—", "25%", "—", "—"],
+        tx("units sold", "pezzi venduti"): [140, 252, 119, 140],
+        tx("effect", "effetto"): ["×1", "×1.80", tx("×0.85 (dip)", "×0,85 (calo)"), "×1"],
+        tx("cleaned units", "pezzi ripuliti"): [140, 140, 140, 140]})
+    st.dataframe(weeks, hide_index=True)
+    st.markdown(tx("""
+**4 · Planning them.** On the **Promotions** page you type (or load from a file) the promotions you are planning:
+item, stores, dates, discount. The software estimates the extra units, the **order-by date** (start − supplier lead
+time) and whether the promotion pays: a discount gives up margin on the units you would have sold anyway.
+
+Example: 70 normal units a week, price €10, cost €6, 25% off, lift 1.8 → 126 units at €7.50 = margin €189 instead of
+€280; the week after 59.5 units instead of 70 → the promotion **loses €133 of margin**: it is worth doing only for
+traffic or to clear stock. It would gain margin only with a lift above 3.1.
+""", """
+**4 · Pianificarle.** Nella pagina **Promozioni** scrivi (o carichi da file) le promozioni che stai pianificando:
+articolo, negozi, date, sconto. Il software stima i pezzi in più, la **data entro cui ordinare** (inizio − tempo di
+consegna del fornitore) e se la promozione conviene: uno sconto rinuncia a margine sui pezzi che avresti venduto
+comunque.
+
+Esempio: 70 pezzi normali a settimana, prezzo €10, costo €6, sconto 25%, effetto 1,8 → 126 pezzi a €7,50 = margine
+€189 invece di €280; la settimana dopo 59,5 pezzi invece di 70 → la promozione **perde €133 di margine**: conviene
+solo per portare clienti o svuotare il magazzino. Guadagnerebbe margine solo con un effetto sopra 3,1.
+"""))
+
+# --------------------------------------------------------------------------- 5 reorder rules
 with t_inv:
     st.header(tx("Reorder rules: when and how much to order", "Regole di riordino: quando e quanto ordinare"))
     st.markdown(tx("""
@@ -290,7 +381,67 @@ previsione di P2 è quasi zero e quindi tiene pochissimo; a dicembre la previsio
 sul picco.
 """))
 
-# --------------------------------------------------------------------------- 5 simulation
+    st.subheader(tx("From the rule to today's orders", "Dalla regola agli ordini di oggi"))
+    st.markdown(tx("""
+The **Orders** page applies the P2 rule from **today** on and turns it into a list:
+
+1. it forecasts the next weeks for every product and store;
+2. it starts from the stock of today (your file, or an estimate) and the orders already on the way;
+3. day by day it subtracts the expected sales, adds the deliveries and, when *stock + on order* falls to the
+   reorder point, it places an order of one lot;
+4. the orders of today, grouped by supplier, are the list to send; the following days form the calendar.
+
+Example: stock 60, on order 0, expected sales 10 a day, lead time 5 days, lot 70. Reorder point = 5 × 10 = 50. Today
+sales bring the stock to 50 → **order 70 today**, it arrives in 5 days, when the stock would be at 10.
+
+If your sales end in the past, the page moves every date forward by **whole weeks** so the history ends just before
+today (Mondays stay Mondays) and estimates the few days in between with the forecast.
+
+**Supplier terms and limits** (optional) change the list:
+
+| Constraint | What happens | Example |
+|---|---|---|
+| Order / delivery days | the item is ordered only on those days, and early enough to last until the next one | orders on Tuesday only: on Tuesday it orders enough for the whole week |
+| Minimum quantity, packs | the quantity is raised to the minimum and rounded up to whole packs | 25 needed, packs of 12 → 36 |
+| Quantity discount | a line close to the threshold is raised to it and bought at the discount | 100 needed, 3% from 120 → buys 120 |
+| Minimum order € | a small order waits for the next order day, unless something is about to run out: then it is filled up to the minimum | €180 of goods, minimum €300 → wait, or add packs |
+| Weekly budget | the most urgent lines first, the others wait | budget €5,000: the 6th line of €900 moves to next week |
+| Warehouse space | stock + on order never above the capacity of the store | |
+
+The page shows what the constraints cost compared with ordering freely (more stock, discounts obtained, lines
+postponed).
+""", """
+La pagina **Ordini** applica la regola P2 da **oggi** in avanti e la trasforma in una lista:
+
+1. prevede le prossime settimane per ogni prodotto e negozio;
+2. parte dalla giacenza di oggi (il tuo file, o una stima) e dagli ordini già in arrivo;
+3. giorno per giorno toglie le vendite previste, aggiunge le consegne e, quando *giacenza + ordinato* scende al punto
+   di riordino, fa un ordine di un lotto;
+4. gli ordini di oggi, raggruppati per fornitore, sono la lista da inviare; i giorni seguenti formano il calendario.
+
+Esempio: giacenza 60, ordinato 0, vendite previste 10 al giorno, consegna in 5 giorni, lotto 70. Punto di riordino =
+5 × 10 = 50. Le vendite di oggi portano la giacenza a 50 → **ordina 70 oggi**, arrivano tra 5 giorni, quando la
+giacenza sarebbe a 10.
+
+Se le tue vendite finiscono nel passato, la pagina sposta ogni data avanti di **settimane intere** così lo storico
+finisce poco prima di oggi (i lunedì restano lunedì) e stima con la previsione i pochi giorni in mezzo.
+
+I **vincoli dei fornitori e i limiti** (facoltativi) cambiano la lista:
+
+| Vincolo | Cosa succede | Esempio |
+|---|---|---|
+| Giorni d'ordine / di consegna | l'articolo si ordina solo in quei giorni, e abbastanza da durare fino al prossimo | ordini solo il martedì: il martedì ordina per tutta la settimana |
+| Quantità minima, confezioni | la quantità sale al minimo e si arrotonda a confezioni intere | servono 25, confezioni da 12 → 36 |
+| Sconto quantità | una riga vicina alla soglia viene portata alla soglia e comprata scontata | servono 100, 3% da 120 → ne compra 120 |
+| Ordine minimo € | un ordine piccolo aspetta il prossimo giorno d'ordine, a meno che qualcosa stia per finire: allora viene completato fino al minimo | merce per €180, minimo €300 → aspetta, o aggiunge confezioni |
+| Budget settimanale | prima le righe più urgenti, le altre aspettano | budget €5.000: la 6ª riga da €900 passa alla settimana dopo |
+| Spazio a magazzino | giacenza + ordinato mai sopra la capienza del negozio | |
+
+La pagina mostra quanto costano i vincoli rispetto a ordinare liberamente (più scorta, sconti ottenuti, righe
+rinviate).
+"""))
+
+# --------------------------------------------------------------------------- 6 simulation
 with t_sim:
     st.header(tx("The simulation: replaying the test period day by day",
                  "La simulazione: rigiocare il periodo di test giorno per giorno"))
@@ -362,7 +513,7 @@ vista *calibrata*; la vista *fissa* usa invece la z da manuale = 1,645.
   già gran parte della domanda.
 """))
 
-# --------------------------------------------------------------------------- 6 KPIs
+# --------------------------------------------------------------------------- 7 KPIs
 with t_kpi:
     st.header(tx("KPIs and costs", "KPI e costi"))
     st.markdown(tx("""
@@ -412,7 +563,7 @@ Quando si combinano più prodotti o negozi, il software **somma prima i totali**
 di due prodotti è (venduto₁ + venduto₂) ÷ (domanda₁ + domanda₂), mai la media delle due percentuali.
 """))
 
-# --------------------------------------------------------------------------- 7 charts
+# --------------------------------------------------------------------------- 8 charts
 with t_charts:
     st.header(tx("How to read the charts", "Come leggere i grafici"))
     st.markdown(tx("""
@@ -431,6 +582,13 @@ with t_charts:
 | Inventory | **Total cost vs. fill rate** | where the cheapest service level lies with the current cost assumptions |
 | Inventory | **Units on hand, day by day** | the saw-tooth: a delivery makes it jump up, sales bring it down; red ticks = days with lost sales |
 | Inventory | **Sensitivity** | how much stock you need for longer lead times (darker line) or higher targets |
+| Orders | **Orders and deliveries in the next 4 weeks** | blue = value of the orders to place each day, gray = deliveries expected; the orange line is today |
+| Orders | **Calendar** | each box is a day: :material/shopping_cart: orders and their value, :material/local_shipping: deliveries; click it for the list |
+| Orders | **Projected stock** | blue = stock at the end of each day, dotted = reorder point, orange triangles = orders, green squares = deliveries |
+| Promotions | **Extra sales during a promotion** | blue bar = expected extra sales at the chosen discount, black tick = what was observed at the product's own discounts |
+| Promotions | **Units per day and promotions** | orange bands = promotion days: sales jump inside, often dip right after |
+| Promotions | **Forecast error on normal and promotion days** | the gray "like last week" bar explodes in the week after a promotion: it repeats the peak |
+| Promotions | **Before, during and after the promotion** | gray = normal sales, blue = expected with the planned promotion |
 """, """
 | Pagina | Grafico | Come leggerlo |
 |---|---|---|
@@ -447,9 +605,16 @@ with t_charts:
 | Scorte | **Costo totale vs. fill rate** | dove si trova il livello di servizio più economico con le ipotesi di costo attuali |
 | Scorte | **Pezzi a magazzino, giorno per giorno** | il dente di sega: una consegna lo fa salire, le vendite lo fanno scendere; tacche rosse = giorni con vendite perse |
 | Scorte | **Sensibilità** | quanta scorta serve con tempi di consegna più lunghi (linea più scura) o obiettivi più alti |
+| Ordini | **Ordini e consegne nelle prossime 4 settimane** | blu = valore degli ordini da fare ogni giorno, grigio = consegne attese; la linea arancione è oggi |
+| Ordini | **Calendario** | ogni riquadro è un giorno: :material/shopping_cart: ordini e loro valore, :material/local_shipping: consegne; cliccalo per la lista |
+| Ordini | **Scorta prevista** | blu = scorta a fine giornata, puntinato = punto di riordino, triangoli arancioni = ordini, quadrati verdi = consegne |
+| Promozioni | **Vendite in più durante una promozione** | barra blu = vendite in più attese allo sconto scelto, tacca nera = quanto osservato con gli sconti del prodotto |
+| Promozioni | **Pezzi al giorno e promozioni** | bande arancioni = giorni di promozione: le vendite salgono dentro e spesso calano subito dopo |
+| Promozioni | **Errore nei giorni normali e in promozione** | la barra grigia "come la settimana scorsa" esplode nella settimana dopo una promozione: ne ripete il picco |
+| Promozioni | **Prima, durante e dopo la promozione** | grigio = vendite normali, blu = attese con la promozione pianificata |
 """))
 
-# --------------------------------------------------------------------------- 8 glossary
+# --------------------------------------------------------------------------- 9 glossary
 with t_glossary:
     st.header(tx("Glossary", "Glossario"))
     st.markdown(tx("""
@@ -462,6 +627,11 @@ with t_glossary:
 | **Origin** | the day a forecast is made (one every 7 days) |
 | **Horizon** | how many days ahead a forecast looks (1 to 14) |
 | **Leakage** | accidentally using future information; the software is tested to prevent it |
+| **Promotion day** | a day with a promo flag in the file, or a price at least 8% below the regular price |
+| **Lift** | sales on promotion ÷ normal sales (1.8 = +80%) |
+| **Post-promotion dip** | lower sales in the week after a promotion, because customers stocked up |
+| **Purchase plan** | the orders the rule would place from today on, with their suppliers and arrival dates |
+| **Days of cover** | how many days the stock lasts at the expected sales |
 | **Calibration** | tuning each policy so that all reach the same fill rate before comparing them |
 | **Scenario** | the stores, products and channels selected in the sidebar |
 | **Physical / online channel** | in a physical store an unmet customer leaves; online, most customers wait for the delivery |
@@ -477,6 +647,11 @@ with t_glossary:
 | **Origine** | il giorno in cui si fa una previsione (una ogni 7 giorni) |
 | **Orizzonte** | quanti giorni avanti guarda una previsione (da 1 a 14) |
 | **Leakage** | usare per errore informazioni dal futuro; il software è testato per evitarlo |
+| **Giorno di promozione** | un giorno segnato come promozione nel file, o con un prezzo almeno l'8% sotto quello normale |
+| **Lift (effetto)** | vendite in promozione ÷ vendite normali (1,8 = +80%) |
+| **Calo post-promozione** | vendite più basse nella settimana dopo una promozione, perché i clienti hanno fatto scorta |
+| **Piano acquisti** | gli ordini che la regola farebbe da oggi in avanti, con fornitori e date di arrivo |
+| **Giorni di copertura** | quanti giorni dura la scorta alle vendite previste |
 | **Calibrazione** | regolare ogni politica perché tutte raggiungano lo stesso fill rate prima di confrontarle |
 | **Scenario** | i negozi, i prodotti e i canali scelti nella barra laterale |
 | **Canale fisico / online** | in un negozio fisico il cliente non servito se ne va; online, la maggior parte aspetta la consegna |

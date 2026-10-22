@@ -24,7 +24,9 @@ pages = [
     st.Page("views/overview.py", title=tx("Overview", "Panoramica"), icon=":material/insights:", default=True),
     st.Page("views/demand.py", title=tx("Demand", "Domanda"), icon=":material/bar_chart:"),
     st.Page("views/forecast.py", title=tx("Forecast", "Previsioni"), icon=":material/timeline:"),
+    st.Page("views/promotions.py", title=tx("Promotions", "Promozioni"), icon=":material/sell:"),
     st.Page("views/inventory.py", title=tx("Inventory", "Scorte"), icon=":material/inventory_2:"),
+    st.Page("views/orders.py", title=tx("Orders", "Ordini"), icon=":material/shopping_cart:"),
     st.Page("views/data.py", title=tx("Data", "Dati"), icon=":material/upload_file:"),
     st.Page("views/summary.py", title=tx("Summary", "Riepilogo"), icon=":material/menu_book:"),
 ]

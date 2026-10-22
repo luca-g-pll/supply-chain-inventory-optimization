@@ -1,33 +1,33 @@
-item,name,category,supplier,lead_time_days,unit_price,unit_cost,status
-BEV-001,Acqua naturale 6x1.5L,Beverages,Beverage distributor (regional),2,2.69,1.48,active
-BEV-002,Acqua frizzante 6x1.5L,Beverages,Beverage distributor (regional),2,2.99,1.64,active
-BEV-003,Tè freddo pesca 1.5L,Beverages,Beverage distributor (regional),2,1.59,0.95,active
-BEV-004,Birra lager 66cl,Beverages,Beverage distributor (regional),2,1.39,0.86,active
-BEV-005,Succo d'arancia 1L,Beverages,Beverage distributor (regional),2,1.99,1.19,active
-BEV-006,Ghiaccioli al limone x10,Beverages,Beverage distributor (regional),2,3.29,1.91,active
-BEV-007,Bevanda energetica zero 33cl,Beverages,Beverage distributor (regional),2,1.69,0.93,launched 2023-03-01
-BEV-008,Acqua naturale cassa 24 bottiglie,Beverages,Beverage distributor (regional),2,6.49,3.57,active
-GRO-001,Spaghetti 500g,Grocery,Grocery wholesaler,4,1.09,0.71,active
-GRO-002,Penne rigate 500g,Grocery,Grocery wholesaler,4,1.09,0.71,active
-GRO-003,Riso Carnaroli 1kg,Grocery,Grocery wholesaler,4,3.79,2.35,active
-GRO-004,Olio extravergine di oliva 1L,Grocery,Grocery wholesaler,4,9.79,7.05,active
-GRO-005,Passata di pomodoro 700g,Grocery,Grocery wholesaler,4,1.29,0.77,active
-GRO-006,Caffè macinato 250g,Grocery,Grocery wholesaler,4,3.59,2.37,active
-GRO-007,Biscotti frollini 700g,Grocery,Grocery wholesaler,4,3.09,1.85,active
-GRO-008,Zucchero 1kg,Grocery,Grocery wholesaler,4,1.29,0.9,active
-GRO-009,Farina 00 1kg,Grocery,Grocery wholesaler,4,0.99,0.67,active
-GRO-010,Cioccolata calda in polvere,Grocery,Grocery wholesaler,4,2.69,1.56,active
-HOM-001,Carta igienica 8 rotoli,Household,Household goods supplier,6,4.39,2.63,active
-HOM-002,Carta cucina 4 rotoli,Household,Household goods supplier,6,3.29,1.97,active
-HOM-003,Detersivo piatti 1L,Household,Household goods supplier,6,2.19,1.2,active
-HOM-004,Sapone mani 500ml,Household,Household goods supplier,6,1.99,1.09,active
-HOM-005,Detersivo lavatrice 30 lavaggi,Household,Household goods supplier,6,8.69,5.04,discontinued 2023-09-30
-HOM-006,Detersivo lavatrice EcoPlus 30 lavaggi,Household,Household goods supplier,6,9.19,5.15,launched 2023-10-01
-HOM-007,Crema solare SPF30 200ml,Household,Household goods supplier,6,13.99,7.0,active
-SEA-001,Panettone classico 1kg,Seasonal confectionery,Confectionery (seasonal),12,10.69,5.88,active
-SEA-002,Pandoro 1kg,Seasonal confectionery,Confectionery (seasonal),12,10.29,5.66,active
-SEA-003,Colomba pasquale 750g,Seasonal confectionery,Confectionery (seasonal),12,9.69,5.33,active
-APP-001,Bollitore elettrico 1.7L,Small appliances,Small appliances importer,21,26.89,16.67,active
-APP-002,Tostapane 2 fette,Small appliances,Small appliances importer,21,32.29,20.02,active
-APP-003,Lampadine LED E27 x3,Small appliances,Small appliances importer,21,10.69,5.88,active
-APP-004,Ventilatore da tavolo,Small appliances,Small appliances importer,21,37.69,22.61,active
+item,name,category,supplier,lead_time_days,pack_size,min_order_qty,unit_price,unit_cost,status
+BEV-001,Acqua naturale 6x1.5L,Beverages,Beverage distributor (regional),2,6,,2.69,1.48,active
+BEV-002,Acqua frizzante 6x1.5L,Beverages,Beverage distributor (regional),2,6,,2.99,1.64,active
+BEV-003,Tè freddo pesca 1.5L,Beverages,Beverage distributor (regional),2,6,,1.59,0.95,active
+BEV-004,Birra lager 66cl,Beverages,Beverage distributor (regional),2,6,,1.39,0.86,active
+BEV-005,Succo d'arancia 1L,Beverages,Beverage distributor (regional),2,6,,1.99,1.19,active
+BEV-006,Ghiaccioli al limone x10,Beverages,Beverage distributor (regional),2,6,,3.29,1.91,active
+BEV-007,Bevanda energetica zero 33cl,Beverages,Beverage distributor (regional),2,6,,1.69,0.93,launched 2023-03-01
+BEV-008,Acqua naturale cassa 24 bottiglie,Beverages,Beverage distributor (regional),2,6,,6.49,3.57,active
+GRO-001,Spaghetti 500g,Grocery,Grocery wholesaler,4,12,,1.09,0.71,active
+GRO-002,Penne rigate 500g,Grocery,Grocery wholesaler,4,12,,1.09,0.71,active
+GRO-003,Riso Carnaroli 1kg,Grocery,Grocery wholesaler,4,12,,3.79,2.35,active
+GRO-004,Olio extravergine di oliva 1L,Grocery,Grocery wholesaler,4,12,,9.79,7.05,active
+GRO-005,Passata di pomodoro 700g,Grocery,Grocery wholesaler,4,12,,1.29,0.77,active
+GRO-006,Caffè macinato 250g,Grocery,Grocery wholesaler,4,12,,3.59,2.37,active
+GRO-007,Biscotti frollini 700g,Grocery,Grocery wholesaler,4,12,,3.09,1.85,active
+GRO-008,Zucchero 1kg,Grocery,Grocery wholesaler,4,12,,1.29,0.9,active
+GRO-009,Farina 00 1kg,Grocery,Grocery wholesaler,4,12,,0.99,0.67,active
+GRO-010,Cioccolata calda in polvere,Grocery,Grocery wholesaler,4,12,,2.69,1.56,active
+HOM-001,Carta igienica 8 rotoli,Household,Household goods supplier,6,6,,4.39,2.63,active
+HOM-002,Carta cucina 4 rotoli,Household,Household goods supplier,6,6,,3.29,1.97,active
+HOM-003,Detersivo piatti 1L,Household,Household goods supplier,6,6,,2.19,1.2,active
+HOM-004,Sapone mani 500ml,Household,Household goods supplier,6,6,,1.99,1.09,active
+HOM-005,Detersivo lavatrice 30 lavaggi,Household,Household goods supplier,6,6,,8.69,5.04,discontinued 2023-09-30
+HOM-006,Detersivo lavatrice EcoPlus 30 lavaggi,Household,Household goods supplier,6,6,,9.19,5.15,launched 2023-10-01
+HOM-007,Crema solare SPF30 200ml,Household,Household goods supplier,6,6,,13.99,7.0,active
+SEA-001,Panettone classico 1kg,Seasonal confectionery,Confectionery (seasonal),12,6,12.0,10.69,5.88,active
+SEA-002,Pandoro 1kg,Seasonal confectionery,Confectionery (seasonal),12,6,12.0,10.29,5.66,active
+SEA-003,Colomba pasquale 750g,Seasonal confectionery,Confectionery (seasonal),12,6,12.0,9.69,5.33,active
+APP-001,Bollitore elettrico 1.7L,Small appliances,Small appliances importer,21,1,2.0,26.89,16.67,active
+APP-002,Tostapane 2 fette,Small appliances,Small appliances importer,21,1,2.0,32.29,20.02,active
+APP-003,Lampadine LED E27 x3,Small appliances,Small appliances importer,21,1,2.0,10.69,5.88,active
+APP-004,Ventilatore da tavolo,Small appliances,Small appliances importer,21,1,2.0,37.69,22.61,active

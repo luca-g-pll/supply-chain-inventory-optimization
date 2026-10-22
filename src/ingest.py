@@ -25,11 +25,12 @@ from typing import BinaryIO
 import numpy as np
 import pandas as pd
 
-from src.config import InputConfig, InventoryParams, PricesConfig
+from src.config import InputConfig, InventoryParams, PricesConfig, PromotionsConfig
 from src.series import DemandMatrix, natural_sorted
 
 REQUIRED = ("date", "item", "quantity")
-OPTIONAL = ("store", "unit_price", "unit_cost", "channel", "lead_time_days")
+OPTIONAL = ("store", "unit_price", "unit_cost", "channel", "lead_time_days", "promo", "supplier", "item_name",
+            "pack_size", "min_order_qty")
 FIELDS = REQUIRED + OPTIONAL
 SINGLE_STORE = "ALL"
 
@@ -52,6 +53,18 @@ SYNONYMS: dict[str, list[str]] = {
     "channel": ["channel", "canale", "sales_channel", "canale_vendita"],
     "lead_time_days": ["lead_time_days", "lead_time", "leadtime", "lt", "tempo_consegna",
                        "giorni_consegna", "lead_days", "lead_time_giorni"],
+    "promo": ["promo", "promotion", "promozione", "in_promo", "promo_flag", "on_promotion", "onpromotion",
+              "offerta", "in_offerta", "volantino", "sconto", "discount", "sconto_pct", "discount_pct",
+              "promo_discount", "sconto_promo"],
+    "supplier": ["supplier", "fornitore", "vendor", "supplier_name", "nome_fornitore", "fornitore_principale",
+                 "produttore", "manufacturer", "ragione_sociale_fornitore", "cod_fornitore", "supplier_code"],
+    "item_name": ["item_name", "name", "descrizione", "description", "nome", "product_name", "nome_prodotto",
+                  "descrizione_articolo", "item_description", "desc", "articolo_descrizione"],
+    "pack_size": ["pack_size", "confezione", "pezzi_confezione", "pz_confezione", "pezzi_per_collo", "collo",
+                  "case_size", "units_per_case", "multiplo", "multiplo_ordine", "order_multiple", "inner_pack",
+                  "conf"],
+    "min_order_qty": ["min_order_qty", "moq", "minimo_ordine", "qta_minima", "quantita_minima", "lotto_minimo",
+                      "minimum_order_quantity", "min_qty"],
 }
 _ONLINE = {"online", "web", "ecommerce", "e_commerce", "internet", "digital", "eshop", "e_shop",
            "webshop", "sito", "marketplace", "on_line"}
@@ -199,6 +212,11 @@ class ColumnMapping:
     unit_cost: str | None = None
     channel: str | None = None
     lead_time_days: str | None = None
+    promo: str | None = None
+    supplier: str | None = None
+    item_name: str | None = None
+    pack_size: str | None = None
+    min_order_qty: str | None = None
 
     @classmethod
     def from_dict(cls, mapping: dict[str, str | None]) -> ColumnMapping:
@@ -303,12 +321,14 @@ def normalise_channel(values: pd.Series) -> tuple[pd.Series, int]:
 @dataclass
 class StandardisedData:
     sales: pd.DataFrame          # [date, store, item, sales] zero-filled from each series' first day
-    item_master: pd.DataFrame    # [item, unit_price, unit_cost, lead_time_days, price_source, cost_source]
+    item_master: pd.DataFrame    # [item, unit_price, unit_cost, lead_time_days, price_source, cost_source,
+    #                               supplier, item_name, pack_size, min_order_qty]
     stores: pd.DataFrame         # [store, channel, channel_source]
     source: str                  # "demo" | "file"
     file_name: str = ""
     file_hash: str = ""
     notes: dict = field(default_factory=dict)
+    promo: pd.DataFrame | None = None  # [date, store, item, discount], promotion days only
 
     @property
     def date_min(self) -> pd.Timestamp:
@@ -323,19 +343,20 @@ class StandardisedData:
         return int(self.sales[["store", "item"]].drop_duplicates().shape[0])
 
     def matrix(self) -> DemandMatrix:
-        return DemandMatrix.from_long(self.sales)
+        return DemandMatrix.from_long(self.sales, promo=self.promo)
 
 
 def standardise(raw: pd.DataFrame, mapping: ColumnMapping, cfg: InputConfig, prices: PricesConfig,
                 inventory: InventoryParams, source: str = "file", file_name: str = "",
-                file_hash_value: str = "") -> StandardisedData:
+                file_hash_value: str = "", promotions: PromotionsConfig | None = None) -> StandardisedData:
     """Apply the input contract. Raises ``InputError`` on blocking problems.
 
     1) rename columns  2) parse dates and numbers  3) IDs as text  4) negative
     quantities -> clip or reject  5) sum per (date, store, item)  6) zero-fill
     each series from its first day to the last day in the file  7) item master
     (last known price / cost / lead time) and store table (channel), with
-    documented fallbacks flagged as *assumed*.
+    documented fallbacks flagged as *assumed*  8) promotion days, from the promo
+    column or from discounted prices (``src.promotions``).
     """
     for fld, col in mapping.as_dict().items():
         if col is not None and col not in raw.columns:
@@ -393,12 +414,15 @@ def standardise(raw: pd.DataFrame, mapping: ColumnMapping, cfg: InputConfig, pri
 
     # ---- item master
     attrs = pd.DataFrame({"date": dates[keep], "item": item[keep].astype(str)})
-    for fld in ("unit_price", "unit_cost", "lead_time_days"):
+    for fld in ("unit_price", "unit_cost", "lead_time_days", "pack_size", "min_order_qty"):
         col = getattr(mapping, fld)
         attrs[fld] = parse_numbers(raw.loc[keep, col]) if col else np.nan
     attrs.loc[attrs["unit_price"] <= 0, "unit_price"] = np.nan
     attrs.loc[attrs["unit_cost"] <= 0, "unit_cost"] = np.nan
     attrs.loc[attrs["lead_time_days"] < 1, "lead_time_days"] = np.nan
+    for fld in ("supplier", "item_name"):
+        col = getattr(mapping, fld)
+        attrs[fld] = raw.loc[keep, col].astype("string").str.strip().replace("", pd.NA) if col else pd.NA
     master = current_item_values(attrs)
     items = natural_sorted(sales["item"].unique())
     master = master.reindex(items)
@@ -421,8 +445,25 @@ def standardise(raw: pd.DataFrame, mapping: ColumnMapping, cfg: InputConfig, pri
     else:
         stores = pd.DataFrame({"store": store_ids, "channel": "physical", "channel_source": "default"})
 
+    # ---- promotions
+    from src.promotions import parse_promo_values, promo_from_rows, promo_note
+
+    rows = pd.DataFrame({"date": dates[keep], "store": store[keep].astype(str), "item": item[keep].astype(str),
+                         "quantity": qty[keep], "unit_price": attrs["unit_price"],
+                         "promo": parse_promo_values(raw.loc[keep, mapping.promo]) if mapping.promo else 0.0})
+    promo_cfg = promotions or PromotionsConfig()
+    promo, promo_source, promo_notes = promo_from_rows(rows, promo_cfg, has_flag=mapping.promo is not None,
+                                                       has_price=mapping.unit_price is not None)
+    if promo_source is not None:
+        promo = promo.merge(sales[["date", "store", "item"]], on=["date", "store", "item"])
+        promo_notes.append(promo_note(promo, promo_source, promo_cfg))
+    notes["promo_source"] = promo_source
+    notes["promo_days"] = int(len(promo))
+    assumptions.extend(promo_notes)
+
     return StandardisedData(sales=sales, item_master=master, stores=stores, source=source,
-                            file_name=file_name, file_hash=file_hash_value, notes=notes)
+                            file_name=file_name, file_hash=file_hash_value, notes=notes,
+                            promo=promo if promo_source is not None else None)
 
 
 def current_item_values(attrs: pd.DataFrame, window_days: int = 90) -> pd.DataFrame:
@@ -437,9 +478,17 @@ def current_item_values(attrs: pd.DataFrame, window_days: int = 90) -> pd.DataFr
     recent = attrs[attrs["date"] > last - pd.Timedelta(days=window_days)]
     out = recent.groupby("item")[["unit_price", "unit_cost"]].median()
     out["lead_time_days"] = attrs.groupby("item")["lead_time_days"].last()
+    for fld in ("pack_size", "min_order_qty"):
+        if fld in attrs:
+            out[fld] = attrs.groupby("item")[fld].last()
+    for fld in ("supplier", "item_name"):
+        if fld in attrs:
+            out[fld] = attrs.dropna(subset=[fld]).groupby("item")[fld].last()
     # items whose price only appears before the window: fall back to their last known value
     older = attrs.groupby("item")[["unit_price", "unit_cost"]].last()
-    return out.combine_first(older)[["unit_price", "unit_cost", "lead_time_days"]]
+    cols = ["unit_price", "unit_cost", "lead_time_days"] + [f for f in ("supplier", "item_name", "pack_size",
+                                                                        "min_order_qty") if f in out]
+    return out.combine_first(older)[cols]
 
 
 def _fill_item_master(master: pd.DataFrame, prices: PricesConfig, inventory: InventoryParams) -> pd.DataFrame:
@@ -461,7 +510,13 @@ def _fill_item_master(master: pd.DataFrame, prices: PricesConfig, inventory: Inv
     master.loc[missing_cost, "unit_cost"] = master.loc[missing_cost, "unit_price"] * inventory.cost_to_price_ratio
     master.loc[missing_cost, "cost_source"] = "derived"
     master["lead_time_days"] = pd.to_numeric(master["lead_time_days"], errors="coerce").round().astype("Int64")
-    return master[["item", "unit_price", "unit_cost", "lead_time_days", "price_source", "cost_source"]]
+    for fld in ("supplier", "item_name"):
+        master[fld] = master[fld].astype("string").fillna("") if fld in master else ""
+    for fld in ("pack_size", "min_order_qty"):
+        vals = pd.to_numeric(master[fld], errors="coerce") if fld in master else pd.Series(np.nan, index=master.index)
+        master[fld] = vals.where(vals >= 1).round()
+    return master[["item", "unit_price", "unit_cost", "lead_time_days", "price_source", "cost_source",
+                   "supplier", "item_name", "pack_size", "min_order_qty"]]
 
 
 def item_assumptions(master: pd.DataFrame, prices: PricesConfig, inventory: InventoryParams) -> list[str]:
@@ -489,8 +544,11 @@ def merge_item_master(data: StandardisedData, master_raw: pd.DataFrame, prices: 
     if not mapping.get("item"):
         raise InputError("The item master needs an item column.")
     upd = pd.DataFrame({"item": master_raw[mapping["item"]].astype("string").str.strip().astype(str)})
-    for fld in ("unit_price", "unit_cost", "lead_time_days"):
+    for fld in ("unit_price", "unit_cost", "lead_time_days", "pack_size", "min_order_qty"):
         upd[fld] = parse_numbers(master_raw[mapping[fld]]) if mapping.get(fld) else np.nan
+    for fld in ("supplier", "item_name"):
+        upd[fld] = (master_raw[mapping[fld]].astype("string").str.strip().fillna("") if mapping.get(fld)
+                    else pd.Series("", index=master_raw.index, dtype="string"))
     upd = upd.drop_duplicates("item", keep="last").set_index("item")
 
     master = data.item_master.set_index("item").copy()
@@ -504,10 +562,21 @@ def merge_item_master(data: StandardisedData, master_raw: pd.DataFrame, prices: 
             master.loc[new.index, fld] = new.round().astype("Int64") if fld == "lead_time_days" else new
             if source_col:
                 master.loc[new.index, source_col] = source
+    for fld in ("pack_size", "min_order_qty"):
+        new = upd.loc[common, fld]
+        new = new[new.notna() & (new >= 1)]
+        if len(new):
+            master.loc[new.index, fld] = new
+    for fld in ("supplier", "item_name"):
+        new = upd.loc[common, fld]
+        new = new[new != ""]
+        if len(new):
+            master.loc[new.index, fld] = new
     master = _fill_item_master(master.reset_index(), prices, inventory)
     notes = dict(data.notes)
     notes["item_master_items"] = int(len(common))
-    return StandardisedData(data.sales, master, data.stores, data.source, data.file_name, data.file_hash, notes)
+    return StandardisedData(data.sales, master, data.stores, data.source, data.file_name, data.file_hash, notes,
+                            data.promo)
 
 
 # --------------------------------------------------------------------------- validate

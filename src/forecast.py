@@ -205,7 +205,7 @@ class LightGBMForecaster:
     name = "lightgbm"
 
     def __init__(self, params: dict, num_boost_round: int, horizon: int, lags, rolling_windows,
-                 yearly: bool = True, n_jobs: int = -1):
+                 yearly: bool = True, n_jobs: int = -1, use_promo: bool = True, post_promo_days: int = 7):
         self.params = dict(params)
         self.num_boost_round = num_boost_round
         self.horizon = horizon
@@ -213,6 +213,8 @@ class LightGBMForecaster:
         self.rolling_windows = tuple(rolling_windows)
         self.yearly = yearly
         self.n_jobs = n_jobs
+        self.use_promo = use_promo
+        self.post_promo_days = post_promo_days
         self._cache_key = None
         self._features = None
         self._values = None
@@ -227,8 +229,13 @@ class LightGBMForecaster:
             dates = pd.date_range(dm.dates[0], periods=t + self.horizon, freq="D")
             store_codes = pd.Categorical(dm.keys["store"]).codes
             item_codes = pd.Categorical(dm.keys["item"]).codes
+            promo = None
+            if self.use_promo and dm.promo is not None and (dm.promo > 0).any():
+                # promotions are planned in advance: none is known beyond the data
+                promo = np.concatenate([dm.promo, np.zeros((n, self.horizon))], axis=1)
             self._features = build_features(values, dates, store_codes, item_codes, self.lags,
-                                            self.rolling_windows, min_lag=self.horizon, yearly=self.yearly)
+                                            self.rolling_windows, min_lag=self.horizon, yearly=self.yearly,
+                                            promo=promo, post_promo_days=self.post_promo_days)
             self._values = values
             self._cache_key = key
         return self._features
@@ -421,20 +428,32 @@ def lead_time_demand(forecast: np.ndarray, origins: np.ndarray, decision_days: n
     return out
 
 
-def get_model(name: str, cfg, profile, fast: bool = False, n_jobs: int = -1):
-    """Factory for the configured models."""
+def get_model(name: str, cfg, profile, fast: bool = False, n_jobs: int = -1, promotions: bool = False):
+    """Factory for the configured models.
+
+    ``promotions=True`` (the data has promotion days) wraps the moving average and
+    Holt-Winters in :class:`~src.promotions.PromoAware`; LightGBM reads the
+    promotion features itself; the seasonal-naive baseline stays promotion-blind.
+    """
+    from src.promotions import PROMO_ADJUSTED, PromoAware
+
     fc = cfg.forecast
     if name == "seasonal_naive":
-        return SeasonalNaive(7)
-    if name == "moving_average":
-        return MovingAverage(fc.ma_window)
-    if name == "holt_winters":
-        return HoltWinters(fc.holt_winters.seasonal_periods, n_jobs=n_jobs)
-    if name == "lightgbm":
+        model = SeasonalNaive(7)
+    elif name == "moving_average":
+        model = MovingAverage(fc.ma_window)
+    elif name == "holt_winters":
+        model = HoltWinters(fc.holt_winters.seasonal_periods, n_jobs=n_jobs)
+    elif name == "lightgbm":
         rounds = cfg.fast_mode.lightgbm_num_boost_round if fast else fc.lightgbm.num_boost_round
         return LightGBMForecaster(fc.lightgbm.params, rounds, fc.horizon, profile.lags,
-                                  profile.rolling_windows, profile.yearly_features, n_jobs=n_jobs)
-    raise ValueError(f"Unknown model {name!r}")
+                                  profile.rolling_windows, profile.yearly_features, n_jobs=n_jobs,
+                                  use_promo=promotions, post_promo_days=cfg.promotions.post_promo_days)
+    else:
+        raise ValueError(f"Unknown model {name!r}")
+    if promotions and name in PROMO_ADJUSTED:
+        return PromoAware(model, cfg.promotions)
+    return model
 
 
 def refit_schedule(cfg, fast: bool = False) -> dict[str, int]:
