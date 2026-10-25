@@ -200,12 +200,20 @@ class HoltWinters:
 
 # --------------------------------------------------------------------------- LightGBM
 class LightGBMForecaster:
-    """One global LightGBM model on all series (direct approach, ADR-0002)."""
+    """One global LightGBM model on all series (direct approach, ADR-0002).
+
+    Large datasets (methodology §4.6): when the training rows exceed ``max_train_rows``
+    the model is trained on a random sample of series that contains every item at
+    least once (a global model learns patterns shared across series, so a sample is
+    enough), and features and forecasts are computed in blocks of ``chunk_series``
+    series, so memory does not grow with the number of series.
+    """
 
     name = "lightgbm"
 
     def __init__(self, params: dict, num_boost_round: int, horizon: int, lags, rolling_windows,
-                 yearly: bool = True, n_jobs: int = -1, use_promo: bool = True, post_promo_days: int = 7):
+                 yearly: bool = True, n_jobs: int = -1, use_promo: bool = True, post_promo_days: int = 7,
+                 max_train_rows: int = 1_500_000, chunk_series: int = 2_000, seed: int = 42):
         self.params = dict(params)
         self.num_boost_round = num_boost_round
         self.horizon = horizon
@@ -215,46 +223,88 @@ class LightGBMForecaster:
         self.n_jobs = n_jobs
         self.use_promo = use_promo
         self.post_promo_days = post_promo_days
+        self.max_train_rows = max_train_rows
+        self.chunk_series = chunk_series
+        self.seed = seed
         self._cache_key = None
         self._features = None
         self._values = None
         self.booster_ = None
         self.importance_: pd.Series | None = None
+        self.train_series_: int | None = None
+
+    # ------------------------------------------------------------------ features
+    def _codes(self, dm: DemandMatrix) -> tuple[np.ndarray, np.ndarray]:
+        return pd.Categorical(dm.keys["store"]).codes, pd.Categorical(dm.keys["item"]).codes
+
+    def _build(self, dm: DemandMatrix, rows: np.ndarray):
+        """Features and extended values (+ horizon NaN days) for the series ``rows``."""
+        n, t = len(rows), dm.n_days
+        values = np.concatenate([dm.values[rows], np.full((n, self.horizon), np.nan)], axis=1)
+        dates = pd.date_range(dm.dates[0], periods=t + self.horizon, freq="D")
+        store_codes, item_codes = self._codes(dm)
+        promo = None
+        if self.use_promo and dm.promo is not None and (dm.promo > 0).any():
+            # promotions are planned in advance: none is known beyond the data
+            promo = np.concatenate([dm.promo[rows], np.zeros((n, self.horizon))], axis=1)
+        fs = build_features(values, dates, store_codes[rows], item_codes[rows], self.lags, self.rolling_windows,
+                            min_lag=self.horizon, yearly=self.yearly, promo=promo,
+                            post_promo_days=self.post_promo_days)
+        return fs, values
 
     def _feature_set(self, dm: DemandMatrix):
+        """Whole-matrix features, cached (small data: one build serves every fit and predict)."""
         key = (id(dm), dm.values.shape)
         if self._cache_key != key:
-            n, t = dm.values.shape
-            values = np.concatenate([dm.values, np.full((n, self.horizon), np.nan)], axis=1)
-            dates = pd.date_range(dm.dates[0], periods=t + self.horizon, freq="D")
-            store_codes = pd.Categorical(dm.keys["store"]).codes
-            item_codes = pd.Categorical(dm.keys["item"]).codes
-            promo = None
-            if self.use_promo and dm.promo is not None and (dm.promo > 0).any():
-                # promotions are planned in advance: none is known beyond the data
-                promo = np.concatenate([dm.promo, np.zeros((n, self.horizon))], axis=1)
-            self._features = build_features(values, dates, store_codes, item_codes, self.lags,
-                                            self.rolling_windows, min_lag=self.horizon, yearly=self.yearly,
-                                            promo=promo, post_promo_days=self.post_promo_days)
-            self._values = values
+            self._features, self._values = self._build(dm, np.arange(dm.n_series))
             self._cache_key = key
         return self._features
 
+    def _chunked(self, dm: DemandMatrix) -> bool:
+        return dm.n_series > self.chunk_series
+
+    def _train_sample(self, dm: DemandMatrix, fit_end: int) -> np.ndarray:
+        """Series used for training: all of them, or a sample with every item when the rows exceed the cap."""
+        rows_per_series = np.clip(fit_end + 1 - (dm.start + self.horizon), 0, None)
+        total = int(rows_per_series.sum())
+        if total <= self.max_train_rows:
+            return np.arange(dm.n_series)
+        rng = np.random.default_rng(self.seed)
+        order = rng.permutation(dm.n_series)
+        items = dm.keys["item"].to_numpy()[order]
+        first_of_item = order[~pd.Series(items).duplicated().to_numpy()]      # one series per item
+        rest = np.setdiff1d(order, first_of_item, assume_unique=False)
+        rest = rest[rng.permutation(len(rest))]
+        chosen = np.concatenate([first_of_item, rest])
+        keep = np.searchsorted(np.cumsum(rows_per_series[chosen]), self.max_train_rows) + 1
+        return np.sort(chosen[: max(keep, len(first_of_item))])
+
+    # ------------------------------------------------------------------ fit / predict
     def fit(self, dm: DemandMatrix, fit_end: int) -> LightGBMForecaster:
         import lightgbm as lgb
 
-        fs = self._feature_set(dm)
-        day = np.arange(self._values.shape[1])[None, :]
-        mask = (day >= (dm.start[:, None] + self.horizon)) & (day <= fit_end) & ~np.isnan(self._values)
+        sample = self._train_sample(dm, fit_end)
+        if len(sample) == dm.n_series and not self._chunked(dm):
+            fs, values = self._feature_set(dm), self._values
+            start = dm.start
+        else:
+            fs, values = self._build(dm, sample)
+            start = dm.start[sample]
+        day = np.arange(values.shape[1])[None, :]
+        mask = (day >= (start[:, None] + self.horizon)) & (day <= fit_end) & ~np.isnan(values)
         ii, tt = np.nonzero(mask)
         if len(ii) == 0:
             raise ValueError("No training rows for LightGBM")
+        if len(ii) > self.max_train_rows:      # every item is in the sample: trim the extra rows at random
+            pick = np.random.default_rng(self.seed).choice(len(ii), self.max_train_rows, replace=False)
+            ii, tt = ii[pick], tt[pick]
         X = fs.rows(ii, tt)
-        y = self._values[ii, tt]
+        y = values[ii, tt]
         params = {"verbose": -1, **self.params, "num_threads": 0 if self.n_jobs in (-1, None) else self.n_jobs}
         ds = lgb.Dataset(X, y, feature_name=fs.names, categorical_feature=fs.categorical, free_raw_data=True)
         self.booster_ = lgb.train(params, ds, num_boost_round=self.num_boost_round)
         self.importance_ = pd.Series(self.booster_.feature_importance("gain"), index=fs.names)
+        self.train_series_ = len(sample)
         return self
 
     def predict(self, dm: DemandMatrix, origins: np.ndarray, horizon: int) -> np.ndarray:
@@ -262,16 +312,21 @@ class LightGBMForecaster:
             raise RuntimeError("fit() must be called before predict()")
         if horizon > self.horizon:
             raise ValueError(f"horizon {horizon} > model horizon {self.horizon} (features would leak)")
-        fs = self._feature_set(dm)
         origins = np.asarray(origins)
         d0, d1 = int(origins.min()) + 1, int(origins.max()) + horizon
         days = np.arange(d0, d1 + 1)
-        n = dm.n_series
-        ii = np.repeat(np.arange(n), len(days))
-        tt = np.tile(days, n)
-        pred = self.booster_.predict(fs.rows(ii, tt)).reshape(n, len(days))
         idx = origins[:, None] + np.arange(1, horizon + 1)[None, :] - d0
-        return np.clip(pred[:, idx], 0.0, None)
+        out = np.empty((dm.n_series, len(origins), horizon))
+        blocks = ([np.arange(dm.n_series)] if not self._chunked(dm)
+                  else np.array_split(np.arange(dm.n_series), int(np.ceil(dm.n_series / self.chunk_series))))
+        for rows in blocks:
+            fs = self._feature_set(dm) if not self._chunked(dm) else self._build(dm, rows)[0]
+            m = len(rows)
+            ii = np.repeat(np.arange(m), len(days))
+            tt = np.tile(days, m)
+            pred = self.booster_.predict(fs.rows(ii, tt)).reshape(m, len(days))
+            out[rows] = pred[:, idx]
+        return np.clip(out, 0.0, None)
 
 
 # --------------------------------------------------------------------------- back-test
@@ -448,7 +503,9 @@ def get_model(name: str, cfg, profile, fast: bool = False, n_jobs: int = -1, pro
         rounds = cfg.fast_mode.lightgbm_num_boost_round if fast else fc.lightgbm.num_boost_round
         return LightGBMForecaster(fc.lightgbm.params, rounds, fc.horizon, profile.lags,
                                   profile.rolling_windows, profile.yearly_features, n_jobs=n_jobs,
-                                  use_promo=promotions, post_promo_days=cfg.promotions.post_promo_days)
+                                  use_promo=promotions, post_promo_days=cfg.promotions.post_promo_days,
+                                  max_train_rows=cfg.scale.lightgbm_max_train_rows,
+                                  chunk_series=cfg.scale.predict_chunk_series)
     else:
         raise ValueError(f"Unknown model {name!r}")
     if promotions and name in PROMO_ADJUSTED:

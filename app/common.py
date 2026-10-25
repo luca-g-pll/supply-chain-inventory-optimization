@@ -100,6 +100,12 @@ def data_label(data: ActiveData) -> str:
 
 def detail_note(data: ActiveData) -> str:
     if data.source != "demo":
+        d = data.meta.get("detail") or {}
+        if d and d.get("n_detail", 0) < d.get("n_series", 0):
+            return tx(f"Large dataset: daily detail is kept for the {d['n_detail']:,} top-selling series out of "
+                      f"{d['n_series']:,}. Totals and KPIs cover every series.",
+                      f"Dataset grande: il dettaglio giornaliero è tenuto per le {d['n_detail']:,} serie più vendute su "
+                      f"{d['n_series']:,}. Totali e KPI coprono tutte le serie.")
         return ""
     d = data.extra.get("detail_stores", "")
     return tx(f"Daily detail is published for store {d} only (dataset licence). "

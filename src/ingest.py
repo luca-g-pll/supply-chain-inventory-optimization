@@ -664,10 +664,12 @@ def validate(data: StandardisedData, cfg: InputConfig, enforce_limits: bool = Fa
         lim = cfg.limits
         if report.n_rows_raw > lim.max_rows:
             report.errors.append(
-                f"{report.n_rows_raw:,} rows is above the online limit of {lim.max_rows:,}: run the analysis locally (see README).")
+                f"{report.n_rows_raw:,} rows is above the dashboard limit of {lim.max_rows:,}: use the batch mode "
+                "(python -m src.partition, see README).")
         if n_series > lim.max_series:
             report.errors.append(
-                f"{n_series:,} store-item series is above the online limit of {lim.max_series:,}: run the analysis locally (see README).")
+                f"{n_series:,} store-item series is above the dashboard limit of {lim.max_series:,}: use the batch "
+                "mode (python -m src.partition, see README).")
     if report.pct_zero_days > 0.5:
         report.warnings.append(
             f"{report.pct_zero_days:.0%} of the days have zero sales (intermittent demand): forecasts will be less reliable.")

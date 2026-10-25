@@ -38,9 +38,9 @@ class PathsConfig:
 
 @dataclass(frozen=True)
 class LimitsConfig:
-    max_file_mb: float = 50.0
-    max_rows: int = 2_000_000
-    max_series: int = 1_000
+    max_file_mb: float = 300.0
+    max_rows: int = 10_000_000
+    max_series: int = 10_000
 
 
 @dataclass(frozen=True)
@@ -111,6 +111,14 @@ class FastModeConfig:
     refit_every: int = 1000
     lightgbm_num_boost_round: int = 300
     holt_winters_max_series: int = 300
+
+
+@dataclass(frozen=True)
+class ScaleConfig:
+    lightgbm_max_train_rows: int = 1_500_000   # above this, LightGBM trains on a sample of series (every item kept)
+    predict_chunk_series: int = 2_000          # forecasts and features computed in blocks of series
+    holt_winters_max_series: int = 3_000       # full mode: above this Holt-Winters is skipped (one fit per series)
+    detail_max_series: int = 400               # daily detail tables only for the top-revenue series above this
 
 
 @dataclass(frozen=True)
@@ -186,6 +194,7 @@ class Config:
     simulation: SimulationConfig
     sensitivity: SensitivityConfig
     promotions: PromotionsConfig = field(default_factory=PromotionsConfig)
+    scale: ScaleConfig = field(default_factory=ScaleConfig)
     raw: dict[str, Any] = field(default_factory=dict, repr=False, compare=False)
 
     def replace(self, **changes: Any) -> Config:
@@ -443,6 +452,16 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
     _check(promotions.regular_price_window >= 7, "promotions.regular_price_window must be >= 7")
     _check(promotions.post_promo_days >= 0, "promotions.post_promo_days must be >= 0")
 
+    sc = raw.get("scale", {})
+    scale = ScaleConfig(
+        lightgbm_max_train_rows=int(sc.get("lightgbm_max_train_rows", 1_500_000)),
+        predict_chunk_series=int(sc.get("predict_chunk_series", 2_000)),
+        holt_winters_max_series=int(sc.get("holt_winters_max_series", 3_000)),
+        detail_max_series=int(sc.get("detail_max_series", 400)),
+    )
+    _check(scale.lightgbm_max_train_rows >= 10_000, "scale.lightgbm_max_train_rows must be >= 10000")
+    _check(scale.predict_chunk_series >= 10, "scale.predict_chunk_series must be >= 10")
+
     return Config(
         root=root,
         paths=paths,
@@ -458,5 +477,6 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
         simulation=simulation,
         sensitivity=sensitivity,
         promotions=promotions,
+        scale=scale,
         raw=raw,
     )

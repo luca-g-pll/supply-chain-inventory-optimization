@@ -156,6 +156,29 @@ lead time; margin vs no promotion = promo units × discounted margin + dip-reduc
 margin. A permanent price change uses half the promotion response (`exp(−β/2 · Δp)`), a rough estimate stated as
 such.
 
+### 4.6 Large datasets
+
+Time and memory of the in-memory pipeline grow with the number of store-item series. Measured on a 10-core laptop
+(fast mode, 2 years of daily sales): 10,000 series ≈ 1 minute and 3.5 GB; 30,000 series ≈ 2 minutes and 5.5 GB.
+What keeps it bounded (`scale` block of `config/params.yaml`):
+
+| Part | Small data | Large data |
+|---|---|---|
+| LightGBM training | every training row | above 1.5M rows: a random sample of series that contains every item; rows trimmed to the cap. On the sample chain × 8 (2,048 series) a quarter of the rows changes WAPE from 34.0% to 34.3% and cuts the forecasting time by 40% |
+| LightGBM features and forecasts | one feature set, cached | blocks of 2,000 series |
+| Holt-Winters | every series | skipped above 3,000 series (one statsmodels fit per series) |
+| Daily detail for the dashboard | every series | the 400 top-revenue series (totals and KPIs still cover every series) |
+
+**Batch mode** (`python -m src.partition`) removes the memory limit: DuckDB reads the file out of core, the items are
+split into partitions of about 20,000 series (every store of an item in the same partition), each partition runs this
+pipeline and writes Parquet tables, and the totals are recomputed from them — ABC on the revenue of every item (exact,
+because each item is whole inside its partition), leaderboard and policy KPIs from the additive sums, reorder
+parameters exported to CSV. A model that did not run on every series (e.g. Holt-Winters above its limit in one
+partition) is listed apart, not ranked. Differences from one single run: one LightGBM per partition, and the best
+model can differ between partitions (reported). Synthetic prices are drawn per item code, so they do not depend on
+the partition. Measured: 60,000 series in 4.5 minutes with 2 parallel workers, 6 GB in total; the time is linear in
+the number of series (≈ 2.5 hours for 2 million series with 2 workers).
+
 ## 5. Inventory theory
 
 ### 5.1 Notation

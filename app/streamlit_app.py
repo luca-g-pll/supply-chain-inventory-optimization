@@ -17,6 +17,7 @@ st.html("<style>img.stLogo{height:3.5rem;max-width:none}"
 
 from common import active_data, scenario_sidebar  # noqa: E402
 from i18n import language_switch, tx  # noqa: E402
+from limits import limits_panel  # noqa: E402
 
 language_switch()
 
@@ -33,6 +34,7 @@ pages = [
 page = st.navigation(pages)
 
 data = active_data()
+limits_panel(data)
 if data is not None and page.url_path not in ("data", "summary"):
     scenario_sidebar(data)
 

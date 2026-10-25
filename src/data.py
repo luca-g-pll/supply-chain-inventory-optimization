@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -47,12 +48,14 @@ def demo_mapping() -> ColumnMapping:
 def make_price_table(items, cfg: PricesConfig, cost_to_price_ratio: float = 0.60) -> pd.DataFrame:
     """Seeded synthetic prices -> ``[item, unit_price, unit_cost]``.
 
-    Prices are drawn from Uniform(min, max) in natural item order and rounded to
-    ``round_to``; the same items and seed always give the same table.
+    Each price is Uniform(min, max), drawn from a hash of the seed and the item code,
+    rounded to ``round_to``: an item always gets the same price, whatever other items
+    are in the list (batch runs on parts of a file agree with a run on the whole file).
     """
     ordered = natural_sorted(items)
-    rng = np.random.default_rng(cfg.seed)
-    raw = rng.uniform(cfg.min, cfg.max, size=len(ordered))
+    u = np.array([int.from_bytes(hashlib.sha256(f"{cfg.seed}:{i}".encode()).digest()[:8], "big") / 2.0 ** 64
+                  for i in ordered])
+    raw = cfg.min + (cfg.max - cfg.min) * u
     price = np.round(np.round(raw / cfg.round_to) * cfg.round_to, 2)
     return pd.DataFrame({
         "item": ordered,

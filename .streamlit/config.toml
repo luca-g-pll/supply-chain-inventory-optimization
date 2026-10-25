@@ -1,5 +1,5 @@
 [server]
-maxUploadSize = 50          # MB, same limit as input.limits.max_file_mb
+maxUploadSize = 300         # MB, same limit as input.limits.max_file_mb
 headless = true
 
 [browser]

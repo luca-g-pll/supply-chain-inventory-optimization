@@ -24,10 +24,10 @@ input:
   date_format: auto              # auto | ISO | dayfirst | monthfirst
   missing_days_as_zero: true     # a day with no row = zero sales
   negative_quantity: clip        # clip (returns -> 0) | reject
-  limits:                        # public dashboard upload; larger files -> run the CLI locally
-    max_file_mb: 50
-    max_rows: 2000000
-    max_series: 1000
+  limits:                        # dashboard upload (≈ 1 minute at the limit); larger -> python -m src.partition
+    max_file_mb: 300
+    max_rows: 10000000
+    max_series: 10000
   min_history_days: 56           # series with less history before the test period are excluded
 
 # Periods are derived from the length of the history (docs/08_methodology.md §1).
@@ -92,6 +92,13 @@ promotions:
   default_discount: 0.20         # discount assumed when the file only says "promo: yes"
   post_promo_days: 7             # week after a promotion: customers stocked up, demand may dip
   shrinkage_days: 14             # items with few promo days borrow the average lift of all items
+
+# Large datasets (docs/08_methodology.md §4.6): memory stays bounded and the time grows linearly.
+scale:
+  lightgbm_max_train_rows: 1500000 # above this LightGBM trains on a sample of series (every item kept)
+  predict_chunk_series: 2000     # features and forecasts computed in blocks of series
+  holt_winters_max_series: 3000  # full mode: above this Holt-Winters is skipped (one statsmodels fit per series)
+  detail_max_series: 400         # daily detail tables (charts of one series) only for the top-revenue series
 
 inventory:
   lead_time_days: 7

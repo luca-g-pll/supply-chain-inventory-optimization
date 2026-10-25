@@ -183,6 +183,9 @@ def profile_history(dm: DemandMatrix, cfg: Config, fast: bool = False) -> DataPr
     if "lightgbm" in models and train_rows < LIGHTGBM_MIN_ROWS:
         models.remove("lightgbm")
         notes.append(f"LightGBM skipped: only {train_rows:,} training rows (minimum {LIGHTGBM_MIN_ROWS:,}).")
+    if "holt_winters" in models and not fast and n_kept > cfg.scale.holt_winters_max_series:
+        models.remove("holt_winters")
+        notes.append(f"Holt-Winters skipped: {n_kept:,} series (limit {cfg.scale.holt_winters_max_series:,}).")
     if "holt_winters" in models and fast and n_kept > cfg.fast_mode.holt_winters_max_series:
         models.remove("holt_winters")
         notes.append(f"Holt-Winters skipped in fast mode: {n_kept:,} series "

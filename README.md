@@ -207,9 +207,23 @@ python -m src.pipeline --all                                   # Kaggle demo (da
 python -m src.pipeline --all --input data/samples/retail_chain_sales.csv --item-master data/samples/retail_chain_items.csv
 python -m src.pipeline --all --input my_sales.xlsx --map date=Data item=Articolo quantity=Qta store=Negozio
 python -m src.sample_data                                      # rebuild the sample datasets
+python -m src.partition --input big_sales.csv --workers 2      # large files, in batches (see below)
 streamlit run app/streamlit_app.py                             # dashboard
-pytest                                                         # 96 tests, about 10 seconds
+pytest                                                         # 126 tests, about a minute
 ```
+
+**Large datasets.** The dashboard keeps every series in memory: it handles up to 10,000 store-item series in about
+a minute. Above that, the **batch mode** reads the file with DuckDB without loading it, splits the items into groups
+of about 20,000 series (every store of an item in the same group, so ABC / XYZ stay exact), analyses one group at a
+time (or `--workers` in parallel) and writes Parquet tables, the totals (`results.json`) and
+`reorder_parameters.csv` (lot, safety stock and reorder point per store and item, for an ERP import).
+
+| Measured on a 10-core laptop, 16 GB, fast mode, 2 years of daily sales | Series | Time | Memory |
+|---|---|---|---|
+| Dashboard / single run | 10,000 | 1 min | 3.5 GB |
+| Single run | 30,000 | 2 min | 5.5 GB |
+| Batch mode, 2 workers | 60,000 | 4.5 min | 6 GB |
+| Batch mode, 2 workers (estimate, linear) | 2,000,000 (20,000 items × 100 stores) | ≈ 2.5 h | ≈ 6 GB |
 
 On macOS / Linux the same steps have shortcuts: `make install` · `make app` · `make demo` · `make sample-data` ·
 `make test`.
@@ -245,7 +259,9 @@ supply-chain-inventory-optimization/
 3. Copy the app address to the top of this README.
 
 The public app shows the demo from the committed results (daily detail only for store 1, because of the Kaggle
-licence) and runs uploads and sample datasets in fast mode (≤ 50 MB, ≤ 1,000 store-item series).
+licence) and runs uploads and sample datasets in fast mode. The upload limits in `config/params.yaml`
+(`input.limits`: 300 MB, 10M rows, 10,000 series) are sized for a laptop; for a free online host (about 1 GB of
+memory) set them to about 50 MB and 1,000 series, and `maxUploadSize` in `.streamlit/config.toml` to match.
 
 ## 11. Tech stack and quality
 
@@ -258,11 +274,21 @@ methodology, KPI definitions, test plan, risks and decision records in [`docs/`]
 
 ## 12. Limitations and next steps
 
+The dashboard shows the same list, with the warnings on the data in use, in the **Warnings and limits** panel of the
+sidebar.
+
+- Size: the dashboard handles up to 10,000 store-item series (≈ 1 minute); larger files run in batch mode
+  (`python -m src.partition`, ≈ 2.5 h for 2 million series on a laptop) and their results are Parquet / CSV files,
+  not dashboard pages.
+- Forecasts use no outside factors (weather, local events, competitors); new and rarely sold items are forecast
+  poorly.
+- Uploaded data and results live only in the browser session; one user, no login.
 - Costs, prices and lead times are assumptions (§7) unless the data provides them.
 - Sales are treated as demand: real stock-outs in an uploaded history would hide some demand.
 - The calibration uses the period it evaluates (an *oracle* setting, used only to compare policies on equal terms);
   the dashboard also shows the policies with `z` set in advance.
-- Each store-item is independent: no shared supplier orders, capacity limits or transfers between stores.
+- Each store-item is planned on its own: no transfers between stores, no central warehouse. Supplier terms and
+  warehouse space apply to the order plan (Orders page), not to the policy comparison on the past.
 - Promotions: one effect per product for all stores; no cannibalisation between products; the price-change estimate
   is derived from promotions and only indicative.
 - Orders: the plan proposes orders, it does not send them (no link to an ERP or to suppliers); one discount

@@ -128,13 +128,21 @@ class AnalysisResults:
     fast: bool = False
     promotions_cfg: PromotionsConfig = field(default_factory=PromotionsConfig)
     plan: dict[str, pd.DataFrame] = field(default_factory=dict)
+    detail_max_series: int = 400
 
     # ---- tables shared by the artefacts and the live dashboard (same schemas)
     def tables(self, detail_stores: tuple[str, ...] | None = None) -> dict[str, pd.DataFrame]:
-        """Every table the dashboard reads. ``detail_stores=None`` keeps all series."""
+        """Every table the dashboard reads.
+
+        Daily detail tables (charts of one series) cover the ``detail_stores`` (demo) or,
+        on large datasets, only the ``detail_max_series`` top-revenue series; every other
+        table covers all series.
+        """
         keys = self.dm.keys
         rows = np.arange(len(keys)) if detail_stores is None else \
             np.flatnonzero(keys["store"].isin(list(detail_stores)).to_numpy())
+        if detail_stores is None and len(keys) > self.detail_max_series:
+            rows = top_revenue_series(self.dm, self.data.item_master, self.detail_max_series)
         bt_v, bt_t = self.backtests["validation"], self.backtests["test"]
         out: dict[str, pd.DataFrame] = {
             "classification": self.classification,
@@ -181,9 +189,18 @@ class AnalysisResults:
             "timings": self.timings,
             "default_scenario": self.scenario.to_dict(),
             "promotions": promo_meta(self),
+            "detail": {"n_series": int(self.dm.n_series),
+                       "n_detail": int(min(self.dm.n_series, self.detail_max_series))},
             "plan": {"data_end": str(self.dm.dates[-1].date()),
                      "test_end": str(self.profile.test[1]), "model": self.best_model},
         }
+
+
+def top_revenue_series(dm: DemandMatrix, item_master: pd.DataFrame, k: int) -> np.ndarray:
+    """Rows of the ``k`` series with the highest revenue over the last 365 days (sorted)."""
+    price = item_master.set_index("item")["unit_price"].reindex(dm.keys["item"]).to_numpy(dtype="float64")
+    recent = np.nansum(dm.values[:, -365:], axis=1) * np.nan_to_num(price)
+    return np.sort(np.argsort(-recent, kind="stable")[:k])
 
 
 def promo_meta(res: AnalysisResults) -> dict:
@@ -374,7 +391,7 @@ def run_analysis(data: StandardisedData, cfg: Config, fast: bool = False, n_jobs
                            leaderboard=leaderboard, best_model=best, policy_inputs=inp, summary=summary,
                            tradeoff=tradeoff, sensitivity=sens, scenario=scenario, headline=head,
                            importance=importance, timings=timings, fast=fast, promotions_cfg=cfg.promotions,
-                           plan=plan)
+                           plan=plan, detail_max_series=cfg.scale.detail_max_series)
 
 
 def build_headline(summary: pd.DataFrame, leaderboard: pd.DataFrame, best: str, cfg: Config,

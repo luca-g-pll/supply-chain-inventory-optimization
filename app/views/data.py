@@ -165,10 +165,10 @@ else:
     file_name = upload.name
     raw_bytes = upload.getvalue()
 if len(raw_bytes) > limits.max_file_mb * 1024 * 1024:
-    st.error(tx(f"The file is larger than {limits.max_file_mb:.0f} MB. Run the analysis locally: "
-                "`python -m src.pipeline --all --input your_file.csv` (see the README).",
-                f"Il file supera {limits.max_file_mb:.0f} MB. Esegui l'analisi in locale: "
-                "`python -m src.pipeline --all --input tuo_file.csv` (vedi il README)."))
+    st.error(tx(f"The file is larger than {limits.max_file_mb:.0f} MB. Use the batch mode, which reads files of any "
+                "size: `python -m src.partition --input your_file.csv` (see the README).",
+                f"Il file supera {limits.max_file_mb:.0f} MB. Usa la modalità a lotti, che legge file di qualsiasi "
+                "dimensione: `python -m src.partition --input tuo_file.csv` (vedi il README)."))
     st.stop()
 digest = hashlib.sha256(raw_bytes).hexdigest()
 

@@ -115,7 +115,7 @@ Priority uses **MoSCoW**: **M**ust, **S**hould, **C**ould, **W**on't (this time)
 | NFR-10 | Language | Everything in English. |
 | NFR-11 | No leakage | No forecast or policy parameter uses information from after the forecast origin. |
 | NFR-12 | Privacy | Uploaded files are kept **in memory only** for the session; never written to disk, logged or sent anywhere. The app shows a notice that the public instance should not be used for confidential data and explains how to run it locally. |
-| NFR-13 | Upload limits (public app) | ≤ 50 MB, ≤ 2M rows, ≤ 1,000 series; the full live pipeline in fast mode finishes in < 60 s for 200 series × 3 years. Larger files → CLI / local run. |
+| NFR-13 | Upload limits | Dashboard ≤ 300 MB, ≤ 10M rows, ≤ 10,000 series (≈ 1 minute in fast mode on a laptop; lower for a 1 GB online host). Larger files → batch mode `python -m src.partition` (out of core, linear time: 60,000 series in ≈ 4.5 minutes with 2 workers). |
 | NFR-14 | Robustness | Any file that breaks the contract gives a clear message naming the column/row issue, never a stack trace. |
 
 ## 3. Business rules
