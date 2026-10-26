@@ -102,6 +102,7 @@ flowchart LR
 | 2b. Promotions | Found from a promo column or from discounted prices; effect per product (extra sales during, dip after); the forecasts use the promotion calendar; a **planner** for future promotions | [`src/promotions.py`](src/promotions.py) |
 | 3. Policy | Per store-item: safety stock `z·σ_L`, reorder point, **EOQ** lot (capped at 28 days of demand); three policies: **P0** same order every Monday · **P1** static (s, Q) · **P2** forecast-driven (s, Q) | [`src/inventory.py`](src/inventory.py), [`src/policy.py`](src/policy.py) |
 | 4. Simulate | Every day of the test period: deliveries arrive after the lead time, demand is served or lost, the policy decides the next order; fill rate, stock-outs, average stock, total cost | [`03_inventory_simulation.ipynb`](notebooks/03_inventory_simulation.ipynb), [`src/simulation.py`](src/simulation.py) |
+| 4c. New products | Fewer than 8 weeks of sales: planned from a **similar product** suggested by the software (first weeks of sales, name, category, supplier, price) and confirmed by you; the forecast moves to the product's own sales as they come in, with more safety stock and short lots | [`src/cold_start.py`](src/cold_start.py) |
 | 4b. Order | The chosen policy on today's calendar: forward forecast, current stock (estimated or uploaded), **today's orders by supplier** and a 4-week calendar of orders and deliveries | [`src/replenishment.py`](src/replenishment.py) |
 | 5. Dashboard | Scenario (stores · products · online/physical), leaderboards, what-if, upload of your own data | [`app/`](app/streamlit_app.py) |
 
@@ -172,7 +173,7 @@ dataset**):
 
 | File | Content |
 |---|---|
-| `retail_chain_sales.csv` + `retail_chain_items.csv` | 8 stores (one online) × 32 products × 3 years, with item master (prices, costs, lead times) |
+| `retail_chain_sales.csv` + `retail_chain_items.csv` | 8 stores (one online) × 34 products × 3 years, with item master (prices, costs, lead times, categories) — two products launched in the last 8 weeks |
 | `single_store_it.csv` | a neighbourhood shop exported "the Italian way": `;`, dates `dd/mm/yyyy`, decimal commas |
 | `ecommerce_order_lines.xlsx` | one year of online order lines with timestamps and returns |
 
@@ -284,8 +285,11 @@ sidebar.
 - Size: the dashboard handles up to 10,000 store-item series (≈ 1 minute); larger files run in batch mode
   (`python -m src.partition`, ≈ 2.5 h for 2 million series on a laptop) and their results are Parquet / CSV files,
   not dashboard pages.
-- Forecasts use no outside factors (weather, local events, competitors); new and rarely sold items are forecast
-  poorly.
+- Forecasts use no outside factors (weather, local events, competitors); rarely sold items are forecast poorly.
+- New products (fewer than 8 weeks of sales) are planned from a similar product, not tested on the past: in tests
+  the error over the next 4 weeks is ≈ 60% after 2 weeks of sales and ≈ 50% after 8, launches still growing are
+  underestimated by 10–25%; a product never sold yet cannot be planned, a replacement does not inherit the history
+  of the product it replaces, first-season seasonal products have no specific treatment.
 - Uploaded data and results live only in the browser session; one user, no login.
 - As a website: titles and descriptions are written into the page by a script, a missing page shows a 404 page with
   HTTP status 200, `robots.txt` / `sitemap.xml` reach the root only through a reverse proxy

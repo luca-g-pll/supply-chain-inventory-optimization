@@ -620,7 +620,8 @@ with t_glossary:
     st.markdown(tx("""
 | Term | Meaning |
 |---|---|
-| **Series** | one product in one store (8 stores × 32 products = 256 series) |
+| **Series** | one product in one store (8 stores × 34 products = 272 series) |
+| **New product** | fewer than 8 weeks of sales: planned from a similar product until its own sales take over |
 | **Lead time (L)** | days between placing an order and receiving it |
 | **Inventory position** | stock on hand + stock already ordered − customers waiting |
 | **Back-test** | testing a model on past data as if it were the future |
@@ -640,7 +641,8 @@ with t_glossary:
 """, """
 | Termine | Significato |
 |---|---|
-| **Serie** | un prodotto in un negozio (8 negozi × 32 prodotti = 256 serie) |
+| **Serie** | un prodotto in un negozio (8 negozi × 34 prodotti = 272 serie) |
+| **Prodotto nuovo** | meno di 8 settimane di vendite: pianificato da un prodotto simile finché le sue vendite non bastano |
 | **Tempo di consegna (L)** | giorni tra l'invio di un ordine e il suo arrivo |
 | **Posizione di magazzino** | scorta a magazzino + scorta già ordinata − clienti in attesa |
 | **Back-test** | provare un modello su dati passati come se fossero il futuro |

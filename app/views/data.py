@@ -34,10 +34,11 @@ def samples() -> dict:
     """file -> (label, description, item master, Excel sheet)."""
     return {
         "retail_chain_sales.csv": (
-            tx("Retail chain · 8 stores (1 online) × 32 products × 3 years",
-               "Catena di negozi · 8 negozi (1 online) × 32 prodotti × 3 anni"),
-            tx("Promotions, holidays, seasonal products, a new store, a launch and a discontinued item",
-               "Promozioni, festività, prodotti stagionali, un negozio nuovo, un lancio e un prodotto dismesso"),
+            tx("Retail chain · 8 stores (1 online) × 34 products × 3 years",
+               "Catena di negozi · 8 negozi (1 online) × 34 prodotti × 3 anni"),
+            tx("Promotions, holidays, seasonal products, a new store, launches (two very recent) and a discontinued item",
+               "Promozioni, festività, prodotti stagionali, un negozio nuovo, lanci (due recentissimi) e un prodotto "
+               "dismesso"),
             "retail_chain_items.csv", None),
         "single_store_it.csv": (
             tx("Neighbourhood shop · Italian CSV · 18 months", "Negozio di quartiere · CSV italiano · 18 mesi"),
@@ -65,6 +66,7 @@ LABELS = {
     "item_name": tx("Item description (optional)", "Descrizione articolo (facoltativo)"),
     "pack_size": tx("Pack size, units (optional)", "Pezzi per confezione (facoltativo)"),
     "min_order_qty": tx("Minimum order quantity (optional)", "Quantità minima d'ordine (facoltativo)"),
+    "category": tx("Product category (optional)", "Categoria prodotto (facoltativo)"),
 }
 PROGRESS = {
     "Validating and profiling the data": "Controllo e profilo dei dati",

@@ -48,9 +48,9 @@ def landing() -> None:
     b2.page_link("views/data.py", label=tx("Upload your sales history", "Carica il tuo storico vendite"),
                  icon=":material/upload_file:", width="stretch")
     b3.page_link("views/faq.py", label=tx("Questions", "Domande frequenti"), icon=":material/help:", width="stretch")
-    st.caption(tx("Sample data: an invented Italian retail chain, 8 stores × 32 products × 3 years. "
+    st.caption(tx("Sample data: an invented Italian retail chain, 8 stores × 34 products × 3 years. "
                   "Your files stay in memory for your session only · no tracking cookies · open source.",
-                  "Dati di esempio: una catena italiana inventata, 8 negozi × 32 prodotti × 3 anni. "
+                  "Dati di esempio: una catena italiana inventata, 8 negozi × 34 prodotti × 3 anni. "
                   "I tuoi file restano in memoria solo per la tua sessione · nessun cookie di tracciamento · codice "
                   "aperto."))
     st.divider()

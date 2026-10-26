@@ -10,7 +10,7 @@ and lumpy demand, price changes and transaction-level exports with returns.
 
 Files (see data/samples/README.md for the story behind each one):
 
-* ``retail_chain_sales.csv``   8 stores (7 physical + 1 online) x 32 products x 3 years
+* ``retail_chain_sales.csv``   8 stores (7 physical + 1 online) x 34 products x 3 years (two launched in the last 8 weeks)
 * ``retail_chain_items.csv``   item master: name, category, supplier, price, cost, lead time
 * ``retail_chain_stores.csv``  store list (for reference)
 * ``single_store_it.csv``      one neighbourhood shop, Italian headers, ``;``, dd/mm/yyyy, decimal commas
@@ -155,6 +155,10 @@ CHAIN_PRODUCTS = (
     ProductSpec("APP-002", "Tostapane 2 fette", 29.90, 0.62, 0.10, "winter", 0.20, 50, 1),
     ProductSpec("APP-003", "Lampadine LED E27 x3", 9.90, 0.55, 0.9, "winter", 0.30, 10, 2),
     ProductSpec("APP-004", "Ventilatore da tavolo", 34.90, 0.60, 0.25, "summer", 2.0, 3, 1, weather=1.5),
+    # recent launches (fewer than 8 weeks of sales when the data end): planned from a similar product
+    ProductSpec("BEV-009", "Bevanda energetica mango 33cl", 1.49, 0.55, 5, "summer", 0.20, 8, 0, trend=0.15,
+                launch="2024-11-11"),
+    ProductSpec("GRO-011", "Penne integrali 500g", 1.19, 0.65, 8, "flat", 0.03, 25, 0, launch="2024-12-02"),
 )
 
 SHOP = StoreSpec("BTG", "Bottega di quartiere", "Torino", "physical", 0.45, PHYSICAL_WEEK, closed_weekdays=(6,),

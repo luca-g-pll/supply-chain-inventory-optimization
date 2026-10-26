@@ -16,6 +16,7 @@ Any daily sales history can be analysed if it can be mapped to the fields below.
 | `lead_time_days` | ➖ | integer ≥ 1 | Supplier lead time per item | `inventory.lead_time_days` |
 | `supplier` | ➖ | text | Supplier of the item (most recent value); orders are grouped by it | "Supplier not set" |
 | `item_name` | ➖ | text | Description shown next to the code | empty |
+| `category` | ➖ | text | Product category (also used to suggest a similar product for a new item) | empty |
 | `pack_size` | ➖ | integer ≥ 1 | Units per pack: orders are rounded up to whole packs | 1 |
 | `min_order_qty` | ➖ | integer | Minimum units per order line | none |
 | `promo` | ➖ | flag or % | Promotion of the row: `1` / yes / sì / x, or the discount (`20`, `20%`, `0.2`); `0` / no / empty = none | Found from `unit_price` (days ≥ 8% below the regular price); none without prices |
@@ -152,6 +153,13 @@ with it (a batch run on part of a file agrees with a run on the whole file). The
 | `forecast.lightgbm.lags` / `rolling_windows` | [14, 21, 28, 35, 364] / [7, 28, 91] | days | Lags must be ≥ horizon (checked) |
 | `forecast.lightgbm.params` / `num_boost_round` | tweedie, lr 0.05, 63 leaves / 600 | – | LightGBM settings |
 | `fast_mode.*` | refit once · 300 trees · HW ≤ 300 series | – | Dashboard uploads |
+| `cold_start.enabled` | true | – | Plan products with too little history from a similar product |
+| `cold_start.half_life_days` | 28 | days | Own sales weigh 50% after this many days, 88% after three times |
+| `cold_start.min_early_days` | 7 | days | Days of sales needed to compare the first weeks with other products |
+| `cold_start.first_lot_days` | 14 | days | A new product's lot covers at most this many days |
+| `cold_start.uncertainty_boost` | 1.0 | – | Safety stock × (1 + boost × weight of the similar product) |
+| `cold_start.active_days` | 28 | days | A similar product must have sold in the last … days |
+| `cold_start.launch_growth_cap` / `launch_days` | 1.5 / 90 | – / days | Growth correction of a launch: at most ×1.5, first 90 days |
 | `scale.lightgbm_max_train_rows` | 1,500,000 | rows | Above this LightGBM trains on a sample of series (every item kept) |
 | `scale.predict_chunk_series` | 2,000 | series | Features and forecasts computed in blocks of series |
 | `scale.holt_winters_max_series` | 3,000 | series | Full mode: above this Holt-Winters is skipped |

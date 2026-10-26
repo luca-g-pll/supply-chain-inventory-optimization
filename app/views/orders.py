@@ -19,6 +19,7 @@ from common import (
     scenario_badge,
 )
 from i18n import is_it, tx
+from newproducts import new_products_section
 
 from src.constraints import Constraints, project_constrained, read_supplier_terms, terms_from_frame
 from src.ingest import InputError, read_any
@@ -112,8 +113,15 @@ P2 = data.t("policy_summary")
 P2 = P2[(P2["policy"] == "P2_forecast_sq") & (P2["variant"] == mode)]
 keys = pd.DataFrame([(s, i) for s in natural_sorted(sc.stores) for i in natural_sorted(sc.items)], columns=["store", "item"])
 keys["channel"] = keys["store"].map(sc.channel_of)
-par = keys.merge(P2[["store", "item", "channel", "knob", "order_qty", "sigma_L", "lead_time", "unit_cost"]],
-                 on=["store", "item", "channel"], how="inner")
+PAR_COLS = ["store", "item", "channel", "knob", "order_qty", "sigma_L", "lead_time", "unit_cost"]
+par = keys.merge(P2[PAR_COLS], on=["store", "item", "channel"], how="inner").assign(is_new=False)
+# products with too little history: planned from a similar product (they are not in the policy comparison)
+new_par, new_fc = new_products_section(data, sc, cfg, list(cfg.simulation.channels))
+if len(new_par):
+    par = pd.concat([par, keys.merge(new_par[PAR_COLS], on=["store", "item", "channel"]).assign(is_new=True)],
+                    ignore_index=True)
+    state_tbl = pd.concat([state_tbl, new_par[["store", "item", "channel", "on_hand", "backlog"]]], ignore_index=True)
+    fc_tbl = pd.concat([fc_tbl, new_fc[["store", "item", "h", "forecast"]]], ignore_index=True)
 if par.empty:
     st.info(tx("No series in this scenario.", "Nessuna serie in questo scenario."))
     st.stop()
@@ -378,7 +386,10 @@ risk = risks_from_short(daily["short"], par, dates)
 NOTES = {"moq": tx("minimum quantity", "quantità minima"), "pack": tx("whole packs", "confezioni intere"),
          "discount_up": tx("raised to the discount", "portato alla soglia di sconto"),
          "discount": tx("discounted", "scontato"), "space": tx("cut for space", "ridotto per spazio"),
-         "topup": tx("added to reach the minimum order", "aggiunto per l'ordine minimo")}
+         "topup": tx("added to reach the minimum order", "aggiunto per l'ordine minimo"),
+         "new": tx("new product: from a similar one", "prodotto nuovo: da uno simile")}
+is_new_row = par["is_new"].to_numpy()[plan.orders["row"].to_numpy(dtype=int)] if len(plan.orders) else []
+orders["notes"] = [("new," + n_) if flag else n_ for n_, flag in zip(orders["notes"], is_new_row)]
 orders["notes_txt"] = orders["notes"].map(lambda v: ", ".join(NOTES.get(c, c) for c in v.split(",") if c))
 k_today_ = int((cal.today - start).days)
 

@@ -23,7 +23,7 @@ What to set before putting the dashboard on a public address, and what Streamlit
 |---|---|
 | Privacy policy, terms | pages `/privacy`, `/terms` (linked in the sidebar footer, hidden from the menu) |
 | Clear call to action | home without results: "Try it now with sample data" (one click, ≈ 20 s), "Upload your sales history"; home with results: "Next: what to order today" |
-| FAQ | page `/faq` (13 questions) |
+| FAQ | page `/faq` (14 questions) |
 | Custom 404 | an unknown address shows a "Page not found" page with links (recorded as `not_found`) |
 | Page titles | `<page> · <site name>` in the browser tab for every page |
 | Meta description, Open Graph, canonical, robots, `html lang` | written into `<head>` by a script on every page (`app/website.py`) |

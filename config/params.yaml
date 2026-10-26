@@ -93,6 +93,18 @@ promotions:
   post_promo_days: 7             # week after a promotion: customers stocked up, demand may dip
   shrinkage_days: 14             # items with few promo days borrow the average lift of all items
 
+# New products (docs/08_methodology.md §6.11): fewer than input.min_history_days of sales.
+# They are left out of the comparison on the past (no history to test on) but planned from a similar product.
+cold_start:
+  enabled: true
+  half_life_days: 28             # after 28 days of own sales: 50% own data, 50% similar product; 84 days: 88%
+  min_early_days: 7              # days of sales needed to compare the first sales with the other products
+  first_lot_days: 14             # a new product's lot covers at most 2 weeks of demand
+  uncertainty_boost: 1.0         # safety stock up to ×2 while the forecast relies on the similar product
+  active_days: 28                # a similar product must have sold in the last 4 weeks
+  launch_growth_cap: 1.5         # a launch still growing week on week: forecast × that growth (at most +50%)
+  launch_days: 90                # … only in the first 3 months after launch
+
 # Published app: identity, links and search engines (docs/12_deployment.md). Fill these in before publishing:
 # the privacy policy and the terms show them.
 site:

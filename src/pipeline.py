@@ -399,7 +399,8 @@ def run_analysis(data: StandardisedData, cfg: Config, fast: bool = False, n_jobs
 
     t = time.perf_counter()
     progress("Purchase plan: forecast from the last day of data", 0.97)
-    plan = plan_tables(dm, inp, cfg, summary, best, profile, fast, n_jobs)
+    plan = plan_tables(dm, inp, cfg, summary, best, profile, fast, n_jobs, dm_full=data.matrix(),
+                       master=data.item_master)
     timings["plan"] = round(time.perf_counter() - t, 2)
 
     stores = natural_sorted(data.stores["store"])

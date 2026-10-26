@@ -360,6 +360,32 @@ purchases, average stock, units not served, discounts, postponed lines) — the 
 fixed order days are introduced, most of the extra shortfall falls in the first one or two weeks (a stock built for
 daily ordering meets weekly deliveries); the page says so when it happens.
 
+### 6.11 New products (cold start)
+
+A series with fewer than `input.min_history_days` (56) days of sales before the test period cannot be tested on the
+past: it stays out of the policy comparison, but the order plan includes it ([`src/cold_start.py`](../src/cold_start.py)).
+
+| Step | Rule |
+|---|---|
+| Similar product | New only in some stores → the same product in the other stores. New everywhere → the active product (sold in the last 28 days) with the best score on the available signals: first weeks of sales (daily correlation over up to 56 days, weight 0.35), name (3-letter-group Jaccard, 0.25), category (0.15), supplier (0.10), price (exp(−\|ln p₁/p₂\|/0.35), 0.15). No signal → the average product of the store. Confidence high / medium / low; the user confirms or changes it (Orders page) |
+| Scale | own sales ÷ similar product's sales, same stores, last 14 days (a launch is still ramping up at first) |
+| Growth | week-on-week growth of the launch net of the similar product's (season, promotions), only upward, first 90 days, at most ×1.5 |
+| Forecast | `(w · own model forecast + (1 − w) · scale · similar product's forecast) · growth`, `w = 1 − 0.5^(age / 28)` |
+| Safety stock | `z · cv_similar · mean · (1 + (1 − w)) · √L` — double at launch, back to normal as own sales take over |
+| Lot | EOQ, at most 14 days of demand |
+| Estimated stock | `mean · L + safety stock` (no simulated history); a stock file replaces it |
+
+**Measured.** On the two real launches of the sample chain, cut 2 / 4 / 8 weeks after launch and forecasting the next
+4 weeks: excluding the product (the previous behaviour) = 100% error; the methods above 45–63% WAPE, with no clear
+winner between own forecast, average product and similar product — neither launch had a real similar product
+(the only energy drink; a detergent whose predecessor was discontinued). On 6 synthetic launches that do have one
+(variants at 40–80% of an existing product, half with a similar name): the right product is suggested 100% of the
+time with a similar name and 78% with an anonymous code; WAPE over the next 4 weeks 62% / 59% / 50% after 2 / 4 / 8
+weeks of sales, against 69% / 64% / 51% for the own forecast alone, equal to the error with the true similar product
+known in advance; the growth correction cuts the underestimate from −38% / −29% / −17% to −25% / −16% / −8%.
+Launches stay hard to forecast; the gain is in planning them at all, with the right similar product and extra
+safety stock.
+
 ## 7. Limitations
 
 - Sales are treated as uncensored demand. In an uploaded history with real stock-outs, days at zero because of empty shelves would lower the forecasts; a future version could take an optional `stock_on_hand` column to mask those days.

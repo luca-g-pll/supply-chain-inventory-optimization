@@ -41,11 +41,20 @@ LIMITS: list[tuple[str, str, str, str]] = [
      "unitari e tempi di consegna mancanti sono ipotizzati. Ogni risparmio in euro è una stima costruita su questi "
      "valori, non un dato contabile."),
     ("Forecasts", "Previsioni",
-     "No outside factors (weather, local events, competitors). New products with a few weeks of history and items "
-     "sold rarely are forecast poorly. Holt-Winters has no yearly season and is skipped on large datasets.",
-     "Nessun fattore esterno (meteo, eventi locali, concorrenti). I prodotti nuovi con poche settimane di storico e "
-     "gli articoli venduti di rado sono previsti male. Holt-Winters non ha stagionalità annuale ed è escluso sui "
-     "dataset grandi."),
+     "No outside factors (weather, local events, competitors). Items sold rarely are forecast poorly. Holt-Winters "
+     "has no yearly season and is skipped on large datasets.",
+     "Nessun fattore esterno (meteo, eventi locali, concorrenti). Gli articoli venduti di rado sono previsti male. "
+     "Holt-Winters non ha stagionalità annuale ed è escluso sui dataset grandi."),
+    ("New products", "Prodotti nuovi",
+     "With fewer than 8 weeks of sales they are planned from a similar product, not tested on the past. In tests the "
+     "error over the next 4 weeks stays high (≈ 60% after 2 weeks of sales, ≈ 50% after 8) and launches still growing "
+     "are underestimated by 10–25%. A product never sold yet cannot be planned; a replacement does not inherit the "
+     "history of the product it replaces; seasonal products in their first season have no specific treatment.",
+     "Con meno di 8 settimane di vendite sono pianificati da un prodotto simile, non provati sul passato. Nei test "
+     "l'errore sulle 4 settimane successive resta alto (≈ 60% dopo 2 settimane di vendite, ≈ 50% dopo 8) e i lanci "
+     "ancora in crescita sono sottostimati del 10–25%. Un prodotto mai venduto non si può pianificare; un prodotto "
+     "che ne sostituisce un altro non ne eredita lo storico; i prodotti stagionali alla prima stagione non hanno un "
+     "trattamento specifico."),
     ("Promotions", "Promozioni",
      "One effect per product, the same in every store; no cannibalisation between similar products; the effect of a "
      "permanent price change is only indicative.",
@@ -89,7 +98,7 @@ LIMITS: list[tuple[str, str, str, str]] = [
 
 # profile notes that are information, not warnings; item-level assumptions are in the euro section
 _INFO = (r"History: ", r"Train ", r"Yearly seasonality is modelled", r"Promotions (read|found)",
-         r"Selling price missing", r"Unit cost missing", r"Lead time missing")
+         r"Selling price missing", r"Unit cost missing", r"Lead time missing", r"\d+ series excluded for short history")
 
 
 def data_warnings(data) -> list[str]:
@@ -103,6 +112,14 @@ def data_warnings(data) -> list[str]:
     for msg in list(val.get("assumptions", [])) + list(val.get("warnings", [])) + list(prof.get("notes", [])):
         if not any(re.match(p, msg) for p in _INFO):
             out.append(translate_message(msg))
+    from newproducts import unconfirmed_count
+
+    n_new, n_open = unconfirmed_count(data)
+    if n_new:
+        out.append(tx(f"{n_new} new product(s) with little history: planned from a similar product"
+                      + (f", {n_open} to confirm on the Orders page." if n_open else " (confirmed)."),
+                      f"{n_new} prodotto/i nuovo/i con poco storico: pianificato/i da un prodotto simile"
+                      + (f", {n_open} da confermare nella pagina Ordini." if n_open else " (confermato/i).")))
     if prof.get("low_confidence"):
         out.append(tx("Short history: results have low confidence.", "Storico corto: risultati poco affidabili."))
     d = meta.get("detail") or {}

@@ -114,6 +114,18 @@ class FastModeConfig:
 
 
 @dataclass(frozen=True)
+class ColdStartConfig:
+    enabled: bool = True
+    half_life_days: float = 28.0       # days of own sales after which own data and the similar product weigh 50/50
+    min_early_days: int = 7            # days of sales needed to compare a new product with the others
+    first_lot_days: int = 14           # a new product's lot covers at most this many days of demand
+    uncertainty_boost: float = 1.0     # safety stock × (1 + boost × weight of the similar product)
+    active_days: int = 28              # a similar product must have sold in the last … days
+    launch_growth_cap: float = 1.5     # launches still growing: forecast × week-on-week growth, at most this
+    launch_days: int = 90              # … during the first … days after launch
+
+
+@dataclass(frozen=True)
 class SiteConfig:
     name: str = "Demand & Inventory Planner"
     base_url: str = ""                 # public address, e.g. https://planner.example.com (sitemap, canonical links)
@@ -212,6 +224,7 @@ class Config:
     sensitivity: SensitivityConfig
     promotions: PromotionsConfig = field(default_factory=PromotionsConfig)
     scale: ScaleConfig = field(default_factory=ScaleConfig)
+    cold_start: ColdStartConfig = field(default_factory=ColdStartConfig)
     site: SiteConfig = field(default_factory=SiteConfig)
     analytics: AnalyticsConfig = field(default_factory=AnalyticsConfig)
     raw: dict[str, Any] = field(default_factory=dict, repr=False, compare=False)
@@ -481,6 +494,12 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
     _check(scale.lightgbm_max_train_rows >= 10_000, "scale.lightgbm_max_train_rows must be >= 10000")
     _check(scale.predict_chunk_series >= 10, "scale.predict_chunk_series must be >= 10")
 
+    cs = raw.get("cold_start", {})
+    cold_start = ColdStartConfig(**{k: type(getattr(ColdStartConfig(), k))(v) for k, v in cs.items()
+                                    if k in ColdStartConfig.__dataclass_fields__ and v is not None})
+    _check(cold_start.half_life_days > 0, "cold_start.half_life_days must be > 0")
+    _check(cold_start.first_lot_days >= 1, "cold_start.first_lot_days must be >= 1")
+
     st_ = raw.get("site", {})
     site = SiteConfig(**{k: (str(v) if k != "indexable" else bool(v)) for k, v in st_.items()
                          if k in SiteConfig.__dataclass_fields__ and v is not None})
@@ -507,6 +526,7 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
         sensitivity=sensitivity,
         promotions=promotions,
         scale=scale,
+        cold_start=cold_start,
         site=site,
         analytics=analytics,
         raw=raw,

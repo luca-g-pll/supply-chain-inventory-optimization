@@ -61,15 +61,31 @@ def end_state(inp, cfg, summary: pd.DataFrame, channel_name: str) -> BatchResult
                           backorder_share=channel.backorder_share)
 
 
-def plan_tables(dm, inp, cfg, summary: pd.DataFrame, best_model: str, profile, fast: bool,
-                n_jobs: int = -1) -> dict[str, pd.DataFrame]:
-    """Tables the Orders page needs: forward forecast, estimated stock, orders on the way."""
-    F = future_forecast(dm, best_model, cfg, profile, fast, n_jobs)
+def _long(keys: pd.DataFrame, F: np.ndarray) -> pd.DataFrame:
     n, H = F.shape
-    keys = dm.keys
-    forecast = pd.DataFrame({"store": np.repeat(keys["store"].to_numpy(), H),
-                             "item": np.repeat(keys["item"].to_numpy(), H),
-                             "h": np.tile(np.arange(1, H + 1), n), "forecast": F.ravel().astype("float32")})
+    return pd.DataFrame({"store": np.repeat(keys["store"].to_numpy(), H), "item": np.repeat(keys["item"].to_numpy(), H),
+                         "h": np.tile(np.arange(1, H + 1), n), "forecast": F.ravel().astype("float32")})
+
+
+def plan_tables(dm, inp, cfg, summary: pd.DataFrame, best_model: str, profile, fast: bool,
+                n_jobs: int = -1, dm_full=None, master: pd.DataFrame | None = None) -> dict[str, pd.DataFrame]:
+    """Tables the Orders page needs: forward forecast, estimated stock, orders on the way, new products.
+
+    ``dm_full`` also holds the series excluded for short history (new products): the
+    forecast is computed on it, and the new series get a similar product (src.cold_start).
+    """
+    from src.cold_start import new_series_rows, suggest_analogs
+
+    full = dm_full if dm_full is not None else dm
+    F_all = future_forecast(full, best_model, cfg, profile, fast, n_jobs)
+    new_rows = new_series_rows(full, profile.excluded_series) if cfg.cold_start.enabled else np.array([], dtype=int)
+    est = np.setdiff1d(np.arange(full.n_series), new_rows)
+    forecast = _long(full.keys.iloc[est].reset_index(drop=True), F_all[est])
+    out_new: dict[str, pd.DataFrame] = {}
+    if len(new_rows) and master is not None:
+        items, series = suggest_analogs(full, new_rows, master, cfg.cold_start)
+        out_new = {"new_items": items, "new_series": series,
+                   "new_forecast_own": _long(full.keys.iloc[new_rows].reset_index(drop=True), F_all[new_rows])}
     states, pipes = [], []
     for ch in cfg.simulation.channels:
         res = end_state(inp, cfg, summary, ch)
@@ -78,7 +94,7 @@ def plan_tables(dm, inp, cfg, summary: pd.DataFrame, best_model: str, profile, f
         pipes.append(pd.DataFrame({"store": inp.keys["store"].to_numpy()[r], "item": inp.keys["item"].to_numpy()[r],
                                    "channel": ch, "day": d, "qty": res.pipeline[r, d]}))
     return {"plan_forecast": forecast, "plan_state": pd.concat(states, ignore_index=True),
-            "plan_pipeline": pd.concat(pipes, ignore_index=True)}
+            "plan_pipeline": pd.concat(pipes, ignore_index=True), **out_new}
 
 
 # --------------------------------------------------------------------------- calendar

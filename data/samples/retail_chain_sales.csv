@@ -181360,6 +181360,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-11,BO01,BEV-005,3,1.99,physical
 2024-11-11,BO01,BEV-006,3,3.29,physical
 2024-11-11,BO01,BEV-007,8,1.69,physical
+2024-11-11,BO01,BEV-009,1,1.69,physical
 2024-11-11,BO01,GRO-001,13,1.09,physical
 2024-11-11,BO01,GRO-002,8,1.09,physical
 2024-11-11,BO01,GRO-003,3,3.79,physical
@@ -181403,6 +181404,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-11,MI01,BEV-005,9,1.99,physical
 2024-11-11,MI01,BEV-006,2,3.29,physical
 2024-11-11,MI01,BEV-007,16,1.69,physical
+2024-11-11,MI01,BEV-009,2,1.69,physical
 2024-11-11,MI01,GRO-001,29,1.09,physical
 2024-11-11,MI01,GRO-002,16,1.09,physical
 2024-11-11,MI01,GRO-003,5,3.79,physical
@@ -181451,6 +181453,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-11,NA01,BEV-004,14,1.39,physical
 2024-11-11,NA01,BEV-005,4,1.99,physical
 2024-11-11,NA01,BEV-007,18,1.69,physical
+2024-11-11,NA01,BEV-009,2,1.69,physical
 2024-11-11,NA01,GRO-001,13,1.09,physical
 2024-11-11,NA01,GRO-002,30,1.09,physical
 2024-11-11,NA01,GRO-003,7,3.79,physical
@@ -181476,6 +181479,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-11,RM01,BEV-006,1,3.29,physical
 2024-11-11,RM01,BEV-007,5,1.69,physical
 2024-11-11,RM01,BEV-008,1,6.49,physical
+2024-11-11,RM01,BEV-009,2,1.69,physical
 2024-11-11,RM01,GRO-001,24,1.09,physical
 2024-11-11,RM01,GRO-002,22,1.09,physical
 2024-11-11,RM01,GRO-003,7,3.79,physical
@@ -181522,6 +181526,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-11,WEB,BEV-005,15,1.99,online
 2024-11-11,WEB,BEV-006,4,3.29,online
 2024-11-11,WEB,BEV-007,11,1.69,online
+2024-11-11,WEB,BEV-009,2,1.69,online
 2024-11-11,WEB,GRO-001,16,1.09,online
 2024-11-11,WEB,GRO-002,31,1.09,online
 2024-11-11,WEB,GRO-003,7,3.79,online
@@ -181570,6 +181575,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-12,FI01,BEV-006,2,3.29,physical
 2024-11-12,FI01,BEV-007,7,1.69,physical
 2024-11-12,FI01,BEV-008,1,6.49,physical
+2024-11-12,FI01,BEV-009,1,1.69,physical
 2024-11-12,FI01,GRO-001,21,1.09,physical
 2024-11-12,FI01,GRO-002,21,1.09,physical
 2024-11-12,FI01,GRO-004,4,9.79,physical
@@ -181616,6 +181622,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-12,MI02,BEV-006,1,3.29,physical
 2024-11-12,MI02,BEV-007,13,1.69,physical
 2024-11-12,MI02,BEV-008,1,6.49,physical
+2024-11-12,MI02,BEV-009,2,1.69,physical
 2024-11-12,MI02,GRO-001,31,1.09,physical
 2024-11-12,MI02,GRO-002,10,1.09,physical
 2024-11-12,MI02,GRO-003,6,3.79,physical
@@ -181693,6 +181700,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-12,TO01,BEV-005,12,1.99,physical
 2024-11-12,TO01,BEV-006,1,3.29,physical
 2024-11-12,TO01,BEV-007,4,1.69,physical
+2024-11-12,TO01,BEV-009,1,1.69,physical
 2024-11-12,TO01,GRO-001,16,1.09,physical
 2024-11-12,TO01,GRO-002,25,1.09,physical
 2024-11-12,TO01,GRO-003,6,3.79,physical
@@ -181717,6 +181725,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-12,WEB,BEV-005,12,1.99,online
 2024-11-12,WEB,BEV-006,1,3.29,online
 2024-11-12,WEB,BEV-007,22,1.69,online
+2024-11-12,WEB,BEV-009,1,1.69,online
 2024-11-12,WEB,GRO-001,18,1.09,online
 2024-11-12,WEB,GRO-002,13,1.09,online
 2024-11-12,WEB,GRO-003,4,3.79,online
@@ -181764,6 +181773,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-13,FI01,BEV-004,5,1.39,physical
 2024-11-13,FI01,BEV-006,1,3.29,physical
 2024-11-13,FI01,BEV-007,7,1.69,physical
+2024-11-13,FI01,BEV-009,4,1.69,physical
 2024-11-13,FI01,GRO-001,33,1.09,physical
 2024-11-13,FI01,GRO-002,14,1.09,physical
 2024-11-13,FI01,GRO-003,3,3.79,physical
@@ -181787,6 +181797,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-13,MI01,BEV-003,9,1.59,physical
 2024-11-13,MI01,BEV-004,16,1.39,physical
 2024-11-13,MI01,BEV-007,17,1.69,physical
+2024-11-13,MI01,BEV-009,1,1.69,physical
 2024-11-13,MI01,GRO-001,33,1.09,physical
 2024-11-13,MI01,GRO-002,19,1.09,physical
 2024-11-13,MI01,GRO-003,6,3.79,physical
@@ -181811,6 +181822,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-13,MI02,BEV-005,5,1.99,physical
 2024-11-13,MI02,BEV-006,1,3.29,physical
 2024-11-13,MI02,BEV-007,6,1.69,physical
+2024-11-13,MI02,BEV-009,3,1.69,physical
 2024-11-13,MI02,GRO-001,29,1.09,physical
 2024-11-13,MI02,GRO-002,16,1.09,physical
 2024-11-13,MI02,GRO-003,4,3.79,physical
@@ -181835,6 +181847,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-13,NA01,BEV-006,1,3.29,physical
 2024-11-13,NA01,BEV-007,12,1.69,physical
 2024-11-13,NA01,BEV-008,1,6.49,physical
+2024-11-13,NA01,BEV-009,1,1.69,physical
 2024-11-13,NA01,GRO-001,28,1.09,physical
 2024-11-13,NA01,GRO-002,25,1.09,physical
 2024-11-13,NA01,GRO-003,3,3.79,physical
@@ -181857,6 +181870,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-13,RM01,BEV-006,2,3.29,physical
 2024-11-13,RM01,BEV-007,14,1.69,physical
 2024-11-13,RM01,BEV-008,10,6.49,physical
+2024-11-13,RM01,BEV-009,4,1.69,physical
 2024-11-13,RM01,GRO-001,33,1.09,physical
 2024-11-13,RM01,GRO-002,20,1.09,physical
 2024-11-13,RM01,GRO-003,6,3.79,physical
@@ -181902,6 +181916,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-13,WEB,BEV-004,13,1.39,online
 2024-11-13,WEB,BEV-005,12,1.99,online
 2024-11-13,WEB,BEV-007,9,1.69,online
+2024-11-13,WEB,BEV-009,2,1.69,online
 2024-11-13,WEB,GRO-001,17,1.09,online
 2024-11-13,WEB,GRO-002,11,1.09,online
 2024-11-13,WEB,GRO-003,4,3.79,online
@@ -181950,6 +181965,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-14,FI01,BEV-005,1,1.99,physical
 2024-11-14,FI01,BEV-006,1,3.29,physical
 2024-11-14,FI01,BEV-007,5,1.69,physical
+2024-11-14,FI01,BEV-009,1,1.69,physical
 2024-11-14,FI01,GRO-001,22,1.09,physical
 2024-11-14,FI01,GRO-002,19,1.09,physical
 2024-11-14,FI01,GRO-003,6,3.79,physical
@@ -181974,6 +181990,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-14,MI01,BEV-006,2,3.29,physical
 2024-11-14,MI01,BEV-007,7,1.69,physical
 2024-11-14,MI01,BEV-008,1,6.49,physical
+2024-11-14,MI01,BEV-009,3,1.69,physical
 2024-11-14,MI01,GRO-001,32,1.09,physical
 2024-11-14,MI01,GRO-002,24,1.09,physical
 2024-11-14,MI01,GRO-003,8,3.79,physical
@@ -181998,6 +182015,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-14,MI02,BEV-004,6,1.39,physical
 2024-11-14,MI02,BEV-005,16,1.99,physical
 2024-11-14,MI02,BEV-007,19,1.69,physical
+2024-11-14,MI02,BEV-009,2,1.69,physical
 2024-11-14,MI02,GRO-001,27,1.09,physical
 2024-11-14,MI02,GRO-002,24,1.09,physical
 2024-11-14,MI02,GRO-003,11,3.79,physical
@@ -182046,6 +182064,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-14,RM01,BEV-005,9,1.99,physical
 2024-11-14,RM01,BEV-006,1,3.29,physical
 2024-11-14,RM01,BEV-007,4,1.69,physical
+2024-11-14,RM01,BEV-009,1,1.69,physical
 2024-11-14,RM01,GRO-001,24,1.09,physical
 2024-11-14,RM01,GRO-002,30,1.09,physical
 2024-11-14,RM01,GRO-003,2,3.79,physical
@@ -182071,6 +182090,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-14,TO01,BEV-005,5,1.99,physical
 2024-11-14,TO01,BEV-006,1,3.29,physical
 2024-11-14,TO01,BEV-007,12,1.69,physical
+2024-11-14,TO01,BEV-009,3,1.69,physical
 2024-11-14,TO01,GRO-001,27,1.09,physical
 2024-11-14,TO01,GRO-002,23,1.09,physical
 2024-11-14,TO01,GRO-003,6,3.79,physical
@@ -182122,6 +182142,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-15,BO01,BEV-006,1,3.29,physical
 2024-11-15,BO01,BEV-007,11,1.69,physical
 2024-11-15,BO01,BEV-008,1,6.49,physical
+2024-11-15,BO01,BEV-009,1,1.69,physical
 2024-11-15,BO01,GRO-001,18,1.09,physical
 2024-11-15,BO01,GRO-002,20,1.09,physical
 2024-11-15,BO01,GRO-003,6,3.79,physical
@@ -182148,6 +182169,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-15,FI01,BEV-006,2,3.29,physical
 2024-11-15,FI01,BEV-007,6,1.69,physical
 2024-11-15,FI01,BEV-008,13,6.49,physical
+2024-11-15,FI01,BEV-009,1,1.69,physical
 2024-11-15,FI01,GRO-001,27,1.09,physical
 2024-11-15,FI01,GRO-002,14,1.09,physical
 2024-11-15,FI01,GRO-003,2,3.79,physical
@@ -182172,6 +182194,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-15,MI01,BEV-005,11,1.99,physical
 2024-11-15,MI01,BEV-006,4,3.29,physical
 2024-11-15,MI01,BEV-007,3,1.69,physical
+2024-11-15,MI01,BEV-009,2,1.69,physical
 2024-11-15,MI01,GRO-001,18,1.09,physical
 2024-11-15,MI01,GRO-002,26,1.09,physical
 2024-11-15,MI01,GRO-003,9,3.79,physical
@@ -182194,6 +182217,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-15,MI02,BEV-004,17,1.39,physical
 2024-11-15,MI02,BEV-005,3,1.99,physical
 2024-11-15,MI02,BEV-007,16,1.69,physical
+2024-11-15,MI02,BEV-009,4,1.69,physical
 2024-11-15,MI02,GRO-001,21,1.09,physical
 2024-11-15,MI02,GRO-002,16,1.09,physical
 2024-11-15,MI02,GRO-003,4,3.79,physical
@@ -182218,6 +182242,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-15,NA01,BEV-005,7,1.99,physical
 2024-11-15,NA01,BEV-006,2,3.29,physical
 2024-11-15,NA01,BEV-007,10,1.69,physical
+2024-11-15,NA01,BEV-009,1,1.69,physical
 2024-11-15,NA01,GRO-001,33,1.09,physical
 2024-11-15,NA01,GRO-002,37,1.09,physical
 2024-11-15,NA01,GRO-003,8,3.79,physical
@@ -182242,6 +182267,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-15,RM01,BEV-004,18,1.39,physical
 2024-11-15,RM01,BEV-005,9,1.99,physical
 2024-11-15,RM01,BEV-007,17,1.69,physical
+2024-11-15,RM01,BEV-009,2,1.69,physical
 2024-11-15,RM01,GRO-001,29,1.09,physical
 2024-11-15,RM01,GRO-002,30,1.09,physical
 2024-11-15,RM01,GRO-003,4,3.79,physical
@@ -182266,6 +182292,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-15,TO01,BEV-005,8,1.99,physical
 2024-11-15,TO01,BEV-007,24,1.69,physical
 2024-11-15,TO01,BEV-008,1,6.49,physical
+2024-11-15,TO01,BEV-009,4,1.69,physical
 2024-11-15,TO01,GRO-001,22,1.09,physical
 2024-11-15,TO01,GRO-002,26,1.09,physical
 2024-11-15,TO01,GRO-003,7,3.79,physical
@@ -182290,6 +182317,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-15,WEB,BEV-004,17,1.39,online
 2024-11-15,WEB,BEV-005,9,1.99,online
 2024-11-15,WEB,BEV-007,19,1.69,online
+2024-11-15,WEB,BEV-009,2,1.69,online
 2024-11-15,WEB,GRO-001,17,1.09,online
 2024-11-15,WEB,GRO-002,10,1.09,online
 2024-11-15,WEB,GRO-003,1,3.79,online
@@ -182311,6 +182339,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-16,BO01,BEV-004,10,1.39,physical
 2024-11-16,BO01,BEV-005,17,1.99,physical
 2024-11-16,BO01,BEV-007,11,1.69,physical
+2024-11-16,BO01,BEV-009,3,1.69,physical
 2024-11-16,BO01,GRO-001,57,1.09,physical
 2024-11-16,BO01,GRO-002,23,1.09,physical
 2024-11-16,BO01,GRO-003,10,3.79,physical
@@ -182335,6 +182364,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-16,FI01,BEV-004,22,1.39,physical
 2024-11-16,FI01,BEV-005,11,1.99,physical
 2024-11-16,FI01,BEV-007,4,1.69,physical
+2024-11-16,FI01,BEV-009,1,1.69,physical
 2024-11-16,FI01,GRO-001,27,1.09,physical
 2024-11-16,FI01,GRO-002,23,1.09,physical
 2024-11-16,FI01,GRO-003,3,3.79,physical
@@ -182362,6 +182392,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-16,MI01,BEV-006,2,3.29,physical
 2024-11-16,MI01,BEV-007,6,1.69,physical
 2024-11-16,MI01,BEV-008,1,6.49,physical
+2024-11-16,MI01,BEV-009,3,1.69,physical
 2024-11-16,MI01,GRO-001,39,1.09,physical
 2024-11-16,MI01,GRO-002,32,1.09,physical
 2024-11-16,MI01,GRO-003,14,3.79,physical
@@ -182388,6 +182419,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-16,MI02,BEV-005,18,1.99,physical
 2024-11-16,MI02,BEV-006,1,3.29,physical
 2024-11-16,MI02,BEV-007,36,1.69,physical
+2024-11-16,MI02,BEV-009,3,1.69,physical
 2024-11-16,MI02,GRO-001,41,1.09,physical
 2024-11-16,MI02,GRO-002,33,1.09,physical
 2024-11-16,MI02,GRO-003,5,3.79,physical
@@ -182411,6 +182443,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-16,NA01,BEV-004,7,1.39,physical
 2024-11-16,NA01,BEV-005,7,1.99,physical
 2024-11-16,NA01,BEV-007,10,1.69,physical
+2024-11-16,NA01,BEV-009,2,1.69,physical
 2024-11-16,NA01,GRO-001,44,1.09,physical
 2024-11-16,NA01,GRO-002,30,1.09,physical
 2024-11-16,NA01,GRO-003,8,3.79,physical
@@ -182434,6 +182467,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-16,RM01,BEV-006,1,3.29,physical
 2024-11-16,RM01,BEV-007,20,1.69,physical
 2024-11-16,RM01,BEV-008,1,6.49,physical
+2024-11-16,RM01,BEV-009,1,1.69,physical
 2024-11-16,RM01,GRO-001,63,1.09,physical
 2024-11-16,RM01,GRO-002,25,1.09,physical
 2024-11-16,RM01,GRO-003,8,3.79,physical
@@ -182458,6 +182492,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-16,TO01,BEV-005,11,1.99,physical
 2024-11-16,TO01,BEV-006,3,3.29,physical
 2024-11-16,TO01,BEV-007,18,1.69,physical
+2024-11-16,TO01,BEV-009,2,1.69,physical
 2024-11-16,TO01,GRO-001,30,1.09,physical
 2024-11-16,TO01,GRO-002,31,1.09,physical
 2024-11-16,TO01,GRO-003,6,3.79,physical
@@ -182483,6 +182518,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-16,WEB,BEV-006,3,3.29,online
 2024-11-16,WEB,BEV-007,5,1.69,online
 2024-11-16,WEB,BEV-008,1,6.49,online
+2024-11-16,WEB,BEV-009,1,1.69,online
 2024-11-16,WEB,GRO-001,13,1.09,online
 2024-11-16,WEB,GRO-002,7,1.09,online
 2024-11-16,WEB,GRO-003,1,3.79,online
@@ -182504,6 +182540,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-17,FI01,BEV-004,2,1.39,physical
 2024-11-17,FI01,BEV-005,5,1.99,physical
 2024-11-17,FI01,BEV-007,2,1.69,physical
+2024-11-17,FI01,BEV-009,4,1.69,physical
 2024-11-17,FI01,GRO-001,27,1.09,physical
 2024-11-17,FI01,GRO-002,17,1.09,physical
 2024-11-17,FI01,GRO-003,1,3.79,physical
@@ -182529,6 +182566,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-17,MI01,BEV-005,7,1.99,physical
 2024-11-17,MI01,BEV-006,1,3.29,physical
 2024-11-17,MI01,BEV-007,3,1.69,physical
+2024-11-17,MI01,BEV-009,3,1.69,physical
 2024-11-17,MI01,GRO-001,17,1.09,physical
 2024-11-17,MI01,GRO-002,14,1.09,physical
 2024-11-17,MI01,GRO-003,8,3.79,physical
@@ -182555,6 +182593,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-17,NA01,BEV-005,3,1.99,physical
 2024-11-17,NA01,BEV-006,1,3.29,physical
 2024-11-17,NA01,BEV-007,11,1.69,physical
+2024-11-17,NA01,BEV-009,2,1.69,physical
 2024-11-17,NA01,GRO-001,22,1.09,physical
 2024-11-17,NA01,GRO-002,13,1.09,physical
 2024-11-17,NA01,GRO-003,5,3.79,physical
@@ -182625,6 +182664,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-17,WEB,BEV-005,8,1.99,online
 2024-11-17,WEB,BEV-006,2,3.29,online
 2024-11-17,WEB,BEV-007,1,1.69,online
+2024-11-17,WEB,BEV-009,3,1.69,online
 2024-11-17,WEB,GRO-001,23,1.09,online
 2024-11-17,WEB,GRO-002,18,1.09,online
 2024-11-17,WEB,GRO-003,5,3.79,online
@@ -182696,6 +182736,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-18,MI01,BEV-004,12,1.39,physical
 2024-11-18,MI01,BEV-005,5,1.99,physical
 2024-11-18,MI01,BEV-007,6,1.69,physical
+2024-11-18,MI01,BEV-009,3,1.69,physical
 2024-11-18,MI01,GRO-001,38,1.09,physical
 2024-11-18,MI01,GRO-002,27,1.09,physical
 2024-11-18,MI01,GRO-003,18,3.79,physical
@@ -182718,6 +182759,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-18,MI02,BEV-004,5,1.39,physical
 2024-11-18,MI02,BEV-005,4,1.99,physical
 2024-11-18,MI02,BEV-007,17,1.69,physical
+2024-11-18,MI02,BEV-009,1,1.69,physical
 2024-11-18,MI02,GRO-001,21,1.09,physical
 2024-11-18,MI02,GRO-002,24,1.09,physical
 2024-11-18,MI02,GRO-003,2,3.79,physical
@@ -182740,6 +182782,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-18,NA01,BEV-005,2,1.99,physical
 2024-11-18,NA01,BEV-007,4,1.69,physical
 2024-11-18,NA01,BEV-008,1,6.49,physical
+2024-11-18,NA01,BEV-009,2,1.69,physical
 2024-11-18,NA01,GRO-001,26,1.09,physical
 2024-11-18,NA01,GRO-002,20,1.09,physical
 2024-11-18,NA01,GRO-003,7,3.79,physical
@@ -182763,6 +182806,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-18,RM01,BEV-005,13,1.99,physical
 2024-11-18,RM01,BEV-006,1,3.29,physical
 2024-11-18,RM01,BEV-007,3,1.69,physical
+2024-11-18,RM01,BEV-009,4,1.69,physical
 2024-11-18,RM01,GRO-001,29,1.09,physical
 2024-11-18,RM01,GRO-002,9,1.09,physical
 2024-11-18,RM01,GRO-003,6,3.79,physical
@@ -182810,6 +182854,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-18,WEB,BEV-005,8,1.99,online
 2024-11-18,WEB,BEV-007,11,1.69,online
 2024-11-18,WEB,BEV-008,1,6.49,online
+2024-11-18,WEB,BEV-009,4,1.69,online
 2024-11-18,WEB,GRO-001,18,1.09,online
 2024-11-18,WEB,GRO-002,23,1.09,online
 2024-11-18,WEB,GRO-003,3,3.79,online
@@ -182855,6 +182900,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-19,FI01,BEV-004,6,1.39,physical
 2024-11-19,FI01,BEV-005,8,1.99,physical
 2024-11-19,FI01,BEV-007,3,1.69,physical
+2024-11-19,FI01,BEV-009,4,1.69,physical
 2024-11-19,FI01,GRO-001,11,1.09,physical
 2024-11-19,FI01,GRO-002,8,1.09,physical
 2024-11-19,FI01,GRO-004,2,9.79,physical
@@ -182876,6 +182922,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-19,MI01,BEV-004,24,1.39,physical
 2024-11-19,MI01,BEV-005,2,1.99,physical
 2024-11-19,MI01,BEV-007,7,1.69,physical
+2024-11-19,MI01,BEV-009,3,1.69,physical
 2024-11-19,MI01,GRO-001,51,1.09,physical
 2024-11-19,MI01,GRO-002,22,1.09,physical
 2024-11-19,MI01,GRO-003,2,3.79,physical
@@ -182900,6 +182947,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-19,MI02,BEV-004,13,1.39,physical
 2024-11-19,MI02,BEV-005,5,1.99,physical
 2024-11-19,MI02,BEV-007,11,1.69,physical
+2024-11-19,MI02,BEV-009,1,1.69,physical
 2024-11-19,MI02,GRO-001,25,1.09,physical
 2024-11-19,MI02,GRO-002,5,1.09,physical
 2024-11-19,MI02,GRO-003,4,3.79,physical
@@ -182923,6 +182971,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-19,NA01,BEV-005,3,1.99,physical
 2024-11-19,NA01,BEV-006,2,3.29,physical
 2024-11-19,NA01,BEV-007,11,1.69,physical
+2024-11-19,NA01,BEV-009,3,1.69,physical
 2024-11-19,NA01,GRO-001,33,1.09,physical
 2024-11-19,NA01,GRO-002,21,1.09,physical
 2024-11-19,NA01,GRO-003,7,3.79,physical
@@ -182945,6 +182994,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-19,RM01,BEV-004,11,1.39,physical
 2024-11-19,RM01,BEV-005,8,1.99,physical
 2024-11-19,RM01,BEV-007,12,1.69,physical
+2024-11-19,RM01,BEV-009,1,1.69,physical
 2024-11-19,RM01,GRO-001,22,1.09,physical
 2024-11-19,RM01,GRO-002,21,1.09,physical
 2024-11-19,RM01,GRO-003,5,3.79,physical
@@ -182994,6 +183044,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-19,WEB,BEV-005,18,1.99,online
 2024-11-19,WEB,BEV-006,1,3.29,online
 2024-11-19,WEB,BEV-007,4,1.69,online
+2024-11-19,WEB,BEV-009,3,1.69,online
 2024-11-19,WEB,GRO-001,14,1.09,online
 2024-11-19,WEB,GRO-002,12,1.09,online
 2024-11-19,WEB,GRO-003,6,3.79,online
@@ -183016,6 +183067,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-20,BO01,BEV-004,5,1.39,physical
 2024-11-20,BO01,BEV-005,4,1.99,physical
 2024-11-20,BO01,BEV-007,10,1.69,physical
+2024-11-20,BO01,BEV-009,1,1.69,physical
 2024-11-20,BO01,GRO-001,24,1.09,physical
 2024-11-20,BO01,GRO-002,14,1.09,physical
 2024-11-20,BO01,GRO-003,1,3.79,physical
@@ -183065,6 +183117,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-20,MI01,BEV-004,23,1.39,physical
 2024-11-20,MI01,BEV-005,9,1.99,physical
 2024-11-20,MI01,BEV-007,4,1.69,physical
+2024-11-20,MI01,BEV-009,2,1.69,physical
 2024-11-20,MI01,GRO-001,53,1.09,physical
 2024-11-20,MI01,GRO-002,18,1.09,physical
 2024-11-20,MI01,GRO-003,5,3.79,physical
@@ -183089,6 +183142,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-20,MI02,BEV-005,4,1.99,physical
 2024-11-20,MI02,BEV-007,8,1.69,physical
 2024-11-20,MI02,BEV-008,1,6.49,physical
+2024-11-20,MI02,BEV-009,1,1.69,physical
 2024-11-20,MI02,GRO-001,29,1.09,physical
 2024-11-20,MI02,GRO-002,24,1.09,physical
 2024-11-20,MI02,GRO-003,2,3.79,physical
@@ -183110,6 +183164,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-20,NA01,BEV-004,7,1.39,physical
 2024-11-20,NA01,BEV-005,3,1.99,physical
 2024-11-20,NA01,BEV-007,8,1.69,physical
+2024-11-20,NA01,BEV-009,3,1.69,physical
 2024-11-20,NA01,GRO-001,21,1.09,physical
 2024-11-20,NA01,GRO-002,13,1.09,physical
 2024-11-20,NA01,GRO-003,1,3.79,physical
@@ -183134,6 +183189,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-20,RM01,BEV-004,35,1.39,physical
 2024-11-20,RM01,BEV-005,9,1.99,physical
 2024-11-20,RM01,BEV-007,10,1.69,physical
+2024-11-20,RM01,BEV-009,3,1.69,physical
 2024-11-20,RM01,GRO-001,40,1.09,physical
 2024-11-20,RM01,GRO-002,24,1.09,physical
 2024-11-20,RM01,GRO-003,6,3.79,physical
@@ -183157,6 +183213,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-20,TO01,BEV-004,8,1.39,physical
 2024-11-20,TO01,BEV-005,6,1.99,physical
 2024-11-20,TO01,BEV-007,21,1.69,physical
+2024-11-20,TO01,BEV-009,1,1.69,physical
 2024-11-20,TO01,GRO-001,27,1.09,physical
 2024-11-20,TO01,GRO-002,27,1.09,physical
 2024-11-20,TO01,GRO-003,3,3.79,physical
@@ -183181,6 +183238,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-20,WEB,BEV-005,3,1.99,online
 2024-11-20,WEB,BEV-007,11,1.69,online
 2024-11-20,WEB,BEV-008,1,6.49,online
+2024-11-20,WEB,BEV-009,4,1.69,online
 2024-11-20,WEB,GRO-001,27,1.09,online
 2024-11-20,WEB,GRO-002,19,1.09,online
 2024-11-20,WEB,GRO-003,4,3.79,online
@@ -183203,6 +183261,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-21,BO01,BEV-004,8,1.39,physical
 2024-11-21,BO01,BEV-005,3,1.99,physical
 2024-11-21,BO01,BEV-007,9,1.69,physical
+2024-11-21,BO01,BEV-009,2,1.69,physical
 2024-11-21,BO01,GRO-001,19,1.09,physical
 2024-11-21,BO01,GRO-002,22,1.09,physical
 2024-11-21,BO01,GRO-003,8,3.79,physical
@@ -183227,6 +183286,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-21,FI01,BEV-004,9,1.39,physical
 2024-11-21,FI01,BEV-005,1,1.99,physical
 2024-11-21,FI01,BEV-007,5,1.69,physical
+2024-11-21,FI01,BEV-009,1,1.69,physical
 2024-11-21,FI01,GRO-001,32,1.09,physical
 2024-11-21,FI01,GRO-002,18,1.09,physical
 2024-11-21,FI01,GRO-003,3,3.79,physical
@@ -183252,6 +183312,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-21,MI01,BEV-005,4,1.99,physical
 2024-11-21,MI01,BEV-007,11,1.69,physical
 2024-11-21,MI01,BEV-008,1,6.49,physical
+2024-11-21,MI01,BEV-009,1,1.69,physical
 2024-11-21,MI01,GRO-001,37,1.09,physical
 2024-11-21,MI01,GRO-002,32,1.09,physical
 2024-11-21,MI01,GRO-003,11,3.79,physical
@@ -183273,6 +183334,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-21,MI02,BEV-004,15,1.39,physical
 2024-11-21,MI02,BEV-005,7,1.99,physical
 2024-11-21,MI02,BEV-007,17,1.69,physical
+2024-11-21,MI02,BEV-009,1,1.69,physical
 2024-11-21,MI02,GRO-001,23,1.09,physical
 2024-11-21,MI02,GRO-002,22,1.09,physical
 2024-11-21,MI02,GRO-003,5,3.79,physical
@@ -183297,6 +183359,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-21,NA01,BEV-005,5,1.99,physical
 2024-11-21,NA01,BEV-007,3,1.69,physical
 2024-11-21,NA01,BEV-008,7,6.49,physical
+2024-11-21,NA01,BEV-009,2,1.69,physical
 2024-11-21,NA01,GRO-001,27,1.09,physical
 2024-11-21,NA01,GRO-002,22,1.09,physical
 2024-11-21,NA01,GRO-003,3,3.79,physical
@@ -183341,6 +183404,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-21,TO01,BEV-004,7,1.39,physical
 2024-11-21,TO01,BEV-005,3,1.99,physical
 2024-11-21,TO01,BEV-007,12,1.69,physical
+2024-11-21,TO01,BEV-009,2,1.69,physical
 2024-11-21,TO01,GRO-001,24,1.09,physical
 2024-11-21,TO01,GRO-002,31,1.09,physical
 2024-11-21,TO01,GRO-003,4,3.79,physical
@@ -183365,6 +183429,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-21,WEB,BEV-005,12,1.99,online
 2024-11-21,WEB,BEV-007,10,1.69,online
 2024-11-21,WEB,BEV-008,1,6.49,online
+2024-11-21,WEB,BEV-009,2,1.69,online
 2024-11-21,WEB,GRO-001,16,1.09,online
 2024-11-21,WEB,GRO-002,10,1.09,online
 2024-11-21,WEB,GRO-003,7,3.79,online
@@ -183389,6 +183454,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-22,BO01,BEV-005,9,1.99,physical
 2024-11-22,BO01,BEV-006,1,3.29,physical
 2024-11-22,BO01,BEV-007,18,1.69,physical
+2024-11-22,BO01,BEV-009,2,1.69,physical
 2024-11-22,BO01,GRO-001,50,1.09,physical
 2024-11-22,BO01,GRO-002,24,1.09,physical
 2024-11-22,BO01,GRO-003,3,3.79,physical
@@ -183414,6 +183480,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-22,FI01,BEV-005,7,1.99,physical
 2024-11-22,FI01,BEV-007,2,1.69,physical
 2024-11-22,FI01,BEV-008,3,6.49,physical
+2024-11-22,FI01,BEV-009,1,1.69,physical
 2024-11-22,FI01,GRO-001,20,1.09,physical
 2024-11-22,FI01,GRO-002,11,1.09,physical
 2024-11-22,FI01,GRO-003,5,3.79,physical
@@ -183438,6 +183505,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-22,MI01,BEV-005,9,1.99,physical
 2024-11-22,MI01,BEV-007,16,1.69,physical
 2024-11-22,MI01,BEV-008,1,6.49,physical
+2024-11-22,MI01,BEV-009,3,1.69,physical
 2024-11-22,MI01,GRO-001,48,1.09,physical
 2024-11-22,MI01,GRO-002,30,1.09,physical
 2024-11-22,MI01,GRO-003,16,3.79,physical
@@ -183463,6 +183531,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-22,MI02,BEV-005,12,1.99,physical
 2024-11-22,MI02,BEV-007,23,1.69,physical
 2024-11-22,MI02,BEV-008,1,6.49,physical
+2024-11-22,MI02,BEV-009,7,1.69,physical
 2024-11-22,MI02,GRO-001,31,1.09,physical
 2024-11-22,MI02,GRO-002,21,1.09,physical
 2024-11-22,MI02,GRO-003,6,3.79,physical
@@ -183486,6 +183555,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-22,NA01,BEV-004,9,1.39,physical
 2024-11-22,NA01,BEV-005,6,1.99,physical
 2024-11-22,NA01,BEV-007,11,1.69,physical
+2024-11-22,NA01,BEV-009,3,1.69,physical
 2024-11-22,NA01,GRO-001,36,1.09,physical
 2024-11-22,NA01,GRO-002,15,1.09,physical
 2024-11-22,NA01,GRO-003,1,3.79,physical
@@ -183510,6 +183580,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-22,RM01,BEV-004,13,1.39,physical
 2024-11-22,RM01,BEV-005,9,1.99,physical
 2024-11-22,RM01,BEV-007,13,1.69,physical
+2024-11-22,RM01,BEV-009,3,1.69,physical
 2024-11-22,RM01,GRO-001,53,1.09,physical
 2024-11-22,RM01,GRO-002,27,1.09,physical
 2024-11-22,RM01,GRO-003,6,3.79,physical
@@ -183558,6 +183629,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-22,WEB,BEV-004,21,1.39,online
 2024-11-22,WEB,BEV-005,43,1.99,online
 2024-11-22,WEB,BEV-007,44,1.69,online
+2024-11-22,WEB,BEV-009,5,1.69,online
 2024-11-22,WEB,GRO-001,28,1.09,online
 2024-11-22,WEB,GRO-002,24,1.09,online
 2024-11-22,WEB,GRO-003,6,3.79,online
@@ -183582,6 +183654,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-23,BO01,BEV-004,5,1.39,physical
 2024-11-23,BO01,BEV-005,10,1.99,physical
 2024-11-23,BO01,BEV-007,13,1.69,physical
+2024-11-23,BO01,BEV-009,6,1.69,physical
 2024-11-23,BO01,GRO-001,66,1.09,physical
 2024-11-23,BO01,GRO-002,23,1.09,physical
 2024-11-23,BO01,GRO-003,5,3.79,physical
@@ -183606,6 +183679,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-23,FI01,BEV-004,10,1.39,physical
 2024-11-23,FI01,BEV-005,9,1.99,physical
 2024-11-23,FI01,BEV-007,19,1.69,physical
+2024-11-23,FI01,BEV-009,2,1.69,physical
 2024-11-23,FI01,GRO-001,21,1.09,physical
 2024-11-23,FI01,GRO-002,39,1.09,physical
 2024-11-23,FI01,GRO-003,6,3.79,physical
@@ -183631,6 +183705,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-23,MI01,BEV-005,9,1.99,physical
 2024-11-23,MI01,BEV-007,32,1.69,physical
 2024-11-23,MI01,BEV-008,1,6.49,physical
+2024-11-23,MI01,BEV-009,2,1.69,physical
 2024-11-23,MI01,GRO-001,67,1.09,physical
 2024-11-23,MI01,GRO-002,38,1.09,physical
 2024-11-23,MI01,GRO-003,15,3.79,physical
@@ -183657,6 +183732,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-23,MI02,BEV-005,9,1.99,physical
 2024-11-23,MI02,BEV-006,1,3.29,physical
 2024-11-23,MI02,BEV-007,19,1.69,physical
+2024-11-23,MI02,BEV-009,3,1.69,physical
 2024-11-23,MI02,GRO-001,27,1.09,physical
 2024-11-23,MI02,GRO-002,20,1.09,physical
 2024-11-23,MI02,GRO-003,4,3.79,physical
@@ -183682,6 +183758,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-23,NA01,BEV-006,2,3.29,physical
 2024-11-23,NA01,BEV-007,12,1.69,physical
 2024-11-23,NA01,BEV-008,9,6.49,physical
+2024-11-23,NA01,BEV-009,5,1.69,physical
 2024-11-23,NA01,GRO-001,20,1.09,physical
 2024-11-23,NA01,GRO-002,46,1.09,physical
 2024-11-23,NA01,GRO-003,7,3.79,physical
@@ -183707,6 +183784,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-23,RM01,BEV-005,5,1.99,physical
 2024-11-23,RM01,BEV-007,28,1.69,physical
 2024-11-23,RM01,BEV-008,3,6.49,physical
+2024-11-23,RM01,BEV-009,3,1.69,physical
 2024-11-23,RM01,GRO-001,49,1.09,physical
 2024-11-23,RM01,GRO-002,28,1.09,physical
 2024-11-23,RM01,GRO-003,6,3.79,physical
@@ -183732,6 +183810,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-23,TO01,BEV-004,23,1.39,physical
 2024-11-23,TO01,BEV-005,17,1.99,physical
 2024-11-23,TO01,BEV-007,14,1.69,physical
+2024-11-23,TO01,BEV-009,9,1.69,physical
 2024-11-23,TO01,GRO-001,41,1.09,physical
 2024-11-23,TO01,GRO-002,34,1.09,physical
 2024-11-23,TO01,GRO-003,10,3.79,physical
@@ -183756,6 +183835,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-23,WEB,BEV-005,5,1.99,online
 2024-11-23,WEB,BEV-006,2,3.29,online
 2024-11-23,WEB,BEV-007,15,1.69,online
+2024-11-23,WEB,BEV-009,1,1.69,online
 2024-11-23,WEB,GRO-001,13,1.09,online
 2024-11-23,WEB,GRO-002,8,1.09,online
 2024-11-23,WEB,GRO-003,2,3.79,online
@@ -183778,6 +183858,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-24,FI01,BEV-004,6,1.39,physical
 2024-11-24,FI01,BEV-005,4,1.99,physical
 2024-11-24,FI01,BEV-007,5,1.69,physical
+2024-11-24,FI01,BEV-009,1,1.69,physical
 2024-11-24,FI01,GRO-001,24,1.09,physical
 2024-11-24,FI01,GRO-002,18,1.09,physical
 2024-11-24,FI01,GRO-003,2,3.79,physical
@@ -183800,6 +183881,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-24,MI01,BEV-004,9,1.39,physical
 2024-11-24,MI01,BEV-005,11,1.99,physical
 2024-11-24,MI01,BEV-007,11,1.69,physical
+2024-11-24,MI01,BEV-009,4,1.69,physical
 2024-11-24,MI01,GRO-001,28,1.09,physical
 2024-11-24,MI01,GRO-002,8,1.09,physical
 2024-11-24,MI01,GRO-003,5,3.79,physical
@@ -183824,6 +183906,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-24,NA01,BEV-004,4,1.39,physical
 2024-11-24,NA01,BEV-007,1,1.69,physical
 2024-11-24,NA01,BEV-008,1,6.49,physical
+2024-11-24,NA01,BEV-009,1,1.69,physical
 2024-11-24,NA01,GRO-001,38,1.09,physical
 2024-11-24,NA01,GRO-002,20,1.09,physical
 2024-11-24,NA01,GRO-003,3,3.79,physical
@@ -183846,6 +183929,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-24,RM01,BEV-004,8,1.39,physical
 2024-11-24,RM01,BEV-005,14,1.99,physical
 2024-11-24,RM01,BEV-007,11,1.69,physical
+2024-11-24,RM01,BEV-009,1,1.69,physical
 2024-11-24,RM01,GRO-001,37,1.09,physical
 2024-11-24,RM01,GRO-002,17,1.09,physical
 2024-11-24,RM01,GRO-003,7,3.79,physical
@@ -183868,6 +183952,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-24,TO01,BEV-005,3,1.99,physical
 2024-11-24,TO01,BEV-007,2,1.69,physical
 2024-11-24,TO01,BEV-008,1,6.49,physical
+2024-11-24,TO01,BEV-009,5,1.69,physical
 2024-11-24,TO01,GRO-001,32,1.09,physical
 2024-11-24,TO01,GRO-002,18,1.09,physical
 2024-11-24,TO01,GRO-003,4,3.79,physical
@@ -183917,6 +184002,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-25,BO01,BEV-005,4,1.99,physical
 2024-11-25,BO01,BEV-007,3,1.69,physical
 2024-11-25,BO01,BEV-008,1,6.49,physical
+2024-11-25,BO01,BEV-009,2,1.69,physical
 2024-11-25,BO01,GRO-001,24,1.09,physical
 2024-11-25,BO01,GRO-002,16,1.09,physical
 2024-11-25,BO01,GRO-003,4,3.79,physical
@@ -183965,6 +184051,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-25,MI01,BEV-005,6,1.99,physical
 2024-11-25,MI01,BEV-007,5,1.69,physical
 2024-11-25,MI01,BEV-008,1,6.49,physical
+2024-11-25,MI01,BEV-009,3,1.69,physical
 2024-11-25,MI01,GRO-001,54,1.09,physical
 2024-11-25,MI01,GRO-002,16,1.09,physical
 2024-11-25,MI01,GRO-003,9,3.79,physical
@@ -184011,6 +184098,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-25,NA01,BEV-004,9,1.39,physical
 2024-11-25,NA01,BEV-005,3,1.99,physical
 2024-11-25,NA01,BEV-007,5,1.69,physical
+2024-11-25,NA01,BEV-009,1,1.69,physical
 2024-11-25,NA01,GRO-001,34,1.09,physical
 2024-11-25,NA01,GRO-002,15,1.09,physical
 2024-11-25,NA01,GRO-003,10,3.79,physical
@@ -184034,6 +184122,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-25,RM01,BEV-004,22,1.39,physical
 2024-11-25,RM01,BEV-005,19,1.99,physical
 2024-11-25,RM01,BEV-007,10,1.69,physical
+2024-11-25,RM01,BEV-009,1,1.69,physical
 2024-11-25,RM01,GRO-001,42,1.09,physical
 2024-11-25,RM01,GRO-002,19,1.09,physical
 2024-11-25,RM01,GRO-003,4,3.79,physical
@@ -184056,6 +184145,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-25,TO01,BEV-004,6,1.39,physical
 2024-11-25,TO01,BEV-005,3,1.99,physical
 2024-11-25,TO01,BEV-007,8,1.69,physical
+2024-11-25,TO01,BEV-009,9,1.69,physical
 2024-11-25,TO01,GRO-001,26,1.09,physical
 2024-11-25,TO01,GRO-002,30,1.09,physical
 2024-11-25,TO01,GRO-003,1,3.79,physical
@@ -184080,6 +184170,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-25,WEB,BEV-005,25,1.99,online
 2024-11-25,WEB,BEV-007,20,1.69,online
 2024-11-25,WEB,BEV-008,2,6.49,online
+2024-11-25,WEB,BEV-009,4,1.69,online
 2024-11-25,WEB,GRO-001,31,1.09,online
 2024-11-25,WEB,GRO-002,16,1.09,online
 2024-11-25,WEB,GRO-003,10,3.79,online
@@ -184105,6 +184196,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-26,BO01,BEV-004,3,1.39,physical
 2024-11-26,BO01,BEV-005,10,1.99,physical
 2024-11-26,BO01,BEV-007,12,1.69,physical
+2024-11-26,BO01,BEV-009,5,1.69,physical
 2024-11-26,BO01,GRO-001,16,1.09,physical
 2024-11-26,BO01,GRO-002,14,1.09,physical
 2024-11-26,BO01,GRO-003,3,3.79,physical
@@ -184127,6 +184219,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-26,FI01,BEV-005,6,1.99,physical
 2024-11-26,FI01,BEV-007,6,1.69,physical
 2024-11-26,FI01,BEV-008,1,6.49,physical
+2024-11-26,FI01,BEV-009,1,1.69,physical
 2024-11-26,FI01,GRO-001,27,1.09,physical
 2024-11-26,FI01,GRO-002,16,1.09,physical
 2024-11-26,FI01,GRO-003,8,3.79,physical
@@ -184150,6 +184243,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-26,MI01,BEV-004,26,1.39,physical
 2024-11-26,MI01,BEV-005,4,1.99,physical
 2024-11-26,MI01,BEV-007,6,1.69,physical
+2024-11-26,MI01,BEV-009,3,1.69,physical
 2024-11-26,MI01,GRO-001,23,1.09,physical
 2024-11-26,MI01,GRO-002,25,1.09,physical
 2024-11-26,MI01,GRO-003,7,3.79,physical
@@ -184175,6 +184269,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-26,MI02,BEV-006,2,3.29,physical
 2024-11-26,MI02,BEV-007,4,1.69,physical
 2024-11-26,MI02,BEV-008,12,6.49,physical
+2024-11-26,MI02,BEV-009,1,1.69,physical
 2024-11-26,MI02,GRO-001,28,1.09,physical
 2024-11-26,MI02,GRO-002,17,1.09,physical
 2024-11-26,MI02,GRO-003,3,3.79,physical
@@ -184196,6 +184291,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-26,NA01,BEV-004,6,1.39,physical
 2024-11-26,NA01,BEV-005,8,1.99,physical
 2024-11-26,NA01,BEV-007,3,1.69,physical
+2024-11-26,NA01,BEV-009,1,1.69,physical
 2024-11-26,NA01,GRO-001,37,1.09,physical
 2024-11-26,NA01,GRO-002,21,1.09,physical
 2024-11-26,NA01,GRO-003,3,3.79,physical
@@ -184221,6 +184317,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-26,RM01,BEV-004,12,1.39,physical
 2024-11-26,RM01,BEV-005,4,1.99,physical
 2024-11-26,RM01,BEV-007,13,1.69,physical
+2024-11-26,RM01,BEV-009,4,1.69,physical
 2024-11-26,RM01,GRO-001,26,1.09,physical
 2024-11-26,RM01,GRO-002,26,1.09,physical
 2024-11-26,RM01,GRO-003,9,3.79,physical
@@ -184244,6 +184341,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-26,TO01,BEV-004,14,1.39,physical
 2024-11-26,TO01,BEV-005,5,1.99,physical
 2024-11-26,TO01,BEV-007,10,1.69,physical
+2024-11-26,TO01,BEV-009,1,1.69,physical
 2024-11-26,TO01,GRO-001,35,1.09,physical
 2024-11-26,TO01,GRO-002,10,1.09,physical
 2024-11-26,TO01,GRO-003,8,3.79,physical
@@ -184270,6 +184368,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-26,WEB,BEV-005,14,1.99,online
 2024-11-26,WEB,BEV-006,2,3.29,online
 2024-11-26,WEB,BEV-007,8,1.69,online
+2024-11-26,WEB,BEV-009,2,1.69,online
 2024-11-26,WEB,GRO-001,26,1.09,online
 2024-11-26,WEB,GRO-002,21,1.09,online
 2024-11-26,WEB,GRO-003,8,3.79,online
@@ -184292,6 +184391,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-27,BO01,BEV-004,8,1.39,physical
 2024-11-27,BO01,BEV-005,5,1.99,physical
 2024-11-27,BO01,BEV-007,6,1.69,physical
+2024-11-27,BO01,BEV-009,7,1.69,physical
 2024-11-27,BO01,GRO-001,12,1.09,physical
 2024-11-27,BO01,GRO-002,18,1.09,physical
 2024-11-27,BO01,GRO-003,4,3.79,physical
@@ -184314,6 +184414,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-27,FI01,BEV-004,9,1.39,physical
 2024-11-27,FI01,BEV-005,6,1.99,physical
 2024-11-27,FI01,BEV-007,4,1.69,physical
+2024-11-27,FI01,BEV-009,2,1.69,physical
 2024-11-27,FI01,GRO-001,22,1.09,physical
 2024-11-27,FI01,GRO-002,13,1.09,physical
 2024-11-27,FI01,GRO-003,1,3.79,physical
@@ -184336,6 +184437,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-27,MI01,BEV-004,20,1.39,physical
 2024-11-27,MI01,BEV-005,7,1.99,physical
 2024-11-27,MI01,BEV-007,3,1.69,physical
+2024-11-27,MI01,BEV-009,3,1.69,physical
 2024-11-27,MI01,GRO-001,45,1.09,physical
 2024-11-27,MI01,GRO-002,26,1.09,physical
 2024-11-27,MI01,GRO-003,7,3.79,physical
@@ -184360,6 +184462,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-27,MI02,BEV-005,6,1.99,physical
 2024-11-27,MI02,BEV-006,1,3.29,physical
 2024-11-27,MI02,BEV-007,4,1.69,physical
+2024-11-27,MI02,BEV-009,1,1.69,physical
 2024-11-27,MI02,GRO-001,27,1.09,physical
 2024-11-27,MI02,GRO-002,7,1.09,physical
 2024-11-27,MI02,GRO-003,7,3.79,physical
@@ -184382,6 +184485,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-27,NA01,BEV-004,5,1.39,physical
 2024-11-27,NA01,BEV-005,6,1.99,physical
 2024-11-27,NA01,BEV-007,15,1.69,physical
+2024-11-27,NA01,BEV-009,2,1.69,physical
 2024-11-27,NA01,GRO-001,40,1.09,physical
 2024-11-27,NA01,GRO-002,25,1.09,physical
 2024-11-27,NA01,GRO-003,5,3.79,physical
@@ -184407,6 +184511,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-27,RM01,BEV-005,10,1.99,physical
 2024-11-27,RM01,BEV-007,8,1.69,physical
 2024-11-27,RM01,BEV-008,1,6.49,physical
+2024-11-27,RM01,BEV-009,1,1.69,physical
 2024-11-27,RM01,GRO-001,33,1.09,physical
 2024-11-27,RM01,GRO-002,19,1.09,physical
 2024-11-27,RM01,GRO-003,3,3.79,physical
@@ -184432,6 +184537,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-27,TO01,BEV-006,1,3.29,physical
 2024-11-27,TO01,BEV-007,5,1.69,physical
 2024-11-27,TO01,BEV-008,33,6.49,physical
+2024-11-27,TO01,BEV-009,7,1.69,physical
 2024-11-27,TO01,GRO-001,38,1.09,physical
 2024-11-27,TO01,GRO-002,16,1.09,physical
 2024-11-27,TO01,GRO-003,6,3.79,physical
@@ -184456,6 +184562,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-27,WEB,BEV-005,8,1.99,online
 2024-11-27,WEB,BEV-007,10,1.69,online
 2024-11-27,WEB,BEV-008,1,6.49,online
+2024-11-27,WEB,BEV-009,3,1.69,online
 2024-11-27,WEB,GRO-001,25,1.09,online
 2024-11-27,WEB,GRO-002,15,1.09,online
 2024-11-27,WEB,GRO-003,1,3.79,online
@@ -184480,6 +184587,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-28,BO01,BEV-004,6,1.39,physical
 2024-11-28,BO01,BEV-005,7,1.99,physical
 2024-11-28,BO01,BEV-007,8,1.69,physical
+2024-11-28,BO01,BEV-009,3,1.69,physical
 2024-11-28,BO01,GRO-001,24,1.09,physical
 2024-11-28,BO01,GRO-002,15,1.09,physical
 2024-11-28,BO01,GRO-003,7,3.79,physical
@@ -184503,6 +184611,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-28,FI01,BEV-004,9,1.39,physical
 2024-11-28,FI01,BEV-005,4,1.99,physical
 2024-11-28,FI01,BEV-007,5,1.69,physical
+2024-11-28,FI01,BEV-009,1,1.69,physical
 2024-11-28,FI01,GRO-001,30,1.09,physical
 2024-11-28,FI01,GRO-002,14,1.09,physical
 2024-11-28,FI01,GRO-003,4,3.79,physical
@@ -184527,6 +184636,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-28,MI01,BEV-005,13,1.99,physical
 2024-11-28,MI01,BEV-007,9,1.69,physical
 2024-11-28,MI01,BEV-008,1,6.49,physical
+2024-11-28,MI01,BEV-009,3,1.69,physical
 2024-11-28,MI01,GRO-001,39,1.09,physical
 2024-11-28,MI01,GRO-002,27,1.09,physical
 2024-11-28,MI01,GRO-003,6,3.79,physical
@@ -184551,6 +184661,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-28,MI02,BEV-004,11,1.39,physical
 2024-11-28,MI02,BEV-005,2,1.99,physical
 2024-11-28,MI02,BEV-007,6,1.69,physical
+2024-11-28,MI02,BEV-009,1,1.69,physical
 2024-11-28,MI02,GRO-001,25,1.09,physical
 2024-11-28,MI02,GRO-002,13,1.09,physical
 2024-11-28,MI02,GRO-003,2,3.79,physical
@@ -184574,6 +184685,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-28,NA01,BEV-004,7,1.39,physical
 2024-11-28,NA01,BEV-005,7,1.99,physical
 2024-11-28,NA01,BEV-007,7,1.69,physical
+2024-11-28,NA01,BEV-009,2,1.69,physical
 2024-11-28,NA01,GRO-001,29,1.09,physical
 2024-11-28,NA01,GRO-002,21,1.09,physical
 2024-11-28,NA01,GRO-003,5,3.79,physical
@@ -184623,6 +184735,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-28,TO01,BEV-005,5,1.99,physical
 2024-11-28,TO01,BEV-007,19,1.69,physical
 2024-11-28,TO01,BEV-008,11,6.49,physical
+2024-11-28,TO01,BEV-009,1,1.69,physical
 2024-11-28,TO01,GRO-001,36,1.09,physical
 2024-11-28,TO01,GRO-002,23,1.09,physical
 2024-11-28,TO01,GRO-003,5,3.79,physical
@@ -184647,6 +184760,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-28,WEB,BEV-004,19,1.39,online
 2024-11-28,WEB,BEV-005,13,1.99,online
 2024-11-28,WEB,BEV-007,4,1.69,online
+2024-11-28,WEB,BEV-009,3,1.69,online
 2024-11-28,WEB,GRO-001,13,1.09,online
 2024-11-28,WEB,GRO-002,15,1.09,online
 2024-11-28,WEB,GRO-003,4,3.79,online
@@ -184670,6 +184784,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-29,BO01,BEV-004,7,1.39,physical
 2024-11-29,BO01,BEV-005,3,1.99,physical
 2024-11-29,BO01,BEV-007,10,1.69,physical
+2024-11-29,BO01,BEV-009,4,1.69,physical
 2024-11-29,BO01,GRO-001,30,1.09,physical
 2024-11-29,BO01,GRO-002,15,1.09,physical
 2024-11-29,BO01,GRO-003,8,3.79,physical
@@ -184693,6 +184808,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-29,FI01,BEV-004,10,1.39,physical
 2024-11-29,FI01,BEV-005,8,1.99,physical
 2024-11-29,FI01,BEV-007,7,1.69,physical
+2024-11-29,FI01,BEV-009,1,1.69,physical
 2024-11-29,FI01,GRO-001,21,1.09,physical
 2024-11-29,FI01,GRO-002,15,1.09,physical
 2024-11-29,FI01,GRO-003,3,3.79,physical
@@ -184716,6 +184832,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-29,MI01,BEV-005,4,1.99,physical
 2024-11-29,MI01,BEV-006,1,3.29,physical
 2024-11-29,MI01,BEV-007,13,1.69,physical
+2024-11-29,MI01,BEV-009,1,1.69,physical
 2024-11-29,MI01,GRO-001,47,1.09,physical
 2024-11-29,MI01,GRO-002,24,1.09,physical
 2024-11-29,MI01,GRO-003,5,3.79,physical
@@ -184740,6 +184857,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-29,MI02,BEV-005,10,1.99,physical
 2024-11-29,MI02,BEV-007,10,1.69,physical
 2024-11-29,MI02,BEV-008,1,6.49,physical
+2024-11-29,MI02,BEV-009,5,1.69,physical
 2024-11-29,MI02,GRO-001,44,1.09,physical
 2024-11-29,MI02,GRO-002,25,1.09,physical
 2024-11-29,MI02,GRO-003,8,3.79,physical
@@ -184763,6 +184881,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-29,NA01,BEV-004,12,1.39,physical
 2024-11-29,NA01,BEV-005,10,1.99,physical
 2024-11-29,NA01,BEV-007,16,1.69,physical
+2024-11-29,NA01,BEV-009,3,1.69,physical
 2024-11-29,NA01,GRO-001,35,1.09,physical
 2024-11-29,NA01,GRO-002,22,1.09,physical
 2024-11-29,NA01,GRO-003,12,3.79,physical
@@ -184785,6 +184904,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-29,RM01,BEV-004,10,1.39,physical
 2024-11-29,RM01,BEV-005,9,1.99,physical
 2024-11-29,RM01,BEV-007,14,1.69,physical
+2024-11-29,RM01,BEV-009,3,1.69,physical
 2024-11-29,RM01,GRO-001,46,1.09,physical
 2024-11-29,RM01,GRO-002,9,1.09,physical
 2024-11-29,RM01,GRO-003,11,3.79,physical
@@ -184808,6 +184928,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-29,TO01,BEV-004,14,1.39,physical
 2024-11-29,TO01,BEV-005,9,1.99,physical
 2024-11-29,TO01,BEV-007,15,1.69,physical
+2024-11-29,TO01,BEV-009,3,1.69,physical
 2024-11-29,TO01,GRO-001,31,1.09,physical
 2024-11-29,TO01,GRO-002,16,1.09,physical
 2024-11-29,TO01,GRO-003,8,3.79,physical
@@ -184831,6 +184952,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-29,WEB,BEV-004,20,1.39,online
 2024-11-29,WEB,BEV-005,8,1.99,online
 2024-11-29,WEB,BEV-007,9,1.69,online
+2024-11-29,WEB,BEV-009,2,1.69,online
 2024-11-29,WEB,GRO-001,19,1.09,online
 2024-11-29,WEB,GRO-002,7,1.09,online
 2024-11-29,WEB,GRO-003,1,3.79,online
@@ -184856,6 +184978,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-30,BO01,BEV-004,11,1.39,physical
 2024-11-30,BO01,BEV-005,7,1.99,physical
 2024-11-30,BO01,BEV-007,20,1.69,physical
+2024-11-30,BO01,BEV-009,7,1.69,physical
 2024-11-30,BO01,GRO-001,57,1.09,physical
 2024-11-30,BO01,GRO-002,32,1.09,physical
 2024-11-30,BO01,GRO-003,5,3.79,physical
@@ -184880,6 +185003,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-30,FI01,BEV-004,7,1.39,physical
 2024-11-30,FI01,BEV-005,7,1.99,physical
 2024-11-30,FI01,BEV-007,4,1.69,physical
+2024-11-30,FI01,BEV-009,1,1.69,physical
 2024-11-30,FI01,GRO-001,35,1.09,physical
 2024-11-30,FI01,GRO-002,27,1.09,physical
 2024-11-30,FI01,GRO-003,4,3.79,physical
@@ -184904,6 +185028,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-30,MI01,BEV-005,10,1.99,physical
 2024-11-30,MI01,BEV-006,1,3.29,physical
 2024-11-30,MI01,BEV-007,30,1.69,physical
+2024-11-30,MI01,BEV-009,3,1.69,physical
 2024-11-30,MI01,GRO-001,43,1.09,physical
 2024-11-30,MI01,GRO-002,43,1.09,physical
 2024-11-30,MI01,GRO-003,14,3.79,physical
@@ -184929,6 +185054,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-30,MI02,BEV-004,10,1.39,physical
 2024-11-30,MI02,BEV-005,8,1.99,physical
 2024-11-30,MI02,BEV-007,24,1.69,physical
+2024-11-30,MI02,BEV-009,4,1.69,physical
 2024-11-30,MI02,GRO-001,44,1.09,physical
 2024-11-30,MI02,GRO-002,33,1.09,physical
 2024-11-30,MI02,GRO-003,9,3.79,physical
@@ -184954,6 +185080,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-30,NA01,BEV-004,9,1.39,physical
 2024-11-30,NA01,BEV-005,5,1.99,physical
 2024-11-30,NA01,BEV-007,16,1.69,physical
+2024-11-30,NA01,BEV-009,5,1.69,physical
 2024-11-30,NA01,GRO-001,41,1.09,physical
 2024-11-30,NA01,GRO-002,38,1.09,physical
 2024-11-30,NA01,GRO-003,6,3.79,physical
@@ -184979,6 +185106,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-30,RM01,BEV-005,11,1.99,physical
 2024-11-30,RM01,BEV-006,1,3.29,physical
 2024-11-30,RM01,BEV-007,13,1.69,physical
+2024-11-30,RM01,BEV-009,2,1.69,physical
 2024-11-30,RM01,GRO-001,55,1.09,physical
 2024-11-30,RM01,GRO-002,34,1.09,physical
 2024-11-30,RM01,GRO-003,10,3.79,physical
@@ -185003,6 +185131,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-30,TO01,BEV-004,9,1.39,physical
 2024-11-30,TO01,BEV-005,7,1.99,physical
 2024-11-30,TO01,BEV-007,12,1.69,physical
+2024-11-30,TO01,BEV-009,3,1.69,physical
 2024-11-30,TO01,GRO-001,56,1.09,physical
 2024-11-30,TO01,GRO-002,32,1.09,physical
 2024-11-30,TO01,GRO-003,15,3.79,physical
@@ -185028,6 +185157,7 @@ date,store,item,quantity,unit_price,channel
 2024-11-30,WEB,BEV-004,5,1.39,online
 2024-11-30,WEB,BEV-005,10,1.99,online
 2024-11-30,WEB,BEV-007,9,1.69,online
+2024-11-30,WEB,BEV-009,1,1.69,online
 2024-11-30,WEB,GRO-001,13,1.09,online
 2024-11-30,WEB,GRO-002,16,1.09,online
 2024-11-30,WEB,GRO-003,2,3.79,online
@@ -185049,6 +185179,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-01,FI01,BEV-004,3,1.39,physical
 2024-12-01,FI01,BEV-005,1,1.99,physical
 2024-12-01,FI01,BEV-007,2,1.69,physical
+2024-12-01,FI01,BEV-009,3,1.69,physical
 2024-12-01,FI01,GRO-001,30,1.09,physical
 2024-12-01,FI01,GRO-002,11,1.09,physical
 2024-12-01,FI01,GRO-003,3,3.79,physical
@@ -185073,6 +185204,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-01,MI01,BEV-004,18,1.39,physical
 2024-12-01,MI01,BEV-005,4,1.99,physical
 2024-12-01,MI01,BEV-007,20,1.69,physical
+2024-12-01,MI01,BEV-009,2,1.69,physical
 2024-12-01,MI01,GRO-001,27,1.09,physical
 2024-12-01,MI01,GRO-002,22,1.09,physical
 2024-12-01,MI01,GRO-003,12,3.79,physical
@@ -185096,6 +185228,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-01,NA01,BEV-005,6,1.99,physical
 2024-12-01,NA01,BEV-007,14,1.69,physical
 2024-12-01,NA01,BEV-008,1,6.49,physical
+2024-12-01,NA01,BEV-009,2,1.69,physical
 2024-12-01,NA01,GRO-001,19,1.09,physical
 2024-12-01,NA01,GRO-002,14,1.09,physical
 2024-12-01,NA01,GRO-003,2,3.79,physical
@@ -185122,6 +185255,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-01,RM01,BEV-005,13,1.99,physical
 2024-12-01,RM01,BEV-007,7,1.69,physical
 2024-12-01,RM01,BEV-008,1,6.49,physical
+2024-12-01,RM01,BEV-009,4,1.69,physical
 2024-12-01,RM01,GRO-001,34,1.09,physical
 2024-12-01,RM01,GRO-002,24,1.09,physical
 2024-12-01,RM01,GRO-003,4,3.79,physical
@@ -185147,6 +185281,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-01,TO01,BEV-005,2,1.99,physical
 2024-12-01,TO01,BEV-007,7,1.69,physical
 2024-12-01,TO01,BEV-008,1,6.49,physical
+2024-12-01,TO01,BEV-009,4,1.69,physical
 2024-12-01,TO01,GRO-001,21,1.09,physical
 2024-12-01,TO01,GRO-002,23,1.09,physical
 2024-12-01,TO01,GRO-003,8,3.79,physical
@@ -185172,6 +185307,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-01,WEB,BEV-004,9,1.39,online
 2024-12-01,WEB,BEV-005,9,1.99,online
 2024-12-01,WEB,BEV-007,14,1.69,online
+2024-12-01,WEB,BEV-009,5,1.69,online
 2024-12-01,WEB,GRO-001,17,1.09,online
 2024-12-01,WEB,GRO-002,17,1.09,online
 2024-12-01,WEB,GRO-003,7,3.79,online
@@ -185194,6 +185330,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,BO01,BEV-004,3,1.39,physical
 2024-12-02,BO01,BEV-005,4,1.99,physical
 2024-12-02,BO01,BEV-007,5,1.69,physical
+2024-12-02,BO01,BEV-009,1,1.69,physical
 2024-12-02,BO01,GRO-001,27,1.09,physical
 2024-12-02,BO01,GRO-002,9,1.09,physical
 2024-12-02,BO01,GRO-003,7,3.79,physical
@@ -185217,6 +185354,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,FI01,BEV-005,3,1.99,physical
 2024-12-02,FI01,BEV-006,1,3.29,physical
 2024-12-02,FI01,BEV-007,4,1.69,physical
+2024-12-02,FI01,BEV-009,2,1.69,physical
 2024-12-02,FI01,GRO-001,16,1.09,physical
 2024-12-02,FI01,GRO-002,20,1.09,physical
 2024-12-02,FI01,GRO-004,4,9.79,physical
@@ -185226,6 +185364,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,FI01,GRO-008,4,1.29,physical
 2024-12-02,FI01,GRO-009,9,0.79,physical
 2024-12-02,FI01,GRO-010,6,2.69,physical
+2024-12-02,FI01,GRO-011,1,1.29,physical
 2024-12-02,FI01,HOM-001,6,4.39,physical
 2024-12-02,FI01,HOM-002,4,3.29,physical
 2024-12-02,FI01,HOM-003,7,1.64,physical
@@ -185240,6 +185379,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,MI01,BEV-004,25,1.39,physical
 2024-12-02,MI01,BEV-005,6,1.99,physical
 2024-12-02,MI01,BEV-007,6,1.69,physical
+2024-12-02,MI01,BEV-009,2,1.69,physical
 2024-12-02,MI01,GRO-001,17,1.09,physical
 2024-12-02,MI01,GRO-002,24,1.09,physical
 2024-12-02,MI01,GRO-003,4,3.79,physical
@@ -185264,6 +185404,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,MI02,BEV-004,7,1.39,physical
 2024-12-02,MI02,BEV-005,6,1.99,physical
 2024-12-02,MI02,BEV-007,12,1.69,physical
+2024-12-02,MI02,BEV-009,3,1.69,physical
 2024-12-02,MI02,GRO-001,23,1.09,physical
 2024-12-02,MI02,GRO-002,13,1.09,physical
 2024-12-02,MI02,GRO-003,5,3.79,physical
@@ -185287,6 +185428,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,NA01,BEV-005,5,1.99,physical
 2024-12-02,NA01,BEV-007,2,1.69,physical
 2024-12-02,NA01,BEV-008,18,6.49,physical
+2024-12-02,NA01,BEV-009,1,1.69,physical
 2024-12-02,NA01,GRO-001,24,1.09,physical
 2024-12-02,NA01,GRO-002,26,1.09,physical
 2024-12-02,NA01,GRO-003,12,3.79,physical
@@ -185297,6 +185439,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,NA01,GRO-008,7,1.29,physical
 2024-12-02,NA01,GRO-009,21,0.79,physical
 2024-12-02,NA01,GRO-010,4,2.69,physical
+2024-12-02,NA01,GRO-011,1,1.29,physical
 2024-12-02,NA01,HOM-001,11,4.39,physical
 2024-12-02,NA01,HOM-002,5,3.29,physical
 2024-12-02,NA01,HOM-003,8,1.64,physical
@@ -185312,6 +185455,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,RM01,BEV-005,12,1.99,physical
 2024-12-02,RM01,BEV-007,8,1.69,physical
 2024-12-02,RM01,BEV-008,11,6.49,physical
+2024-12-02,RM01,BEV-009,3,1.69,physical
 2024-12-02,RM01,GRO-001,37,1.09,physical
 2024-12-02,RM01,GRO-002,12,1.09,physical
 2024-12-02,RM01,GRO-003,6,3.79,physical
@@ -185322,6 +185466,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,RM01,GRO-008,8,1.29,physical
 2024-12-02,RM01,GRO-009,13,0.79,physical
 2024-12-02,RM01,GRO-010,8,2.69,physical
+2024-12-02,RM01,GRO-011,5,1.29,physical
 2024-12-02,RM01,HOM-001,8,4.39,physical
 2024-12-02,RM01,HOM-002,4,3.29,physical
 2024-12-02,RM01,HOM-003,5,1.64,physical
@@ -185335,6 +185480,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,TO01,BEV-004,6,1.39,physical
 2024-12-02,TO01,BEV-005,8,1.99,physical
 2024-12-02,TO01,BEV-007,14,1.69,physical
+2024-12-02,TO01,BEV-009,5,1.69,physical
 2024-12-02,TO01,GRO-001,27,1.09,physical
 2024-12-02,TO01,GRO-002,18,1.09,physical
 2024-12-02,TO01,GRO-003,4,3.79,physical
@@ -185360,6 +185506,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-02,WEB,BEV-004,19,1.39,online
 2024-12-02,WEB,BEV-005,15,1.99,online
 2024-12-02,WEB,BEV-007,7,1.69,online
+2024-12-02,WEB,BEV-009,3,1.69,online
 2024-12-02,WEB,GRO-001,16,1.09,online
 2024-12-02,WEB,GRO-002,7,1.09,online
 2024-12-02,WEB,GRO-003,8,3.79,online
@@ -185385,6 +185532,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,BO01,BEV-005,4,1.99,physical
 2024-12-03,BO01,BEV-007,9,1.69,physical
 2024-12-03,BO01,BEV-008,1,6.49,physical
+2024-12-03,BO01,BEV-009,1,1.69,physical
 2024-12-03,BO01,GRO-001,30,1.09,physical
 2024-12-03,BO01,GRO-002,9,1.09,physical
 2024-12-03,BO01,GRO-003,2,3.79,physical
@@ -185395,6 +185543,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,BO01,GRO-008,6,1.29,physical
 2024-12-03,BO01,GRO-009,9,0.79,physical
 2024-12-03,BO01,GRO-010,8,2.69,physical
+2024-12-03,BO01,GRO-011,4,1.29,physical
 2024-12-03,BO01,HOM-001,5,4.39,physical
 2024-12-03,BO01,HOM-002,4,3.29,physical
 2024-12-03,BO01,HOM-003,7,1.64,physical
@@ -185409,6 +185558,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,FI01,BEV-004,13,1.39,physical
 2024-12-03,FI01,BEV-005,4,1.99,physical
 2024-12-03,FI01,BEV-007,3,1.69,physical
+2024-12-03,FI01,BEV-009,1,1.69,physical
 2024-12-03,FI01,GRO-001,14,1.09,physical
 2024-12-03,FI01,GRO-002,15,1.09,physical
 2024-12-03,FI01,GRO-003,1,3.79,physical
@@ -185419,6 +185569,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,FI01,GRO-008,4,1.29,physical
 2024-12-03,FI01,GRO-009,9,0.79,physical
 2024-12-03,FI01,GRO-010,1,2.69,physical
+2024-12-03,FI01,GRO-011,2,1.29,physical
 2024-12-03,FI01,HOM-001,6,4.39,physical
 2024-12-03,FI01,HOM-002,2,3.29,physical
 2024-12-03,FI01,HOM-003,1,1.64,physical
@@ -185436,6 +185587,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,MI01,BEV-005,8,1.99,physical
 2024-12-03,MI01,BEV-007,6,1.69,physical
 2024-12-03,MI01,BEV-008,2,6.49,physical
+2024-12-03,MI01,BEV-009,2,1.69,physical
 2024-12-03,MI01,GRO-001,35,1.09,physical
 2024-12-03,MI01,GRO-002,19,1.09,physical
 2024-12-03,MI01,GRO-003,4,3.79,physical
@@ -185461,6 +185613,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,MI02,BEV-004,5,1.39,physical
 2024-12-03,MI02,BEV-005,6,1.99,physical
 2024-12-03,MI02,BEV-007,15,1.69,physical
+2024-12-03,MI02,BEV-009,2,1.69,physical
 2024-12-03,MI02,GRO-001,24,1.09,physical
 2024-12-03,MI02,GRO-002,10,1.09,physical
 2024-12-03,MI02,GRO-003,8,3.79,physical
@@ -185471,6 +185624,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,MI02,GRO-008,7,1.29,physical
 2024-12-03,MI02,GRO-009,4,0.79,physical
 2024-12-03,MI02,GRO-010,4,2.69,physical
+2024-12-03,MI02,GRO-011,4,1.29,physical
 2024-12-03,MI02,HOM-001,7,4.39,physical
 2024-12-03,MI02,HOM-002,2,3.29,physical
 2024-12-03,MI02,HOM-003,6,1.64,physical
@@ -185484,6 +185638,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,NA01,BEV-004,7,1.39,physical
 2024-12-03,NA01,BEV-005,1,1.99,physical
 2024-12-03,NA01,BEV-007,9,1.69,physical
+2024-12-03,NA01,BEV-009,3,1.69,physical
 2024-12-03,NA01,GRO-001,17,1.09,physical
 2024-12-03,NA01,GRO-002,21,1.09,physical
 2024-12-03,NA01,GRO-003,5,3.79,physical
@@ -185494,6 +185649,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,NA01,GRO-008,3,1.29,physical
 2024-12-03,NA01,GRO-009,7,0.79,physical
 2024-12-03,NA01,GRO-010,5,2.69,physical
+2024-12-03,NA01,GRO-011,2,1.29,physical
 2024-12-03,NA01,HOM-001,9,4.39,physical
 2024-12-03,NA01,HOM-003,9,1.64,physical
 2024-12-03,NA01,HOM-004,5,1.99,physical
@@ -185506,6 +185662,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,RM01,BEV-004,13,1.39,physical
 2024-12-03,RM01,BEV-005,12,1.99,physical
 2024-12-03,RM01,BEV-007,13,1.69,physical
+2024-12-03,RM01,BEV-009,3,1.69,physical
 2024-12-03,RM01,GRO-001,38,1.09,physical
 2024-12-03,RM01,GRO-002,14,1.09,physical
 2024-12-03,RM01,GRO-003,4,3.79,physical
@@ -185516,6 +185673,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,RM01,GRO-008,2,1.29,physical
 2024-12-03,RM01,GRO-009,5,0.79,physical
 2024-12-03,RM01,GRO-010,2,2.69,physical
+2024-12-03,RM01,GRO-011,1,1.29,physical
 2024-12-03,RM01,HOM-001,14,4.39,physical
 2024-12-03,RM01,HOM-002,7,3.29,physical
 2024-12-03,RM01,HOM-003,10,1.64,physical
@@ -185529,6 +185687,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,TO01,BEV-004,10,1.39,physical
 2024-12-03,TO01,BEV-005,9,1.99,physical
 2024-12-03,TO01,BEV-007,6,1.69,physical
+2024-12-03,TO01,BEV-009,3,1.69,physical
 2024-12-03,TO01,GRO-001,37,1.09,physical
 2024-12-03,TO01,GRO-002,18,1.09,physical
 2024-12-03,TO01,GRO-003,4,3.79,physical
@@ -185539,6 +185698,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,TO01,GRO-008,6,1.29,physical
 2024-12-03,TO01,GRO-009,8,0.79,physical
 2024-12-03,TO01,GRO-010,4,2.69,physical
+2024-12-03,TO01,GRO-011,1,1.29,physical
 2024-12-03,TO01,HOM-001,14,4.39,physical
 2024-12-03,TO01,HOM-002,6,3.29,physical
 2024-12-03,TO01,HOM-003,7,1.64,physical
@@ -185555,6 +185715,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-03,WEB,BEV-004,21,1.39,online
 2024-12-03,WEB,BEV-005,1,1.99,online
 2024-12-03,WEB,BEV-007,22,1.69,online
+2024-12-03,WEB,BEV-009,5,1.69,online
 2024-12-03,WEB,GRO-001,16,1.09,online
 2024-12-03,WEB,GRO-002,19,1.09,online
 2024-12-03,WEB,GRO-003,8,3.79,online
@@ -185577,6 +185738,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,BO01,BEV-004,5,1.39,physical
 2024-12-04,BO01,BEV-005,5,1.99,physical
 2024-12-04,BO01,BEV-007,12,1.69,physical
+2024-12-04,BO01,BEV-009,2,1.69,physical
 2024-12-04,BO01,GRO-001,34,1.09,physical
 2024-12-04,BO01,GRO-002,14,1.09,physical
 2024-12-04,BO01,GRO-003,1,3.79,physical
@@ -185587,6 +185749,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,BO01,GRO-008,6,1.29,physical
 2024-12-04,BO01,GRO-009,4,0.79,physical
 2024-12-04,BO01,GRO-010,4,2.69,physical
+2024-12-04,BO01,GRO-011,1,1.29,physical
 2024-12-04,BO01,HOM-001,7,4.39,physical
 2024-12-04,BO01,HOM-002,4,3.29,physical
 2024-12-04,BO01,HOM-003,2,2.19,physical
@@ -185602,6 +185765,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,FI01,BEV-005,2,1.99,physical
 2024-12-04,FI01,BEV-006,1,3.29,physical
 2024-12-04,FI01,BEV-007,5,1.69,physical
+2024-12-04,FI01,BEV-009,1,1.69,physical
 2024-12-04,FI01,GRO-001,20,1.09,physical
 2024-12-04,FI01,GRO-002,17,1.09,physical
 2024-12-04,FI01,GRO-003,3,3.79,physical
@@ -185627,6 +185791,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,MI01,BEV-005,9,1.99,physical
 2024-12-04,MI01,BEV-007,3,1.69,physical
 2024-12-04,MI01,BEV-008,1,6.49,physical
+2024-12-04,MI01,BEV-009,3,1.69,physical
 2024-12-04,MI01,GRO-001,35,1.09,physical
 2024-12-04,MI01,GRO-002,24,1.09,physical
 2024-12-04,MI01,GRO-003,6,3.79,physical
@@ -185637,6 +185802,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,MI01,GRO-008,6,1.29,physical
 2024-12-04,MI01,GRO-009,17,0.79,physical
 2024-12-04,MI01,GRO-010,4,2.69,physical
+2024-12-04,MI01,GRO-011,5,1.29,physical
 2024-12-04,MI01,HOM-001,3,4.39,physical
 2024-12-04,MI01,HOM-002,11,3.29,physical
 2024-12-04,MI01,HOM-003,5,2.19,physical
@@ -185651,6 +185817,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,MI02,BEV-004,8,1.39,physical
 2024-12-04,MI02,BEV-005,11,1.99,physical
 2024-12-04,MI02,BEV-007,20,1.69,physical
+2024-12-04,MI02,BEV-009,5,1.69,physical
 2024-12-04,MI02,GRO-001,27,1.09,physical
 2024-12-04,MI02,GRO-002,21,1.09,physical
 2024-12-04,MI02,GRO-003,3,3.79,physical
@@ -185661,6 +185828,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,MI02,GRO-008,5,1.29,physical
 2024-12-04,MI02,GRO-009,13,0.79,physical
 2024-12-04,MI02,GRO-010,9,2.69,physical
+2024-12-04,MI02,GRO-011,1,1.29,physical
 2024-12-04,MI02,HOM-001,7,4.39,physical
 2024-12-04,MI02,HOM-002,4,3.29,physical
 2024-12-04,MI02,HOM-003,7,2.19,physical
@@ -185684,6 +185852,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,NA01,GRO-008,3,1.29,physical
 2024-12-04,NA01,GRO-009,3,0.79,physical
 2024-12-04,NA01,GRO-010,1,2.69,physical
+2024-12-04,NA01,GRO-011,2,1.29,physical
 2024-12-04,NA01,HOM-001,10,4.39,physical
 2024-12-04,NA01,HOM-002,3,3.29,physical
 2024-12-04,NA01,HOM-003,4,2.19,physical
@@ -185698,6 +185867,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,RM01,BEV-004,10,1.39,physical
 2024-12-04,RM01,BEV-005,17,1.99,physical
 2024-12-04,RM01,BEV-007,17,1.69,physical
+2024-12-04,RM01,BEV-009,1,1.69,physical
 2024-12-04,RM01,GRO-001,26,1.09,physical
 2024-12-04,RM01,GRO-002,19,1.09,physical
 2024-12-04,RM01,GRO-003,4,3.79,physical
@@ -185723,6 +185893,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,TO01,BEV-005,9,1.99,physical
 2024-12-04,TO01,BEV-007,13,1.69,physical
 2024-12-04,TO01,BEV-008,1,6.49,physical
+2024-12-04,TO01,BEV-009,4,1.69,physical
 2024-12-04,TO01,GRO-001,29,1.09,physical
 2024-12-04,TO01,GRO-002,20,1.09,physical
 2024-12-04,TO01,GRO-003,9,3.79,physical
@@ -185733,6 +185904,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,TO01,GRO-008,1,1.29,physical
 2024-12-04,TO01,GRO-009,13,0.79,physical
 2024-12-04,TO01,GRO-010,9,2.69,physical
+2024-12-04,TO01,GRO-011,2,1.29,physical
 2024-12-04,TO01,HOM-001,15,4.39,physical
 2024-12-04,TO01,HOM-002,2,3.29,physical
 2024-12-04,TO01,HOM-003,3,2.19,physical
@@ -185748,6 +185920,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,WEB,BEV-005,15,1.99,online
 2024-12-04,WEB,BEV-007,16,1.69,online
 2024-12-04,WEB,BEV-008,1,6.49,online
+2024-12-04,WEB,BEV-009,4,1.69,online
 2024-12-04,WEB,GRO-001,15,1.09,online
 2024-12-04,WEB,GRO-002,21,1.09,online
 2024-12-04,WEB,GRO-003,3,3.79,online
@@ -185758,6 +185931,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-04,WEB,GRO-008,3,1.29,online
 2024-12-04,WEB,GRO-009,16,0.79,online
 2024-12-04,WEB,GRO-010,5,2.69,online
+2024-12-04,WEB,GRO-011,1,1.29,online
 2024-12-04,WEB,HOM-001,6,4.39,online
 2024-12-04,WEB,HOM-002,6,3.29,online
 2024-12-04,WEB,HOM-003,3,2.19,online
@@ -185771,6 +185945,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,BO01,BEV-004,3,1.39,physical
 2024-12-05,BO01,BEV-005,7,1.99,physical
 2024-12-05,BO01,BEV-007,9,1.69,physical
+2024-12-05,BO01,BEV-009,7,1.69,physical
 2024-12-05,BO01,GRO-001,44,1.09,physical
 2024-12-05,BO01,GRO-002,19,1.09,physical
 2024-12-05,BO01,GRO-003,1,3.79,physical
@@ -185781,6 +185956,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,BO01,GRO-008,5,1.29,physical
 2024-12-05,BO01,GRO-009,8,0.79,physical
 2024-12-05,BO01,GRO-010,6,2.69,physical
+2024-12-05,BO01,GRO-011,2,1.29,physical
 2024-12-05,BO01,HOM-001,11,4.39,physical
 2024-12-05,BO01,HOM-002,3,3.29,physical
 2024-12-05,BO01,HOM-003,4,2.19,physical
@@ -185794,6 +185970,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,FI01,BEV-004,3,1.39,physical
 2024-12-05,FI01,BEV-005,8,1.99,physical
 2024-12-05,FI01,BEV-007,8,1.69,physical
+2024-12-05,FI01,BEV-009,1,1.69,physical
 2024-12-05,FI01,GRO-001,21,1.09,physical
 2024-12-05,FI01,GRO-002,21,1.09,physical
 2024-12-05,FI01,GRO-003,3,3.79,physical
@@ -185816,6 +185993,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,MI01,BEV-005,6,1.99,physical
 2024-12-05,MI01,BEV-007,7,1.69,physical
 2024-12-05,MI01,BEV-008,1,6.49,physical
+2024-12-05,MI01,BEV-009,4,1.69,physical
 2024-12-05,MI01,GRO-001,57,1.09,physical
 2024-12-05,MI01,GRO-002,21,1.09,physical
 2024-12-05,MI01,GRO-003,12,3.79,physical
@@ -185826,6 +186004,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,MI01,GRO-008,5,1.29,physical
 2024-12-05,MI01,GRO-009,12,0.79,physical
 2024-12-05,MI01,GRO-010,4,2.69,physical
+2024-12-05,MI01,GRO-011,3,1.29,physical
 2024-12-05,MI01,HOM-001,12,4.39,physical
 2024-12-05,MI01,HOM-002,11,3.29,physical
 2024-12-05,MI01,HOM-003,3,2.19,physical
@@ -185841,6 +186020,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,MI02,BEV-005,8,1.99,physical
 2024-12-05,MI02,BEV-006,1,3.29,physical
 2024-12-05,MI02,BEV-007,9,1.69,physical
+2024-12-05,MI02,BEV-009,4,1.69,physical
 2024-12-05,MI02,GRO-001,17,1.09,physical
 2024-12-05,MI02,GRO-002,26,1.09,physical
 2024-12-05,MI02,GRO-003,9,3.79,physical
@@ -185851,6 +186031,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,MI02,GRO-008,3,1.29,physical
 2024-12-05,MI02,GRO-009,11,0.79,physical
 2024-12-05,MI02,GRO-010,8,2.69,physical
+2024-12-05,MI02,GRO-011,2,1.29,physical
 2024-12-05,MI02,HOM-001,3,4.39,physical
 2024-12-05,MI02,HOM-002,6,3.29,physical
 2024-12-05,MI02,HOM-003,3,2.19,physical
@@ -185866,6 +186047,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,NA01,BEV-004,7,1.39,physical
 2024-12-05,NA01,BEV-005,7,1.99,physical
 2024-12-05,NA01,BEV-007,12,1.69,physical
+2024-12-05,NA01,BEV-009,1,1.69,physical
 2024-12-05,NA01,GRO-001,23,1.09,physical
 2024-12-05,NA01,GRO-002,37,1.09,physical
 2024-12-05,NA01,GRO-003,4,3.79,physical
@@ -185876,6 +186058,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,NA01,GRO-008,2,1.29,physical
 2024-12-05,NA01,GRO-009,9,0.79,physical
 2024-12-05,NA01,GRO-010,7,2.69,physical
+2024-12-05,NA01,GRO-011,3,1.29,physical
 2024-12-05,NA01,HOM-001,12,4.39,physical
 2024-12-05,NA01,HOM-002,5,3.29,physical
 2024-12-05,NA01,HOM-003,3,2.19,physical
@@ -185888,6 +186071,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,RM01,BEV-004,12,1.39,physical
 2024-12-05,RM01,BEV-005,7,1.99,physical
 2024-12-05,RM01,BEV-007,17,1.69,physical
+2024-12-05,RM01,BEV-009,4,1.69,physical
 2024-12-05,RM01,GRO-001,44,1.09,physical
 2024-12-05,RM01,GRO-002,25,1.09,physical
 2024-12-05,RM01,GRO-003,6,3.79,physical
@@ -185898,6 +186082,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,RM01,GRO-008,10,1.29,physical
 2024-12-05,RM01,GRO-009,21,0.79,physical
 2024-12-05,RM01,GRO-010,9,2.69,physical
+2024-12-05,RM01,GRO-011,4,1.29,physical
 2024-12-05,RM01,HOM-001,8,4.39,physical
 2024-12-05,RM01,HOM-002,6,3.29,physical
 2024-12-05,RM01,HOM-003,10,2.19,physical
@@ -185910,6 +186095,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,TO01,BEV-004,10,1.39,physical
 2024-12-05,TO01,BEV-005,10,1.99,physical
 2024-12-05,TO01,BEV-007,12,1.69,physical
+2024-12-05,TO01,BEV-009,6,1.69,physical
 2024-12-05,TO01,GRO-001,30,1.09,physical
 2024-12-05,TO01,GRO-002,34,1.09,physical
 2024-12-05,TO01,GRO-003,6,3.79,physical
@@ -185920,6 +186106,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,TO01,GRO-008,3,1.29,physical
 2024-12-05,TO01,GRO-009,12,0.79,physical
 2024-12-05,TO01,GRO-010,6,2.69,physical
+2024-12-05,TO01,GRO-011,1,1.29,physical
 2024-12-05,TO01,HOM-001,12,4.39,physical
 2024-12-05,TO01,HOM-002,5,3.29,physical
 2024-12-05,TO01,HOM-003,4,2.19,physical
@@ -185936,6 +186123,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,WEB,BEV-005,12,1.99,online
 2024-12-05,WEB,BEV-007,14,1.69,online
 2024-12-05,WEB,BEV-008,1,6.49,online
+2024-12-05,WEB,BEV-009,1,1.69,online
 2024-12-05,WEB,GRO-001,18,1.09,online
 2024-12-05,WEB,GRO-002,16,1.09,online
 2024-12-05,WEB,GRO-003,1,3.79,online
@@ -185946,6 +186134,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-05,WEB,GRO-008,4,1.29,online
 2024-12-05,WEB,GRO-009,2,0.79,online
 2024-12-05,WEB,GRO-010,4,2.69,online
+2024-12-05,WEB,GRO-011,2,1.29,online
 2024-12-05,WEB,HOM-001,3,4.39,online
 2024-12-05,WEB,HOM-002,6,3.29,online
 2024-12-05,WEB,HOM-003,5,2.19,online
@@ -185960,6 +186149,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,BO01,BEV-005,9,1.99,physical
 2024-12-06,BO01,BEV-006,1,3.29,physical
 2024-12-06,BO01,BEV-007,5,1.69,physical
+2024-12-06,BO01,BEV-009,1,1.69,physical
 2024-12-06,BO01,GRO-001,42,1.09,physical
 2024-12-06,BO01,GRO-002,23,1.09,physical
 2024-12-06,BO01,GRO-003,7,3.79,physical
@@ -185970,6 +186160,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,BO01,GRO-008,7,1.29,physical
 2024-12-06,BO01,GRO-009,13,0.79,physical
 2024-12-06,BO01,GRO-010,7,2.69,physical
+2024-12-06,BO01,GRO-011,2,1.29,physical
 2024-12-06,BO01,HOM-001,6,4.39,physical
 2024-12-06,BO01,HOM-002,5,3.29,physical
 2024-12-06,BO01,HOM-003,8,2.19,physical
@@ -185985,6 +186176,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,FI01,BEV-005,6,1.99,physical
 2024-12-06,FI01,BEV-007,4,1.69,physical
 2024-12-06,FI01,BEV-008,1,6.49,physical
+2024-12-06,FI01,BEV-009,2,1.69,physical
 2024-12-06,FI01,GRO-001,29,1.09,physical
 2024-12-06,FI01,GRO-002,14,1.09,physical
 2024-12-06,FI01,GRO-003,4,3.79,physical
@@ -186008,6 +186200,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,MI01,BEV-004,12,1.39,physical
 2024-12-06,MI01,BEV-005,9,1.99,physical
 2024-12-06,MI01,BEV-007,5,1.69,physical
+2024-12-06,MI01,BEV-009,1,1.69,physical
 2024-12-06,MI01,GRO-001,51,1.09,physical
 2024-12-06,MI01,GRO-002,40,1.09,physical
 2024-12-06,MI01,GRO-003,16,3.79,physical
@@ -186018,6 +186211,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,MI01,GRO-008,9,1.29,physical
 2024-12-06,MI01,GRO-009,11,0.79,physical
 2024-12-06,MI01,GRO-010,3,2.69,physical
+2024-12-06,MI01,GRO-011,6,1.29,physical
 2024-12-06,MI01,HOM-001,6,4.39,physical
 2024-12-06,MI01,HOM-002,20,3.29,physical
 2024-12-06,MI01,HOM-003,6,2.19,physical
@@ -186032,6 +186226,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,MI02,BEV-004,4,1.39,physical
 2024-12-06,MI02,BEV-005,10,1.99,physical
 2024-12-06,MI02,BEV-007,11,1.69,physical
+2024-12-06,MI02,BEV-009,5,1.69,physical
 2024-12-06,MI02,GRO-001,35,1.09,physical
 2024-12-06,MI02,GRO-002,41,1.09,physical
 2024-12-06,MI02,GRO-003,8,3.79,physical
@@ -186042,6 +186237,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,MI02,GRO-008,8,1.29,physical
 2024-12-06,MI02,GRO-009,18,0.79,physical
 2024-12-06,MI02,GRO-010,5,2.69,physical
+2024-12-06,MI02,GRO-011,2,1.29,physical
 2024-12-06,MI02,HOM-001,17,4.39,physical
 2024-12-06,MI02,HOM-002,3,3.29,physical
 2024-12-06,MI02,HOM-003,3,2.19,physical
@@ -186056,6 +186252,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,NA01,BEV-005,5,1.99,physical
 2024-12-06,NA01,BEV-006,1,3.29,physical
 2024-12-06,NA01,BEV-007,10,1.69,physical
+2024-12-06,NA01,BEV-009,2,1.69,physical
 2024-12-06,NA01,GRO-001,22,1.09,physical
 2024-12-06,NA01,GRO-002,18,1.09,physical
 2024-12-06,NA01,GRO-003,15,3.79,physical
@@ -186066,6 +186263,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,NA01,GRO-008,8,1.29,physical
 2024-12-06,NA01,GRO-009,17,0.79,physical
 2024-12-06,NA01,GRO-010,11,2.69,physical
+2024-12-06,NA01,GRO-011,6,1.29,physical
 2024-12-06,NA01,HOM-001,14,4.39,physical
 2024-12-06,NA01,HOM-002,5,3.29,physical
 2024-12-06,NA01,HOM-003,7,2.19,physical
@@ -186080,6 +186278,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,RM01,BEV-005,7,1.99,physical
 2024-12-06,RM01,BEV-007,25,1.69,physical
 2024-12-06,RM01,BEV-008,3,6.49,physical
+2024-12-06,RM01,BEV-009,2,1.69,physical
 2024-12-06,RM01,GRO-001,33,1.09,physical
 2024-12-06,RM01,GRO-002,38,1.09,physical
 2024-12-06,RM01,GRO-003,8,3.79,physical
@@ -186090,6 +186289,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,RM01,GRO-008,4,1.29,physical
 2024-12-06,RM01,GRO-009,14,0.79,physical
 2024-12-06,RM01,GRO-010,7,2.69,physical
+2024-12-06,RM01,GRO-011,4,1.29,physical
 2024-12-06,RM01,HOM-001,23,4.39,physical
 2024-12-06,RM01,HOM-002,8,3.29,physical
 2024-12-06,RM01,HOM-003,7,2.19,physical
@@ -186105,6 +186305,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,TO01,BEV-005,11,1.99,physical
 2024-12-06,TO01,BEV-007,20,1.69,physical
 2024-12-06,TO01,BEV-008,1,6.49,physical
+2024-12-06,TO01,BEV-009,4,1.69,physical
 2024-12-06,TO01,GRO-001,29,1.09,physical
 2024-12-06,TO01,GRO-002,21,1.09,physical
 2024-12-06,TO01,GRO-003,11,3.79,physical
@@ -186115,6 +186316,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,TO01,GRO-008,3,1.29,physical
 2024-12-06,TO01,GRO-009,23,0.79,physical
 2024-12-06,TO01,GRO-010,5,2.69,physical
+2024-12-06,TO01,GRO-011,2,1.29,physical
 2024-12-06,TO01,HOM-001,10,4.39,physical
 2024-12-06,TO01,HOM-002,2,3.29,physical
 2024-12-06,TO01,HOM-003,4,2.19,physical
@@ -186131,6 +186333,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-06,WEB,BEV-005,11,1.99,online
 2024-12-06,WEB,BEV-007,8,1.69,online
 2024-12-06,WEB,BEV-008,1,6.49,online
+2024-12-06,WEB,BEV-009,5,1.69,online
 2024-12-06,WEB,GRO-001,17,1.09,online
 2024-12-06,WEB,GRO-002,15,1.09,online
 2024-12-06,WEB,GRO-003,5,3.79,online
@@ -186155,6 +186358,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,BO01,BEV-005,6,1.99,physical
 2024-12-07,BO01,BEV-007,11,1.69,physical
 2024-12-07,BO01,BEV-008,1,6.49,physical
+2024-12-07,BO01,BEV-009,7,1.69,physical
 2024-12-07,BO01,GRO-001,42,1.09,physical
 2024-12-07,BO01,GRO-002,15,1.09,physical
 2024-12-07,BO01,GRO-003,4,3.79,physical
@@ -186165,6 +186369,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,BO01,GRO-008,4,1.29,physical
 2024-12-07,BO01,GRO-009,8,0.79,physical
 2024-12-07,BO01,GRO-010,10,2.69,physical
+2024-12-07,BO01,GRO-011,3,1.29,physical
 2024-12-07,BO01,HOM-001,12,4.39,physical
 2024-12-07,BO01,HOM-002,8,3.29,physical
 2024-12-07,BO01,HOM-003,12,2.19,physical
@@ -186181,6 +186386,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,FI01,BEV-005,7,1.99,physical
 2024-12-07,FI01,BEV-006,1,3.29,physical
 2024-12-07,FI01,BEV-007,16,1.69,physical
+2024-12-07,FI01,BEV-009,1,1.69,physical
 2024-12-07,FI01,GRO-001,33,1.09,physical
 2024-12-07,FI01,GRO-002,16,1.09,physical
 2024-12-07,FI01,GRO-003,6,3.79,physical
@@ -186191,6 +186397,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,FI01,GRO-008,7,1.29,physical
 2024-12-07,FI01,GRO-009,17,0.79,physical
 2024-12-07,FI01,GRO-010,1,2.69,physical
+2024-12-07,FI01,GRO-011,1,1.29,physical
 2024-12-07,FI01,HOM-001,5,4.39,physical
 2024-12-07,FI01,HOM-002,2,3.29,physical
 2024-12-07,FI01,HOM-003,5,2.19,physical
@@ -186205,6 +186412,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,MI01,BEV-005,10,1.99,physical
 2024-12-07,MI01,BEV-007,19,1.69,physical
 2024-12-07,MI01,BEV-008,2,6.49,physical
+2024-12-07,MI01,BEV-009,6,1.69,physical
 2024-12-07,MI01,GRO-001,67,1.09,physical
 2024-12-07,MI01,GRO-002,23,1.09,physical
 2024-12-07,MI01,GRO-003,14,3.79,physical
@@ -186215,6 +186423,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,MI01,GRO-008,14,1.29,physical
 2024-12-07,MI01,GRO-009,25,0.79,physical
 2024-12-07,MI01,GRO-010,7,2.69,physical
+2024-12-07,MI01,GRO-011,6,1.29,physical
 2024-12-07,MI01,HOM-001,15,4.39,physical
 2024-12-07,MI01,HOM-002,9,3.29,physical
 2024-12-07,MI01,HOM-003,5,2.19,physical
@@ -186231,6 +186440,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,MI02,BEV-005,8,1.99,physical
 2024-12-07,MI02,BEV-007,7,1.69,physical
 2024-12-07,MI02,BEV-008,2,6.49,physical
+2024-12-07,MI02,BEV-009,5,1.69,physical
 2024-12-07,MI02,GRO-001,44,1.09,physical
 2024-12-07,MI02,GRO-002,22,1.09,physical
 2024-12-07,MI02,GRO-003,8,3.79,physical
@@ -186241,6 +186451,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,MI02,GRO-008,6,1.29,physical
 2024-12-07,MI02,GRO-009,11,0.79,physical
 2024-12-07,MI02,GRO-010,6,2.69,physical
+2024-12-07,MI02,GRO-011,3,1.29,physical
 2024-12-07,MI02,HOM-001,18,4.39,physical
 2024-12-07,MI02,HOM-002,10,3.29,physical
 2024-12-07,MI02,HOM-003,2,2.19,physical
@@ -186255,6 +186466,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,NA01,BEV-004,5,1.39,physical
 2024-12-07,NA01,BEV-005,4,1.99,physical
 2024-12-07,NA01,BEV-007,15,1.69,physical
+2024-12-07,NA01,BEV-009,7,1.69,physical
 2024-12-07,NA01,GRO-001,41,1.09,physical
 2024-12-07,NA01,GRO-002,24,1.09,physical
 2024-12-07,NA01,GRO-003,10,3.79,physical
@@ -186265,6 +186477,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,NA01,GRO-008,9,1.29,physical
 2024-12-07,NA01,GRO-009,30,0.79,physical
 2024-12-07,NA01,GRO-010,6,2.69,physical
+2024-12-07,NA01,GRO-011,4,1.29,physical
 2024-12-07,NA01,HOM-001,12,4.39,physical
 2024-12-07,NA01,HOM-002,12,3.29,physical
 2024-12-07,NA01,HOM-003,4,2.19,physical
@@ -186280,6 +186493,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,RM01,BEV-005,7,1.99,physical
 2024-12-07,RM01,BEV-006,1,3.29,physical
 2024-12-07,RM01,BEV-007,25,1.69,physical
+2024-12-07,RM01,BEV-009,1,1.69,physical
 2024-12-07,RM01,GRO-001,40,1.09,physical
 2024-12-07,RM01,GRO-002,32,1.09,physical
 2024-12-07,RM01,GRO-003,7,3.79,physical
@@ -186290,6 +186504,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,RM01,GRO-008,8,1.29,physical
 2024-12-07,RM01,GRO-009,24,0.79,physical
 2024-12-07,RM01,GRO-010,14,2.69,physical
+2024-12-07,RM01,GRO-011,3,1.29,physical
 2024-12-07,RM01,HOM-001,27,4.39,physical
 2024-12-07,RM01,HOM-002,12,3.29,physical
 2024-12-07,RM01,HOM-003,5,2.19,physical
@@ -186304,6 +186519,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,TO01,BEV-004,11,1.39,physical
 2024-12-07,TO01,BEV-005,12,1.99,physical
 2024-12-07,TO01,BEV-007,16,1.69,physical
+2024-12-07,TO01,BEV-009,2,1.69,physical
 2024-12-07,TO01,GRO-001,55,1.09,physical
 2024-12-07,TO01,GRO-002,35,1.09,physical
 2024-12-07,TO01,GRO-003,8,3.79,physical
@@ -186314,6 +186530,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,TO01,GRO-008,4,1.29,physical
 2024-12-07,TO01,GRO-009,23,0.79,physical
 2024-12-07,TO01,GRO-010,5,2.69,physical
+2024-12-07,TO01,GRO-011,1,1.29,physical
 2024-12-07,TO01,HOM-001,7,4.39,physical
 2024-12-07,TO01,HOM-002,14,3.29,physical
 2024-12-07,TO01,HOM-003,6,2.19,physical
@@ -186329,6 +186546,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-07,WEB,BEV-004,6,1.39,online
 2024-12-07,WEB,BEV-005,12,1.99,online
 2024-12-07,WEB,BEV-007,6,1.69,online
+2024-12-07,WEB,BEV-009,3,1.69,online
 2024-12-07,WEB,GRO-001,5,1.09,online
 2024-12-07,WEB,GRO-002,12,1.09,online
 2024-12-07,WEB,GRO-003,3,3.79,online
@@ -186385,6 +186603,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-08,MI01,GRO-007,2,3.09,physical
 2024-12-08,MI01,GRO-008,3,1.29,physical
 2024-12-08,MI01,GRO-009,16,0.79,physical
+2024-12-08,MI01,GRO-011,2,1.29,physical
 2024-12-08,MI01,HOM-001,5,4.39,physical
 2024-12-08,MI01,HOM-002,7,3.29,physical
 2024-12-08,MI01,HOM-003,1,2.19,physical
@@ -186398,6 +186617,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-08,NA01,BEV-004,3,1.39,physical
 2024-12-08,NA01,BEV-005,3,1.99,physical
 2024-12-08,NA01,BEV-007,9,1.69,physical
+2024-12-08,NA01,BEV-009,3,1.69,physical
 2024-12-08,NA01,GRO-001,13,1.09,physical
 2024-12-08,NA01,GRO-002,15,1.09,physical
 2024-12-08,NA01,GRO-003,1,3.79,physical
@@ -186407,6 +186627,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-08,NA01,GRO-008,5,1.29,physical
 2024-12-08,NA01,GRO-009,3,0.79,physical
 2024-12-08,NA01,GRO-010,2,2.69,physical
+2024-12-08,NA01,GRO-011,1,1.29,physical
 2024-12-08,NA01,HOM-001,1,4.39,physical
 2024-12-08,NA01,HOM-002,5,3.29,physical
 2024-12-08,NA01,HOM-003,4,2.19,physical
@@ -186421,6 +186642,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-08,RM01,BEV-005,7,1.99,physical
 2024-12-08,RM01,BEV-006,1,3.29,physical
 2024-12-08,RM01,BEV-007,2,1.69,physical
+2024-12-08,RM01,BEV-009,1,1.69,physical
 2024-12-08,RM01,GRO-001,30,1.09,physical
 2024-12-08,RM01,GRO-002,11,1.09,physical
 2024-12-08,RM01,GRO-003,2,3.79,physical
@@ -186431,6 +186653,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-08,RM01,GRO-008,5,1.29,physical
 2024-12-08,RM01,GRO-009,8,0.79,physical
 2024-12-08,RM01,GRO-010,7,2.69,physical
+2024-12-08,RM01,GRO-011,2,1.29,physical
 2024-12-08,RM01,HOM-001,4,4.39,physical
 2024-12-08,RM01,HOM-002,3,3.29,physical
 2024-12-08,RM01,HOM-003,1,2.19,physical
@@ -186443,6 +186666,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-08,TO01,BEV-004,7,1.39,physical
 2024-12-08,TO01,BEV-005,2,1.99,physical
 2024-12-08,TO01,BEV-007,3,1.69,physical
+2024-12-08,TO01,BEV-009,2,1.69,physical
 2024-12-08,TO01,GRO-001,9,1.09,physical
 2024-12-08,TO01,GRO-002,11,1.09,physical
 2024-12-08,TO01,GRO-003,4,3.79,physical
@@ -186477,6 +186701,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-08,WEB,GRO-008,1,1.29,online
 2024-12-08,WEB,GRO-009,8,0.79,online
 2024-12-08,WEB,GRO-010,3,2.69,online
+2024-12-08,WEB,GRO-011,1,1.29,online
 2024-12-08,WEB,HOM-001,8,4.39,online
 2024-12-08,WEB,HOM-002,3,3.29,online
 2024-12-08,WEB,HOM-003,2,2.19,online
@@ -186491,6 +186716,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,BO01,BEV-004,9,1.39,physical
 2024-12-09,BO01,BEV-005,2,1.99,physical
 2024-12-09,BO01,BEV-007,7,1.69,physical
+2024-12-09,BO01,BEV-009,3,1.69,physical
 2024-12-09,BO01,GRO-001,31,1.09,physical
 2024-12-09,BO01,GRO-002,12,1.09,physical
 2024-12-09,BO01,GRO-003,7,3.79,physical
@@ -186500,6 +186726,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,BO01,GRO-007,9,3.09,physical
 2024-12-09,BO01,GRO-008,3,1.29,physical
 2024-12-09,BO01,GRO-010,7,2.69,physical
+2024-12-09,BO01,GRO-011,1,1.29,physical
 2024-12-09,BO01,HOM-001,8,4.39,physical
 2024-12-09,BO01,HOM-002,4,3.29,physical
 2024-12-09,BO01,HOM-003,2,2.19,physical
@@ -186515,6 +186742,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,FI01,BEV-004,3,1.39,physical
 2024-12-09,FI01,BEV-005,11,1.99,physical
 2024-12-09,FI01,BEV-007,7,1.69,physical
+2024-12-09,FI01,BEV-009,1,1.69,physical
 2024-12-09,FI01,GRO-001,18,1.09,physical
 2024-12-09,FI01,GRO-002,11,1.09,physical
 2024-12-09,FI01,GRO-003,2,3.79,physical
@@ -186525,6 +186753,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,FI01,GRO-008,3,1.29,physical
 2024-12-09,FI01,GRO-009,3,0.99,physical
 2024-12-09,FI01,GRO-010,2,2.69,physical
+2024-12-09,FI01,GRO-011,2,1.29,physical
 2024-12-09,FI01,HOM-001,5,4.39,physical
 2024-12-09,FI01,HOM-002,3,3.29,physical
 2024-12-09,FI01,HOM-003,2,2.19,physical
@@ -186541,6 +186770,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,MI01,BEV-005,5,1.99,physical
 2024-12-09,MI01,BEV-007,10,1.69,physical
 2024-12-09,MI01,BEV-008,18,6.49,physical
+2024-12-09,MI01,BEV-009,4,1.69,physical
 2024-12-09,MI01,GRO-001,43,1.09,physical
 2024-12-09,MI01,GRO-002,20,1.09,physical
 2024-12-09,MI01,GRO-003,7,3.79,physical
@@ -186551,6 +186781,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,MI01,GRO-008,8,1.29,physical
 2024-12-09,MI01,GRO-009,7,0.99,physical
 2024-12-09,MI01,GRO-010,8,2.69,physical
+2024-12-09,MI01,GRO-011,4,1.29,physical
 2024-12-09,MI01,HOM-001,8,4.39,physical
 2024-12-09,MI01,HOM-002,7,3.29,physical
 2024-12-09,MI01,HOM-003,5,2.19,physical
@@ -186565,6 +186796,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,MI02,BEV-004,6,1.39,physical
 2024-12-09,MI02,BEV-005,4,1.99,physical
 2024-12-09,MI02,BEV-007,2,1.69,physical
+2024-12-09,MI02,BEV-009,3,1.69,physical
 2024-12-09,MI02,GRO-001,19,1.09,physical
 2024-12-09,MI02,GRO-002,22,1.09,physical
 2024-12-09,MI02,GRO-003,8,3.79,physical
@@ -186574,6 +186806,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,MI02,GRO-007,4,3.09,physical
 2024-12-09,MI02,GRO-009,5,0.99,physical
 2024-12-09,MI02,GRO-010,1,2.69,physical
+2024-12-09,MI02,GRO-011,2,1.29,physical
 2024-12-09,MI02,HOM-001,9,4.39,physical
 2024-12-09,MI02,HOM-002,7,3.29,physical
 2024-12-09,MI02,HOM-003,7,2.19,physical
@@ -186588,6 +186821,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,NA01,BEV-005,1,1.99,physical
 2024-12-09,NA01,BEV-007,3,1.69,physical
 2024-12-09,NA01,BEV-008,1,6.49,physical
+2024-12-09,NA01,BEV-009,1,1.69,physical
 2024-12-09,NA01,GRO-001,23,1.09,physical
 2024-12-09,NA01,GRO-002,23,1.09,physical
 2024-12-09,NA01,GRO-003,4,3.79,physical
@@ -186612,6 +186846,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,RM01,BEV-005,5,1.99,physical
 2024-12-09,RM01,BEV-006,1,3.29,physical
 2024-12-09,RM01,BEV-007,8,1.69,physical
+2024-12-09,RM01,BEV-009,3,1.69,physical
 2024-12-09,RM01,GRO-001,23,1.09,physical
 2024-12-09,RM01,GRO-002,24,1.09,physical
 2024-12-09,RM01,GRO-003,6,3.79,physical
@@ -186622,6 +186857,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,RM01,GRO-008,5,1.29,physical
 2024-12-09,RM01,GRO-009,2,0.99,physical
 2024-12-09,RM01,GRO-010,4,2.69,physical
+2024-12-09,RM01,GRO-011,2,1.29,physical
 2024-12-09,RM01,HOM-001,14,4.39,physical
 2024-12-09,RM01,HOM-002,12,3.29,physical
 2024-12-09,RM01,HOM-003,3,2.19,physical
@@ -186645,6 +186881,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,TO01,GRO-008,2,1.29,physical
 2024-12-09,TO01,GRO-009,13,0.99,physical
 2024-12-09,TO01,GRO-010,4,2.69,physical
+2024-12-09,TO01,GRO-011,2,1.29,physical
 2024-12-09,TO01,HOM-001,6,4.39,physical
 2024-12-09,TO01,HOM-002,7,3.29,physical
 2024-12-09,TO01,HOM-003,1,2.19,physical
@@ -186661,6 +186898,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,WEB,BEV-005,18,1.99,online
 2024-12-09,WEB,BEV-007,10,1.69,online
 2024-12-09,WEB,BEV-008,13,6.49,online
+2024-12-09,WEB,BEV-009,5,1.69,online
 2024-12-09,WEB,GRO-001,19,1.09,online
 2024-12-09,WEB,GRO-002,16,1.09,online
 2024-12-09,WEB,GRO-003,2,3.79,online
@@ -186671,6 +186909,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-09,WEB,GRO-008,4,1.29,online
 2024-12-09,WEB,GRO-009,8,0.99,online
 2024-12-09,WEB,GRO-010,9,2.69,online
+2024-12-09,WEB,GRO-011,1,1.29,online
 2024-12-09,WEB,HOM-001,14,4.39,online
 2024-12-09,WEB,HOM-002,5,3.29,online
 2024-12-09,WEB,HOM-003,11,2.19,online
@@ -186686,6 +186925,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,BO01,BEV-005,5,1.99,physical
 2024-12-10,BO01,BEV-007,9,1.69,physical
 2024-12-10,BO01,BEV-008,1,6.49,physical
+2024-12-10,BO01,BEV-009,2,1.69,physical
 2024-12-10,BO01,GRO-001,23,1.09,physical
 2024-12-10,BO01,GRO-002,18,1.09,physical
 2024-12-10,BO01,GRO-003,8,3.79,physical
@@ -186709,6 +186949,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,FI01,BEV-004,10,1.39,physical
 2024-12-10,FI01,BEV-005,7,1.99,physical
 2024-12-10,FI01,BEV-007,8,1.69,physical
+2024-12-10,FI01,BEV-009,1,1.69,physical
 2024-12-10,FI01,GRO-001,10,1.09,physical
 2024-12-10,FI01,GRO-002,10,1.09,physical
 2024-12-10,FI01,GRO-003,4,3.79,physical
@@ -186733,6 +186974,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,MI01,BEV-004,16,1.39,physical
 2024-12-10,MI01,BEV-005,9,1.99,physical
 2024-12-10,MI01,BEV-007,9,1.69,physical
+2024-12-10,MI01,BEV-009,5,1.69,physical
 2024-12-10,MI01,GRO-001,40,1.09,physical
 2024-12-10,MI01,GRO-002,40,1.09,physical
 2024-12-10,MI01,GRO-003,5,3.79,physical
@@ -186743,6 +186985,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,MI01,GRO-008,8,1.29,physical
 2024-12-10,MI01,GRO-009,10,0.99,physical
 2024-12-10,MI01,GRO-010,6,2.69,physical
+2024-12-10,MI01,GRO-011,3,1.29,physical
 2024-12-10,MI01,HOM-001,8,4.39,physical
 2024-12-10,MI01,HOM-002,6,3.29,physical
 2024-12-10,MI01,HOM-003,6,2.19,physical
@@ -186758,6 +187001,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,MI02,BEV-005,6,1.99,physical
 2024-12-10,MI02,BEV-007,4,1.69,physical
 2024-12-10,MI02,BEV-008,1,6.49,physical
+2024-12-10,MI02,BEV-009,2,1.69,physical
 2024-12-10,MI02,GRO-001,21,1.09,physical
 2024-12-10,MI02,GRO-002,15,1.09,physical
 2024-12-10,MI02,GRO-003,8,3.79,physical
@@ -186768,6 +187012,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,MI02,GRO-008,2,1.29,physical
 2024-12-10,MI02,GRO-009,3,0.99,physical
 2024-12-10,MI02,GRO-010,8,2.69,physical
+2024-12-10,MI02,GRO-011,1,1.29,physical
 2024-12-10,MI02,HOM-001,3,4.39,physical
 2024-12-10,MI02,HOM-002,8,3.29,physical
 2024-12-10,MI02,HOM-003,3,2.19,physical
@@ -186781,6 +187026,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,NA01,BEV-004,11,1.39,physical
 2024-12-10,NA01,BEV-005,4,1.99,physical
 2024-12-10,NA01,BEV-007,8,1.69,physical
+2024-12-10,NA01,BEV-009,3,1.69,physical
 2024-12-10,NA01,GRO-001,19,1.09,physical
 2024-12-10,NA01,GRO-002,22,1.09,physical
 2024-12-10,NA01,GRO-003,7,3.79,physical
@@ -186791,6 +187037,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,NA01,GRO-008,2,1.29,physical
 2024-12-10,NA01,GRO-009,5,0.99,physical
 2024-12-10,NA01,GRO-010,4,2.69,physical
+2024-12-10,NA01,GRO-011,3,1.29,physical
 2024-12-10,NA01,HOM-001,8,4.39,physical
 2024-12-10,NA01,HOM-002,5,3.29,physical
 2024-12-10,NA01,HOM-003,4,2.19,physical
@@ -186815,6 +187062,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,RM01,GRO-008,7,1.29,physical
 2024-12-10,RM01,GRO-009,8,0.99,physical
 2024-12-10,RM01,GRO-010,4,2.69,physical
+2024-12-10,RM01,GRO-011,4,1.29,physical
 2024-12-10,RM01,HOM-001,7,4.39,physical
 2024-12-10,RM01,HOM-002,5,3.29,physical
 2024-12-10,RM01,HOM-003,8,2.19,physical
@@ -186828,6 +187076,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,TO01,BEV-004,5,1.39,physical
 2024-12-10,TO01,BEV-005,6,1.99,physical
 2024-12-10,TO01,BEV-007,6,1.69,physical
+2024-12-10,TO01,BEV-009,7,1.69,physical
 2024-12-10,TO01,GRO-001,41,1.09,physical
 2024-12-10,TO01,GRO-002,15,1.09,physical
 2024-12-10,TO01,GRO-003,4,3.79,physical
@@ -186838,6 +187087,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,TO01,GRO-008,2,1.29,physical
 2024-12-10,TO01,GRO-009,8,0.99,physical
 2024-12-10,TO01,GRO-010,5,2.69,physical
+2024-12-10,TO01,GRO-011,1,1.29,physical
 2024-12-10,TO01,HOM-001,5,4.39,physical
 2024-12-10,TO01,HOM-002,2,3.29,physical
 2024-12-10,TO01,HOM-003,5,2.19,physical
@@ -186852,6 +187102,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,WEB,BEV-004,4,1.39,online
 2024-12-10,WEB,BEV-005,3,1.99,online
 2024-12-10,WEB,BEV-007,23,1.69,online
+2024-12-10,WEB,BEV-009,4,1.69,online
 2024-12-10,WEB,GRO-001,27,1.09,online
 2024-12-10,WEB,GRO-002,17,1.09,online
 2024-12-10,WEB,GRO-003,7,3.79,online
@@ -186862,6 +187113,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-10,WEB,GRO-008,6,1.29,online
 2024-12-10,WEB,GRO-009,4,0.99,online
 2024-12-10,WEB,GRO-010,2,2.69,online
+2024-12-10,WEB,GRO-011,2,1.29,online
 2024-12-10,WEB,HOM-001,20,4.39,online
 2024-12-10,WEB,HOM-002,9,3.29,online
 2024-12-10,WEB,HOM-003,5,2.19,online
@@ -186875,6 +187127,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,BO01,BEV-004,6,1.39,physical
 2024-12-11,BO01,BEV-005,5,1.99,physical
 2024-12-11,BO01,BEV-007,3,1.69,physical
+2024-12-11,BO01,BEV-009,5,1.69,physical
 2024-12-11,BO01,GRO-001,31,1.09,physical
 2024-12-11,BO01,GRO-002,17,1.09,physical
 2024-12-11,BO01,GRO-003,6,3.79,physical
@@ -186885,6 +187138,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,BO01,GRO-008,4,1.29,physical
 2024-12-11,BO01,GRO-009,2,0.99,physical
 2024-12-11,BO01,GRO-010,6,2.69,physical
+2024-12-11,BO01,GRO-011,2,1.29,physical
 2024-12-11,BO01,HOM-001,8,4.39,physical
 2024-12-11,BO01,HOM-002,4,3.29,physical
 2024-12-11,BO01,HOM-004,2,1.99,physical
@@ -186899,6 +187153,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,FI01,BEV-005,10,1.99,physical
 2024-12-11,FI01,BEV-006,1,3.29,physical
 2024-12-11,FI01,BEV-007,6,1.69,physical
+2024-12-11,FI01,BEV-009,2,1.69,physical
 2024-12-11,FI01,GRO-001,16,1.09,physical
 2024-12-11,FI01,GRO-002,24,1.09,physical
 2024-12-11,FI01,GRO-003,2,3.79,physical
@@ -186909,6 +187164,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,FI01,GRO-008,8,1.29,physical
 2024-12-11,FI01,GRO-009,4,0.99,physical
 2024-12-11,FI01,GRO-010,5,2.69,physical
+2024-12-11,FI01,GRO-011,1,1.29,physical
 2024-12-11,FI01,HOM-001,6,4.39,physical
 2024-12-11,FI01,HOM-002,7,3.29,physical
 2024-12-11,FI01,HOM-004,3,1.99,physical
@@ -186922,6 +187178,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,MI01,BEV-004,8,1.39,physical
 2024-12-11,MI01,BEV-005,15,1.99,physical
 2024-12-11,MI01,BEV-007,4,1.69,physical
+2024-12-11,MI01,BEV-009,1,1.69,physical
 2024-12-11,MI01,GRO-001,35,1.09,physical
 2024-12-11,MI01,GRO-002,26,1.09,physical
 2024-12-11,MI01,GRO-003,15,3.79,physical
@@ -186932,6 +187189,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,MI01,GRO-008,6,1.29,physical
 2024-12-11,MI01,GRO-009,9,0.99,physical
 2024-12-11,MI01,GRO-010,6,2.69,physical
+2024-12-11,MI01,GRO-011,1,1.29,physical
 2024-12-11,MI01,HOM-001,5,4.39,physical
 2024-12-11,MI01,HOM-002,7,3.29,physical
 2024-12-11,MI01,HOM-003,5,2.19,physical
@@ -186946,6 +187204,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,MI02,BEV-004,12,1.39,physical
 2024-12-11,MI02,BEV-005,6,1.99,physical
 2024-12-11,MI02,BEV-007,8,1.69,physical
+2024-12-11,MI02,BEV-009,4,1.69,physical
 2024-12-11,MI02,GRO-001,22,1.09,physical
 2024-12-11,MI02,GRO-002,16,1.09,physical
 2024-12-11,MI02,GRO-003,3,3.79,physical
@@ -186956,6 +187215,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,MI02,GRO-008,3,1.29,physical
 2024-12-11,MI02,GRO-009,3,0.99,physical
 2024-12-11,MI02,GRO-010,6,2.69,physical
+2024-12-11,MI02,GRO-011,4,1.29,physical
 2024-12-11,MI02,HOM-001,5,4.39,physical
 2024-12-11,MI02,HOM-002,5,3.29,physical
 2024-12-11,MI02,HOM-003,4,2.19,physical
@@ -186970,6 +187230,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,NA01,BEV-004,6,1.39,physical
 2024-12-11,NA01,BEV-005,7,1.99,physical
 2024-12-11,NA01,BEV-007,1,1.69,physical
+2024-12-11,NA01,BEV-009,1,1.69,physical
 2024-12-11,NA01,GRO-001,21,1.09,physical
 2024-12-11,NA01,GRO-002,21,1.09,physical
 2024-12-11,NA01,GRO-003,5,3.79,physical
@@ -186980,6 +187241,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,NA01,GRO-008,6,1.29,physical
 2024-12-11,NA01,GRO-009,7,0.99,physical
 2024-12-11,NA01,GRO-010,7,2.69,physical
+2024-12-11,NA01,GRO-011,3,1.29,physical
 2024-12-11,NA01,HOM-001,8,4.39,physical
 2024-12-11,NA01,HOM-002,7,3.29,physical
 2024-12-11,NA01,HOM-003,8,2.19,physical
@@ -186993,6 +187255,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,RM01,BEV-004,4,1.39,physical
 2024-12-11,RM01,BEV-005,5,1.99,physical
 2024-12-11,RM01,BEV-007,20,1.69,physical
+2024-12-11,RM01,BEV-009,1,1.69,physical
 2024-12-11,RM01,GRO-001,42,1.09,physical
 2024-12-11,RM01,GRO-002,30,1.09,physical
 2024-12-11,RM01,GRO-003,10,3.79,physical
@@ -187003,6 +187266,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,RM01,GRO-008,7,1.29,physical
 2024-12-11,RM01,GRO-009,12,0.99,physical
 2024-12-11,RM01,GRO-010,10,2.69,physical
+2024-12-11,RM01,GRO-011,3,1.29,physical
 2024-12-11,RM01,HOM-001,16,4.39,physical
 2024-12-11,RM01,HOM-002,9,3.29,physical
 2024-12-11,RM01,HOM-003,4,2.19,physical
@@ -187015,6 +187279,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,TO01,BEV-004,8,1.39,physical
 2024-12-11,TO01,BEV-005,10,1.99,physical
 2024-12-11,TO01,BEV-007,5,1.69,physical
+2024-12-11,TO01,BEV-009,1,1.69,physical
 2024-12-11,TO01,GRO-001,31,1.09,physical
 2024-12-11,TO01,GRO-002,16,1.09,physical
 2024-12-11,TO01,GRO-003,5,3.79,physical
@@ -187025,6 +187290,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,TO01,GRO-008,6,1.29,physical
 2024-12-11,TO01,GRO-009,2,0.99,physical
 2024-12-11,TO01,GRO-010,2,2.69,physical
+2024-12-11,TO01,GRO-011,1,1.29,physical
 2024-12-11,TO01,HOM-001,8,4.39,physical
 2024-12-11,TO01,HOM-002,2,3.29,physical
 2024-12-11,TO01,HOM-003,2,2.19,physical
@@ -187041,6 +187307,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-11,WEB,BEV-005,10,1.99,online
 2024-12-11,WEB,BEV-007,8,1.69,online
 2024-12-11,WEB,BEV-008,1,6.49,online
+2024-12-11,WEB,BEV-009,5,1.69,online
 2024-12-11,WEB,GRO-001,17,1.09,online
 2024-12-11,WEB,GRO-002,18,1.09,online
 2024-12-11,WEB,GRO-004,4,9.79,online
@@ -187064,6 +187331,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,BO01,BEV-005,5,1.99,physical
 2024-12-12,BO01,BEV-007,10,1.69,physical
 2024-12-12,BO01,BEV-008,8,6.49,physical
+2024-12-12,BO01,BEV-009,1,1.69,physical
 2024-12-12,BO01,GRO-001,36,1.09,physical
 2024-12-12,BO01,GRO-002,12,1.09,physical
 2024-12-12,BO01,GRO-003,2,3.79,physical
@@ -187074,6 +187342,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,BO01,GRO-008,4,1.29,physical
 2024-12-12,BO01,GRO-009,8,0.99,physical
 2024-12-12,BO01,GRO-010,9,2.69,physical
+2024-12-12,BO01,GRO-011,1,1.29,physical
 2024-12-12,BO01,HOM-001,7,4.39,physical
 2024-12-12,BO01,HOM-002,5,3.29,physical
 2024-12-12,BO01,HOM-003,4,2.19,physical
@@ -187090,6 +187359,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,FI01,BEV-004,8,1.39,physical
 2024-12-12,FI01,BEV-005,7,1.99,physical
 2024-12-12,FI01,BEV-007,9,1.69,physical
+2024-12-12,FI01,BEV-009,4,1.69,physical
 2024-12-12,FI01,GRO-001,24,1.09,physical
 2024-12-12,FI01,GRO-002,18,1.09,physical
 2024-12-12,FI01,GRO-003,4,3.79,physical
@@ -187115,6 +187385,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,MI01,BEV-005,9,1.99,physical
 2024-12-12,MI01,BEV-007,9,1.69,physical
 2024-12-12,MI01,BEV-008,10,6.49,physical
+2024-12-12,MI01,BEV-009,5,1.69,physical
 2024-12-12,MI01,GRO-001,29,1.09,physical
 2024-12-12,MI01,GRO-002,31,1.09,physical
 2024-12-12,MI01,GRO-003,8,3.79,physical
@@ -187125,6 +187396,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,MI01,GRO-008,7,1.29,physical
 2024-12-12,MI01,GRO-009,1,0.99,physical
 2024-12-12,MI01,GRO-010,4,2.69,physical
+2024-12-12,MI01,GRO-011,3,1.29,physical
 2024-12-12,MI01,HOM-001,6,4.39,physical
 2024-12-12,MI01,HOM-002,14,3.29,physical
 2024-12-12,MI01,HOM-003,7,2.19,physical
@@ -187139,6 +187411,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,MI02,BEV-004,12,1.39,physical
 2024-12-12,MI02,BEV-005,6,1.99,physical
 2024-12-12,MI02,BEV-007,13,1.69,physical
+2024-12-12,MI02,BEV-009,1,1.69,physical
 2024-12-12,MI02,GRO-001,29,1.09,physical
 2024-12-12,MI02,GRO-002,17,1.09,physical
 2024-12-12,MI02,GRO-003,4,3.79,physical
@@ -187163,6 +187436,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,NA01,BEV-004,4,1.39,physical
 2024-12-12,NA01,BEV-005,2,1.99,physical
 2024-12-12,NA01,BEV-007,8,1.69,physical
+2024-12-12,NA01,BEV-009,2,1.69,physical
 2024-12-12,NA01,GRO-001,35,1.09,physical
 2024-12-12,NA01,GRO-002,18,1.09,physical
 2024-12-12,NA01,GRO-003,5,3.79,physical
@@ -187173,6 +187447,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,NA01,GRO-008,5,1.29,physical
 2024-12-12,NA01,GRO-009,2,0.99,physical
 2024-12-12,NA01,GRO-010,1,2.69,physical
+2024-12-12,NA01,GRO-011,3,1.29,physical
 2024-12-12,NA01,HOM-001,12,4.39,physical
 2024-12-12,NA01,HOM-002,6,3.29,physical
 2024-12-12,NA01,HOM-003,4,2.19,physical
@@ -187187,6 +187462,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,RM01,BEV-004,11,1.39,physical
 2024-12-12,RM01,BEV-005,11,1.99,physical
 2024-12-12,RM01,BEV-007,11,1.69,physical
+2024-12-12,RM01,BEV-009,3,1.69,physical
 2024-12-12,RM01,GRO-001,25,1.09,physical
 2024-12-12,RM01,GRO-002,26,1.09,physical
 2024-12-12,RM01,GRO-003,8,3.79,physical
@@ -187197,6 +187473,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,RM01,GRO-008,6,1.29,physical
 2024-12-12,RM01,GRO-009,9,0.99,physical
 2024-12-12,RM01,GRO-010,8,2.69,physical
+2024-12-12,RM01,GRO-011,2,1.29,physical
 2024-12-12,RM01,HOM-001,6,4.39,physical
 2024-12-12,RM01,HOM-002,11,3.29,physical
 2024-12-12,RM01,HOM-003,10,2.19,physical
@@ -187211,6 +187488,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,TO01,BEV-005,7,1.99,physical
 2024-12-12,TO01,BEV-007,19,1.69,physical
 2024-12-12,TO01,BEV-008,1,6.49,physical
+2024-12-12,TO01,BEV-009,1,1.69,physical
 2024-12-12,TO01,GRO-001,40,1.09,physical
 2024-12-12,TO01,GRO-002,18,1.09,physical
 2024-12-12,TO01,GRO-003,6,3.79,physical
@@ -187235,6 +187513,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,WEB,BEV-005,9,1.99,online
 2024-12-12,WEB,BEV-007,15,1.69,online
 2024-12-12,WEB,BEV-008,1,6.49,online
+2024-12-12,WEB,BEV-009,1,1.69,online
 2024-12-12,WEB,GRO-001,23,1.09,online
 2024-12-12,WEB,GRO-002,17,1.09,online
 2024-12-12,WEB,GRO-003,7,3.79,online
@@ -187245,6 +187524,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-12,WEB,GRO-008,4,1.29,online
 2024-12-12,WEB,GRO-009,9,0.99,online
 2024-12-12,WEB,GRO-010,1,2.69,online
+2024-12-12,WEB,GRO-011,1,1.29,online
 2024-12-12,WEB,HOM-001,12,4.39,online
 2024-12-12,WEB,HOM-002,5,3.29,online
 2024-12-12,WEB,HOM-003,4,2.19,online
@@ -187258,6 +187538,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,BO01,BEV-004,8,1.39,physical
 2024-12-13,BO01,BEV-005,6,1.99,physical
 2024-12-13,BO01,BEV-007,7,1.69,physical
+2024-12-13,BO01,BEV-009,3,1.69,physical
 2024-12-13,BO01,GRO-001,32,1.09,physical
 2024-12-13,BO01,GRO-002,18,1.09,physical
 2024-12-13,BO01,GRO-003,6,3.79,physical
@@ -187268,6 +187549,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,BO01,GRO-008,8,1.29,physical
 2024-12-13,BO01,GRO-009,3,0.99,physical
 2024-12-13,BO01,GRO-010,6,2.69,physical
+2024-12-13,BO01,GRO-011,3,1.29,physical
 2024-12-13,BO01,HOM-001,9,4.39,physical
 2024-12-13,BO01,HOM-002,6,3.29,physical
 2024-12-13,BO01,HOM-003,8,2.19,physical
@@ -187282,6 +187564,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,FI01,BEV-004,7,1.39,physical
 2024-12-13,FI01,BEV-005,8,1.99,physical
 2024-12-13,FI01,BEV-007,10,1.69,physical
+2024-12-13,FI01,BEV-009,2,1.69,physical
 2024-12-13,FI01,GRO-001,23,1.09,physical
 2024-12-13,FI01,GRO-002,14,1.09,physical
 2024-12-13,FI01,GRO-003,2,3.79,physical
@@ -187291,6 +187574,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,FI01,GRO-008,2,1.29,physical
 2024-12-13,FI01,GRO-009,4,0.99,physical
 2024-12-13,FI01,GRO-010,12,2.69,physical
+2024-12-13,FI01,GRO-011,2,1.29,physical
 2024-12-13,FI01,HOM-001,9,4.39,physical
 2024-12-13,FI01,HOM-002,8,3.29,physical
 2024-12-13,FI01,HOM-004,3,1.99,physical
@@ -187304,6 +187588,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,MI01,BEV-004,10,1.39,physical
 2024-12-13,MI01,BEV-005,11,1.99,physical
 2024-12-13,MI01,BEV-007,4,1.69,physical
+2024-12-13,MI01,BEV-009,3,1.69,physical
 2024-12-13,MI01,GRO-001,67,1.09,physical
 2024-12-13,MI01,GRO-002,32,1.09,physical
 2024-12-13,MI01,GRO-003,7,3.79,physical
@@ -187314,6 +187599,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,MI01,GRO-008,6,1.29,physical
 2024-12-13,MI01,GRO-009,4,0.99,physical
 2024-12-13,MI01,GRO-010,3,2.69,physical
+2024-12-13,MI01,GRO-011,2,1.29,physical
 2024-12-13,MI01,HOM-001,8,4.39,physical
 2024-12-13,MI01,HOM-002,7,3.29,physical
 2024-12-13,MI01,HOM-003,9,2.19,physical
@@ -187328,6 +187614,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,MI02,BEV-004,10,1.39,physical
 2024-12-13,MI02,BEV-005,14,1.99,physical
 2024-12-13,MI02,BEV-007,7,1.69,physical
+2024-12-13,MI02,BEV-009,5,1.69,physical
 2024-12-13,MI02,GRO-001,23,1.09,physical
 2024-12-13,MI02,GRO-002,18,1.09,physical
 2024-12-13,MI02,GRO-003,9,3.79,physical
@@ -187338,6 +187625,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,MI02,GRO-008,5,1.29,physical
 2024-12-13,MI02,GRO-009,5,0.99,physical
 2024-12-13,MI02,GRO-010,3,2.69,physical
+2024-12-13,MI02,GRO-011,6,1.29,physical
 2024-12-13,MI02,HOM-001,7,4.39,physical
 2024-12-13,MI02,HOM-002,5,3.29,physical
 2024-12-13,MI02,HOM-003,7,2.19,physical
@@ -187352,6 +187640,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,NA01,BEV-004,25,1.39,physical
 2024-12-13,NA01,BEV-005,7,1.99,physical
 2024-12-13,NA01,BEV-007,7,1.69,physical
+2024-12-13,NA01,BEV-009,1,1.69,physical
 2024-12-13,NA01,GRO-001,40,1.09,physical
 2024-12-13,NA01,GRO-002,31,1.09,physical
 2024-12-13,NA01,GRO-003,9,3.79,physical
@@ -187361,6 +187650,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,NA01,GRO-007,9,3.09,physical
 2024-12-13,NA01,GRO-009,6,0.99,physical
 2024-12-13,NA01,GRO-010,6,2.69,physical
+2024-12-13,NA01,GRO-011,2,1.29,physical
 2024-12-13,NA01,HOM-001,9,4.39,physical
 2024-12-13,NA01,HOM-002,4,3.29,physical
 2024-12-13,NA01,HOM-003,8,2.19,physical
@@ -187376,6 +187666,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,RM01,BEV-004,15,1.39,physical
 2024-12-13,RM01,BEV-005,6,1.99,physical
 2024-12-13,RM01,BEV-007,9,1.69,physical
+2024-12-13,RM01,BEV-009,4,1.69,physical
 2024-12-13,RM01,GRO-001,50,1.09,physical
 2024-12-13,RM01,GRO-002,29,1.09,physical
 2024-12-13,RM01,GRO-003,8,3.79,physical
@@ -187386,6 +187677,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,RM01,GRO-008,12,1.29,physical
 2024-12-13,RM01,GRO-009,4,0.99,physical
 2024-12-13,RM01,GRO-010,8,2.69,physical
+2024-12-13,RM01,GRO-011,6,1.29,physical
 2024-12-13,RM01,HOM-001,15,4.39,physical
 2024-12-13,RM01,HOM-002,4,3.29,physical
 2024-12-13,RM01,HOM-003,9,2.19,physical
@@ -187401,6 +187693,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,TO01,BEV-005,17,1.99,physical
 2024-12-13,TO01,BEV-007,15,1.69,physical
 2024-12-13,TO01,BEV-008,1,6.49,physical
+2024-12-13,TO01,BEV-009,1,1.69,physical
 2024-12-13,TO01,GRO-001,22,1.09,physical
 2024-12-13,TO01,GRO-002,18,1.09,physical
 2024-12-13,TO01,GRO-003,10,3.79,physical
@@ -187427,6 +187720,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,WEB,BEV-005,13,1.99,online
 2024-12-13,WEB,BEV-007,9,1.69,online
 2024-12-13,WEB,BEV-008,1,6.49,online
+2024-12-13,WEB,BEV-009,3,1.69,online
 2024-12-13,WEB,GRO-001,15,1.09,online
 2024-12-13,WEB,GRO-002,16,1.09,online
 2024-12-13,WEB,GRO-003,6,3.79,online
@@ -187437,6 +187731,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-13,WEB,GRO-008,3,1.29,online
 2024-12-13,WEB,GRO-009,4,0.99,online
 2024-12-13,WEB,GRO-010,1,2.69,online
+2024-12-13,WEB,GRO-011,2,1.29,online
 2024-12-13,WEB,HOM-001,11,4.39,online
 2024-12-13,WEB,HOM-002,5,3.29,online
 2024-12-13,WEB,HOM-003,1,2.19,online
@@ -187451,6 +187746,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,BO01,BEV-004,3,1.39,physical
 2024-12-14,BO01,BEV-005,6,1.99,physical
 2024-12-14,BO01,BEV-007,13,1.69,physical
+2024-12-14,BO01,BEV-009,2,1.69,physical
 2024-12-14,BO01,GRO-001,47,1.09,physical
 2024-12-14,BO01,GRO-002,18,1.09,physical
 2024-12-14,BO01,GRO-003,7,3.79,physical
@@ -187461,6 +187757,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,BO01,GRO-008,3,1.29,physical
 2024-12-14,BO01,GRO-009,5,0.99,physical
 2024-12-14,BO01,GRO-010,9,2.69,physical
+2024-12-14,BO01,GRO-011,3,1.29,physical
 2024-12-14,BO01,HOM-001,17,4.39,physical
 2024-12-14,BO01,HOM-002,11,2.47,physical
 2024-12-14,BO01,HOM-003,12,2.19,physical
@@ -187485,6 +187782,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,FI01,GRO-008,3,1.29,physical
 2024-12-14,FI01,GRO-009,6,0.99,physical
 2024-12-14,FI01,GRO-010,6,2.69,physical
+2024-12-14,FI01,GRO-011,2,1.29,physical
 2024-12-14,FI01,HOM-001,17,4.39,physical
 2024-12-14,FI01,HOM-002,8,2.47,physical
 2024-12-14,FI01,HOM-003,1,2.19,physical
@@ -187501,6 +187799,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,MI01,BEV-005,12,1.99,physical
 2024-12-14,MI01,BEV-007,3,1.69,physical
 2024-12-14,MI01,BEV-008,2,6.49,physical
+2024-12-14,MI01,BEV-009,9,1.69,physical
 2024-12-14,MI01,GRO-001,56,1.09,physical
 2024-12-14,MI01,GRO-002,68,1.09,physical
 2024-12-14,MI01,GRO-003,12,3.79,physical
@@ -187511,6 +187810,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,MI01,GRO-008,5,1.29,physical
 2024-12-14,MI01,GRO-009,10,0.99,physical
 2024-12-14,MI01,GRO-010,11,2.69,physical
+2024-12-14,MI01,GRO-011,6,1.29,physical
 2024-12-14,MI01,HOM-001,17,4.39,physical
 2024-12-14,MI01,HOM-002,18,2.47,physical
 2024-12-14,MI01,HOM-003,7,2.19,physical
@@ -187526,6 +187826,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,MI02,BEV-005,11,1.99,physical
 2024-12-14,MI02,BEV-007,10,1.69,physical
 2024-12-14,MI02,BEV-008,2,6.49,physical
+2024-12-14,MI02,BEV-009,4,1.69,physical
 2024-12-14,MI02,GRO-001,42,1.09,physical
 2024-12-14,MI02,GRO-002,28,1.09,physical
 2024-12-14,MI02,GRO-003,9,3.79,physical
@@ -187536,6 +187837,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,MI02,GRO-008,7,1.29,physical
 2024-12-14,MI02,GRO-009,9,0.99,physical
 2024-12-14,MI02,GRO-010,6,2.69,physical
+2024-12-14,MI02,GRO-011,3,1.29,physical
 2024-12-14,MI02,HOM-001,7,4.39,physical
 2024-12-14,MI02,HOM-002,15,2.47,physical
 2024-12-14,MI02,HOM-003,5,2.19,physical
@@ -187561,6 +187863,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,NA01,GRO-008,5,1.29,physical
 2024-12-14,NA01,GRO-009,4,0.99,physical
 2024-12-14,NA01,GRO-010,3,2.69,physical
+2024-12-14,NA01,GRO-011,2,1.29,physical
 2024-12-14,NA01,HOM-001,11,4.39,physical
 2024-12-14,NA01,HOM-002,3,2.47,physical
 2024-12-14,NA01,HOM-003,10,2.19,physical
@@ -187577,6 +187880,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,RM01,BEV-005,17,1.99,physical
 2024-12-14,RM01,BEV-007,25,1.69,physical
 2024-12-14,RM01,BEV-008,1,6.49,physical
+2024-12-14,RM01,BEV-009,6,1.69,physical
 2024-12-14,RM01,GRO-001,47,1.09,physical
 2024-12-14,RM01,GRO-002,41,1.09,physical
 2024-12-14,RM01,GRO-003,12,3.79,physical
@@ -187587,6 +187891,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,RM01,GRO-008,10,1.29,physical
 2024-12-14,RM01,GRO-009,9,0.99,physical
 2024-12-14,RM01,GRO-010,9,2.69,physical
+2024-12-14,RM01,GRO-011,4,1.29,physical
 2024-12-14,RM01,HOM-001,26,4.39,physical
 2024-12-14,RM01,HOM-002,17,2.47,physical
 2024-12-14,RM01,HOM-003,11,2.19,physical
@@ -187601,6 +187906,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,TO01,BEV-004,28,1.39,physical
 2024-12-14,TO01,BEV-005,14,1.99,physical
 2024-12-14,TO01,BEV-007,9,1.69,physical
+2024-12-14,TO01,BEV-009,1,1.69,physical
 2024-12-14,TO01,GRO-001,33,1.09,physical
 2024-12-14,TO01,GRO-002,21,1.09,physical
 2024-12-14,TO01,GRO-003,5,3.79,physical
@@ -187611,6 +187917,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,TO01,GRO-008,2,1.29,physical
 2024-12-14,TO01,GRO-009,11,0.99,physical
 2024-12-14,TO01,GRO-010,7,2.69,physical
+2024-12-14,TO01,GRO-011,6,1.29,physical
 2024-12-14,TO01,HOM-001,15,4.39,physical
 2024-12-14,TO01,HOM-002,22,2.47,physical
 2024-12-14,TO01,HOM-003,3,2.19,physical
@@ -187626,6 +187933,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,WEB,BEV-004,16,1.39,online
 2024-12-14,WEB,BEV-005,8,1.99,online
 2024-12-14,WEB,BEV-007,9,1.69,online
+2024-12-14,WEB,BEV-009,1,1.69,online
 2024-12-14,WEB,GRO-001,22,1.09,online
 2024-12-14,WEB,GRO-002,11,1.09,online
 2024-12-14,WEB,GRO-003,2,3.79,online
@@ -187636,6 +187944,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-14,WEB,GRO-008,3,1.29,online
 2024-12-14,WEB,GRO-009,8,0.99,online
 2024-12-14,WEB,GRO-010,2,2.69,online
+2024-12-14,WEB,GRO-011,1,1.29,online
 2024-12-14,WEB,HOM-001,7,4.39,online
 2024-12-14,WEB,HOM-002,6,2.47,online
 2024-12-14,WEB,HOM-003,6,2.19,online
@@ -187649,6 +187958,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,FI01,BEV-004,9,1.39,physical
 2024-12-15,FI01,BEV-005,3,1.99,physical
 2024-12-15,FI01,BEV-007,14,1.69,physical
+2024-12-15,FI01,BEV-009,1,1.69,physical
 2024-12-15,FI01,GRO-001,12,1.09,physical
 2024-12-15,FI01,GRO-002,7,1.09,physical
 2024-12-15,FI01,GRO-003,4,3.79,physical
@@ -187659,6 +187969,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,FI01,GRO-008,3,1.29,physical
 2024-12-15,FI01,GRO-009,7,0.99,physical
 2024-12-15,FI01,GRO-010,2,2.69,physical
+2024-12-15,FI01,GRO-011,2,1.29,physical
 2024-12-15,FI01,HOM-001,11,4.39,physical
 2024-12-15,FI01,HOM-002,3,2.47,physical
 2024-12-15,FI01,HOM-003,2,2.19,physical
@@ -187672,6 +187983,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,MI01,BEV-004,15,1.39,physical
 2024-12-15,MI01,BEV-005,5,1.99,physical
 2024-12-15,MI01,BEV-007,6,1.69,physical
+2024-12-15,MI01,BEV-009,8,1.69,physical
 2024-12-15,MI01,GRO-001,39,1.09,physical
 2024-12-15,MI01,GRO-002,18,1.09,physical
 2024-12-15,MI01,GRO-003,8,3.79,physical
@@ -187682,6 +187994,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,MI01,GRO-008,8,1.29,physical
 2024-12-15,MI01,GRO-009,6,0.99,physical
 2024-12-15,MI01,GRO-010,4,2.69,physical
+2024-12-15,MI01,GRO-011,4,1.29,physical
 2024-12-15,MI01,HOM-001,7,4.39,physical
 2024-12-15,MI01,HOM-002,6,2.47,physical
 2024-12-15,MI01,HOM-003,4,2.19,physical
@@ -187706,6 +188019,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,NA01,GRO-008,4,1.29,physical
 2024-12-15,NA01,GRO-009,4,0.99,physical
 2024-12-15,NA01,GRO-010,6,2.69,physical
+2024-12-15,NA01,GRO-011,1,1.29,physical
 2024-12-15,NA01,HOM-001,6,4.39,physical
 2024-12-15,NA01,HOM-002,6,2.47,physical
 2024-12-15,NA01,HOM-003,1,2.19,physical
@@ -187720,6 +188034,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,RM01,BEV-004,10,1.39,physical
 2024-12-15,RM01,BEV-005,6,1.99,physical
 2024-12-15,RM01,BEV-007,12,1.69,physical
+2024-12-15,RM01,BEV-009,3,1.69,physical
 2024-12-15,RM01,GRO-001,33,1.09,physical
 2024-12-15,RM01,GRO-002,12,1.09,physical
 2024-12-15,RM01,GRO-003,4,3.79,physical
@@ -187730,6 +188045,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,RM01,GRO-008,2,1.29,physical
 2024-12-15,RM01,GRO-009,8,0.99,physical
 2024-12-15,RM01,GRO-010,8,2.69,physical
+2024-12-15,RM01,GRO-011,3,1.29,physical
 2024-12-15,RM01,HOM-001,11,4.39,physical
 2024-12-15,RM01,HOM-002,6,2.47,physical
 2024-12-15,RM01,HOM-003,3,2.19,physical
@@ -187746,6 +188062,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,TO01,BEV-006,1,3.29,physical
 2024-12-15,TO01,BEV-007,5,1.69,physical
 2024-12-15,TO01,BEV-008,1,6.49,physical
+2024-12-15,TO01,BEV-009,4,1.69,physical
 2024-12-15,TO01,GRO-001,20,1.09,physical
 2024-12-15,TO01,GRO-002,17,1.09,physical
 2024-12-15,TO01,GRO-003,3,3.79,physical
@@ -187756,6 +188073,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,TO01,GRO-008,4,1.29,physical
 2024-12-15,TO01,GRO-009,3,0.99,physical
 2024-12-15,TO01,GRO-010,8,2.69,physical
+2024-12-15,TO01,GRO-011,4,1.29,physical
 2024-12-15,TO01,HOM-001,8,4.39,physical
 2024-12-15,TO01,HOM-002,8,2.47,physical
 2024-12-15,TO01,HOM-003,3,2.19,physical
@@ -187771,6 +188089,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,WEB,BEV-005,8,1.99,online
 2024-12-15,WEB,BEV-007,13,1.69,online
 2024-12-15,WEB,BEV-008,16,6.49,online
+2024-12-15,WEB,BEV-009,5,1.69,online
 2024-12-15,WEB,GRO-001,21,1.09,online
 2024-12-15,WEB,GRO-002,14,1.09,online
 2024-12-15,WEB,GRO-003,5,3.79,online
@@ -187781,6 +188100,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-15,WEB,GRO-008,4,1.29,online
 2024-12-15,WEB,GRO-009,4,0.99,online
 2024-12-15,WEB,GRO-010,1,2.69,online
+2024-12-15,WEB,GRO-011,2,1.29,online
 2024-12-15,WEB,HOM-001,9,4.39,online
 2024-12-15,WEB,HOM-002,5,2.47,online
 2024-12-15,WEB,HOM-003,7,2.19,online
@@ -187794,6 +188114,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,BO01,BEV-005,2,1.99,physical
 2024-12-16,BO01,BEV-007,1,1.69,physical
 2024-12-16,BO01,BEV-008,8,6.49,physical
+2024-12-16,BO01,BEV-009,1,1.69,physical
 2024-12-16,BO01,GRO-001,25,1.09,physical
 2024-12-16,BO01,GRO-002,7,1.09,physical
 2024-12-16,BO01,GRO-003,5,3.79,physical
@@ -187804,6 +188125,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,BO01,GRO-008,2,1.29,physical
 2024-12-16,BO01,GRO-009,4,0.99,physical
 2024-12-16,BO01,GRO-010,4,2.69,physical
+2024-12-16,BO01,GRO-011,2,1.29,physical
 2024-12-16,BO01,HOM-001,12,4.39,physical
 2024-12-16,BO01,HOM-002,8,2.47,physical
 2024-12-16,BO01,HOM-003,6,2.19,physical
@@ -187819,6 +188141,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,FI01,BEV-005,5,1.99,physical
 2024-12-16,FI01,BEV-007,5,1.69,physical
 2024-12-16,FI01,BEV-008,1,6.49,physical
+2024-12-16,FI01,BEV-009,2,1.69,physical
 2024-12-16,FI01,GRO-001,23,1.09,physical
 2024-12-16,FI01,GRO-002,8,1.09,physical
 2024-12-16,FI01,GRO-003,1,3.79,physical
@@ -187828,6 +188151,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,FI01,GRO-008,3,1.29,physical
 2024-12-16,FI01,GRO-009,3,0.99,physical
 2024-12-16,FI01,GRO-010,4,2.69,physical
+2024-12-16,FI01,GRO-011,1,1.29,physical
 2024-12-16,FI01,HOM-001,15,4.39,physical
 2024-12-16,FI01,HOM-002,4,2.47,physical
 2024-12-16,FI01,HOM-004,2,1.99,physical
@@ -187841,6 +188165,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,MI01,BEV-004,13,1.39,physical
 2024-12-16,MI01,BEV-005,7,1.99,physical
 2024-12-16,MI01,BEV-007,3,1.69,physical
+2024-12-16,MI01,BEV-009,5,1.69,physical
 2024-12-16,MI01,GRO-001,25,1.09,physical
 2024-12-16,MI01,GRO-002,20,1.09,physical
 2024-12-16,MI01,GRO-003,6,3.79,physical
@@ -187851,6 +188176,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,MI01,GRO-008,12,1.29,physical
 2024-12-16,MI01,GRO-009,8,0.99,physical
 2024-12-16,MI01,GRO-010,1,2.69,physical
+2024-12-16,MI01,GRO-011,1,1.29,physical
 2024-12-16,MI01,HOM-001,5,4.39,physical
 2024-12-16,MI01,HOM-002,16,2.47,physical
 2024-12-16,MI01,HOM-003,3,2.19,physical
@@ -187864,6 +188190,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,MI02,BEV-004,10,1.39,physical
 2024-12-16,MI02,BEV-005,5,1.99,physical
 2024-12-16,MI02,BEV-007,4,1.69,physical
+2024-12-16,MI02,BEV-009,2,1.69,physical
 2024-12-16,MI02,GRO-001,15,1.09,physical
 2024-12-16,MI02,GRO-002,15,1.09,physical
 2024-12-16,MI02,GRO-003,6,3.79,physical
@@ -187897,6 +188224,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,NA01,GRO-008,2,1.29,physical
 2024-12-16,NA01,GRO-009,1,0.99,physical
 2024-12-16,NA01,GRO-010,4,2.69,physical
+2024-12-16,NA01,GRO-011,1,1.29,physical
 2024-12-16,NA01,HOM-001,4,4.39,physical
 2024-12-16,NA01,HOM-002,6,2.47,physical
 2024-12-16,NA01,HOM-003,4,2.19,physical
@@ -187920,6 +188248,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,RM01,GRO-008,5,1.29,physical
 2024-12-16,RM01,GRO-009,6,0.99,physical
 2024-12-16,RM01,GRO-010,7,2.69,physical
+2024-12-16,RM01,GRO-011,8,1.29,physical
 2024-12-16,RM01,HOM-001,10,4.39,physical
 2024-12-16,RM01,HOM-002,13,2.47,physical
 2024-12-16,RM01,HOM-003,8,2.19,physical
@@ -187934,6 +188263,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,TO01,BEV-005,9,1.99,physical
 2024-12-16,TO01,BEV-006,1,3.29,physical
 2024-12-16,TO01,BEV-007,7,1.69,physical
+2024-12-16,TO01,BEV-009,3,1.69,physical
 2024-12-16,TO01,GRO-001,28,1.09,physical
 2024-12-16,TO01,GRO-002,25,1.09,physical
 2024-12-16,TO01,GRO-003,5,3.79,physical
@@ -187944,6 +188274,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,TO01,GRO-008,2,1.29,physical
 2024-12-16,TO01,GRO-009,14,0.99,physical
 2024-12-16,TO01,GRO-010,1,2.69,physical
+2024-12-16,TO01,GRO-011,2,1.29,physical
 2024-12-16,TO01,HOM-001,11,4.39,physical
 2024-12-16,TO01,HOM-002,7,2.47,physical
 2024-12-16,TO01,HOM-003,3,2.19,physical
@@ -187959,6 +188290,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,WEB,BEV-004,18,1.39,online
 2024-12-16,WEB,BEV-005,18,1.99,online
 2024-12-16,WEB,BEV-007,11,1.69,online
+2024-12-16,WEB,BEV-009,4,1.69,online
 2024-12-16,WEB,GRO-001,36,1.09,online
 2024-12-16,WEB,GRO-002,22,1.09,online
 2024-12-16,WEB,GRO-003,3,3.79,online
@@ -187969,6 +188301,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-16,WEB,GRO-008,7,1.29,online
 2024-12-16,WEB,GRO-009,7,0.99,online
 2024-12-16,WEB,GRO-010,4,2.69,online
+2024-12-16,WEB,GRO-011,1,1.29,online
 2024-12-16,WEB,HOM-001,10,4.39,online
 2024-12-16,WEB,HOM-002,18,2.47,online
 2024-12-16,WEB,HOM-003,8,2.19,online
@@ -187982,6 +188315,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,BO01,BEV-004,5,1.39,physical
 2024-12-17,BO01,BEV-005,10,1.99,physical
 2024-12-17,BO01,BEV-007,6,1.69,physical
+2024-12-17,BO01,BEV-009,2,1.69,physical
 2024-12-17,BO01,GRO-001,33,1.09,physical
 2024-12-17,BO01,GRO-002,17,1.09,physical
 2024-12-17,BO01,GRO-003,3,3.79,physical
@@ -187992,6 +188326,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,BO01,GRO-008,1,1.29,physical
 2024-12-17,BO01,GRO-009,4,0.99,physical
 2024-12-17,BO01,GRO-010,5,2.69,physical
+2024-12-17,BO01,GRO-011,1,1.29,physical
 2024-12-17,BO01,HOM-001,12,4.39,physical
 2024-12-17,BO01,HOM-002,9,2.47,physical
 2024-12-17,BO01,HOM-004,4,1.99,physical
@@ -188004,6 +188339,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,FI01,BEV-004,8,1.39,physical
 2024-12-17,FI01,BEV-005,10,1.99,physical
 2024-12-17,FI01,BEV-007,2,1.69,physical
+2024-12-17,FI01,BEV-009,1,1.69,physical
 2024-12-17,FI01,GRO-001,23,1.09,physical
 2024-12-17,FI01,GRO-002,16,1.09,physical
 2024-12-17,FI01,GRO-003,2,3.79,physical
@@ -188028,6 +188364,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,MI01,BEV-004,9,1.39,physical
 2024-12-17,MI01,BEV-005,6,1.99,physical
 2024-12-17,MI01,BEV-007,10,1.69,physical
+2024-12-17,MI01,BEV-009,2,1.69,physical
 2024-12-17,MI01,GRO-001,28,1.09,physical
 2024-12-17,MI01,GRO-002,21,1.09,physical
 2024-12-17,MI01,GRO-003,16,3.79,physical
@@ -188038,6 +188375,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,MI01,GRO-008,5,1.29,physical
 2024-12-17,MI01,GRO-009,10,0.99,physical
 2024-12-17,MI01,GRO-010,7,2.69,physical
+2024-12-17,MI01,GRO-011,1,1.29,physical
 2024-12-17,MI01,HOM-001,7,4.39,physical
 2024-12-17,MI01,HOM-002,14,2.47,physical
 2024-12-17,MI01,HOM-003,3,2.19,physical
@@ -188052,6 +188390,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,MI02,BEV-005,11,1.99,physical
 2024-12-17,MI02,BEV-007,12,1.69,physical
 2024-12-17,MI02,BEV-008,10,6.49,physical
+2024-12-17,MI02,BEV-009,8,1.69,physical
 2024-12-17,MI02,GRO-001,15,1.09,physical
 2024-12-17,MI02,GRO-002,12,1.09,physical
 2024-12-17,MI02,GRO-003,5,3.79,physical
@@ -188061,6 +188400,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,MI02,GRO-008,3,1.29,physical
 2024-12-17,MI02,GRO-009,9,0.99,physical
 2024-12-17,MI02,GRO-010,8,2.69,physical
+2024-12-17,MI02,GRO-011,2,1.29,physical
 2024-12-17,MI02,HOM-001,4,4.39,physical
 2024-12-17,MI02,HOM-002,5,2.47,physical
 2024-12-17,MI02,HOM-003,4,2.19,physical
@@ -188075,6 +188415,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,NA01,BEV-003,4,1.59,physical
 2024-12-17,NA01,BEV-005,7,1.99,physical
 2024-12-17,NA01,BEV-007,3,1.69,physical
+2024-12-17,NA01,BEV-009,4,1.69,physical
 2024-12-17,NA01,GRO-001,24,1.09,physical
 2024-12-17,NA01,GRO-002,13,1.09,physical
 2024-12-17,NA01,GRO-003,1,3.79,physical
@@ -188085,6 +188426,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,NA01,GRO-008,4,1.29,physical
 2024-12-17,NA01,GRO-009,7,0.99,physical
 2024-12-17,NA01,GRO-010,5,2.69,physical
+2024-12-17,NA01,GRO-011,3,1.29,physical
 2024-12-17,NA01,HOM-001,8,4.39,physical
 2024-12-17,NA01,HOM-002,10,2.47,physical
 2024-12-17,NA01,HOM-003,6,2.19,physical
@@ -188100,6 +188442,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,RM01,BEV-005,6,1.99,physical
 2024-12-17,RM01,BEV-006,1,3.29,physical
 2024-12-17,RM01,BEV-007,16,1.69,physical
+2024-12-17,RM01,BEV-009,3,1.69,physical
 2024-12-17,RM01,GRO-001,29,1.09,physical
 2024-12-17,RM01,GRO-002,20,1.09,physical
 2024-12-17,RM01,GRO-003,3,3.79,physical
@@ -188110,6 +188453,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,RM01,GRO-008,4,1.29,physical
 2024-12-17,RM01,GRO-009,4,0.99,physical
 2024-12-17,RM01,GRO-010,8,2.69,physical
+2024-12-17,RM01,GRO-011,3,1.29,physical
 2024-12-17,RM01,HOM-001,9,4.39,physical
 2024-12-17,RM01,HOM-002,16,2.47,physical
 2024-12-17,RM01,HOM-003,7,2.19,physical
@@ -188125,6 +188469,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,TO01,BEV-005,15,1.99,physical
 2024-12-17,TO01,BEV-006,1,3.29,physical
 2024-12-17,TO01,BEV-007,8,1.69,physical
+2024-12-17,TO01,BEV-009,2,1.69,physical
 2024-12-17,TO01,GRO-001,29,1.09,physical
 2024-12-17,TO01,GRO-002,11,1.09,physical
 2024-12-17,TO01,GRO-003,3,3.79,physical
@@ -188135,6 +188480,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,TO01,GRO-008,3,1.29,physical
 2024-12-17,TO01,GRO-009,5,0.99,physical
 2024-12-17,TO01,GRO-010,7,2.69,physical
+2024-12-17,TO01,GRO-011,5,1.29,physical
 2024-12-17,TO01,HOM-001,3,4.39,physical
 2024-12-17,TO01,HOM-002,4,2.47,physical
 2024-12-17,TO01,HOM-003,2,2.19,physical
@@ -188151,6 +188497,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,WEB,BEV-004,10,1.39,online
 2024-12-17,WEB,BEV-005,11,1.99,online
 2024-12-17,WEB,BEV-007,4,1.69,online
+2024-12-17,WEB,BEV-009,1,1.69,online
 2024-12-17,WEB,GRO-001,29,1.09,online
 2024-12-17,WEB,GRO-002,17,1.09,online
 2024-12-17,WEB,GRO-003,7,3.79,online
@@ -188161,6 +188508,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-17,WEB,GRO-008,4,1.29,online
 2024-12-17,WEB,GRO-009,10,0.99,online
 2024-12-17,WEB,GRO-010,3,2.69,online
+2024-12-17,WEB,GRO-011,2,1.29,online
 2024-12-17,WEB,HOM-001,17,4.39,online
 2024-12-17,WEB,HOM-002,18,2.47,online
 2024-12-17,WEB,HOM-003,3,2.19,online
@@ -188176,6 +188524,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,BO01,BEV-005,3,1.99,physical
 2024-12-18,BO01,BEV-007,5,1.69,physical
 2024-12-18,BO01,BEV-008,1,6.49,physical
+2024-12-18,BO01,BEV-009,7,1.69,physical
 2024-12-18,BO01,GRO-001,19,1.09,physical
 2024-12-18,BO01,GRO-002,14,1.09,physical
 2024-12-18,BO01,GRO-003,3,3.79,physical
@@ -188199,6 +188548,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,FI01,BEV-004,10,1.39,physical
 2024-12-18,FI01,BEV-005,8,1.99,physical
 2024-12-18,FI01,BEV-007,8,1.69,physical
+2024-12-18,FI01,BEV-009,1,1.69,physical
 2024-12-18,FI01,GRO-001,13,1.09,physical
 2024-12-18,FI01,GRO-002,14,1.09,physical
 2024-12-18,FI01,GRO-003,1,3.79,physical
@@ -188209,6 +188559,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,FI01,GRO-008,2,1.29,physical
 2024-12-18,FI01,GRO-009,7,0.99,physical
 2024-12-18,FI01,GRO-010,1,2.69,physical
+2024-12-18,FI01,GRO-011,2,1.29,physical
 2024-12-18,FI01,HOM-001,4,4.39,physical
 2024-12-18,FI01,HOM-002,2,2.47,physical
 2024-12-18,FI01,HOM-003,1,2.19,physical
@@ -188223,6 +188574,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,MI01,BEV-004,16,1.39,physical
 2024-12-18,MI01,BEV-005,1,1.99,physical
 2024-12-18,MI01,BEV-007,11,1.69,physical
+2024-12-18,MI01,BEV-009,3,1.69,physical
 2024-12-18,MI01,GRO-001,66,1.09,physical
 2024-12-18,MI01,GRO-002,23,1.09,physical
 2024-12-18,MI01,GRO-003,7,3.79,physical
@@ -188233,6 +188585,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,MI01,GRO-008,12,1.29,physical
 2024-12-18,MI01,GRO-009,8,0.99,physical
 2024-12-18,MI01,GRO-010,3,2.69,physical
+2024-12-18,MI01,GRO-011,1,1.29,physical
 2024-12-18,MI01,HOM-001,3,4.39,physical
 2024-12-18,MI01,HOM-002,5,2.47,physical
 2024-12-18,MI01,HOM-003,4,2.19,physical
@@ -188248,6 +188601,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,MI02,BEV-004,4,1.39,physical
 2024-12-18,MI02,BEV-005,5,1.99,physical
 2024-12-18,MI02,BEV-007,6,1.69,physical
+2024-12-18,MI02,BEV-009,8,1.69,physical
 2024-12-18,MI02,GRO-001,16,1.09,physical
 2024-12-18,MI02,GRO-002,27,1.09,physical
 2024-12-18,MI02,GRO-003,9,3.79,physical
@@ -188258,6 +188612,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,MI02,GRO-008,3,1.29,physical
 2024-12-18,MI02,GRO-009,8,0.99,physical
 2024-12-18,MI02,GRO-010,12,2.69,physical
+2024-12-18,MI02,GRO-011,3,1.29,physical
 2024-12-18,MI02,HOM-001,11,4.39,physical
 2024-12-18,MI02,HOM-002,10,2.47,physical
 2024-12-18,MI02,HOM-004,1,1.99,physical
@@ -188273,6 +188628,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,NA01,BEV-004,5,1.39,physical
 2024-12-18,NA01,BEV-005,10,1.99,physical
 2024-12-18,NA01,BEV-007,14,1.69,physical
+2024-12-18,NA01,BEV-009,1,1.69,physical
 2024-12-18,NA01,GRO-001,34,1.09,physical
 2024-12-18,NA01,GRO-002,23,1.09,physical
 2024-12-18,NA01,GRO-003,3,3.79,physical
@@ -188283,6 +188639,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,NA01,GRO-008,7,1.29,physical
 2024-12-18,NA01,GRO-009,6,0.99,physical
 2024-12-18,NA01,GRO-010,2,2.69,physical
+2024-12-18,NA01,GRO-011,5,1.29,physical
 2024-12-18,NA01,HOM-001,12,4.39,physical
 2024-12-18,NA01,HOM-002,6,2.47,physical
 2024-12-18,NA01,HOM-003,6,2.19,physical
@@ -188296,6 +188653,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,RM01,BEV-004,11,1.39,physical
 2024-12-18,RM01,BEV-005,6,1.99,physical
 2024-12-18,RM01,BEV-007,14,1.69,physical
+2024-12-18,RM01,BEV-009,7,1.69,physical
 2024-12-18,RM01,GRO-001,47,1.09,physical
 2024-12-18,RM01,GRO-002,17,1.09,physical
 2024-12-18,RM01,GRO-003,6,3.79,physical
@@ -188306,6 +188664,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,RM01,GRO-008,5,1.29,physical
 2024-12-18,RM01,GRO-009,8,0.99,physical
 2024-12-18,RM01,GRO-010,10,2.69,physical
+2024-12-18,RM01,GRO-011,4,1.29,physical
 2024-12-18,RM01,HOM-001,16,4.39,physical
 2024-12-18,RM01,HOM-002,10,2.47,physical
 2024-12-18,RM01,HOM-003,6,2.19,physical
@@ -188322,6 +188681,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,TO01,BEV-005,5,1.99,physical
 2024-12-18,TO01,BEV-007,10,1.69,physical
 2024-12-18,TO01,BEV-008,1,6.49,physical
+2024-12-18,TO01,BEV-009,2,1.69,physical
 2024-12-18,TO01,GRO-001,25,1.09,physical
 2024-12-18,TO01,GRO-002,17,1.09,physical
 2024-12-18,TO01,GRO-003,4,3.79,physical
@@ -188332,6 +188692,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,TO01,GRO-008,2,1.29,physical
 2024-12-18,TO01,GRO-009,4,0.99,physical
 2024-12-18,TO01,GRO-010,2,2.69,physical
+2024-12-18,TO01,GRO-011,1,1.29,physical
 2024-12-18,TO01,HOM-001,10,4.39,physical
 2024-12-18,TO01,HOM-002,14,2.47,physical
 2024-12-18,TO01,HOM-003,6,2.19,physical
@@ -188348,6 +188709,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,WEB,BEV-004,9,1.39,online
 2024-12-18,WEB,BEV-005,5,1.99,online
 2024-12-18,WEB,BEV-007,11,1.69,online
+2024-12-18,WEB,BEV-009,9,1.69,online
 2024-12-18,WEB,GRO-001,9,1.09,online
 2024-12-18,WEB,GRO-002,13,1.09,online
 2024-12-18,WEB,GRO-003,6,3.79,online
@@ -188358,6 +188720,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-18,WEB,GRO-008,3,1.29,online
 2024-12-18,WEB,GRO-009,5,0.99,online
 2024-12-18,WEB,GRO-010,8,2.69,online
+2024-12-18,WEB,GRO-011,2,1.29,online
 2024-12-18,WEB,HOM-001,10,4.39,online
 2024-12-18,WEB,HOM-002,19,2.47,online
 2024-12-18,WEB,HOM-003,3,2.19,online
@@ -188371,6 +188734,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,BO01,BEV-004,10,1.39,physical
 2024-12-19,BO01,BEV-005,4,1.99,physical
 2024-12-19,BO01,BEV-007,7,1.69,physical
+2024-12-19,BO01,BEV-009,2,1.69,physical
 2024-12-19,BO01,GRO-001,19,1.09,physical
 2024-12-19,BO01,GRO-002,15,1.09,physical
 2024-12-19,BO01,GRO-003,9,3.79,physical
@@ -188381,6 +188745,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,BO01,GRO-008,7,1.29,physical
 2024-12-19,BO01,GRO-009,4,0.99,physical
 2024-12-19,BO01,GRO-010,13,2.69,physical
+2024-12-19,BO01,GRO-011,4,1.29,physical
 2024-12-19,BO01,HOM-001,10,4.39,physical
 2024-12-19,BO01,HOM-002,11,2.47,physical
 2024-12-19,BO01,HOM-003,4,2.19,physical
@@ -188394,6 +188759,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,FI01,BEV-005,8,1.99,physical
 2024-12-19,FI01,BEV-007,9,1.69,physical
 2024-12-19,FI01,BEV-008,1,6.49,physical
+2024-12-19,FI01,BEV-009,1,1.69,physical
 2024-12-19,FI01,GRO-001,25,1.09,physical
 2024-12-19,FI01,GRO-002,16,1.09,physical
 2024-12-19,FI01,GRO-003,4,3.79,physical
@@ -188404,6 +188770,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,FI01,GRO-008,3,1.29,physical
 2024-12-19,FI01,GRO-009,12,0.99,physical
 2024-12-19,FI01,GRO-010,2,2.69,physical
+2024-12-19,FI01,GRO-011,1,1.29,physical
 2024-12-19,FI01,HOM-001,11,4.39,physical
 2024-12-19,FI01,HOM-002,6,2.47,physical
 2024-12-19,FI01,HOM-003,1,2.19,physical
@@ -188419,6 +188786,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,MI01,BEV-005,5,1.99,physical
 2024-12-19,MI01,BEV-007,4,1.69,physical
 2024-12-19,MI01,BEV-008,1,6.49,physical
+2024-12-19,MI01,BEV-009,4,1.69,physical
 2024-12-19,MI01,GRO-001,40,1.09,physical
 2024-12-19,MI01,GRO-002,28,1.09,physical
 2024-12-19,MI01,GRO-003,8,3.79,physical
@@ -188429,6 +188797,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,MI01,GRO-008,5,1.29,physical
 2024-12-19,MI01,GRO-009,18,0.99,physical
 2024-12-19,MI01,GRO-010,3,2.69,physical
+2024-12-19,MI01,GRO-011,3,1.29,physical
 2024-12-19,MI01,HOM-001,8,4.39,physical
 2024-12-19,MI01,HOM-002,8,2.47,physical
 2024-12-19,MI01,HOM-003,6,2.19,physical
@@ -188444,6 +188813,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,MI02,BEV-004,4,1.39,physical
 2024-12-19,MI02,BEV-005,9,1.99,physical
 2024-12-19,MI02,BEV-007,12,1.69,physical
+2024-12-19,MI02,BEV-009,3,1.69,physical
 2024-12-19,MI02,GRO-001,29,1.09,physical
 2024-12-19,MI02,GRO-002,24,1.09,physical
 2024-12-19,MI02,GRO-003,8,3.79,physical
@@ -188454,6 +188824,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,MI02,GRO-008,2,1.29,physical
 2024-12-19,MI02,GRO-009,10,0.99,physical
 2024-12-19,MI02,GRO-010,5,2.69,physical
+2024-12-19,MI02,GRO-011,3,1.29,physical
 2024-12-19,MI02,HOM-001,4,4.39,physical
 2024-12-19,MI02,HOM-002,6,2.47,physical
 2024-12-19,MI02,HOM-003,2,2.19,physical
@@ -188470,6 +188841,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,NA01,BEV-005,3,1.99,physical
 2024-12-19,NA01,BEV-007,10,1.69,physical
 2024-12-19,NA01,BEV-008,2,6.49,physical
+2024-12-19,NA01,BEV-009,1,1.69,physical
 2024-12-19,NA01,GRO-001,32,1.09,physical
 2024-12-19,NA01,GRO-002,12,1.09,physical
 2024-12-19,NA01,GRO-003,7,3.79,physical
@@ -188480,6 +188852,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,NA01,GRO-008,7,1.29,physical
 2024-12-19,NA01,GRO-009,12,0.99,physical
 2024-12-19,NA01,GRO-010,14,2.69,physical
+2024-12-19,NA01,GRO-011,1,1.29,physical
 2024-12-19,NA01,HOM-001,11,4.39,physical
 2024-12-19,NA01,HOM-002,4,2.47,physical
 2024-12-19,NA01,HOM-003,4,2.19,physical
@@ -188494,6 +188867,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,RM01,BEV-004,12,1.39,physical
 2024-12-19,RM01,BEV-005,4,1.99,physical
 2024-12-19,RM01,BEV-007,4,1.69,physical
+2024-12-19,RM01,BEV-009,6,1.69,physical
 2024-12-19,RM01,GRO-001,26,1.09,physical
 2024-12-19,RM01,GRO-002,22,1.09,physical
 2024-12-19,RM01,GRO-003,9,3.79,physical
@@ -188504,6 +188878,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,RM01,GRO-008,1,1.29,physical
 2024-12-19,RM01,GRO-009,8,0.99,physical
 2024-12-19,RM01,GRO-010,9,2.69,physical
+2024-12-19,RM01,GRO-011,5,1.29,physical
 2024-12-19,RM01,HOM-001,12,4.39,physical
 2024-12-19,RM01,HOM-002,5,2.47,physical
 2024-12-19,RM01,HOM-003,13,2.19,physical
@@ -188518,6 +188893,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,TO01,BEV-004,11,1.39,physical
 2024-12-19,TO01,BEV-005,10,1.99,physical
 2024-12-19,TO01,BEV-007,19,1.69,physical
+2024-12-19,TO01,BEV-009,1,1.69,physical
 2024-12-19,TO01,GRO-001,33,1.09,physical
 2024-12-19,TO01,GRO-002,19,1.09,physical
 2024-12-19,TO01,GRO-003,6,3.79,physical
@@ -188528,6 +188904,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,TO01,GRO-008,4,1.29,physical
 2024-12-19,TO01,GRO-009,6,0.99,physical
 2024-12-19,TO01,GRO-010,2,2.69,physical
+2024-12-19,TO01,GRO-011,5,1.29,physical
 2024-12-19,TO01,HOM-001,10,4.39,physical
 2024-12-19,TO01,HOM-002,8,2.47,physical
 2024-12-19,TO01,HOM-003,1,2.19,physical
@@ -188542,6 +188919,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,WEB,BEV-004,11,1.39,online
 2024-12-19,WEB,BEV-005,15,1.99,online
 2024-12-19,WEB,BEV-007,8,1.69,online
+2024-12-19,WEB,BEV-009,1,1.69,online
 2024-12-19,WEB,GRO-001,19,1.09,online
 2024-12-19,WEB,GRO-002,9,1.09,online
 2024-12-19,WEB,GRO-003,4,3.79,online
@@ -188552,6 +188930,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-19,WEB,GRO-008,2,1.29,online
 2024-12-19,WEB,GRO-009,8,0.99,online
 2024-12-19,WEB,GRO-010,4,2.69,online
+2024-12-19,WEB,GRO-011,2,1.29,online
 2024-12-19,WEB,HOM-001,7,4.39,online
 2024-12-19,WEB,HOM-002,13,2.47,online
 2024-12-19,WEB,HOM-003,8,2.19,online
@@ -188566,6 +188945,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,BO01,BEV-004,9,1.39,physical
 2024-12-20,BO01,BEV-005,10,1.39,physical
 2024-12-20,BO01,BEV-007,7,1.69,physical
+2024-12-20,BO01,BEV-009,4,1.69,physical
 2024-12-20,BO01,GRO-001,33,1.09,physical
 2024-12-20,BO01,GRO-002,18,1.09,physical
 2024-12-20,BO01,GRO-003,5,3.79,physical
@@ -188576,6 +188956,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,BO01,GRO-008,3,1.29,physical
 2024-12-20,BO01,GRO-009,7,0.99,physical
 2024-12-20,BO01,GRO-010,6,2.69,physical
+2024-12-20,BO01,GRO-011,2,1.29,physical
 2024-12-20,BO01,HOM-001,12,4.39,physical
 2024-12-20,BO01,HOM-002,8,2.47,physical
 2024-12-20,BO01,HOM-003,4,2.19,physical
@@ -188592,6 +188973,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,FI01,BEV-004,7,1.39,physical
 2024-12-20,FI01,BEV-005,13,1.39,physical
 2024-12-20,FI01,BEV-007,11,1.69,physical
+2024-12-20,FI01,BEV-009,1,1.69,physical
 2024-12-20,FI01,GRO-001,30,1.09,physical
 2024-12-20,FI01,GRO-002,13,1.09,physical
 2024-12-20,FI01,GRO-003,10,3.79,physical
@@ -188602,6 +188984,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,FI01,GRO-008,9,1.29,physical
 2024-12-20,FI01,GRO-009,10,0.99,physical
 2024-12-20,FI01,GRO-010,1,2.69,physical
+2024-12-20,FI01,GRO-011,3,1.29,physical
 2024-12-20,FI01,HOM-001,11,4.39,physical
 2024-12-20,FI01,HOM-002,7,2.47,physical
 2024-12-20,FI01,HOM-003,5,2.19,physical
@@ -188626,6 +189009,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,MI01,GRO-008,7,1.29,physical
 2024-12-20,MI01,GRO-009,12,0.99,physical
 2024-12-20,MI01,GRO-010,6,2.69,physical
+2024-12-20,MI01,GRO-011,3,1.29,physical
 2024-12-20,MI01,HOM-001,17,4.39,physical
 2024-12-20,MI01,HOM-002,30,2.47,physical
 2024-12-20,MI01,HOM-003,9,2.19,physical
@@ -188649,6 +189033,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,MI02,GRO-008,1,1.29,physical
 2024-12-20,MI02,GRO-009,5,0.99,physical
 2024-12-20,MI02,GRO-010,4,2.69,physical
+2024-12-20,MI02,GRO-011,1,1.29,physical
 2024-12-20,MI02,HOM-001,12,4.39,physical
 2024-12-20,MI02,HOM-002,16,2.47,physical
 2024-12-20,MI02,HOM-004,3,1.99,physical
@@ -188662,6 +189047,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,NA01,BEV-004,12,1.39,physical
 2024-12-20,NA01,BEV-005,12,1.39,physical
 2024-12-20,NA01,BEV-007,18,1.69,physical
+2024-12-20,NA01,BEV-009,1,1.69,physical
 2024-12-20,NA01,GRO-001,27,1.09,physical
 2024-12-20,NA01,GRO-002,38,1.09,physical
 2024-12-20,NA01,GRO-003,9,3.79,physical
@@ -188689,6 +189075,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,RM01,BEV-006,2,3.29,physical
 2024-12-20,RM01,BEV-007,4,1.69,physical
 2024-12-20,RM01,BEV-008,8,6.49,physical
+2024-12-20,RM01,BEV-009,2,1.69,physical
 2024-12-20,RM01,GRO-001,37,1.09,physical
 2024-12-20,RM01,GRO-002,33,1.09,physical
 2024-12-20,RM01,GRO-003,9,3.79,physical
@@ -188699,6 +189086,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,RM01,GRO-008,6,1.29,physical
 2024-12-20,RM01,GRO-009,5,0.99,physical
 2024-12-20,RM01,GRO-010,8,2.69,physical
+2024-12-20,RM01,GRO-011,7,1.29,physical
 2024-12-20,RM01,HOM-001,17,4.39,physical
 2024-12-20,RM01,HOM-002,10,2.47,physical
 2024-12-20,RM01,HOM-003,8,2.19,physical
@@ -188725,6 +189113,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,TO01,GRO-008,7,1.29,physical
 2024-12-20,TO01,GRO-009,7,0.99,physical
 2024-12-20,TO01,GRO-010,5,2.69,physical
+2024-12-20,TO01,GRO-011,6,1.29,physical
 2024-12-20,TO01,HOM-001,6,4.39,physical
 2024-12-20,TO01,HOM-002,20,2.47,physical
 2024-12-20,TO01,HOM-003,3,2.19,physical
@@ -188739,6 +189128,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-20,WEB,BEV-004,9,1.39,online
 2024-12-20,WEB,BEV-005,16,1.39,online
 2024-12-20,WEB,BEV-007,18,1.69,online
+2024-12-20,WEB,BEV-009,1,1.69,online
 2024-12-20,WEB,GRO-001,13,1.09,online
 2024-12-20,WEB,GRO-002,15,1.09,online
 2024-12-20,WEB,GRO-003,3,3.79,online
@@ -188763,6 +189153,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,BO01,BEV-004,11,1.39,physical
 2024-12-21,BO01,BEV-005,9,1.39,physical
 2024-12-21,BO01,BEV-007,8,1.69,physical
+2024-12-21,BO01,BEV-009,2,1.69,physical
 2024-12-21,BO01,GRO-001,50,1.09,physical
 2024-12-21,BO01,GRO-002,26,1.09,physical
 2024-12-21,BO01,GRO-003,14,3.79,physical
@@ -188773,6 +189164,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,BO01,GRO-008,4,1.29,physical
 2024-12-21,BO01,GRO-009,7,0.99,physical
 2024-12-21,BO01,GRO-010,5,2.69,physical
+2024-12-21,BO01,GRO-011,2,1.29,physical
 2024-12-21,BO01,HOM-001,8,4.39,physical
 2024-12-21,BO01,HOM-002,12,3.29,physical
 2024-12-21,BO01,HOM-003,14,2.19,physical
@@ -188787,6 +189179,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,FI01,BEV-004,10,1.39,physical
 2024-12-21,FI01,BEV-005,32,1.39,physical
 2024-12-21,FI01,BEV-007,5,1.69,physical
+2024-12-21,FI01,BEV-009,4,1.69,physical
 2024-12-21,FI01,GRO-001,34,1.09,physical
 2024-12-21,FI01,GRO-002,17,1.09,physical
 2024-12-21,FI01,GRO-003,5,3.79,physical
@@ -188797,6 +189190,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,FI01,GRO-008,7,1.29,physical
 2024-12-21,FI01,GRO-009,7,0.99,physical
 2024-12-21,FI01,GRO-010,8,2.69,physical
+2024-12-21,FI01,GRO-011,3,1.29,physical
 2024-12-21,FI01,HOM-001,11,4.39,physical
 2024-12-21,FI01,HOM-002,5,3.29,physical
 2024-12-21,FI01,HOM-003,7,2.19,physical
@@ -188811,6 +189205,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,MI01,BEV-004,14,1.39,physical
 2024-12-21,MI01,BEV-005,17,1.39,physical
 2024-12-21,MI01,BEV-007,7,1.69,physical
+2024-12-21,MI01,BEV-009,3,1.69,physical
 2024-12-21,MI01,GRO-001,73,1.09,physical
 2024-12-21,MI01,GRO-002,25,1.09,physical
 2024-12-21,MI01,GRO-003,9,3.79,physical
@@ -188821,6 +189216,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,MI01,GRO-008,9,1.29,physical
 2024-12-21,MI01,GRO-009,11,0.99,physical
 2024-12-21,MI01,GRO-010,8,2.69,physical
+2024-12-21,MI01,GRO-011,5,1.29,physical
 2024-12-21,MI01,HOM-001,8,4.39,physical
 2024-12-21,MI01,HOM-002,8,3.29,physical
 2024-12-21,MI01,HOM-003,8,2.19,physical
@@ -188834,6 +189230,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,MI02,BEV-004,5,1.39,physical
 2024-12-21,MI02,BEV-005,24,1.39,physical
 2024-12-21,MI02,BEV-007,18,1.69,physical
+2024-12-21,MI02,BEV-009,3,1.69,physical
 2024-12-21,MI02,GRO-001,54,1.09,physical
 2024-12-21,MI02,GRO-002,19,1.09,physical
 2024-12-21,MI02,GRO-003,9,3.79,physical
@@ -188844,6 +189241,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,MI02,GRO-008,4,1.29,physical
 2024-12-21,MI02,GRO-009,12,0.99,physical
 2024-12-21,MI02,GRO-010,8,2.69,physical
+2024-12-21,MI02,GRO-011,5,1.29,physical
 2024-12-21,MI02,HOM-001,18,4.39,physical
 2024-12-21,MI02,HOM-002,8,3.29,physical
 2024-12-21,MI02,HOM-003,5,2.19,physical
@@ -188858,6 +189256,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,NA01,BEV-004,5,1.39,physical
 2024-12-21,NA01,BEV-005,12,1.39,physical
 2024-12-21,NA01,BEV-007,11,1.69,physical
+2024-12-21,NA01,BEV-009,8,1.69,physical
 2024-12-21,NA01,GRO-001,36,1.09,physical
 2024-12-21,NA01,GRO-002,27,1.09,physical
 2024-12-21,NA01,GRO-003,15,3.79,physical
@@ -188868,6 +189267,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,NA01,GRO-008,2,1.29,physical
 2024-12-21,NA01,GRO-009,6,0.99,physical
 2024-12-21,NA01,GRO-010,5,2.69,physical
+2024-12-21,NA01,GRO-011,4,1.29,physical
 2024-12-21,NA01,HOM-001,21,4.39,physical
 2024-12-21,NA01,HOM-002,8,3.29,physical
 2024-12-21,NA01,HOM-003,9,2.19,physical
@@ -188883,6 +189283,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,RM01,BEV-004,22,1.39,physical
 2024-12-21,RM01,BEV-005,25,1.39,physical
 2024-12-21,RM01,BEV-007,29,1.69,physical
+2024-12-21,RM01,BEV-009,8,1.69,physical
 2024-12-21,RM01,GRO-001,40,1.09,physical
 2024-12-21,RM01,GRO-002,29,1.09,physical
 2024-12-21,RM01,GRO-003,4,3.79,physical
@@ -188893,6 +189294,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,RM01,GRO-008,10,1.29,physical
 2024-12-21,RM01,GRO-009,15,0.99,physical
 2024-12-21,RM01,GRO-010,16,2.69,physical
+2024-12-21,RM01,GRO-011,6,1.29,physical
 2024-12-21,RM01,HOM-001,12,4.39,physical
 2024-12-21,RM01,HOM-002,13,3.29,physical
 2024-12-21,RM01,HOM-003,18,2.19,physical
@@ -188907,6 +189309,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,TO01,BEV-004,17,1.39,physical
 2024-12-21,TO01,BEV-005,18,1.39,physical
 2024-12-21,TO01,BEV-007,17,1.69,physical
+2024-12-21,TO01,BEV-009,3,1.69,physical
 2024-12-21,TO01,GRO-001,32,1.09,physical
 2024-12-21,TO01,GRO-002,34,1.09,physical
 2024-12-21,TO01,GRO-003,7,3.79,physical
@@ -188917,6 +189320,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,TO01,GRO-008,10,1.29,physical
 2024-12-21,TO01,GRO-009,13,0.99,physical
 2024-12-21,TO01,GRO-010,7,2.69,physical
+2024-12-21,TO01,GRO-011,7,1.29,physical
 2024-12-21,TO01,HOM-001,13,4.39,physical
 2024-12-21,TO01,HOM-002,11,3.29,physical
 2024-12-21,TO01,HOM-003,3,2.19,physical
@@ -188932,6 +189336,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,WEB,BEV-004,9,1.39,online
 2024-12-21,WEB,BEV-005,13,1.39,online
 2024-12-21,WEB,BEV-007,10,1.69,online
+2024-12-21,WEB,BEV-009,1,1.69,online
 2024-12-21,WEB,GRO-001,16,1.09,online
 2024-12-21,WEB,GRO-002,17,1.09,online
 2024-12-21,WEB,GRO-003,2,3.79,online
@@ -188942,6 +189347,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-21,WEB,GRO-008,2,1.29,online
 2024-12-21,WEB,GRO-009,4,0.99,online
 2024-12-21,WEB,GRO-010,4,2.69,online
+2024-12-21,WEB,GRO-011,1,1.29,online
 2024-12-21,WEB,HOM-001,12,4.39,online
 2024-12-21,WEB,HOM-002,4,3.29,online
 2024-12-21,WEB,HOM-003,6,2.19,online
@@ -188957,6 +189363,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,FI01,BEV-005,10,1.39,physical
 2024-12-22,FI01,BEV-007,2,1.69,physical
 2024-12-22,FI01,BEV-008,19,6.49,physical
+2024-12-22,FI01,BEV-009,1,1.69,physical
 2024-12-22,FI01,GRO-001,27,1.09,physical
 2024-12-22,FI01,GRO-002,14,1.09,physical
 2024-12-22,FI01,GRO-003,2,3.79,physical
@@ -188967,6 +189374,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,FI01,GRO-008,1,1.29,physical
 2024-12-22,FI01,GRO-009,5,0.99,physical
 2024-12-22,FI01,GRO-010,1,2.69,physical
+2024-12-22,FI01,GRO-011,3,1.29,physical
 2024-12-22,FI01,HOM-001,10,4.39,physical
 2024-12-22,FI01,HOM-002,3,3.29,physical
 2024-12-22,FI01,HOM-003,3,2.19,physical
@@ -188982,6 +189390,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,MI01,BEV-005,10,1.39,physical
 2024-12-22,MI01,BEV-006,1,3.29,physical
 2024-12-22,MI01,BEV-007,9,1.69,physical
+2024-12-22,MI01,BEV-009,8,1.69,physical
 2024-12-22,MI01,GRO-001,37,1.09,physical
 2024-12-22,MI01,GRO-002,22,1.09,physical
 2024-12-22,MI01,GRO-003,9,3.79,physical
@@ -188992,6 +189401,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,MI01,GRO-008,3,1.29,physical
 2024-12-22,MI01,GRO-009,7,0.99,physical
 2024-12-22,MI01,GRO-010,8,2.69,physical
+2024-12-22,MI01,GRO-011,1,1.29,physical
 2024-12-22,MI01,HOM-001,6,4.39,physical
 2024-12-22,MI01,HOM-002,3,3.29,physical
 2024-12-22,MI01,HOM-003,6,2.19,physical
@@ -189007,6 +189417,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,NA01,BEV-005,9,1.39,physical
 2024-12-22,NA01,BEV-007,3,1.69,physical
 2024-12-22,NA01,BEV-008,15,6.49,physical
+2024-12-22,NA01,BEV-009,5,1.69,physical
 2024-12-22,NA01,GRO-001,34,1.09,physical
 2024-12-22,NA01,GRO-002,21,1.09,physical
 2024-12-22,NA01,GRO-003,3,3.79,physical
@@ -189017,6 +189428,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,NA01,GRO-008,5,1.29,physical
 2024-12-22,NA01,GRO-009,8,0.99,physical
 2024-12-22,NA01,GRO-010,1,2.69,physical
+2024-12-22,NA01,GRO-011,3,1.29,physical
 2024-12-22,NA01,HOM-001,7,4.39,physical
 2024-12-22,NA01,HOM-002,1,3.29,physical
 2024-12-22,NA01,HOM-003,9,2.19,physical
@@ -189031,6 +189443,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,RM01,BEV-004,6,1.39,physical
 2024-12-22,RM01,BEV-005,15,1.39,physical
 2024-12-22,RM01,BEV-007,27,1.69,physical
+2024-12-22,RM01,BEV-009,2,1.69,physical
 2024-12-22,RM01,GRO-001,48,1.09,physical
 2024-12-22,RM01,GRO-002,13,1.09,physical
 2024-12-22,RM01,GRO-003,8,3.79,physical
@@ -189041,6 +189454,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,RM01,GRO-008,5,1.29,physical
 2024-12-22,RM01,GRO-009,9,0.99,physical
 2024-12-22,RM01,GRO-010,10,2.69,physical
+2024-12-22,RM01,GRO-011,6,1.29,physical
 2024-12-22,RM01,HOM-001,13,4.39,physical
 2024-12-22,RM01,HOM-002,11,3.29,physical
 2024-12-22,RM01,HOM-003,7,2.19,physical
@@ -189054,6 +189468,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,TO01,BEV-004,6,1.39,physical
 2024-12-22,TO01,BEV-005,11,1.39,physical
 2024-12-22,TO01,BEV-007,2,1.69,physical
+2024-12-22,TO01,BEV-009,4,1.69,physical
 2024-12-22,TO01,GRO-001,32,1.09,physical
 2024-12-22,TO01,GRO-002,27,1.09,physical
 2024-12-22,TO01,GRO-003,3,3.79,physical
@@ -189064,6 +189479,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,TO01,GRO-008,5,1.29,physical
 2024-12-22,TO01,GRO-009,5,0.99,physical
 2024-12-22,TO01,GRO-010,10,2.69,physical
+2024-12-22,TO01,GRO-011,4,1.29,physical
 2024-12-22,TO01,HOM-001,7,4.39,physical
 2024-12-22,TO01,HOM-002,1,3.29,physical
 2024-12-22,TO01,HOM-003,6,2.19,physical
@@ -189079,6 +189495,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-22,WEB,BEV-004,7,1.39,online
 2024-12-22,WEB,BEV-005,35,1.39,online
 2024-12-22,WEB,BEV-007,9,1.69,online
+2024-12-22,WEB,BEV-009,5,1.69,online
 2024-12-22,WEB,GRO-001,15,1.09,online
 2024-12-22,WEB,GRO-002,10,1.09,online
 2024-12-22,WEB,GRO-003,5,3.79,online
@@ -189103,6 +189520,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,BO01,BEV-004,18,1.39,physical
 2024-12-23,BO01,BEV-005,14,1.39,physical
 2024-12-23,BO01,BEV-007,9,1.69,physical
+2024-12-23,BO01,BEV-009,1,1.69,physical
 2024-12-23,BO01,GRO-001,19,1.09,physical
 2024-12-23,BO01,GRO-002,18,1.09,physical
 2024-12-23,BO01,GRO-003,5,3.79,physical
@@ -189113,6 +189531,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,BO01,GRO-008,3,1.29,physical
 2024-12-23,BO01,GRO-009,6,0.99,physical
 2024-12-23,BO01,GRO-010,7,2.69,physical
+2024-12-23,BO01,GRO-011,4,1.29,physical
 2024-12-23,BO01,HOM-001,5,4.39,physical
 2024-12-23,BO01,HOM-002,4,3.29,physical
 2024-12-23,BO01,HOM-003,6,2.19,physical
@@ -189128,6 +189547,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,FI01,BEV-005,6,1.39,physical
 2024-12-23,FI01,BEV-007,4,1.69,physical
 2024-12-23,FI01,BEV-008,14,6.49,physical
+2024-12-23,FI01,BEV-009,4,1.69,physical
 2024-12-23,FI01,GRO-001,31,1.09,physical
 2024-12-23,FI01,GRO-002,12,1.09,physical
 2024-12-23,FI01,GRO-003,1,3.79,physical
@@ -189138,6 +189558,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,FI01,GRO-008,4,1.29,physical
 2024-12-23,FI01,GRO-009,4,0.99,physical
 2024-12-23,FI01,GRO-010,3,2.69,physical
+2024-12-23,FI01,GRO-011,5,1.29,physical
 2024-12-23,FI01,HOM-001,8,4.39,physical
 2024-12-23,FI01,HOM-002,5,3.29,physical
 2024-12-23,FI01,HOM-003,2,2.19,physical
@@ -189153,6 +189574,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,MI01,BEV-005,16,1.39,physical
 2024-12-23,MI01,BEV-007,9,1.69,physical
 2024-12-23,MI01,BEV-008,3,6.49,physical
+2024-12-23,MI01,BEV-009,9,1.69,physical
 2024-12-23,MI01,GRO-001,49,1.09,physical
 2024-12-23,MI01,GRO-002,20,1.09,physical
 2024-12-23,MI01,GRO-003,12,3.79,physical
@@ -189163,6 +189585,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,MI01,GRO-008,15,1.29,physical
 2024-12-23,MI01,GRO-009,12,0.99,physical
 2024-12-23,MI01,GRO-010,9,2.69,physical
+2024-12-23,MI01,GRO-011,6,1.29,physical
 2024-12-23,MI01,HOM-001,17,4.39,physical
 2024-12-23,MI01,HOM-002,10,3.29,physical
 2024-12-23,MI01,HOM-003,7,2.19,physical
@@ -189176,6 +189599,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,MI02,BEV-004,19,1.39,physical
 2024-12-23,MI02,BEV-005,11,1.39,physical
 2024-12-23,MI02,BEV-007,15,1.69,physical
+2024-12-23,MI02,BEV-009,1,1.69,physical
 2024-12-23,MI02,GRO-001,31,1.09,physical
 2024-12-23,MI02,GRO-002,23,1.09,physical
 2024-12-23,MI02,GRO-003,11,3.79,physical
@@ -189186,6 +189610,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,MI02,GRO-008,7,1.29,physical
 2024-12-23,MI02,GRO-009,14,0.99,physical
 2024-12-23,MI02,GRO-010,8,2.69,physical
+2024-12-23,MI02,GRO-011,4,1.29,physical
 2024-12-23,MI02,HOM-001,5,4.39,physical
 2024-12-23,MI02,HOM-002,4,3.29,physical
 2024-12-23,MI02,HOM-003,3,2.19,physical
@@ -189200,6 +189625,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,NA01,BEV-004,7,1.39,physical
 2024-12-23,NA01,BEV-005,8,1.39,physical
 2024-12-23,NA01,BEV-007,3,1.69,physical
+2024-12-23,NA01,BEV-009,3,1.69,physical
 2024-12-23,NA01,GRO-001,34,1.09,physical
 2024-12-23,NA01,GRO-002,14,1.09,physical
 2024-12-23,NA01,GRO-003,6,3.79,physical
@@ -189210,6 +189636,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,NA01,GRO-008,8,1.29,physical
 2024-12-23,NA01,GRO-009,10,0.99,physical
 2024-12-23,NA01,GRO-010,6,2.69,physical
+2024-12-23,NA01,GRO-011,3,1.29,physical
 2024-12-23,NA01,HOM-001,12,4.39,physical
 2024-12-23,NA01,HOM-002,4,3.29,physical
 2024-12-23,NA01,HOM-003,2,2.19,physical
@@ -189222,6 +189649,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,RM01,BEV-004,29,1.39,physical
 2024-12-23,RM01,BEV-005,14,1.39,physical
 2024-12-23,RM01,BEV-007,9,1.69,physical
+2024-12-23,RM01,BEV-009,3,1.69,physical
 2024-12-23,RM01,GRO-001,27,1.09,physical
 2024-12-23,RM01,GRO-002,26,1.09,physical
 2024-12-23,RM01,GRO-003,8,3.79,physical
@@ -189232,6 +189660,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,RM01,GRO-008,2,1.29,physical
 2024-12-23,RM01,GRO-009,9,0.99,physical
 2024-12-23,RM01,GRO-010,7,2.69,physical
+2024-12-23,RM01,GRO-011,6,1.29,physical
 2024-12-23,RM01,HOM-001,16,4.39,physical
 2024-12-23,RM01,HOM-002,5,3.29,physical
 2024-12-23,RM01,HOM-003,5,2.19,physical
@@ -189246,6 +189675,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,TO01,BEV-005,9,1.39,physical
 2024-12-23,TO01,BEV-007,8,1.69,physical
 2024-12-23,TO01,BEV-008,12,6.49,physical
+2024-12-23,TO01,BEV-009,7,1.69,physical
 2024-12-23,TO01,GRO-001,55,1.09,physical
 2024-12-23,TO01,GRO-002,15,1.09,physical
 2024-12-23,TO01,GRO-003,7,3.79,physical
@@ -189256,6 +189686,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,TO01,GRO-008,1,1.29,physical
 2024-12-23,TO01,GRO-009,6,0.99,physical
 2024-12-23,TO01,GRO-010,4,2.69,physical
+2024-12-23,TO01,GRO-011,3,1.29,physical
 2024-12-23,TO01,HOM-001,12,4.39,physical
 2024-12-23,TO01,HOM-002,6,3.29,physical
 2024-12-23,TO01,HOM-003,4,2.19,physical
@@ -189271,6 +189702,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,WEB,BEV-004,18,1.39,online
 2024-12-23,WEB,BEV-005,17,1.39,online
 2024-12-23,WEB,BEV-007,9,1.69,online
+2024-12-23,WEB,BEV-009,8,1.69,online
 2024-12-23,WEB,GRO-001,27,1.09,online
 2024-12-23,WEB,GRO-002,20,1.09,online
 2024-12-23,WEB,GRO-003,7,3.79,online
@@ -189281,6 +189713,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-23,WEB,GRO-008,3,1.29,online
 2024-12-23,WEB,GRO-009,8,0.99,online
 2024-12-23,WEB,GRO-010,2,2.69,online
+2024-12-23,WEB,GRO-011,2,1.29,online
 2024-12-23,WEB,HOM-001,18,4.39,online
 2024-12-23,WEB,HOM-002,11,3.29,online
 2024-12-23,WEB,HOM-003,3,2.19,online
@@ -189295,6 +189728,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,BO01,BEV-004,9,1.39,physical
 2024-12-24,BO01,BEV-005,13,1.39,physical
 2024-12-24,BO01,BEV-007,18,1.69,physical
+2024-12-24,BO01,BEV-009,4,1.69,physical
 2024-12-24,BO01,GRO-001,40,1.09,physical
 2024-12-24,BO01,GRO-002,20,1.09,physical
 2024-12-24,BO01,GRO-003,8,3.79,physical
@@ -189305,6 +189739,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,BO01,GRO-008,6,1.29,physical
 2024-12-24,BO01,GRO-009,7,0.99,physical
 2024-12-24,BO01,GRO-010,1,2.69,physical
+2024-12-24,BO01,GRO-011,5,1.29,physical
 2024-12-24,BO01,HOM-001,19,4.39,physical
 2024-12-24,BO01,HOM-002,3,3.29,physical
 2024-12-24,BO01,HOM-003,4,2.19,physical
@@ -189320,6 +189755,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,FI01,BEV-004,10,1.39,physical
 2024-12-24,FI01,BEV-005,15,1.39,physical
 2024-12-24,FI01,BEV-007,7,1.69,physical
+2024-12-24,FI01,BEV-009,3,1.69,physical
 2024-12-24,FI01,GRO-001,44,1.09,physical
 2024-12-24,FI01,GRO-002,21,1.09,physical
 2024-12-24,FI01,GRO-003,4,3.79,physical
@@ -189330,6 +189766,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,FI01,GRO-008,6,1.29,physical
 2024-12-24,FI01,GRO-009,12,0.99,physical
 2024-12-24,FI01,GRO-010,7,2.69,physical
+2024-12-24,FI01,GRO-011,1,1.29,physical
 2024-12-24,FI01,HOM-001,11,4.39,physical
 2024-12-24,FI01,HOM-002,4,3.29,physical
 2024-12-24,FI01,HOM-003,3,2.19,physical
@@ -189345,6 +189782,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,MI01,BEV-004,21,1.39,physical
 2024-12-24,MI01,BEV-005,6,1.39,physical
 2024-12-24,MI01,BEV-007,18,1.69,physical
+2024-12-24,MI01,BEV-009,5,1.69,physical
 2024-12-24,MI01,GRO-001,47,1.09,physical
 2024-12-24,MI01,GRO-002,28,1.09,physical
 2024-12-24,MI01,GRO-003,1,3.79,physical
@@ -189355,6 +189793,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,MI01,GRO-008,18,1.29,physical
 2024-12-24,MI01,GRO-009,15,0.99,physical
 2024-12-24,MI01,GRO-010,20,2.69,physical
+2024-12-24,MI01,GRO-011,2,1.29,physical
 2024-12-24,MI01,HOM-001,14,4.39,physical
 2024-12-24,MI01,HOM-002,7,3.29,physical
 2024-12-24,MI01,HOM-003,5,2.19,physical
@@ -189370,6 +189809,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,MI02,BEV-004,7,1.39,physical
 2024-12-24,MI02,BEV-005,27,1.39,physical
 2024-12-24,MI02,BEV-007,20,1.69,physical
+2024-12-24,MI02,BEV-009,11,1.69,physical
 2024-12-24,MI02,GRO-001,41,1.09,physical
 2024-12-24,MI02,GRO-002,22,1.09,physical
 2024-12-24,MI02,GRO-003,7,3.79,physical
@@ -189380,6 +189820,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,MI02,GRO-008,6,1.29,physical
 2024-12-24,MI02,GRO-009,5,0.99,physical
 2024-12-24,MI02,GRO-010,10,2.69,physical
+2024-12-24,MI02,GRO-011,2,1.29,physical
 2024-12-24,MI02,HOM-001,7,4.39,physical
 2024-12-24,MI02,HOM-002,8,3.29,physical
 2024-12-24,MI02,HOM-003,5,2.19,physical
@@ -189394,6 +189835,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,NA01,BEV-004,10,1.39,physical
 2024-12-24,NA01,BEV-005,15,1.39,physical
 2024-12-24,NA01,BEV-007,13,1.69,physical
+2024-12-24,NA01,BEV-009,2,1.69,physical
 2024-12-24,NA01,GRO-001,49,1.09,physical
 2024-12-24,NA01,GRO-002,34,1.09,physical
 2024-12-24,NA01,GRO-003,5,3.79,physical
@@ -189404,6 +189846,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,NA01,GRO-008,4,1.29,physical
 2024-12-24,NA01,GRO-009,14,0.99,physical
 2024-12-24,NA01,GRO-010,9,2.69,physical
+2024-12-24,NA01,GRO-011,3,1.29,physical
 2024-12-24,NA01,HOM-001,7,4.39,physical
 2024-12-24,NA01,HOM-002,7,3.29,physical
 2024-12-24,NA01,HOM-003,6,2.19,physical
@@ -189417,6 +189860,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,RM01,BEV-004,25,1.39,physical
 2024-12-24,RM01,BEV-005,27,1.39,physical
 2024-12-24,RM01,BEV-007,18,1.69,physical
+2024-12-24,RM01,BEV-009,4,1.69,physical
 2024-12-24,RM01,GRO-001,49,1.09,physical
 2024-12-24,RM01,GRO-002,41,1.09,physical
 2024-12-24,RM01,GRO-003,5,3.79,physical
@@ -189427,6 +189871,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,RM01,GRO-008,13,1.29,physical
 2024-12-24,RM01,GRO-009,12,0.99,physical
 2024-12-24,RM01,GRO-010,10,2.69,physical
+2024-12-24,RM01,GRO-011,4,1.29,physical
 2024-12-24,RM01,HOM-001,19,4.39,physical
 2024-12-24,RM01,HOM-002,8,3.29,physical
 2024-12-24,RM01,HOM-003,6,2.19,physical
@@ -189442,6 +189887,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,TO01,BEV-005,25,1.39,physical
 2024-12-24,TO01,BEV-007,4,1.69,physical
 2024-12-24,TO01,BEV-008,2,6.49,physical
+2024-12-24,TO01,BEV-009,1,1.69,physical
 2024-12-24,TO01,GRO-001,40,1.09,physical
 2024-12-24,TO01,GRO-002,45,1.09,physical
 2024-12-24,TO01,GRO-003,9,3.79,physical
@@ -189452,6 +189898,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,TO01,GRO-008,6,1.29,physical
 2024-12-24,TO01,GRO-009,7,0.99,physical
 2024-12-24,TO01,GRO-010,6,2.69,physical
+2024-12-24,TO01,GRO-011,4,1.29,physical
 2024-12-24,TO01,HOM-001,16,4.39,physical
 2024-12-24,TO01,HOM-002,6,3.29,physical
 2024-12-24,TO01,HOM-003,2,2.19,physical
@@ -189469,6 +189916,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,WEB,BEV-005,22,1.39,online
 2024-12-24,WEB,BEV-007,20,1.69,online
 2024-12-24,WEB,BEV-008,1,6.49,online
+2024-12-24,WEB,BEV-009,6,1.69,online
 2024-12-24,WEB,GRO-001,23,1.09,online
 2024-12-24,WEB,GRO-002,12,1.09,online
 2024-12-24,WEB,GRO-003,8,3.79,online
@@ -189479,6 +189927,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-24,WEB,GRO-008,3,1.29,online
 2024-12-24,WEB,GRO-009,8,0.99,online
 2024-12-24,WEB,GRO-010,1,2.69,online
+2024-12-24,WEB,GRO-011,2,1.29,online
 2024-12-24,WEB,HOM-001,9,4.39,online
 2024-12-24,WEB,HOM-002,6,3.29,online
 2024-12-24,WEB,HOM-003,6,2.19,online
@@ -189502,6 +189951,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-25,WEB,GRO-008,5,1.29,online
 2024-12-25,WEB,GRO-009,5,0.99,online
 2024-12-25,WEB,GRO-010,6,2.69,online
+2024-12-25,WEB,GRO-011,1,1.29,online
 2024-12-25,WEB,HOM-001,6,4.39,online
 2024-12-25,WEB,HOM-002,3,3.29,online
 2024-12-25,WEB,HOM-003,5,2.19,online
@@ -189522,6 +189972,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-26,BO01,GRO-007,8,3.09,physical
 2024-12-26,BO01,GRO-008,3,1.29,physical
 2024-12-26,BO01,GRO-009,1,0.99,physical
+2024-12-26,BO01,GRO-011,1,1.29,physical
 2024-12-26,BO01,HOM-001,11,4.39,physical
 2024-12-26,BO01,HOM-002,1,3.29,physical
 2024-12-26,BO01,HOM-004,1,1.99,physical
@@ -189553,6 +190004,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-26,MI01,BEV-004,6,1.39,physical
 2024-12-26,MI01,BEV-005,6,1.39,physical
 2024-12-26,MI01,BEV-007,4,1.69,physical
+2024-12-26,MI01,BEV-009,7,1.69,physical
 2024-12-26,MI01,GRO-001,33,1.09,physical
 2024-12-26,MI01,GRO-002,9,1.09,physical
 2024-12-26,MI01,GRO-003,2,3.79,physical
@@ -189575,6 +190027,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-26,MI02,BEV-004,6,1.39,physical
 2024-12-26,MI02,BEV-005,5,1.39,physical
 2024-12-26,MI02,BEV-007,4,1.69,physical
+2024-12-26,MI02,BEV-009,4,1.69,physical
 2024-12-26,MI02,GRO-001,16,1.09,physical
 2024-12-26,MI02,GRO-002,10,1.09,physical
 2024-12-26,MI02,GRO-003,3,3.79,physical
@@ -189585,6 +190038,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-26,MI02,GRO-008,1,1.29,physical
 2024-12-26,MI02,GRO-009,3,0.99,physical
 2024-12-26,MI02,GRO-010,1,2.69,physical
+2024-12-26,MI02,GRO-011,5,1.29,physical
 2024-12-26,MI02,HOM-001,2,4.39,physical
 2024-12-26,MI02,HOM-003,3,2.19,physical
 2024-12-26,MI02,HOM-004,2,1.99,physical
@@ -189597,6 +190051,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-26,NA01,BEV-005,7,1.39,physical
 2024-12-26,NA01,BEV-006,1,3.29,physical
 2024-12-26,NA01,BEV-007,3,1.69,physical
+2024-12-26,NA01,BEV-009,6,1.69,physical
 2024-12-26,NA01,GRO-001,24,1.09,physical
 2024-12-26,NA01,GRO-002,7,1.09,physical
 2024-12-26,NA01,GRO-003,4,3.79,physical
@@ -189620,6 +190075,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-26,RM01,BEV-004,4,1.39,physical
 2024-12-26,RM01,BEV-005,9,1.39,physical
 2024-12-26,RM01,BEV-007,3,1.69,physical
+2024-12-26,RM01,BEV-009,1,1.69,physical
 2024-12-26,RM01,GRO-001,18,1.09,physical
 2024-12-26,RM01,GRO-002,10,1.09,physical
 2024-12-26,RM01,GRO-003,3,3.79,physical
@@ -189630,6 +190086,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-26,RM01,GRO-008,4,1.29,physical
 2024-12-26,RM01,GRO-009,5,0.99,physical
 2024-12-26,RM01,GRO-010,9,2.69,physical
+2024-12-26,RM01,GRO-011,4,1.29,physical
 2024-12-26,RM01,HOM-001,11,4.39,physical
 2024-12-26,RM01,HOM-002,8,3.29,physical
 2024-12-26,RM01,HOM-003,4,2.19,physical
@@ -189651,6 +190108,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-26,TO01,GRO-008,3,1.29,physical
 2024-12-26,TO01,GRO-009,4,0.99,physical
 2024-12-26,TO01,GRO-010,3,2.69,physical
+2024-12-26,TO01,GRO-011,2,1.29,physical
 2024-12-26,TO01,HOM-001,9,4.39,physical
 2024-12-26,TO01,HOM-002,1,3.29,physical
 2024-12-26,TO01,HOM-003,1,2.19,physical
@@ -189663,6 +190121,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-26,WEB,BEV-004,12,1.39,online
 2024-12-26,WEB,BEV-005,12,1.39,online
 2024-12-26,WEB,BEV-007,10,1.69,online
+2024-12-26,WEB,BEV-009,3,1.69,online
 2024-12-26,WEB,GRO-001,11,1.09,online
 2024-12-26,WEB,GRO-002,9,1.09,online
 2024-12-26,WEB,GRO-003,2,3.79,online
@@ -189688,6 +190147,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,BO01,BEV-005,6,1.39,physical
 2024-12-27,BO01,BEV-007,13,1.69,physical
 2024-12-27,BO01,BEV-008,11,6.49,physical
+2024-12-27,BO01,BEV-009,3,1.69,physical
 2024-12-27,BO01,GRO-001,34,1.09,physical
 2024-12-27,BO01,GRO-002,17,1.09,physical
 2024-12-27,BO01,GRO-003,4,3.79,physical
@@ -189698,6 +190158,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,BO01,GRO-008,7,1.29,physical
 2024-12-27,BO01,GRO-009,9,0.99,physical
 2024-12-27,BO01,GRO-010,10,2.69,physical
+2024-12-27,BO01,GRO-011,4,1.29,physical
 2024-12-27,BO01,HOM-001,12,4.39,physical
 2024-12-27,BO01,HOM-002,11,3.29,physical
 2024-12-27,BO01,HOM-003,8,2.19,physical
@@ -189724,6 +190185,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,FI01,GRO-008,7,1.29,physical
 2024-12-27,FI01,GRO-009,5,0.99,physical
 2024-12-27,FI01,GRO-010,11,2.69,physical
+2024-12-27,FI01,GRO-011,4,1.29,physical
 2024-12-27,FI01,HOM-001,5,4.39,physical
 2024-12-27,FI01,HOM-002,3,3.29,physical
 2024-12-27,FI01,HOM-003,6,2.19,physical
@@ -189734,6 +190196,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,MI01,BEV-004,4,1.39,physical
 2024-12-27,MI01,BEV-005,17,1.39,physical
 2024-12-27,MI01,BEV-007,13,1.69,physical
+2024-12-27,MI01,BEV-009,12,1.69,physical
 2024-12-27,MI01,GRO-001,43,1.09,physical
 2024-12-27,MI01,GRO-002,30,1.09,physical
 2024-12-27,MI01,GRO-003,10,3.79,physical
@@ -189744,6 +190207,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,MI01,GRO-008,12,1.29,physical
 2024-12-27,MI01,GRO-009,16,0.99,physical
 2024-12-27,MI01,GRO-010,5,2.69,physical
+2024-12-27,MI01,GRO-011,8,1.29,physical
 2024-12-27,MI01,HOM-001,15,4.39,physical
 2024-12-27,MI01,HOM-002,10,3.29,physical
 2024-12-27,MI01,HOM-003,5,2.19,physical
@@ -189758,6 +190222,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,MI02,BEV-004,7,1.39,physical
 2024-12-27,MI02,BEV-005,17,1.39,physical
 2024-12-27,MI02,BEV-007,8,1.69,physical
+2024-12-27,MI02,BEV-009,6,1.69,physical
 2024-12-27,MI02,GRO-001,29,1.09,physical
 2024-12-27,MI02,GRO-002,29,1.09,physical
 2024-12-27,MI02,GRO-003,10,3.79,physical
@@ -189768,6 +190233,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,MI02,GRO-008,3,1.29,physical
 2024-12-27,MI02,GRO-009,5,0.99,physical
 2024-12-27,MI02,GRO-010,7,2.69,physical
+2024-12-27,MI02,GRO-011,5,1.29,physical
 2024-12-27,MI02,HOM-001,7,4.39,physical
 2024-12-27,MI02,HOM-002,3,3.29,physical
 2024-12-27,MI02,HOM-003,7,2.19,physical
@@ -189782,6 +190248,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,NA01,BEV-004,8,1.39,physical
 2024-12-27,NA01,BEV-005,7,1.39,physical
 2024-12-27,NA01,BEV-007,13,1.69,physical
+2024-12-27,NA01,BEV-009,5,1.69,physical
 2024-12-27,NA01,GRO-001,45,1.09,physical
 2024-12-27,NA01,GRO-002,35,1.09,physical
 2024-12-27,NA01,GRO-003,7,3.79,physical
@@ -189792,6 +190259,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,NA01,GRO-008,3,1.29,physical
 2024-12-27,NA01,GRO-009,7,0.99,physical
 2024-12-27,NA01,GRO-010,9,2.69,physical
+2024-12-27,NA01,GRO-011,2,1.29,physical
 2024-12-27,NA01,HOM-001,8,4.39,physical
 2024-12-27,NA01,HOM-002,2,3.29,physical
 2024-12-27,NA01,HOM-003,8,2.19,physical
@@ -189806,6 +190274,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,RM01,BEV-005,33,1.39,physical
 2024-12-27,RM01,BEV-007,15,1.69,physical
 2024-12-27,RM01,BEV-008,1,6.49,physical
+2024-12-27,RM01,BEV-009,5,1.69,physical
 2024-12-27,RM01,GRO-001,48,1.09,physical
 2024-12-27,RM01,GRO-002,22,1.09,physical
 2024-12-27,RM01,GRO-003,5,3.79,physical
@@ -189816,6 +190285,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,RM01,GRO-008,6,1.29,physical
 2024-12-27,RM01,GRO-009,11,0.99,physical
 2024-12-27,RM01,GRO-010,6,2.69,physical
+2024-12-27,RM01,GRO-011,3,1.29,physical
 2024-12-27,RM01,HOM-001,14,4.39,physical
 2024-12-27,RM01,HOM-002,9,3.29,physical
 2024-12-27,RM01,HOM-003,8,2.19,physical
@@ -189829,6 +190299,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,TO01,BEV-004,4,1.39,physical
 2024-12-27,TO01,BEV-005,19,1.39,physical
 2024-12-27,TO01,BEV-007,28,1.69,physical
+2024-12-27,TO01,BEV-009,5,1.69,physical
 2024-12-27,TO01,GRO-001,25,1.09,physical
 2024-12-27,TO01,GRO-002,46,1.09,physical
 2024-12-27,TO01,GRO-003,4,3.79,physical
@@ -189839,6 +190310,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,TO01,GRO-008,7,1.29,physical
 2024-12-27,TO01,GRO-009,11,0.99,physical
 2024-12-27,TO01,GRO-010,8,2.69,physical
+2024-12-27,TO01,GRO-011,11,1.29,physical
 2024-12-27,TO01,HOM-001,15,4.39,physical
 2024-12-27,TO01,HOM-002,7,3.29,physical
 2024-12-27,TO01,HOM-003,7,2.19,physical
@@ -189853,6 +190325,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,WEB,BEV-005,18,1.39,online
 2024-12-27,WEB,BEV-007,12,1.69,online
 2024-12-27,WEB,BEV-008,1,6.49,online
+2024-12-27,WEB,BEV-009,4,1.69,online
 2024-12-27,WEB,GRO-001,14,1.09,online
 2024-12-27,WEB,GRO-002,19,1.09,online
 2024-12-27,WEB,GRO-003,4,3.79,online
@@ -189863,6 +190336,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-27,WEB,GRO-008,3,1.29,online
 2024-12-27,WEB,GRO-009,7,0.99,online
 2024-12-27,WEB,GRO-010,5,2.69,online
+2024-12-27,WEB,GRO-011,1,1.29,online
 2024-12-27,WEB,HOM-001,8,4.39,online
 2024-12-27,WEB,HOM-002,4,3.29,online
 2024-12-27,WEB,HOM-003,5,2.19,online
@@ -189876,6 +190350,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,BO01,BEV-004,8,1.39,physical
 2024-12-28,BO01,BEV-005,13,1.39,physical
 2024-12-28,BO01,BEV-007,15,1.69,physical
+2024-12-28,BO01,BEV-009,10,1.69,physical
 2024-12-28,BO01,GRO-001,49,1.09,physical
 2024-12-28,BO01,GRO-002,19,1.09,physical
 2024-12-28,BO01,GRO-003,8,3.79,physical
@@ -189886,6 +190361,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,BO01,GRO-008,3,1.29,physical
 2024-12-28,BO01,GRO-009,14,0.99,physical
 2024-12-28,BO01,GRO-010,5,2.69,physical
+2024-12-28,BO01,GRO-011,3,1.29,physical
 2024-12-28,BO01,HOM-001,19,3.29,physical
 2024-12-28,BO01,HOM-002,14,3.29,physical
 2024-12-28,BO01,HOM-003,6,2.19,physical
@@ -189912,6 +190388,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,FI01,GRO-008,8,1.29,physical
 2024-12-28,FI01,GRO-009,7,0.99,physical
 2024-12-28,FI01,GRO-010,2,2.69,physical
+2024-12-28,FI01,GRO-011,4,1.29,physical
 2024-12-28,FI01,HOM-001,23,3.29,physical
 2024-12-28,FI01,HOM-002,9,3.29,physical
 2024-12-28,FI01,HOM-003,6,2.19,physical
@@ -189927,6 +190404,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,MI01,BEV-005,20,1.39,physical
 2024-12-28,MI01,BEV-007,24,1.69,physical
 2024-12-28,MI01,BEV-008,1,6.49,physical
+2024-12-28,MI01,BEV-009,4,1.69,physical
 2024-12-28,MI01,GRO-001,41,1.09,physical
 2024-12-28,MI01,GRO-002,36,1.09,physical
 2024-12-28,MI01,GRO-003,6,3.79,physical
@@ -189937,6 +190415,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,MI01,GRO-008,7,1.29,physical
 2024-12-28,MI01,GRO-009,9,0.99,physical
 2024-12-28,MI01,GRO-010,4,2.69,physical
+2024-12-28,MI01,GRO-011,5,1.29,physical
 2024-12-28,MI01,HOM-001,26,3.29,physical
 2024-12-28,MI01,HOM-002,13,3.29,physical
 2024-12-28,MI01,HOM-003,7,2.19,physical
@@ -189953,6 +190432,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,MI02,BEV-004,13,1.39,physical
 2024-12-28,MI02,BEV-005,17,1.39,physical
 2024-12-28,MI02,BEV-007,7,1.69,physical
+2024-12-28,MI02,BEV-009,5,1.69,physical
 2024-12-28,MI02,GRO-001,40,1.09,physical
 2024-12-28,MI02,GRO-002,37,1.09,physical
 2024-12-28,MI02,GRO-003,10,3.79,physical
@@ -189963,6 +190443,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,MI02,GRO-008,11,1.29,physical
 2024-12-28,MI02,GRO-009,9,0.99,physical
 2024-12-28,MI02,GRO-010,5,2.69,physical
+2024-12-28,MI02,GRO-011,2,1.29,physical
 2024-12-28,MI02,HOM-001,12,3.29,physical
 2024-12-28,MI02,HOM-002,6,3.29,physical
 2024-12-28,MI02,HOM-003,6,2.19,physical
@@ -189977,6 +190458,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,NA01,BEV-004,18,1.39,physical
 2024-12-28,NA01,BEV-005,17,1.39,physical
 2024-12-28,NA01,BEV-007,13,1.69,physical
+2024-12-28,NA01,BEV-009,15,1.69,physical
 2024-12-28,NA01,GRO-001,30,1.09,physical
 2024-12-28,NA01,GRO-002,27,1.09,physical
 2024-12-28,NA01,GRO-003,16,3.79,physical
@@ -189987,6 +190469,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,NA01,GRO-008,7,1.29,physical
 2024-12-28,NA01,GRO-009,11,0.99,physical
 2024-12-28,NA01,GRO-010,5,2.69,physical
+2024-12-28,NA01,GRO-011,5,1.29,physical
 2024-12-28,NA01,HOM-001,32,3.29,physical
 2024-12-28,NA01,HOM-002,5,3.29,physical
 2024-12-28,NA01,HOM-003,8,2.19,physical
@@ -190001,6 +190484,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,RM01,BEV-005,17,1.39,physical
 2024-12-28,RM01,BEV-006,1,3.29,physical
 2024-12-28,RM01,BEV-007,9,1.69,physical
+2024-12-28,RM01,BEV-009,7,1.69,physical
 2024-12-28,RM01,GRO-001,43,1.09,physical
 2024-12-28,RM01,GRO-002,27,1.09,physical
 2024-12-28,RM01,GRO-003,6,3.79,physical
@@ -190011,6 +190495,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,RM01,GRO-008,9,1.29,physical
 2024-12-28,RM01,GRO-009,13,0.99,physical
 2024-12-28,RM01,GRO-010,11,2.69,physical
+2024-12-28,RM01,GRO-011,12,1.29,physical
 2024-12-28,RM01,HOM-001,32,3.29,physical
 2024-12-28,RM01,HOM-002,11,3.29,physical
 2024-12-28,RM01,HOM-003,12,2.19,physical
@@ -190024,6 +190509,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,TO01,BEV-004,14,1.39,physical
 2024-12-28,TO01,BEV-005,24,1.39,physical
 2024-12-28,TO01,BEV-007,21,1.69,physical
+2024-12-28,TO01,BEV-009,9,1.69,physical
 2024-12-28,TO01,GRO-001,36,1.09,physical
 2024-12-28,TO01,GRO-002,37,1.09,physical
 2024-12-28,TO01,GRO-003,5,3.79,physical
@@ -190034,6 +190520,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,TO01,GRO-008,9,1.29,physical
 2024-12-28,TO01,GRO-009,9,0.99,physical
 2024-12-28,TO01,GRO-010,12,2.69,physical
+2024-12-28,TO01,GRO-011,8,1.29,physical
 2024-12-28,TO01,HOM-001,27,3.29,physical
 2024-12-28,TO01,HOM-002,8,3.29,physical
 2024-12-28,TO01,HOM-003,5,2.19,physical
@@ -190050,6 +190537,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-28,WEB,BEV-005,24,1.39,online
 2024-12-28,WEB,BEV-006,1,3.29,online
 2024-12-28,WEB,BEV-007,7,1.69,online
+2024-12-28,WEB,BEV-009,1,1.69,online
 2024-12-28,WEB,GRO-001,17,1.09,online
 2024-12-28,WEB,GRO-002,17,1.09,online
 2024-12-28,WEB,GRO-003,3,3.79,online
@@ -190072,6 +190560,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,FI01,BEV-004,4,1.39,physical
 2024-12-29,FI01,BEV-005,5,1.39,physical
 2024-12-29,FI01,BEV-007,2,1.69,physical
+2024-12-29,FI01,BEV-009,1,1.69,physical
 2024-12-29,FI01,GRO-001,22,1.09,physical
 2024-12-29,FI01,GRO-002,4,1.09,physical
 2024-12-29,FI01,GRO-003,2,3.79,physical
@@ -190082,6 +190571,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,FI01,GRO-008,2,1.29,physical
 2024-12-29,FI01,GRO-009,2,0.99,physical
 2024-12-29,FI01,GRO-010,6,2.69,physical
+2024-12-29,FI01,GRO-011,3,1.29,physical
 2024-12-29,FI01,HOM-001,6,3.29,physical
 2024-12-29,FI01,HOM-002,3,3.29,physical
 2024-12-29,FI01,HOM-003,5,2.19,physical
@@ -190095,6 +190585,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,MI01,BEV-004,4,1.39,physical
 2024-12-29,MI01,BEV-005,12,1.39,physical
 2024-12-29,MI01,BEV-007,15,1.69,physical
+2024-12-29,MI01,BEV-009,8,1.69,physical
 2024-12-29,MI01,GRO-001,42,1.09,physical
 2024-12-29,MI01,GRO-002,21,1.09,physical
 2024-12-29,MI01,GRO-003,6,3.79,physical
@@ -190105,6 +190596,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,MI01,GRO-008,9,1.29,physical
 2024-12-29,MI01,GRO-009,1,0.99,physical
 2024-12-29,MI01,GRO-010,8,2.69,physical
+2024-12-29,MI01,GRO-011,3,1.29,physical
 2024-12-29,MI01,HOM-001,11,3.29,physical
 2024-12-29,MI01,HOM-002,8,3.29,physical
 2024-12-29,MI01,HOM-003,6,2.19,physical
@@ -190118,6 +190610,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,NA01,BEV-004,7,1.39,physical
 2024-12-29,NA01,BEV-005,12,1.39,physical
 2024-12-29,NA01,BEV-007,14,1.69,physical
+2024-12-29,NA01,BEV-009,3,1.69,physical
 2024-12-29,NA01,GRO-001,24,1.09,physical
 2024-12-29,NA01,GRO-002,18,1.09,physical
 2024-12-29,NA01,GRO-003,11,3.79,physical
@@ -190143,6 +190636,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,RM01,BEV-004,8,1.39,physical
 2024-12-29,RM01,BEV-005,8,1.39,physical
 2024-12-29,RM01,BEV-007,7,1.69,physical
+2024-12-29,RM01,BEV-009,3,1.69,physical
 2024-12-29,RM01,GRO-001,25,1.09,physical
 2024-12-29,RM01,GRO-002,13,1.09,physical
 2024-12-29,RM01,GRO-003,8,3.79,physical
@@ -190153,6 +190647,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,RM01,GRO-008,6,1.29,physical
 2024-12-29,RM01,GRO-009,4,0.99,physical
 2024-12-29,RM01,GRO-010,5,2.69,physical
+2024-12-29,RM01,GRO-011,2,1.29,physical
 2024-12-29,RM01,HOM-001,16,3.29,physical
 2024-12-29,RM01,HOM-002,7,3.29,physical
 2024-12-29,RM01,HOM-003,9,2.19,physical
@@ -190166,6 +190661,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,TO01,BEV-004,13,1.39,physical
 2024-12-29,TO01,BEV-005,11,1.39,physical
 2024-12-29,TO01,BEV-007,17,1.69,physical
+2024-12-29,TO01,BEV-009,5,1.69,physical
 2024-12-29,TO01,GRO-001,18,1.09,physical
 2024-12-29,TO01,GRO-002,19,1.09,physical
 2024-12-29,TO01,GRO-003,11,3.79,physical
@@ -190176,6 +190672,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,TO01,GRO-008,7,1.29,physical
 2024-12-29,TO01,GRO-009,7,0.99,physical
 2024-12-29,TO01,GRO-010,11,2.69,physical
+2024-12-29,TO01,GRO-011,2,1.29,physical
 2024-12-29,TO01,HOM-001,11,3.29,physical
 2024-12-29,TO01,HOM-002,5,3.29,physical
 2024-12-29,TO01,HOM-003,4,2.19,physical
@@ -190192,6 +190689,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,WEB,BEV-005,15,1.39,online
 2024-12-29,WEB,BEV-007,24,1.69,online
 2024-12-29,WEB,BEV-008,21,6.49,online
+2024-12-29,WEB,BEV-009,2,1.69,online
 2024-12-29,WEB,GRO-001,22,1.09,online
 2024-12-29,WEB,GRO-002,11,1.09,online
 2024-12-29,WEB,GRO-003,2,3.79,online
@@ -190202,6 +190700,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-29,WEB,GRO-008,1,1.29,online
 2024-12-29,WEB,GRO-009,9,0.99,online
 2024-12-29,WEB,GRO-010,7,2.69,online
+2024-12-29,WEB,GRO-011,2,1.29,online
 2024-12-29,WEB,HOM-001,19,3.29,online
 2024-12-29,WEB,HOM-002,3,3.29,online
 2024-12-29,WEB,HOM-003,11,2.19,online
@@ -190216,6 +190715,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,BO01,BEV-004,7,1.39,physical
 2024-12-30,BO01,BEV-005,6,1.39,physical
 2024-12-30,BO01,BEV-007,15,1.69,physical
+2024-12-30,BO01,BEV-009,5,1.69,physical
 2024-12-30,BO01,GRO-001,28,1.09,physical
 2024-12-30,BO01,GRO-002,12,1.09,physical
 2024-12-30,BO01,GRO-003,8,3.79,physical
@@ -190226,6 +190726,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,BO01,GRO-008,1,1.29,physical
 2024-12-30,BO01,GRO-009,5,0.99,physical
 2024-12-30,BO01,GRO-010,6,2.69,physical
+2024-12-30,BO01,GRO-011,2,1.29,physical
 2024-12-30,BO01,HOM-001,13,3.29,physical
 2024-12-30,BO01,HOM-002,2,3.29,physical
 2024-12-30,BO01,HOM-004,7,1.99,physical
@@ -190238,6 +190739,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,FI01,BEV-005,11,1.39,physical
 2024-12-30,FI01,BEV-006,1,3.29,physical
 2024-12-30,FI01,BEV-007,3,1.69,physical
+2024-12-30,FI01,BEV-009,2,1.69,physical
 2024-12-30,FI01,GRO-001,23,1.09,physical
 2024-12-30,FI01,GRO-002,17,1.09,physical
 2024-12-30,FI01,GRO-003,5,3.79,physical
@@ -190248,6 +190750,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,FI01,GRO-008,5,1.29,physical
 2024-12-30,FI01,GRO-009,8,0.99,physical
 2024-12-30,FI01,GRO-010,3,2.69,physical
+2024-12-30,FI01,GRO-011,3,1.29,physical
 2024-12-30,FI01,HOM-001,9,3.29,physical
 2024-12-30,FI01,HOM-003,2,2.19,physical
 2024-12-30,FI01,HOM-004,4,1.99,physical
@@ -190260,6 +190763,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,MI01,BEV-004,5,1.39,physical
 2024-12-30,MI01,BEV-005,12,1.39,physical
 2024-12-30,MI01,BEV-007,14,1.69,physical
+2024-12-30,MI01,BEV-009,3,1.69,physical
 2024-12-30,MI01,GRO-001,39,1.09,physical
 2024-12-30,MI01,GRO-002,31,1.09,physical
 2024-12-30,MI01,GRO-003,9,3.79,physical
@@ -190270,6 +190774,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,MI01,GRO-008,8,1.29,physical
 2024-12-30,MI01,GRO-009,11,0.99,physical
 2024-12-30,MI01,GRO-010,7,2.69,physical
+2024-12-30,MI01,GRO-011,2,1.29,physical
 2024-12-30,MI01,HOM-001,8,3.29,physical
 2024-12-30,MI01,HOM-002,12,3.29,physical
 2024-12-30,MI01,HOM-003,4,2.19,physical
@@ -190285,6 +190790,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,MI02,BEV-004,7,1.39,physical
 2024-12-30,MI02,BEV-005,6,1.39,physical
 2024-12-30,MI02,BEV-007,16,1.69,physical
+2024-12-30,MI02,BEV-009,5,1.69,physical
 2024-12-30,MI02,GRO-001,26,1.09,physical
 2024-12-30,MI02,GRO-002,15,1.09,physical
 2024-12-30,MI02,GRO-003,10,3.79,physical
@@ -190308,6 +190814,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,NA01,BEV-004,8,1.39,physical
 2024-12-30,NA01,BEV-005,13,1.39,physical
 2024-12-30,NA01,BEV-007,4,1.69,physical
+2024-12-30,NA01,BEV-009,6,1.69,physical
 2024-12-30,NA01,GRO-001,40,1.09,physical
 2024-12-30,NA01,GRO-002,17,1.09,physical
 2024-12-30,NA01,GRO-003,10,3.79,physical
@@ -190318,6 +190825,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,NA01,GRO-008,4,1.29,physical
 2024-12-30,NA01,GRO-009,8,0.99,physical
 2024-12-30,NA01,GRO-010,6,2.69,physical
+2024-12-30,NA01,GRO-011,2,1.29,physical
 2024-12-30,NA01,HOM-001,12,3.29,physical
 2024-12-30,NA01,HOM-002,7,3.29,physical
 2024-12-30,NA01,HOM-003,2,2.19,physical
@@ -190332,6 +190840,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,RM01,BEV-005,16,1.39,physical
 2024-12-30,RM01,BEV-007,8,1.69,physical
 2024-12-30,RM01,BEV-008,1,6.49,physical
+2024-12-30,RM01,BEV-009,10,1.69,physical
 2024-12-30,RM01,GRO-001,27,1.09,physical
 2024-12-30,RM01,GRO-002,10,1.09,physical
 2024-12-30,RM01,GRO-003,4,3.79,physical
@@ -190342,6 +190851,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,RM01,GRO-008,8,1.29,physical
 2024-12-30,RM01,GRO-009,11,0.99,physical
 2024-12-30,RM01,GRO-010,7,2.69,physical
+2024-12-30,RM01,GRO-011,6,1.29,physical
 2024-12-30,RM01,HOM-001,15,3.29,physical
 2024-12-30,RM01,HOM-002,3,3.29,physical
 2024-12-30,RM01,HOM-003,10,2.19,physical
@@ -190354,6 +190864,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,TO01,BEV-004,9,1.39,physical
 2024-12-30,TO01,BEV-005,5,1.39,physical
 2024-12-30,TO01,BEV-007,14,1.69,physical
+2024-12-30,TO01,BEV-009,5,1.69,physical
 2024-12-30,TO01,GRO-001,25,1.09,physical
 2024-12-30,TO01,GRO-002,23,1.09,physical
 2024-12-30,TO01,GRO-003,4,3.79,physical
@@ -190364,6 +190875,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,TO01,GRO-008,1,1.29,physical
 2024-12-30,TO01,GRO-009,7,0.99,physical
 2024-12-30,TO01,GRO-010,8,2.69,physical
+2024-12-30,TO01,GRO-011,3,1.29,physical
 2024-12-30,TO01,HOM-001,11,3.29,physical
 2024-12-30,TO01,HOM-002,3,3.29,physical
 2024-12-30,TO01,HOM-003,6,2.19,physical
@@ -190378,6 +190890,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,WEB,BEV-004,23,1.39,online
 2024-12-30,WEB,BEV-005,15,1.39,online
 2024-12-30,WEB,BEV-007,16,1.69,online
+2024-12-30,WEB,BEV-009,5,1.69,online
 2024-12-30,WEB,GRO-001,20,1.09,online
 2024-12-30,WEB,GRO-002,18,1.09,online
 2024-12-30,WEB,GRO-003,1,3.79,online
@@ -190388,6 +190901,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-30,WEB,GRO-008,10,1.29,online
 2024-12-30,WEB,GRO-009,9,0.99,online
 2024-12-30,WEB,GRO-010,4,2.69,online
+2024-12-30,WEB,GRO-011,4,1.29,online
 2024-12-30,WEB,HOM-001,14,3.29,online
 2024-12-30,WEB,HOM-002,7,3.29,online
 2024-12-30,WEB,HOM-003,5,2.19,online
@@ -190403,6 +190917,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,BO01,BEV-005,12,1.39,physical
 2024-12-31,BO01,BEV-007,12,1.69,physical
 2024-12-31,BO01,BEV-008,2,6.49,physical
+2024-12-31,BO01,BEV-009,5,1.69,physical
 2024-12-31,BO01,GRO-001,37,1.09,physical
 2024-12-31,BO01,GRO-002,11,1.09,physical
 2024-12-31,BO01,GRO-003,6,3.79,physical
@@ -190413,6 +190928,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,BO01,GRO-008,5,1.29,physical
 2024-12-31,BO01,GRO-009,5,0.99,physical
 2024-12-31,BO01,GRO-010,13,2.69,physical
+2024-12-31,BO01,GRO-011,3,1.29,physical
 2024-12-31,BO01,HOM-001,19,3.29,physical
 2024-12-31,BO01,HOM-002,6,3.29,physical
 2024-12-31,BO01,HOM-003,2,2.19,physical
@@ -190429,6 +190945,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,FI01,BEV-005,16,1.39,physical
 2024-12-31,FI01,BEV-006,1,3.29,physical
 2024-12-31,FI01,BEV-007,3,1.69,physical
+2024-12-31,FI01,BEV-009,2,1.69,physical
 2024-12-31,FI01,GRO-001,29,1.09,physical
 2024-12-31,FI01,GRO-002,15,1.09,physical
 2024-12-31,FI01,GRO-003,5,3.79,physical
@@ -190439,6 +190956,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,FI01,GRO-008,3,1.29,physical
 2024-12-31,FI01,GRO-009,9,0.99,physical
 2024-12-31,FI01,GRO-010,6,2.69,physical
+2024-12-31,FI01,GRO-011,5,1.29,physical
 2024-12-31,FI01,HOM-001,17,3.29,physical
 2024-12-31,FI01,HOM-002,3,3.29,physical
 2024-12-31,FI01,HOM-003,2,2.19,physical
@@ -190454,6 +190972,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,MI01,BEV-005,15,1.39,physical
 2024-12-31,MI01,BEV-007,5,1.69,physical
 2024-12-31,MI01,BEV-008,1,6.49,physical
+2024-12-31,MI01,BEV-009,1,1.69,physical
 2024-12-31,MI01,GRO-001,47,1.09,physical
 2024-12-31,MI01,GRO-002,29,1.09,physical
 2024-12-31,MI01,GRO-003,9,3.79,physical
@@ -190464,6 +190983,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,MI01,GRO-008,7,1.29,physical
 2024-12-31,MI01,GRO-009,6,0.99,physical
 2024-12-31,MI01,GRO-010,7,2.69,physical
+2024-12-31,MI01,GRO-011,8,1.29,physical
 2024-12-31,MI01,HOM-001,16,3.29,physical
 2024-12-31,MI01,HOM-002,13,3.29,physical
 2024-12-31,MI01,HOM-003,7,2.19,physical
@@ -190478,6 +190998,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,MI02,BEV-004,7,1.39,physical
 2024-12-31,MI02,BEV-005,16,1.39,physical
 2024-12-31,MI02,BEV-007,12,1.69,physical
+2024-12-31,MI02,BEV-009,2,1.69,physical
 2024-12-31,MI02,GRO-001,50,1.09,physical
 2024-12-31,MI02,GRO-002,20,1.09,physical
 2024-12-31,MI02,GRO-003,12,3.79,physical
@@ -190488,6 +191009,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,MI02,GRO-008,8,1.29,physical
 2024-12-31,MI02,GRO-009,9,0.99,physical
 2024-12-31,MI02,GRO-010,10,2.69,physical
+2024-12-31,MI02,GRO-011,3,1.29,physical
 2024-12-31,MI02,HOM-001,15,3.29,physical
 2024-12-31,MI02,HOM-002,10,3.29,physical
 2024-12-31,MI02,HOM-003,3,2.19,physical
@@ -190501,6 +191023,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,NA01,BEV-004,14,1.39,physical
 2024-12-31,NA01,BEV-005,20,1.39,physical
 2024-12-31,NA01,BEV-007,13,1.69,physical
+2024-12-31,NA01,BEV-009,8,1.69,physical
 2024-12-31,NA01,GRO-001,32,1.09,physical
 2024-12-31,NA01,GRO-002,29,1.09,physical
 2024-12-31,NA01,GRO-003,6,3.79,physical
@@ -190511,6 +191034,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,NA01,GRO-008,7,1.29,physical
 2024-12-31,NA01,GRO-009,8,0.99,physical
 2024-12-31,NA01,GRO-010,6,2.69,physical
+2024-12-31,NA01,GRO-011,4,1.29,physical
 2024-12-31,NA01,HOM-001,14,3.29,physical
 2024-12-31,NA01,HOM-002,7,3.29,physical
 2024-12-31,NA01,HOM-003,7,2.19,physical
@@ -190524,6 +191048,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,RM01,BEV-004,27,1.39,physical
 2024-12-31,RM01,BEV-005,19,1.39,physical
 2024-12-31,RM01,BEV-007,26,1.69,physical
+2024-12-31,RM01,BEV-009,1,1.69,physical
 2024-12-31,RM01,GRO-001,56,1.09,physical
 2024-12-31,RM01,GRO-002,26,1.09,physical
 2024-12-31,RM01,GRO-003,4,3.79,physical
@@ -190534,6 +191059,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,RM01,GRO-008,11,1.29,physical
 2024-12-31,RM01,GRO-009,4,0.99,physical
 2024-12-31,RM01,GRO-010,10,2.69,physical
+2024-12-31,RM01,GRO-011,8,1.29,physical
 2024-12-31,RM01,HOM-001,28,3.29,physical
 2024-12-31,RM01,HOM-002,7,3.29,physical
 2024-12-31,RM01,HOM-003,4,2.19,physical
@@ -190548,6 +191074,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,TO01,BEV-004,15,1.39,physical
 2024-12-31,TO01,BEV-005,16,1.39,physical
 2024-12-31,TO01,BEV-007,22,1.69,physical
+2024-12-31,TO01,BEV-009,12,1.69,physical
 2024-12-31,TO01,GRO-001,48,1.09,physical
 2024-12-31,TO01,GRO-002,27,1.09,physical
 2024-12-31,TO01,GRO-003,10,3.79,physical
@@ -190558,6 +191085,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,TO01,GRO-008,12,1.29,physical
 2024-12-31,TO01,GRO-009,14,0.99,physical
 2024-12-31,TO01,GRO-010,5,2.69,physical
+2024-12-31,TO01,GRO-011,3,1.29,physical
 2024-12-31,TO01,HOM-001,17,3.29,physical
 2024-12-31,TO01,HOM-002,5,3.29,physical
 2024-12-31,TO01,HOM-003,6,2.19,physical
@@ -190573,6 +191101,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,WEB,BEV-005,25,1.39,online
 2024-12-31,WEB,BEV-007,20,1.69,online
 2024-12-31,WEB,BEV-008,1,6.49,online
+2024-12-31,WEB,BEV-009,1,1.69,online
 2024-12-31,WEB,GRO-001,20,1.09,online
 2024-12-31,WEB,GRO-002,11,1.09,online
 2024-12-31,WEB,GRO-003,4,3.79,online
@@ -190583,6 +191112,7 @@ date,store,item,quantity,unit_price,channel
 2024-12-31,WEB,GRO-008,4,1.29,online
 2024-12-31,WEB,GRO-009,5,0.99,online
 2024-12-31,WEB,GRO-010,2,2.69,online
+2024-12-31,WEB,GRO-011,1,1.29,online
 2024-12-31,WEB,HOM-001,18,3.29,online
 2024-12-31,WEB,HOM-002,11,3.29,online
 2024-12-31,WEB,HOM-003,6,2.19,online

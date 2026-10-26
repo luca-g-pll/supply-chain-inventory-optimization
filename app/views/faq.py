@@ -67,6 +67,16 @@ FAQ = [
      "a little low. If it happened often, keep it in mind for those products or remove those days from the file.",
      "Sì, in parte: un giorno senza merce sembra un giorno senza clienti, quindi la previsione di quel prodotto esce un "
      "po' bassa. Se è successo spesso, tienine conto per quei prodotti o togli quei giorni dal file."),
+    ("What about products launched a few weeks ago?", "E i prodotti lanciati da poche settimane?",
+     "With fewer than 8 weeks of sales they cannot be tested on the past, so the software plans them from a **similar "
+     "product** it suggests (first weeks of sales, name, category, supplier, price — with the reasons shown) and you "
+     "confirm on the Orders page. The forecast moves to the product's own sales as they come in, with more safety "
+     "stock and short lots. Expect a large error in the first weeks: launches are hard for anyone.",
+     "Con meno di 8 settimane di vendite non si possono provare sul passato, quindi il software li pianifica da un "
+     "**prodotto simile** che propone lui (prime settimane di vendita, nome, categoria, fornitore, prezzo — con i motivi "
+     "indicati) e tu confermi nella pagina Ordini. La previsione passa alle vendite del prodotto man mano che arrivano, "
+     "con più scorta di sicurezza e lotti brevi. Aspettati un errore alto nelle prime settimane: i lanci sono difficili "
+     "per chiunque."),
     ("How are promotions handled?", "Come vengono gestite le promozioni?",
      "They are found from a promo column or from discounted prices; the software measures for each product how much "
      "it sells more during a promotion and less in the week after, uses the promotion calendar in the forecasts and "

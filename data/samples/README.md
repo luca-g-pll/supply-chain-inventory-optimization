@@ -12,7 +12,7 @@ No real company, store or sales figure is represented. In the dashboard: **Data 
 
 | File | What it is | Size |
 |---|---|---|
-| `retail_chain_sales.csv` | Daily sales of a chain: 8 stores (7 physical + 1 online) × 32 products, 2022-01-01 → 2024-12-31. Columns `date, store, item, quantity, unit_price, channel`; days without sales have no row (as in most ERP exports) | ≈ 190k rows |
+| `retail_chain_sales.csv` | Daily sales of a chain: 8 stores (7 physical + 1 online) × 34 products, 2022-01-01 → 2024-12-31. Columns `date, store, item, quantity, unit_price, channel`; days without sales have no row (as in most ERP exports) | ≈ 190k rows |
 | `retail_chain_items.csv` | Item master: name, category, supplier, `lead_time_days`, `pack_size` (units per carton), `min_order_qty`, list `unit_price`, `unit_cost`, status | 32 rows |
 | `retail_chain_stores.csv` | Store list (reference only, not read by the software) | 8 rows |
 | `single_store_it.csv` | A neighbourhood shop, 15 products, 2023-07-01 → 2024-12-31, exported "the Italian way": `Data;Codice;Descrizione;Quantità;Prezzo`, dates `dd/mm/yyyy`, decimal commas | ≈ 5.6k rows |
@@ -31,7 +31,7 @@ No real company, store or sales figure is represented. In the dashboard: **Data 
 - **MI02** and **BO01** are closed on Sundays · **TO01** is closed for renovation 7–20 August 2023 ·
   **NA01** opens on 1 June 2022 and ramps up over 6 months · **WEB** (online) grows 25% a year.
 
-**Products** (32, five suppliers with lead times from 2 to 21 days)
+**Products** (34, five suppliers with lead times from 2 to 21 days)
 | Pattern | Products | What the software should show |
 |---|---|---|
 | Summer peak + heat waves | water, iced tea, beer, ice lollies, sun cream, desk fan | yearly seasonality, harder forecasts in hot spells |
@@ -40,6 +40,7 @@ No real company, store or sales figure is represented. In the dashboard: **Data 
 | Christmas only | panettone, pandoro (Nov–Dec, leftovers at −40% after Christmas) | class **Z**; the static policy (P1) cannot follow the season, the forecast-driven one (P2) can |
 | Easter only | colomba (5 weeks before Easter) | as above; no Easter in the 2024 test period |
 | Launch | energy drink (March 2023), EcoPlus detergent (October 2023, replaces the old one) | short history, growing demand |
+| Recent launch | mango energy drink (11 Nov 2024, 51 days of sales), wholemeal penne (2 Dec 2024, 30 days) | too little history to test: planned from a similar product — the software suggests the original energy drink and Penne rigate (Orders page, **New products**) |
 | Discontinued | old detergent formula (last sale 30 Sep 2023, clearance before) | zero demand in the test period: P0 keeps ordering → dead stock |
 | Intermittent | kettle, toaster (≈ 0.1–0.2 units/day per store) | many zero days, high relative error |
 | Lumpy | water crates bought by businesses (rare large orders) | class **Z**, spiky demand |
