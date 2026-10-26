@@ -32,10 +32,14 @@ LIMITS: list[tuple[str, str, str, str]] = [
      "Solo vendite giornaliere, almeno 8 settimane. Le vendite sono prese come domanda: i giorni con lo scaffale "
      "vuoto sembrano giorni senza clienti e abbassano le previsioni."),
     ("Costs and prices", "Costi e prezzi",
-     "Missing prices, costs and lead times are replaced by assumptions (order €50, holding 25% a year, cost 60% of "
-     "the price, 7 days): euro results are estimates until your data provide them.",
-     "Prezzi, costi e tempi di consegna mancanti sono sostituiti da ipotesi (ordine €50, mantenimento 25% annuo, "
-     "costo 60% del prezzo, 7 giorni): i risultati in euro sono stime finché non li fornisci."),
+     "The cost of an order and the cost of holding stock never come from the sales file: they are assumptions "
+     "(€50 per order, 25% of the value a year) unless you type yours on the Data page. Missing prices, unit costs "
+     "and lead times are assumed too. Every euro saving is an estimate built on these values, not an accounting "
+     "figure.",
+     "Il costo di un ordine e il costo di tenere la merce non arrivano mai dal file vendite: sono ipotesi (€50 per "
+     "ordine, 25% del valore all'anno) a meno che tu non inserisca i tuoi nella pagina Dati. Anche prezzi, costi "
+     "unitari e tempi di consegna mancanti sono ipotizzati. Ogni risparmio in euro è una stima costruita su questi "
+     "valori, non un dato contabile."),
     ("Forecasts", "Previsioni",
      "No outside factors (weather, local events, competitors). New products with a few weeks of history and items "
      "sold rarely are forecast poorly. Holt-Winters has no yearly season and is skipped on large datasets.",
@@ -68,6 +72,14 @@ LIMITS: list[tuple[str, str, str, str]] = [
      "reuses the history of a physical store with different service rules.",
      "Ogni negozio-articolo è pianificato da solo: niente trasferimenti tra negozi, niente magazzino centrale. Il "
      "canale online riusa lo storico di un negozio fisico con regole di servizio diverse."),
+    ("Website", "Sito web",
+     "Pages are drawn in the browser: titles and descriptions for search engines are written by a script, a missing "
+     "page shows a 404 page but answers with status 200, and robots.txt / sitemap.xml reach the site root only "
+     "through the web server (docs/12_deployment.md). Privacy policy and terms are templates to review.",
+     "Le pagine sono disegnate nel browser: titoli e descrizioni per i motori di ricerca sono scritti da uno script, "
+     "una pagina inesistente mostra una pagina 404 ma risponde con stato 200, e robots.txt / sitemap.xml arrivano "
+     "alla radice del sito solo tramite il server web (docs/12_deployment.md). Informativa privacy e condizioni sono "
+     "modelli da far rivedere."),
     ("Session", "Sessione",
      "Uploaded files and results live only in this browser session: reloading the page clears them. One user, no "
      "login.",
@@ -75,8 +87,9 @@ LIMITS: list[tuple[str, str, str, str]] = [
      "utente, nessun login."),
 ]
 
-# profile notes that are information, not warnings
-_INFO = (r"History: ", r"Train ", r"Yearly seasonality is modelled", r"Promotions (read|found)")
+# profile notes that are information, not warnings; item-level assumptions are in the euro section
+_INFO = (r"History: ", r"Train ", r"Yearly seasonality is modelled", r"Promotions (read|found)",
+         r"Selling price missing", r"Unit cost missing", r"Lead time missing")
 
 
 def data_warnings(data) -> list[str]:
@@ -110,11 +123,91 @@ def data_warnings(data) -> list[str]:
     return list(dict.fromkeys(out))
 
 
+def euro_checks(data) -> tuple[list[str], str | None]:
+    """Cost values behind the euro results (what to confirm) and how much the saving moves with them."""
+    import numpy as np
+    from common import euro
+
+    if data is None:
+        return [], None
+    lines = []
+    ci = data.meta.get("cost_inputs") or {}
+
+    def origin(key: str) -> str:
+        d = ci.get(key, {})
+        return tx("default, to confirm", "valore predefinito, da confermare") if d.get("default", True) else \
+            tx("set by you", "impostato da te")
+
+    if ci:
+        lines.append(tx(f"Cost of one order: €{ci['order_cost']['value']:,.0f} ({origin('order_cost')})",
+                        f"Costo di un ordine: €{ci['order_cost']['value']:,.0f} ({origin('order_cost')})"))
+        lines.append(tx(f"Holding cost: {ci['holding_rate']['value']:.0%} of the stock value a year, online "
+                        f"{ci['online_holding_rate']['value']:.0%} ({origin('holding_rate')})",
+                        f"Costo di mantenimento: {ci['holding_rate']['value']:.0%} del valore della scorta all'anno, "
+                        f"online {ci['online_holding_rate']['value']:.0%} ({origin('holding_rate')})"))
+    master = data.t("item_master")
+    if len(master):
+        n = len(master)
+        n_price = int((master.get("price_source") == "assumed").sum())
+        n_cost = int((master.get("cost_source") == "derived").sum())
+        n_lt = int(master["lead_time_days"].isna().sum()) if "lead_time_days" in master else 0
+        ratio = (ci.get("cost_to_price_ratio") or {}).get("value", 0.6)
+        lead = (ci.get("lead_time_days") or {}).get("value", 7)
+        if n_price:
+            lines.append(tx(f"Selling price invented for {n_price} of {n} items",
+                            f"Prezzo di vendita inventato per {n_price} articoli su {n}"))
+        if n_cost:
+            lines.append(tx(f"Unit cost = {ratio:.0%} of the price for {n_cost} of {n} items",
+                            f"Costo unitario = {ratio:.0%} del prezzo per {n_cost} articoli su {n}"))
+        if n_lt:
+            lines.append(tx(f"Lead time {lead:.0f} days assumed for {n_lt} of {n} items",
+                            f"Tempo di consegna di {lead:.0f} giorni ipotizzato per {n_lt} articoli su {n}"))
+    # how far the saving moves when the order and holding costs are between half and 1.5 times the values used
+    s = data.t("policy_summary")
+    spread = None
+    needed = {"policy", "variant", "channel", "ordering_cost", "holding_cost", "shortage_cost"}
+    if len(s) and needed <= set(s.columns):
+        g = s[(s["variant"] == "calibrated") & (s["channel"] == "physical")].groupby("policy")[
+            ["ordering_cost", "holding_cost", "shortage_cost"]].sum()
+        if {"P1_static_sq", "P2_forecast_sq"} <= set(g.index):
+            savings = []
+            for fo in (0.5, 1.0, 1.5):
+                for fh in (0.5, 1.0, 1.5):
+                    tot = g["ordering_cost"] * fo + g["holding_cost"] * fh + g["shortage_cost"]
+                    savings.append(tot["P1_static_sq"] - tot["P2_forecast_sq"])
+            mid = savings[4]
+            spread = tx(
+                f"Saving of the forecast-driven policy vs the static one in the test period: {euro(mid)} with these "
+                f"values, between {euro(min(savings))} and {euro(max(savings))} if the order and holding costs are "
+                "anywhere from half to 1.5 times them (same orders).",
+                f"Risparmio della politica guidata dalla previsione rispetto a quella statica nel periodo di test: "
+                f"{euro(mid)} con questi valori, tra {euro(min(savings))} e {euro(max(savings))} se i costi di ordine "
+                "e di mantenimento sono tra la metà e una volta e mezza (stessi ordini).")
+            if not np.isfinite(mid):
+                spread = None
+    return lines, spread
+
+
 def limits_panel(data) -> None:
     """The sidebar panel, under the page list."""
     warnings = data_warnings(data)
-    label = tx("Warnings and limits", "Avvisi e limiti") + (f" · {len(warnings)}" if warnings else "")
+    euro_lines, spread = euro_checks(data)
+    n = len(warnings) + (1 if euro_lines else 0)
+    label = tx("Warnings and limits", "Avvisi e limiti") + (f" · {n}" if n else "")
     with st.sidebar.expander(label, icon=":material/warning:"):
+        if euro_lines:
+            st.markdown(tx("**:orange[Euro results: to verify]**", "**:orange[Risultati in euro: da verificare]**"))
+            st.caption(tx("Savings and costs are computed with these values. Confirm them before showing the "
+                          "results to anyone:",
+                          "Risparmi e costi sono calcolati con questi valori. Confermali prima di mostrare i "
+                          "risultati a qualcuno:"))
+            st.markdown("\n".join(f"- {x}" for x in euro_lines))
+            if spread:
+                st.caption(spread)
+            st.caption(tx("Set your order and holding costs on the **Data** page (section 2, cost assumptions) and upload real unit "
+                          "costs (item master) to turn the estimates into your numbers.",
+                          "Inserisci i tuoi costi di ordine e di mantenimento nella pagina **Dati** (sezione 2, ipotesi di costo) e carica "
+                          "i costi unitari reali (anagrafica articoli) per trasformare le stime nei tuoi numeri."))
         if warnings:
             st.markdown(tx("**On your data**", "**Sui tuoi dati**"))
             st.markdown("\n".join(f"- {w}" for w in warnings))

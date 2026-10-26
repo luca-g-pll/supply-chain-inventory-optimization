@@ -129,6 +129,7 @@ class AnalysisResults:
     promotions_cfg: PromotionsConfig = field(default_factory=PromotionsConfig)
     plan: dict[str, pd.DataFrame] = field(default_factory=dict)
     detail_max_series: int = 400
+    cost_inputs: dict = field(default_factory=dict)
 
     # ---- tables shared by the artefacts and the live dashboard (same schemas)
     def tables(self, detail_stores: tuple[str, ...] | None = None) -> dict[str, pd.DataFrame]:
@@ -189,11 +190,32 @@ class AnalysisResults:
             "timings": self.timings,
             "default_scenario": self.scenario.to_dict(),
             "promotions": promo_meta(self),
+            "cost_inputs": self.cost_inputs,
             "detail": {"n_series": int(self.dm.n_series),
                        "n_detail": int(min(self.dm.n_series, self.detail_max_series))},
             "plan": {"data_end": str(self.dm.dates[-1].date()),
                      "test_end": str(self.profile.test[1]), "model": self.best_model},
         }
+
+
+def cost_inputs(cfg: Config) -> dict:
+    """Cost values behind every euro result, and whether each one is the default of params.yaml.
+
+    Order and holding costs never come from the sales data: they are the configured
+    assumptions or the values typed on the Data page.
+    """
+    default = load_config()
+    out = {}
+    for key, value, base in (
+            ("order_cost", cfg.inventory.order_cost, default.inventory.order_cost),
+            ("holding_rate", cfg.inventory.holding_rate, default.inventory.holding_rate),
+            ("online_holding_rate", cfg.channel("online").inventory.holding_rate,
+             default.channel("online").inventory.holding_rate),
+            ("online_backorder_cost", cfg.channel("online").backorder_cost, default.channel("online").backorder_cost),
+            ("cost_to_price_ratio", cfg.inventory.cost_to_price_ratio, default.inventory.cost_to_price_ratio),
+            ("lead_time_days", cfg.inventory.lead_time_days, default.inventory.lead_time_days)):
+        out[key] = {"value": float(value), "default": bool(np.isclose(value, base))}
+    return out
 
 
 def top_revenue_series(dm: DemandMatrix, item_master: pd.DataFrame, k: int) -> np.ndarray:
@@ -391,7 +413,8 @@ def run_analysis(data: StandardisedData, cfg: Config, fast: bool = False, n_jobs
                            leaderboard=leaderboard, best_model=best, policy_inputs=inp, summary=summary,
                            tradeoff=tradeoff, sensitivity=sens, scenario=scenario, headline=head,
                            importance=importance, timings=timings, fast=fast, promotions_cfg=cfg.promotions,
-                           plan=plan, detail_max_series=cfg.scale.detail_max_series)
+                           plan=plan, detail_max_series=cfg.scale.detail_max_series,
+                           cost_inputs=cost_inputs(cfg))
 
 
 def build_headline(summary: pd.DataFrame, leaderboard: pd.DataFrame, best: str, cfg: Config,

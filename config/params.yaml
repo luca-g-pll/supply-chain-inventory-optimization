@@ -93,6 +93,22 @@ promotions:
   post_promo_days: 7             # week after a promotion: customers stocked up, demand may dip
   shrinkage_days: 14             # items with few promo days borrow the average lift of all items
 
+# Published app: identity, links and search engines (docs/12_deployment.md). Fill these in before publishing:
+# the privacy policy and the terms show them.
+site:
+  name: Demand & Inventory Planner
+  base_url: ""                   # e.g. https://planner.example.com (sitemap.xml, canonical links)
+  owner: ""                      # person or company running the published app
+  contact_email: ""              # privacy and support requests
+  repository: https://github.com/luca-g-pll/supply-chain-inventory-optimization
+  indexable: true                # false = robots.txt disallows everything, pages say noindex
+
+# Usage analytics: first-party, anonymous, no cookies, Do Not Track respected (privacy policy).
+analytics:
+  enabled: true
+  path: data/analytics/events.jsonl   # one JSON line per event (git-ignored)
+  plausible_domain: ""           # optional: cookie-free Plausible script for this domain
+
 # Large datasets (docs/08_methodology.md §4.6): memory stays bounded and the time grows linearly.
 scale:
   lightgbm_max_train_rows: 1500000 # above this LightGBM trains on a sample of series (every item kept)

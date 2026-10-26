@@ -257,6 +257,44 @@ def plan_calendar_for(data: ActiveData):
     return plan_calendar(end, today, st.session_state.get("plan_bring", True))
 
 
+def _downloaded(name: str) -> None:
+    from website import track
+
+    track("download", target=name.rsplit(".", 1)[0][:30])
+
+
 def csv_download(df: pd.DataFrame, label: str, file_name: str, key: str) -> None:
     st.download_button(label, df.to_csv(index=False).encode("utf-8"), file_name=file_name, mime="text/csv",
-                       key=key, icon=":material/download:")
+                       key=key, icon=":material/download:", on_click=_downloaded, args=(file_name,))
+
+
+SAMPLE_FILE, SAMPLE_MASTER = "retail_chain_sales.csv", "retail_chain_items.csv"
+
+
+def run_sample_analysis() -> bool:
+    """One click from the home page: analyse the sample retail chain and make it the active dataset."""
+    from src.ingest import ColumnMapping, guess_mapping, merge_item_master, read_any, standardise
+    from src.pipeline import run_in_memory
+
+    folder = ROOT / "data" / "samples"
+    if not (folder / SAMPLE_FILE).exists():
+        st.error(tx("Sample files not found: create them with `python -m src.sample_data`.",
+                    "File di esempio non trovati: creali con `python -m src.sample_data`."))
+        return False
+    cfg = config()
+    bar = st.progress(0.0, text=tx("Reading the sample data…", "Lettura dei dati di esempio…"))
+    raw = read_any(folder / SAMPLE_FILE)
+    data = standardise(raw, ColumnMapping.from_dict(guess_mapping(raw.columns)), cfg.input, cfg.prices, cfg.inventory,
+                       source="file", file_name=SAMPLE_FILE, promotions=cfg.promotions)
+    data = merge_item_master(data, read_any(folder / SAMPLE_MASTER), cfg.prices, cfg.inventory)
+    res = run_in_memory(data, cfg, fast=True,
+                        progress=lambda m, f: bar.progress(min(max(f, 0.0), 1.0),
+                                                           text=tx("Analysing… ", "Analisi in corso… ") + f"{f:.0%}"))
+    st.session_state["upload_results"] = ActiveData(
+        "upload", SAMPLE_FILE, res.tables(), res.meta() | {"file_name": SAMPLE_FILE, "sample": True})
+    st.session_state["active_source"] = "upload"
+    st.session_state.pop("scenario_key", None)
+    from website import track
+
+    track("sample_run", series=int(res.dm.n_series), seconds=round(sum(res.timings.values()), 1))
+    return True

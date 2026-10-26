@@ -7,6 +7,7 @@ import pandas as pd
 import streamlit as st
 from common import ROOT, ActiveData, demo_available
 from i18n import model_name, translate_message, tx
+from website import track
 
 from src.config import load_config
 from src.ingest import (
@@ -292,9 +293,11 @@ if st.button(tx("Run analysis", "Avvia l'analisi"), type="primary", icon=":mater
         st.error(tx("The analysis stopped: ", "L'analisi si è fermata: ") + translate_message(str(exc)))
         st.stop()
     st.session_state["upload_results"] = ActiveData(
-        "upload", file_name, res.tables(), res.meta() | {"file_name": file_name})
+        "upload", file_name, res.tables(), res.meta() | {"file_name": file_name, "sample": source == "sample"})
     st.session_state["active_source"] = "upload"
     st.session_state.pop("scenario_key", None)
+    track("analysis_run", series=int(res.dm.n_series), seconds=round(sum(res.timings.values()), 1),
+          kind=source)
     bar.progress(1.0, text=tx("Done", "Fatto"))
     st.success(tx("Analysis complete: every page now shows your data.",
                   "Analisi completata: ora tutte le pagine mostrano i tuoi dati."))

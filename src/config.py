@@ -114,6 +114,23 @@ class FastModeConfig:
 
 
 @dataclass(frozen=True)
+class SiteConfig:
+    name: str = "Demand & Inventory Planner"
+    base_url: str = ""                 # public address, e.g. https://planner.example.com (sitemap, canonical links)
+    owner: str = ""                    # who runs the published app (privacy policy, terms)
+    contact_email: str = ""            # privacy and support requests
+    repository: str = "https://github.com/luca-g-pll/supply-chain-inventory-optimization"
+    indexable: bool = True             # False -> robots.txt disallows everything and pages say noindex
+
+
+@dataclass(frozen=True)
+class AnalyticsConfig:
+    enabled: bool = True               # first-party, anonymous, cookie-free page and event counts
+    path: str = "data/analytics/events.jsonl"
+    plausible_domain: str = ""         # optional cookie-free Plausible script, e.g. planner.example.com
+
+
+@dataclass(frozen=True)
 class ScaleConfig:
     lightgbm_max_train_rows: int = 1_500_000   # above this, LightGBM trains on a sample of series (every item kept)
     predict_chunk_series: int = 2_000          # forecasts and features computed in blocks of series
@@ -195,6 +212,8 @@ class Config:
     sensitivity: SensitivityConfig
     promotions: PromotionsConfig = field(default_factory=PromotionsConfig)
     scale: ScaleConfig = field(default_factory=ScaleConfig)
+    site: SiteConfig = field(default_factory=SiteConfig)
+    analytics: AnalyticsConfig = field(default_factory=AnalyticsConfig)
     raw: dict[str, Any] = field(default_factory=dict, repr=False, compare=False)
 
     def replace(self, **changes: Any) -> Config:
@@ -462,6 +481,16 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
     _check(scale.lightgbm_max_train_rows >= 10_000, "scale.lightgbm_max_train_rows must be >= 10000")
     _check(scale.predict_chunk_series >= 10, "scale.predict_chunk_series must be >= 10")
 
+    st_ = raw.get("site", {})
+    site = SiteConfig(**{k: (str(v) if k != "indexable" else bool(v)) for k, v in st_.items()
+                         if k in SiteConfig.__dataclass_fields__ and v is not None})
+    _check(not site.base_url or site.base_url.startswith(("http://", "https://")),
+           "site.base_url must start with http:// or https://")
+    an = raw.get("analytics", {})
+    analytics = AnalyticsConfig(enabled=bool(an.get("enabled", True)),
+                                path=str(an.get("path", "data/analytics/events.jsonl")),
+                                plausible_domain=str(an.get("plausible_domain") or ""))
+
     return Config(
         root=root,
         paths=paths,
@@ -478,5 +507,7 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
         sensitivity=sensitivity,
         promotions=promotions,
         scale=scale,
+        site=site,
+        analytics=analytics,
         raw=raw,
     )

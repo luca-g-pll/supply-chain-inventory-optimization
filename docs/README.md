@@ -15,6 +15,7 @@ Index of the design documents. Read them in this order; each one builds on the p
 | 09 | [KPI Definitions](09_kpi_definitions.md) | Exact formula, unit and grain of every KPI |
 | 10 | [Test Plan](10_test_plan.md) | Unit, invariant and regression tests; acceptance checks |
 | 11 | [Risk Register](11_risk_register.md) | Risks, likelihood/impact, mitigations |
+| 12 | [Publishing the app](12_deployment.md) | Checklist, robots.txt / sitemap, reverse proxy, analytics, website limits |
 | ADR | [Architecture Decision Records](adr/) | Key decisions and their rationale |
 
 ## Conventions

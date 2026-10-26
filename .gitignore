@@ -30,3 +30,4 @@ data/processed/work/
 *.egg-info/
 .hypothesis/
 build/
+data/analytics/

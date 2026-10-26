@@ -105,7 +105,9 @@ else:
                                 format_func=model_name, key="fc_models")
         if chosen:
             v = view[(view["store"] == store) & (view["item"] == item) & view["model"].isin(chosen)]
-            charts.show(charts.forecast_series(v, chosen, best), key="fc_series")
+            charts.show(charts.forecast_series(v, chosen, best), key="fc_series",
+                        alt=tx(f"Actual vs forecast sales per day, store {store}, item {item}",
+                               f"Vendite reali e previste al giorno, negozio {store}, articolo {item}"))
             rows = []
             for m in chosen:
                 d = v[v["model"] == m]

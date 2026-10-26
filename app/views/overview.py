@@ -7,20 +7,67 @@ from common import (
     channel_label,
     csv_download,
     euro,
-    no_data_message,
     policy_kpis,
     policy_label,
+    run_sample_analysis,
     scenario_badge,
     scenario_leaderboard,
     scenario_summary,
 )
 from i18n import model_name, tx
+from website import track
 
 data = active_data()
-st.title(tx("Demand forecasting & inventory optimization", "Previsione della domanda e ottimizzazione delle scorte"))
+
+
+def landing() -> None:
+    """First visit: what the app does, the proof, and one obvious next step."""
+    st.title(tx("Order less, run out less.", "Ordina meno, resta meno senza merce."))
+    st.markdown(tx(
+        "#### Forecast demand for every product in every store, and know **what to order today** — with the proof, "
+        "on your own past sales, of how much stock and cost you save.",
+        "#### Prevedi la domanda di ogni prodotto in ogni negozio e sappi **cosa ordinare oggi** — con la prova, sulle "
+        "tue vendite passate, di quanta scorta e quanti costi risparmi."))
+    c1, c2, c3 = st.columns(3)
+    c1.metric(tx("Less stock", "Scorta in meno"), "−19%",
+              help=tx("Sample retail chain: forecast-driven reorder vs the same order every week, same 95% service",
+                      "Catena di esempio: riordino guidato dalla previsione contro lo stesso ordine ogni settimana, "
+                      "stesso servizio al 95%"))
+    c2.metric(tx("Forecast error", "Errore di previsione"), "34% vs 50%",
+              help=tx("Best model vs \"same as last week\", sample retail chain, test period",
+                      "Modello migliore contro \"come la settimana scorsa\", catena di esempio, periodo di test"))
+    c3.metric(tx("Time to the first result", "Tempo per il primo risultato"), "≈ 20 s",
+              help=tx("Sample data, on a laptop", "Dati di esempio, su un portatile"))
+    st.write("")
+    b1, b2, b3 = st.columns([2.6, 2.2, 1.6])
+    if b1.button(tx("Try it now with sample data", "Prova subito con i dati di esempio"), type="primary",
+                 icon=":material/play_arrow:", width="stretch", key="cta_sample"):
+        track("cta_click", target="sample")
+        if run_sample_analysis():
+            st.rerun()
+    b2.page_link("views/data.py", label=tx("Upload your sales history", "Carica il tuo storico vendite"),
+                 icon=":material/upload_file:", width="stretch")
+    b3.page_link("views/faq.py", label=tx("Questions", "Domande frequenti"), icon=":material/help:", width="stretch")
+    st.caption(tx("Sample data: an invented Italian retail chain, 8 stores × 32 products × 3 years. "
+                  "Your files stay in memory for your session only · no tracking cookies · open source.",
+                  "Dati di esempio: una catena italiana inventata, 8 negozi × 32 prodotti × 3 anni. "
+                  "I tuoi file restano in memoria solo per la tua sessione · nessun cookie di tracciamento · codice "
+                  "aperto."))
+    st.divider()
+    st.markdown(tx("""
+**How it works** — 1. upload daily sales (date, product, quantity) · 2. the software tests four forecasting models
+and three reorder rules on your past · 3. you get the reorder points, today's orders by supplier and what they save.
+""", """
+**Come funziona** — 1. carichi le vendite giornaliere (data, prodotto, quantità) · 2. il software prova quattro
+modelli di previsione e tre regole di riordino sul tuo passato · 3. ottieni i punti di riordino, gli ordini di oggi per
+fornitore e quanto fanno risparmiare.
+"""))
+
+
 if data is None:
-    no_data_message()
+    landing()
     st.stop()
+st.title(tx("Demand forecasting & inventory optimization", "Previsione della domanda e ottimizzazione delle scorte"))
 
 sc = st.session_state["scenario"]
 scenario_badge(data, sc)
@@ -164,3 +211,11 @@ with st.expander(tx("How to read this page", "Come leggere questa pagina")):
 - Costi, prezzi e tempi di consegna sono ipotesi (vedi il README); puoi cambiarli nel what-if della pagina
   **Scorte**.
 """))
+
+st.divider()
+n1, n2, n3 = st.columns(3)
+n1.page_link("views/orders.py", label=tx("Next: what to order today", "Prossimo passo: cosa ordinare oggi"),
+             icon=":material/shopping_cart:")
+n2.page_link("views/inventory.py", label=tx("Change the assumptions (what-if)", "Cambia le ipotesi (what-if)"),
+             icon=":material/tune:")
+n3.page_link("views/data.py", label=tx("Use your own data", "Usa i tuoi dati"), icon=":material/upload_file:")

@@ -1,6 +1,7 @@
 [server]
 maxUploadSize = 300         # MB, same limit as input.limits.max_file_mb
 headless = true
+enableStaticServing = true  # app/static/* at /app/static/ (robots.txt, sitemap.xml, logo)
 
 [browser]
 gatherUsageStats = false

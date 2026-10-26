@@ -8,6 +8,8 @@ tooltip plus a table view elsewhere on the page.
 
 from __future__ import annotations
 
+import html
+
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
@@ -79,7 +81,16 @@ def layout(fig: go.Figure, title: str | None = None, height: int = 360, legend: 
     return fig
 
 
-def show(fig: go.Figure, key: str | None = None) -> None:
+def show(fig: go.Figure, key: str | None = None, alt: str | None = None) -> None:
+    """Draw a chart with a text alternative for screen readers (its title, or ``alt``)."""
+    title = getattr(getattr(fig.layout, "title", None), "text", None)
+    desc = alt or title or tx("Chart", "Grafico")
+    names = [t.name for t in fig.data if getattr(t, "name", None) and getattr(t, "showlegend", True) is not False]
+    if names:
+        desc += tx(". Series: ", ". Serie: ") + ", ".join(dict.fromkeys(names))
+    st.markdown(f'<span class="sr-only" role="img" aria-label="{html.escape(desc)}">{html.escape(desc)}. '
+                + tx("The same numbers are in the table on this page.", "Gli stessi numeri sono nella tabella della pagina.")
+                + "</span>", unsafe_allow_html=True)
     st.plotly_chart(fig, theme=None, key=key, config={"displayModeBar": False})
 
 

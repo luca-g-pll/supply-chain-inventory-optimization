@@ -1,4 +1,4 @@
-<p align="center"><img src="app/assets/logo.png" alt="Logo" width="120"></p>
+<p align="center"><img src="app/assets/logo.png" alt="Demand &amp; Inventory Planner logo: a parcel with a forecast arrow" width="120"></p>
 
 # Demand Forecasting & Inventory Optimization
 
@@ -53,23 +53,23 @@ this README can never drift from the analysis.
 
 | | |
 |---|---|
-| ![Average inventory at the target fill rate](reports/figures/policy_inventory_at_target.png) | ![Forecast error by model](reports/figures/forecast_wape_by_model.png) |
-| ![Inventory vs fill rate for each policy](reports/figures/policy_tradeoff.png) | ![Total cost vs fill rate](reports/figures/cost_vs_service.png) |
+| ![Bar chart: average inventory value of the three reorder policies at the same 95% fill rate](reports/figures/policy_inventory_at_target.png) | ![Bar chart: forecast error (WAPE) of the four models on the test period, lower is better](reports/figures/forecast_wape_by_model.png) |
+| ![Line chart: average inventory against fill rate for each policy as its safety factor changes](reports/figures/policy_tradeoff.png) | ![Line chart: total cost against fill rate for each policy](reports/figures/cost_vs_service.png) |
 
 <details>
 <summary><b>More charts</b> (demand, ABC/XYZ, one series day by day, sensitivity, channels)</summary>
 
-![Demand trend](reports/figures/demand_trend.png)
-![Seasonality](reports/figures/seasonality.png)
-![ABC Pareto](reports/figures/abc_pareto.png)
-![ABC x XYZ](reports/figures/abc_xyz_matrix.png)
-![Forecast example](reports/figures/forecast_example.png)
-![WAPE by horizon](reports/figures/forecast_wape_by_horizon.png)
-![Feature importance](reports/figures/lightgbm_feature_importance.png)
-![Inventory day by day](reports/figures/inventory_trajectory.png)
-![Cost breakdown](reports/figures/cost_breakdown.png)
-![Sensitivity](reports/figures/sensitivity.png)
-![Channels](reports/figures/channel_comparison.png)
+![Line chart: units sold per day, by month, over the whole history](reports/figures/demand_trend.png)
+![Bar charts: day-of-week and month-of-year demand index, 1.0 = an average day](reports/figures/seasonality.png)
+![Pareto curve: cumulative share of revenue by item, coloured by ABC class](reports/figures/abc_pareto.png)
+![Heat map: share of revenue in each ABC by XYZ class](reports/figures/abc_xyz_matrix.png)
+![Line chart: actual daily sales against the best model and the seasonal-naive forecast for one store and item](reports/figures/forecast_example.png)
+![Line chart: forecast error by days ahead (1 to 14) for each model](reports/figures/forecast_wape_by_horizon.png)
+![Bar chart: share of gain of the LightGBM features](reports/figures/lightgbm_feature_importance.png)
+![Line chart: units on hand day by day for each policy, with stock-out days marked](reports/figures/inventory_trajectory.png)
+![Stacked bar chart: ordering, holding and shortage cost of each policy](reports/figures/cost_breakdown.png)
+![Line chart: inventory needed against the service target for lead times of 3, 7 and 14 days](reports/figures/sensitivity.png)
+![Bar chart: inventory and service of each policy for physical and online stores](reports/figures/channel_comparison.png)
 
 </details>
 
@@ -126,6 +126,7 @@ history) and the models are chosen from the length of the history, so the same c
 | **Promotions** | How much each product sells more on promotion and less the week after, past promotions on a chart, forecast error on promotion days, a **planner** (item, dates, discount → extra units to order, order-by date, margin) and a price-change estimate |
 | **Inventory** | Inventory vs. fill rate curves, reorder point and lot for one series, its stock day by day, a **what-if** (service level, lead time, ordering and holding cost), sensitivity |
 | **Orders** | **What to order today**, grouped by supplier (quantity, value, arrival date, CSV per supplier); a **4-week calendar** of orders and deliveries; expected stock-outs; stock day by day for one item. **Supplier terms and limits**: order and delivery days, minimum order value, pack sizes, minimum quantities, quantity discounts, weekly budget, warehouse space — with what they cost compared with no constraints. Works on today's date: old data are moved forward by whole weeks |
+| **FAQ** · **Privacy** · **Terms** | Frequently asked questions, privacy policy (what happens to your files, anonymous usage statistics with opt-out) and terms of use; Privacy and Terms are linked in the sidebar footer |
 | **Data** | Switch between the demo, a sample dataset and your own file; column mapping, data checks, one-click analysis, downloads (reorder plan CSV, results Excel) |
 
 The **sidebar** on every page selects the scenario: **how many stores**, **which products** (top-N by revenue,
@@ -257,6 +258,9 @@ supply-chain-inventory-optimization/
 2. On [share.streamlit.io](https://share.streamlit.io) → *Create app* → choose the repository, branch `main`,
    main file `app/streamlit_app.py`, Python 3.12.
 3. Copy the app address to the top of this README.
+4. Before sharing it, follow the [publishing checklist](docs/12_deployment.md): owner and contact for the privacy
+   policy (`site` in `config/params.yaml`), `python -m src.site_files --base-url <address>` for robots.txt and
+   sitemap.xml, upload limits for the host's memory, usage statistics (`python -m src.analytics` for the report).
 
 The public app shows the demo from the committed results (daily detail only for store 1, because of the Kaggle
 licence) and runs uploads and sample datasets in fast mode. The upload limits in `config/params.yaml`
@@ -283,7 +287,13 @@ sidebar.
 - Forecasts use no outside factors (weather, local events, competitors); new and rarely sold items are forecast
   poorly.
 - Uploaded data and results live only in the browser session; one user, no login.
-- Costs, prices and lead times are assumptions (§7) unless the data provides them.
+- As a website: titles and descriptions are written into the page by a script, a missing page shows a 404 page with
+  HTTP status 200, `robots.txt` / `sitemap.xml` reach the root only through a reverse proxy
+  ([publishing guide](docs/12_deployment.md)); privacy policy and terms are templates to review.
+- Euro results are estimates: the cost of an order and the holding rate never come from the sales file (they are the
+  assumptions of §7 or the values typed on the Data page), and missing prices, unit costs and lead times are assumed.
+  The **Warnings and limits** panel lists the values used and how much the saving moves if the order and holding
+  costs are between half and 1.5 times them.
 - Sales are treated as demand: real stock-outs in an uploaded history would hide some demand.
 - The calibration uses the period it evaluates (an *oracle* setting, used only to compare policies on equal terms);
   the dashboard also shows the policies with `z` set in advance.
