@@ -1,0 +1,19 @@
+Source: ECC (https://github.com/affaan-m/ECC), tag v2.2.3, MIT licence (see LICENSE in this folder).
+Copied on 2026-10-27, by hand (no installer, no hooks, nothing outside this project). Local edits after review:
+agent descriptions no longer auto-trigger, agents use `model: inherit`, tdd-workflow is user-invoked only,
+common rules scoped to Python files, fastapi.md no longer matches app/, hooks.md marked reference only.
+
+Included:  rules/common/{coding-style,security,code-review,patterns}.md
+           rules/python/{coding-style,testing,security,patterns,fastapi,hooks}.md      (all Python rules)
+           ../../commands/python-review.md                      (code review, local)
+           ../../agents/{python-reviewer,tdd-guide}.md          (review and test-first agents)
+           ../../skills/{tdd-workflow,python-testing}/SKILL.md  (test workflow)
+           (fastapi, hooks and the command/agents/skills added on 2026-10-27 at the user's request)
+Left out:  common/{agents,development-workflow,git-workflow,hooks,performance,testing}.md, every other language,
+           commands/code-review.md (its PR mode approves and comments on GitHub; written for JS projects),
+           every other ECC agent, command and skill.
+           Reasons: hooks and ~/.claude settings, automatic agents, mandatory web research and push,
+           conventional-commit format, outward-facing GitHub actions.
+
+Where these rules disagree with the project, ../project-overrides.md wins.
+To update: compare with a newer ECC tag, copy the same files, review the diff before committing.
