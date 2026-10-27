@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.py"
+  - "**/*.pyi"
+---
 # Code Review Standards
 
 ## Purpose

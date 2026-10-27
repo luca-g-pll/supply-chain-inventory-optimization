@@ -21,17 +21,17 @@ they disagree.
 ## Security
 - The project needs no secrets; never commit any. Do not add `python-dotenv` or `bandit` unless the user asks.
 - Web-API items (CSRF, rate limiting, auth, response envelopes) do not apply: the app is a Streamlit dashboard
-  without an API. `ecc/python/fastapi.md` matches `app/**/*.py` by path only: it does **not** apply here.
+  without an API. `ecc/python/fastapi.md` (no longer scoped to `app/`) does **not** apply here.
 
 ## Code review and test workflow (ECC command, agents, skills)
 - `/python-review`, the `python-reviewer` and `tdd-guide` agents and the `tdd-workflow` / `python-testing` skills are
   used **when the user asks** for a review or a test-first change — not launched proactively on every edit.
-- Tools available here: `ruff` and `pytest` only. Do not run or install mypy, pylint, black, isort, bandit or
-  pytest-cov; when a review step needs one of them, say it is not set up and move on. Never reformat with black.
+- Tools available here: `ruff` and `pytest` only. Do not run or install mypy, pylint, black, isort, bandit,
+  pytest-cov, pip-audit or safety; when a review step needs one of them, say it is not set up and move on. Never reformat with black.
 - Reviews are local and read-only: report findings, change code only when the user asks. Never approve, comment on
   or request changes on GitHub pull requests (`gh pr review`, `gh api … comments`).
 - Coverage percentages are not measured in this project; the 80% targets in the ECC files do not apply.
-- A TDD evidence report is written only if the user asks, in `.claude/tdd/`.
+- A TDD evidence report is written only if the user asks, in `.claude/tdd/` (git-ignored).
 - `ecc/python/hooks.md`: do not configure hooks (no `~/.claude/settings.json` changes).
 
 ## Workflow

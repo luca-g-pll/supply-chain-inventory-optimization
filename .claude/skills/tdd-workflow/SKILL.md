@@ -2,6 +2,7 @@
 name: tdd-workflow
 description: "Test-driven development workflow: write a failing test first, watch it fail, implement the smallest change to green, then refactor with 80%+ coverage across unit, integration, and E2E tests. Use when writing a new feature, fixing a bug, refactoring, or when told to write failing tests first."
 argument-hint: <path/to/*.plan.md>
+disable-model-invocation: true
 metadata:
   origin: ECC
 ---

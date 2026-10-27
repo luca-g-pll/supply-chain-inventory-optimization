@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.py"
+  - "**/*.pyi"
+---
 # Security Guidelines
 
 ## Mandatory Security Checks

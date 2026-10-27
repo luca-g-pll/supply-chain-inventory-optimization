@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.py"
+  - "**/*.pyi"
+---
 # Coding Style
 
 ## Immutability (CRITICAL)

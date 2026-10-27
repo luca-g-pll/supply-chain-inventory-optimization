@@ -37,3 +37,4 @@ data/analytics/
 CLAUDE.local.md
 # ECC install state (machine-specific)
 .claude/ecc/
+.claude/tdd/

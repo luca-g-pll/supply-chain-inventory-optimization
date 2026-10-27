@@ -1,5 +1,7 @@
 Source: ECC (https://github.com/affaan-m/ECC), tag v2.2.3, MIT licence (see LICENSE in this folder).
-Copied unchanged on 2026-10-27, by hand (no installer, no hooks, nothing outside this project).
+Copied on 2026-10-27, by hand (no installer, no hooks, nothing outside this project). Local edits after review:
+agent descriptions no longer auto-trigger, agents use `model: inherit`, tdd-workflow is user-invoked only,
+common rules scoped to Python files, fastapi.md no longer matches app/, hooks.md marked reference only.
 
 Included:  rules/common/{coding-style,security,code-review,patterns}.md
            rules/python/{coding-style,testing,security,patterns,fastapi,hooks}.md      (all Python rules)

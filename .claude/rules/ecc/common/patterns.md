@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.py"
+  - "**/*.pyi"
+---
 # Common Patterns
 
 ## Skeleton Projects

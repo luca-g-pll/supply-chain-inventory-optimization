@@ -9,7 +9,7 @@ paths:
 
 ## PostToolUse Hooks
 
-Configure in `~/.claude/settings.json`:
+Not configured in this project (no hooks, no `~/.claude` changes); reference only:
 
 - **black/ruff**: Auto-format `.py` files after edit
 - **mypy/pyright**: Run type checking after editing `.py` files
