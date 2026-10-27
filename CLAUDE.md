@@ -28,6 +28,9 @@ Python 3.11+ · pandas / NumPy · LightGBM · statsmodels · DuckDB · Streamlit
 - The Kaggle daily data must not be redistributed; the sample data are invented
 - Commit only when asked; the user pushes from PyCharm
 
-## Rules
-General rules from ECC v2.2.3 are in `.claude/rules/ecc/`; `.claude/rules/project-overrides.md` says which project
-convention wins where they disagree.
+## Rules, review and tests
+- General rules from ECC v2.2.3 in `.claude/rules/ecc/` (common + all Python rules)
+- `/python-review` — local Python code review (agent `python-reviewer`)
+- Test-first changes: skills `tdd-workflow`, `python-testing`, agent `tdd-guide`
+- `.claude/rules/project-overrides.md` says which project convention wins where they disagree (ruff only, no
+  coverage threshold, no GitHub actions from reviews, agents only when asked)
