@@ -31,3 +31,9 @@ data/processed/work/
 .hypothesis/
 build/
 data/analytics/
+
+# Claude Code — personal / machine-local
+.claude/settings.local.json
+CLAUDE.local.md
+# ECC install state (machine-specific)
+.claude/ecc/
