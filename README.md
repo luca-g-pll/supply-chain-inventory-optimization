@@ -29,6 +29,7 @@ of a fictional Italian retailer, or on **your own sales history** (CSV / Excel u
 11. [Tech stack and quality](#11-tech-stack-and-quality)
 12. [Limitations and next steps](#12-limitations-and-next-steps)
 13. [Step by step: run it on your computer (Windows · macOS)](#13-step-by-step-run-it-on-your-computer)
+14. [Use it in a company: double click and company folder](#14-use-it-in-a-company-double-click-and-company-folder)
 
 ---
 
@@ -151,9 +152,15 @@ In the dashboard: **Data → My sales history → Upload a file**, check the col
 | `pack_size`, `min_order_qty` | | orders in single units, no minimum |
 
 - Column names can be anything: English and Italian names are recognised (`Data`, `Articolo`, `Qtà`, `Negozio`…).
-- CSV (any separator, decimal commas), Excel (sheet picker) and Parquet; one row per day or per transaction
-  (rows are summed per day); a day without rows counts as zero sales; returns (negative quantities) are set to zero.
-- At least 8 weeks of daily history. Prices, costs and lead times can come from a separate item-master file.
+- **Formats**: Excel (`.xlsx`, `.xlsm`, old `.xls`), OpenDocument (`.ods`), CSV / text (any separator, decimal
+  commas), JSON and JSON lines (also orders with nested lines), Markdown and HTML tables, XML and Parquet. Title rows
+  above the header are skipped, an HTML or text export saved as `.xls` is read for what it is, and a table with one
+  column per month or day is turned into rows.
+- One row per day or per transaction (rows are summed per day); a day without rows counts as zero sales; returns
+  (negative quantities) are set to zero. **Weekly or monthly totals** are accepted and spread evenly over their days.
+- At least 8 weeks of history. Prices, costs and lead times can come from a separate item-master file, or from the
+  **purchase history** (supplier orders / delivery notes): real unit cost, supplier, measured lead time and open
+  orders per item ([§14](#14-use-it-in-a-company-double-click-and-company-folder)).
 - **Promotions**: with a `promo` column or a daily price, the software finds the promotion days, measures their
   effect per product and uses them in the forecasts. Planned promotions (e.g. next month's flyer) can be typed in
   or loaded on the **Promotions** page — example: [`data/samples/promo_calendar_2025.csv`](data/samples/promo_calendar_2025.csv).
@@ -210,8 +217,11 @@ python -m src.pipeline --all --input data/samples/retail_chain_sales.csv --item-
 python -m src.pipeline --all --input my_sales.xlsx --map date=Data item=Articolo quantity=Qta store=Negozio
 python -m src.sample_data                                      # rebuild the sample datasets
 python -m src.partition --input big_sales.csv --workers 2      # large files, in batches (see below)
+python launcher.py                                             # what the double click does: set up, start, open the browser
+python -m src.workspace --analyse                              # analyse the company folder without the dashboard (scheduled refresh)
+python scripts/build_standalone.py                             # standalone program in dist/DemandPlanner (pip install -r requirements-build.txt)
 streamlit run app/streamlit_app.py                             # dashboard
-pytest                                                         # 126 tests, about a minute
+pytest                                                         # 189 tests, about a minute
 ```
 
 **Large datasets.** The dashboard keeps every series in memory: it handles up to 10,000 store-item series in about
@@ -248,7 +258,11 @@ supply-chain-inventory-optimization/
 ├── reports/                  ← README charts and the data validation report
 ├── tests/                    ← pytest, synthetic data only
 ├── docs/                     ← charter, requirements, use cases, WBS, architecture, API, methodology, ADRs
-├── scripts/                  ← macOS LightGBM helper
+├── scripts/                  ← macOS LightGBM helper, standalone build
+├── packaging/                ← entry point of the standalone program
+├── launcher.py               ← set up, start and open the dashboard (used by the two files below)
+├── Demand Planner.command    ← macOS: double click to start
+├── Demand Planner.bat        ← Windows: double click to start
 └── Makefile                  ← shortcuts for macOS / Linux
 ```
 
@@ -290,7 +304,19 @@ sidebar.
   the error over the next 4 weeks is ≈ 60% after 2 weeks of sales and ≈ 50% after 8, launches still growing are
   underestimated by 10–25%; a product never sold yet cannot be planned, a replacement does not inherit the history
   of the product it replaces, first-season seasonal products have no specific treatment.
-- Uploaded data and results live only in the browser session; one user, no login.
+- Data: at least 8 weeks of sales; weekly or monthly totals are spread evenly over their days (reorder quantities
+  stay valid, day-of-week patterns and promotions are lost).
+- File formats: Excel, OpenDocument, CSV / text, JSON, Markdown and HTML tables, XML and Parquet are read; PDF, scans,
+  images, password-protected files and databases are not. One table per file; merged cells and subtotal rows inside
+  the table can be misread.
+- Company folder: files are recognised by their column names (in doubt by the file name); a file with unusual names
+  is listed as not recognised. Open purchase orders are added to the stock on its way only with one store or a store
+  column; the pack size read from purchases is a guess.
+- Installation: the double-click launcher needs Python 3.11+ and the internet at the first start; the standalone
+  program needs neither but is built per operating system and is not signed. One computer, one user, no automatic
+  update.
+- Started with the launcher, the last analysis is saved in the company folder and reopened at the next start; choices
+  made on the pages are not saved. On the hosted demo data and results live only in the browser session. No login.
 - As a website: titles and descriptions are written into the page by a script, a missing page shows a 404 page with
   HTTP status 200, `robots.txt` / `sitemap.xml` reach the root only through a reverse proxy
   ([publishing guide](docs/12_deployment.md)); privacy policy and terms are templates to review.
@@ -488,3 +514,43 @@ Download `train.csv` as explained in [`data/README.md`](data/README.md), put it 
 
 *Demo data: [Store Item Demand Forecasting Challenge](https://www.kaggle.com/competitions/demand-forecasting-kernels-only)
 (Kaggle; not redistributed here — download it yourself, see [`data/README.md`](data/README.md)).*
+
+---
+
+## 14. Use it in a company: double click and company folder
+
+The hosted demo keeps everything in the browser session. Installed on a company computer the software works on a
+**company folder** instead, and starts with a double click.
+
+**Start.** Double-click `Demand Planner.command` (macOS) or `Demand Planner.bat` (Windows). The first time it creates
+the Python environment and installs the components (a few minutes, internet needed once; Python 3.11+ must be on the
+computer); from then on it starts the dashboard on this computer only and opens the browser. If it is already running
+it just opens the browser. Close the window to stop it.
+
+**No Python on the computer?** Build the standalone program once (`pip install -r requirements-build.txt`, then
+`python scripts/build_standalone.py`): `dist/DemandPlanner/` holds one executable with Python and every component
+inside. Copy or zip the folder; nothing has to be installed where it runs. Build on Windows for Windows and on a Mac
+for macOS.
+
+**The company folder** (`Documents/Demand Planner`, created at the first start):
+
+```
+Demand Planner/
+├── data/            ← put the files here, as they are
+├── results/         ← the last analysis (reopened at the next start), reorder_parameters.csv
+└── settings.yaml    ← the company's costs and options (they replace config/params.yaml)
+```
+
+| File in `data/` | Recognised by | What it gives |
+|---|---|---|
+| Sales (one or many files, any format) | date, item, quantity | the demand history; several files are joined |
+| Purchases (supplier orders, delivery notes) | order date, item, quantity, supplier / receipt date / cost | real unit cost, supplier, measured lead time, pack size, open orders |
+| Item list | item + price / cost / lead time / supplier / description | overrides the values above item by item |
+| Stock | item, store, stock on hand | the starting point of today's orders, and the excess-stock report |
+| Supplier terms | supplier + order days / minimum order / discount | the constraints of the order plan |
+| Promotion calendar | item, start, end, discount | planned promotions in the order plan |
+
+Open **Data → Company folder**: the page lists every file with how it was read, saves the company's cost settings and
+runs the analysis with one button. The **Orders** page then starts from the stock file, exports today's orders as an
+Excel workbook with one sheet per supplier and lists the **excess stock** (items covering more than 90 days of
+expected sales, items that no longer sell). Details: [`docs/13_product.md`](docs/13_product.md).

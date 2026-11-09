@@ -386,6 +386,23 @@ known in advance; the growth correction cuts the underestimate from −38% / −
 Launches stay hard to forecast; the gain is in planning them at all, with the right similar product and extra
 safety stock.
 
+### 6.12 Purchase history, weekly / monthly totals and excess stock
+
+**Purchase history** (optional file of the company folder, `src/purchases.py`). Item by item it replaces the assumed
+values: unit cost = median cost of the purchases of the last 90 days (line amount ÷ quantity when the file has no unit
+cost); supplier = the one of the most recent purchase; lead time = median days from order to receipt (the item's own
+with at least 2 receipts, otherwise its supplier's median); pack size = greatest common divisor of the quantities
+bought (at least 3 purchases, divisor ≥ 2). Order lines without a receipt date in the last 60 days of the file are
+open orders, expected on order date + lead time. An item list, when present, overrides these values.
+
+**Weekly or monthly totals** (`input.granularity`, detected from the gaps between dates). Each total is spread evenly
+over the days of its week or month, so the engine still works on days. Mean demand, lot and safety stock per lead
+time remain meaningful; the day-of-week profile is flat by construction and promotions cannot be read.
+
+**Excess stock** (`src/replenishment.stock_health`, Orders page). Cover = stock today ÷ mean daily forecast of the
+next 28 days. Excess: cover above 90 days; the units above that cover are valued at unit cost. Not selling: stock on
+hand and less than half a unit of expected sales in the horizon.
+
 ## 7. Limitations
 
 - Sales are treated as uncensored demand. In an uploaded history with real stock-outs, days at zero because of empty shelves would lower the forecasts; a future version could take an optional `stock_on_hand` column to mask those days.

@@ -5,7 +5,8 @@ import io
 
 import pandas as pd
 import streamlit as st
-from common import ROOT, ActiveData, demo_available
+from common import ROOT, ActiveData, config, demo_available, workspace
+from company import company_section
 from i18n import model_name, translate_message, tx
 from website import track
 
@@ -24,10 +25,12 @@ from src.ingest import (
 )
 from src.pipeline import run_in_memory
 from src.profile import profile_history
+from src.readers import EXCEL, SUPPORTED
 
 st.title(tx("Data", "Dati"))
 
 SAMPLE_DIR = ROOT / "data" / "samples"
+FILE_TYPES = [e.lstrip(".") for e in SUPPORTED]
 
 
 def samples() -> dict:
@@ -78,21 +81,32 @@ PROGRESS = {
 }
 
 # ---- which dataset is active
-active = st.session_state.get("active_source", "demo")
-has_upload = st.session_state.get("upload_results") is not None
-choices = {"demo": tx("Demo dataset (Kaggle)", "Dataset demo (Kaggle)"),
-           "upload": tx("My sales history", "Il mio storico vendite")}
-options = (["demo"] if demo_available() else []) + ["upload"]
-current = "upload" if (active == "upload" and has_upload) or not demo_available() else "demo"
+folder = workspace()
+active = st.session_state.get("active_source", "upload" if folder else "demo")
+shown = st.session_state.get("upload_results")
+has_upload = shown is not None
+from_folder = has_upload and bool(shown.meta.get("workspace"))
+choices = {"folder": tx("Company folder", "Cartella aziendale"), "demo": tx("Demo dataset (Kaggle)", "Dataset demo (Kaggle)"),
+           "upload": tx("One file by hand", "Un file a mano") if folder else tx("My sales history", "Il mio storico vendite")}
+options = (["folder"] if folder else []) + (["demo"] if demo_available() else []) + ["upload"]
+if active == "upload" and has_upload:
+    current = "folder" if from_folder and folder else "upload"
+elif folder and active != "demo":
+    current = "folder"
+else:
+    current = "demo" if demo_available() else "upload"
 choice = st.segmented_control(tx("Dataset shown on every page", "Dataset mostrato in tutte le pagine"), options,
-                              default=current, format_func=choices.get, key="data_choice")
+                              default=current, format_func=choices.get, key="data_choice") or current
 if choice == "demo" and active != "demo":
     st.session_state["active_source"] = "demo"
     st.rerun()
-if choice == "upload" and has_upload and active != "upload":
+if choice != "demo" and active == "demo":
     st.session_state["active_source"] = "upload"
     st.rerun()
 
+if choice == "folder":
+    company_section(folder)
+    st.stop()
 if choice != "upload":
     st.markdown(tx("""
 The **demo** uses the Kaggle *Store Item Demand Forecasting Challenge*: 5 years of daily sales, 10 stores × 50 items.
@@ -107,6 +121,11 @@ Passa a **Il mio storico vendite** per fare la stessa analisi sui tuoi dati o su
 """))
     st.stop()
 
+if folder:
+    st.caption(tx("A single file analysed here is not saved: to keep the analysis for the next start, put the file in "
+                  "the company folder instead.",
+                  "Un file analizzato qui non viene salvato: per ritrovare l'analisi al prossimo avvio metti il file "
+                  "nella cartella aziendale."))
 st.info(tx("🔒 Your file stays in this session's memory: it is never saved to disk or sent anywhere else. This public "
            "demo runs on shared hosting, so for confidential data run the app on your own computer "
            "(`streamlit run app/streamlit_app.py`, see the README).",
@@ -120,15 +139,15 @@ st.download_button(tx("Download a template (CSV)", "Scarica un modello (CSV)"), 
 st.markdown(tx("""
 **What the file needs:** one row per day (or per transaction) with a **date**, an **item** code and the
 **quantity** sold. Optional: store, selling price, unit cost, channel (physical/online), lead time in days.
-Column names can be anything: you map them below. Daily data, at least 8 weeks.
+Column names can be anything: you map them below. At least 8 weeks; weekly or monthly totals are accepted too.
 """, """
 **Cosa serve nel file:** una riga per giorno (o per transazione) con una **data**, un **codice articolo** e la
 **quantità** venduta. Facoltativi: negozio, prezzo di vendita, costo unitario, canale (fisico/online), tempo di
-consegna in giorni. I nomi delle colonne possono essere qualsiasi: li associ qui sotto. Dati giornalieri, almeno
-8 settimane.
+consegna in giorni. I nomi delle colonne possono essere qualsiasi: li associ qui sotto. Almeno 8 settimane; vanno
+bene anche totali settimanali o mensili.
 """))
 
-cfg0 = load_config()
+cfg0 = config()
 limits = cfg0.input.limits
 SAMPLES = samples()
 sources = {"upload": tx("Upload a file", "Carica un file"), "sample": tx("Use a sample dataset", "Usa un dataset di esempio")}
@@ -157,8 +176,9 @@ if source == "sample":
         master_name = SAMPLES[file_name][2]
         master_bytes = (SAMPLE_DIR / master_name).read_bytes()
 else:
-    upload = st.file_uploader(tx("Sales history (.csv, .xlsx or .parquet)", "Storico vendite (.csv, .xlsx o .parquet)"),
-                              type=["csv", "txt", "tsv", "xlsx", "xlsm", "parquet"], key="up_file")
+    upload = st.file_uploader(tx("Sales history (Excel, CSV, JSON, Markdown, ODS, XML, Parquet…)",
+                                 "Storico vendite (Excel, CSV, JSON, Markdown, ODS, XML, Parquet…)"),
+                              type=FILE_TYPES, key="up_file")
     if upload is None:
         if has_upload:
             fname = st.session_state["upload_results"].meta.get("file_name", "")
@@ -176,14 +196,16 @@ if len(raw_bytes) > limits.max_file_mb * 1024 * 1024:
 digest = hashlib.sha256(raw_bytes).hexdigest()
 
 sheet = None
-if file_name.lower().endswith((".xlsx", ".xlsm")):
+if file_name.lower().endswith(EXCEL) and raw_bytes[:4] in (b"PK\x03\x04", b"\xd0\xcf\x11\xe0"):
     try:
-        sheets = list_sheets(io.BytesIO(raw_bytes))
+        sheets = list_sheets(io.BytesIO(raw_bytes), file_name)
     except InputError as exc:
         st.error(translate_message(str(exc)))
         st.stop()
     default_index = sheets.index(default_sheet) if default_sheet in sheets else 0
-    sheet = st.selectbox(tx("Sheet", "Foglio"), sheets, index=default_index) if len(sheets) > 1 else sheets[0]
+    if len(sheets) > 1:
+        sheet = st.selectbox(tx("Sheet", "Foglio"), sheets, index=default_index if default_sheet in sheets else None,
+                             placeholder=tx("First sheet with a table", "Primo foglio con una tabella"))
 
 try:
     raw = read_any(io.BytesIO(raw_bytes), filename=file_name, sheet=sheet)
@@ -193,6 +215,8 @@ except InputError as exc:
 st.caption(tx(f"{len(raw):,} rows · {len(raw.columns)} columns · preview:",
               f"{len(raw):,} righe · {len(raw.columns)} colonne · anteprima:"))
 st.dataframe(raw.head(8), hide_index=True)
+for note in raw.attrs.get("import_notes", []):
+    st.info(translate_message(note), icon=":material/auto_fix_high:")
 
 st.subheader(tx("1 · Map your columns", "1 · Associa le colonne"))
 guess = guess_mapping(raw.columns)
@@ -203,7 +227,7 @@ for k, fld in enumerate(FIELDS):
     default = cols.index(guess[fld]) if guess[fld] in cols else 0
     mapping[fld] = grid[k % 4].selectbox(LABELS[fld] + (" *" if fld in REQUIRED else ""), cols, index=default,
                                          key=f"map_{fld}_{digest[:8]}")
-f1, f2 = st.columns(2)
+f1, f2, f3 = st.columns(3)
 date_formats = {"auto": tx("Detect automatically", "Riconosci automaticamente"), "ISO": "2024-03-15",
                 "dayfirst": tx("15/03/2024 (day first)", "15/03/2024 (giorno/mese)"),
                 "monthfirst": tx("03/15/2024 (month first)", "03/15/2024 (mese/giorno)")}
@@ -211,10 +235,17 @@ date_format = f1.selectbox(tx("Date format", "Formato data"), list(date_formats)
 negatives = {"clip": tx("Set to 0", "Porta a 0"), "reject": tx("Stop with an error", "Fermati con un errore")}
 negative = f2.selectbox(tx("Negative quantities (returns)", "Quantità negative (resi)"), list(negatives),
                         format_func=negatives.get)
+grains = {"auto": tx("Detect automatically", "Riconosci automaticamente"), "daily": tx("Daily", "Giornaliere"),
+          "weekly": tx("Weekly totals", "Totali settimanali"), "monthly": tx("Monthly totals", "Totali mensili")}
+granularity = f3.selectbox(tx("Sales in the file are", "Le vendite nel file sono"), list(grains), format_func=grains.get,
+                           help=tx("Weekly or monthly totals are spread evenly over their days: reorder quantities stay "
+                                   "valid, day-of-week patterns cannot be learned.",
+                                   "I totali settimanali o mensili sono distribuiti in parti uguali sui giorni: le "
+                                   "quantità di riordino restano valide, l'andamento per giorno della settimana no."))
 if source == "upload":
     master_file = st.file_uploader(tx("Optional item master (item, price, cost, lead time)",
                                       "Anagrafica articoli facoltativa (articolo, prezzo, costo, tempo di consegna)"),
-                                   type=["csv", "xlsx", "parquet"], key="up_master")
+                                   type=FILE_TYPES, key="up_master")
     if master_file is not None:
         master_name, master_bytes = master_file.name, master_file.getvalue()
 
@@ -231,7 +262,7 @@ with st.expander(tx("2 · Cost assumptions (used where your data has no values)"
     target = a5.number_input(tx("Target fill rate (%)", "Fill rate obiettivo (%)"), 80.0, 99.5,
                              cfg0.simulation.target_fill_rate * 100, 0.5)
 overrides = {
-    "input": {"date_format": date_format, "negative_quantity": negative},
+    "input": {"date_format": date_format, "negative_quantity": negative, "granularity": granularity},
     "inventory": {"lead_time_days": int(lead), "order_cost": float(order_cost), "holding_rate": holding / 100,
                   "cost_to_price_ratio": ratio / 100},
     "simulation": {"target_fill_rate": target / 100},

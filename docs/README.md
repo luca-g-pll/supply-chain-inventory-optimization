@@ -16,6 +16,7 @@ Index of the design documents. Read them in this order; each one builds on the p
 | 10 | [Test Plan](10_test_plan.md) | Unit, invariant and regression tests; acceptance checks |
 | 11 | [Risk Register](11_risk_register.md) | Risks, likelihood/impact, mitigations |
 | 12 | [Publishing the app](12_deployment.md) | Checklist, robots.txt / sitemap, reverse proxy, analytics, website limits |
+| 13 | [Product mode](13_product.md) | Double-click start, company folder, file formats, purchase history, standalone program, market comparison |
 | ADR | [Architecture Decision Records](adr/) | Key decisions and their rationale |
 
 ## Conventions

@@ -27,18 +27,50 @@ LIMITS: list[tuple[str, str, str, str]] = [
      "grandi si elaborano a lotti da riga di comando (python -m src.partition: 60.000 serie ≈ 4,5 min, 2 milioni ≈ "
      "2,5 ore); i risultati sono file Parquet / CSV, non pagine della dashboard."),
     ("Data", "Dati",
-     "Daily sales only, at least 8 weeks. Sales are taken as demand: days with empty shelves look like days without "
-     "customers and lower the forecasts.",
-     "Solo vendite giornaliere, almeno 8 settimane. Le vendite sono prese come domanda: i giorni con lo scaffale "
-     "vuoto sembrano giorni senza clienti e abbassano le previsioni."),
+     "At least 8 weeks of sales. Weekly or monthly totals are accepted but spread evenly over their days: reorder "
+     "quantities stay valid, day-of-week patterns and promotions are lost. Sales are taken as demand: days with "
+     "empty shelves look like days without customers and lower the forecasts.",
+     "Almeno 8 settimane di vendite. I totali settimanali o mensili sono accettati ma distribuiti in parti uguali "
+     "sui giorni: le quantità di riordino restano valide, l'andamento per giorno della settimana e le promozioni si "
+     "perdono. Le vendite sono prese come domanda: i giorni con lo scaffale vuoto sembrano giorni senza clienti e "
+     "abbassano le previsioni."),
+    ("File formats", "Formati dei file",
+     "Read: Excel (.xlsx, .xls), OpenDocument, CSV / text, JSON, Markdown and HTML tables, XML, Parquet. Not read: "
+     "PDF, scanned documents, images, password-protected files, databases. One table per file (the largest one, "
+     "the first sheet with data): merged cells and subtotal rows inside the table can be misread, so check the "
+     "preview and the row count.",
+     "Letti: Excel (.xlsx, .xls), OpenDocument, CSV / testo, JSON, tabelle Markdown e HTML, XML, Parquet. Non letti: "
+     "PDF, documenti scansionati, immagini, file protetti da password, database. Una tabella per file (la più "
+     "grande, il primo foglio con dati): celle unite e righe di subtotale dentro la tabella possono essere lette "
+     "male, quindi controlla l'anteprima e il numero di righe."),
+    ("Company folder", "Cartella aziendale",
+     "Files are recognised by their column names (and, in doubt, by the file name): a file with unusual names is "
+     "listed as not recognised and must be loaded by hand or have its columns renamed. One company per folder. "
+     "The purchase file gives costs, suppliers and lead times; open orders are added to the stock on its way only "
+     "with one store or a store column. The pack size read from purchases is a guess (common multiple of the "
+     "quantities bought).",
+     "I file sono riconosciuti dai nomi delle colonne (e, nel dubbio, dal nome del file): un file con nomi insoliti "
+     "risulta non riconosciuto e va caricato a mano o con le colonne rinominate. Una azienda per cartella. Il file "
+     "acquisti fornisce costi, fornitori e tempi di consegna; gli ordini aperti entrano nella merce in arrivo solo "
+     "con un negozio o con la colonna negozio. La confezione letta dagli acquisti è una stima (multiplo comune delle "
+     "quantità comprate)."),
+    ("Installation", "Installazione",
+     "The double-click launcher needs Python 3.11+ on the computer and the internet at the first start only. The "
+     "standalone program needs neither, but it is built separately for Windows and macOS and is not signed: the "
+     "operating system asks for a confirmation the first time. It runs on one computer for one user; there is no "
+     "automatic update.",
+     "L'avvio a doppio clic richiede Python 3.11+ sul computer e internet solo al primo avvio. Il programma autonomo "
+     "non richiede nessuno dei due, ma va costruito a parte per Windows e per macOS e non è firmato: il sistema "
+     "operativo chiede una conferma la prima volta. Gira su un computer per un utente; non c'è aggiornamento "
+     "automatico."),
     ("Costs and prices", "Costi e prezzi",
      "The cost of an order and the cost of holding stock never come from the sales file: they are assumptions "
      "(€50 per order, 25% of the value a year) unless you type yours on the Data page. Missing prices, unit costs "
-     "and lead times are assumed too. Every euro saving is an estimate built on these values, not an accounting "
+     "and lead times are assumed too (a purchase file in the company folder replaces costs and lead times with real ones). Every euro saving is an estimate built on these values, not an accounting "
      "figure.",
      "Il costo di un ordine e il costo di tenere la merce non arrivano mai dal file vendite: sono ipotesi (€50 per "
      "ordine, 25% del valore all'anno) a meno che tu non inserisca i tuoi nella pagina Dati. Anche prezzi, costi "
-     "unitari e tempi di consegna mancanti sono ipotizzati. Ogni risparmio in euro è una stima costruita su questi "
+     "unitari e tempi di consegna mancanti sono ipotizzati (un file acquisti nella cartella aziendale sostituisce costi e tempi di consegna con quelli reali). Ogni risparmio in euro è una stima costruita su questi "
      "valori, non un dato contabile."),
     ("Forecasts", "Previsioni",
      "No outside factors (weather, local events, competitors). Items sold rarely are forecast poorly. Holt-Winters "
@@ -90,14 +122,19 @@ LIMITS: list[tuple[str, str, str, str]] = [
      "alla radice del sito solo tramite il server web (docs/12_deployment.md). Informativa privacy e condizioni sono "
      "modelli da far rivedere."),
     ("Session", "Sessione",
-     "Uploaded files and results live only in this browser session: reloading the page clears them. One user, no "
-     "login.",
-     "File caricati e risultati vivono solo in questa sessione del browser: ricaricare la pagina li cancella. Un "
-     "utente, nessun login."),
+     "Started with the launcher, the last analysis of the company folder is saved on this computer and reopened at "
+     "the next start; choices made on the pages (constraints typed by hand, corrected stock, confirmed similar "
+     "products) are not. On the hosted demo, files and results live only in the browser session. One user, no login: "
+     "whoever uses this computer account can open the results.",
+     "Avviato con il launcher, l'ultima analisi della cartella aziendale è salvata su questo computer e riaperta al "
+     "prossimo avvio; le scelte fatte nelle pagine (vincoli scritti a mano, giacenze corrette, prodotti simili "
+     "confermati) no. Nella demo online file e risultati vivono solo nella sessione del browser. Un utente, nessun "
+     "login: chi usa questo account del computer può aprire i risultati."),
 ]
 
 # profile notes that are information, not warnings; item-level assumptions are in the euro section
-_INFO = (r"History: ", r"Train ", r"Yearly seasonality is modelled", r"Promotions (read|found)",
+_INFO = (r"History: ", r"Train ", r"Yearly seasonality is modelled", r"Promotions (read|found)", r"Purchases read",
+         r"Lead time measured",
          r"Selling price missing", r"Unit cost missing", r"Lead time missing", r"\d+ series excluded for short history")
 
 

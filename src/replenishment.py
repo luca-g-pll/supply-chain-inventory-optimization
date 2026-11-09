@@ -213,6 +213,29 @@ def risks_from_short(short: np.ndarray, keys: pd.DataFrame, dates: pd.DatetimeIn
                          "first_day": dates[first], "units_short": short[rows].sum(axis=1), "row": rows})
 
 
+# --------------------------------------------------------------------------- stock health
+def stock_health(keys: pd.DataFrame, on_hand: np.ndarray, forecast: np.ndarray, unit_cost: np.ndarray,
+                 excess_cover_days: int, horizon_days: int) -> pd.DataFrame:
+    """Stock that should not be bought again soon: ``[store, item, on_hand, cover_days, status, excess_units, excess_value]``.
+
+    ``forecast`` is ``[series, days]`` from today. *dead*: stock on hand and no sale expected in
+    ``horizon_days``; *excess*: stock that covers more than ``excess_cover_days`` of expected
+    sales (the units above that cover are the excess). Other series are not returned.
+    """
+    window = forecast[:, :horizon_days]
+    daily = window.mean(axis=1)
+    on_hand = np.asarray(on_hand, dtype="float64")
+    dead = (on_hand > 0) & (window.sum(axis=1) < 0.5)
+    cover = np.divide(on_hand, daily, out=np.full(len(on_hand), np.inf), where=daily > 0)
+    excess = ~dead & (on_hand > 0) & (cover > excess_cover_days)
+    units = np.where(dead, on_hand, np.where(excess, on_hand - daily * excess_cover_days, 0.0))
+    out = keys[["store", "item"]].reset_index(drop=True).assign(
+        on_hand=on_hand, cover_days=np.where(np.isfinite(cover), cover, np.nan),
+        status=np.where(dead, "dead", np.where(excess, "excess", "ok")), excess_units=np.floor(units),
+        excess_value=np.floor(units) * np.nan_to_num(unit_cost))
+    return out[out["status"] != "ok"].sort_values("excess_value", ascending=False).reset_index(drop=True)
+
+
 # --------------------------------------------------------------------------- user stock file
 STOCK_SYNONYMS = {
     "on_hand": {"on_hand", "stock", "giacenza", "giacenze", "disponibile", "esistenza", "qty_on_hand", "inventory",

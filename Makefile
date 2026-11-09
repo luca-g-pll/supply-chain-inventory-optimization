@@ -26,4 +26,4 @@ test:               ## tests (synthetic data, no download needed)
 	$(PY) -m pytest
 
 lint:
-	.venv/bin/ruff check src tests app scripts
+	.venv/bin/ruff check src tests app scripts launcher.py packaging

@@ -13,6 +13,7 @@ from common import (
     scenario_badge,
     scenario_leaderboard,
     scenario_summary,
+    workspace,
 )
 from i18n import model_name, tx
 from website import track
@@ -39,13 +40,23 @@ def landing() -> None:
     c3.metric(tx("Time to the first result", "Tempo per il primo risultato"), "≈ 20 s",
               help=tx("Sample data, on a laptop", "Dati di esempio, su un portatile"))
     st.write("")
+    folder = workspace()
+    if folder is not None:
+        st.success(tx(
+            f"**Your company folder is ready:** `{folder}`. Copy your sales files into its **data** folder (Excel, CSV, "
+            "JSON… as they are), then open the **Data** page and press *Analyse the folder*. The analysis is kept for "
+            "the next start.",
+            f"**La cartella della tua azienda è pronta:** `{folder}`. Copia i file delle vendite nella sua cartella "
+            "**data** (Excel, CSV, JSON… così come sono), poi apri la pagina **Dati** e premi *Analizza i dati della "
+            "cartella*. L'analisi resta salvata per il prossimo avvio."), icon=":material/folder_open:")
     b1, b2, b3 = st.columns([2.6, 2.2, 1.6])
     if b1.button(tx("Try it now with sample data", "Prova subito con i dati di esempio"), type="primary",
                  icon=":material/play_arrow:", width="stretch", key="cta_sample"):
         track("cta_click", target="sample")
         if run_sample_analysis():
             st.rerun()
-    b2.page_link("views/data.py", label=tx("Upload your sales history", "Carica il tuo storico vendite"),
+    b2.page_link("views/data.py", label=tx("Analyse the company folder", "Analizza la cartella aziendale") if folder
+                 else tx("Upload your sales history", "Carica il tuo storico vendite"),
                  icon=":material/upload_file:", width="stretch")
     b3.page_link("views/faq.py", label=tx("Questions", "Domande frequenti"), icon=":material/help:", width="stretch")
     st.caption(tx("Sample data: an invented Italian retail chain, 8 stores × 34 products × 3 years. "

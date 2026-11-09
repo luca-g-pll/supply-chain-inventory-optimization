@@ -66,8 +66,25 @@ class ActiveData:
         return self.meta.get("best_model", "lightgbm")
 
 
+def workspace() -> Path | None:
+    """The company folder when the software is installed in a company (started with the launcher), else ``None``."""
+    from src.workspace import workspace_dir
+
+    return workspace_dir()
+
+
 @st.cache_resource
 def config() -> Config:
+    """Settings: ``config/params.yaml``, with the company's own values on top when there is a company folder."""
+    folder = workspace()
+    if folder is not None:
+        from src.readers import InputError
+        from src.workspace import company_config
+
+        try:
+            return company_config(folder)
+        except (InputError, ValueError):
+            pass                                  # a broken settings.yaml must not stop the app: defaults are used
     return load_config()
 
 
@@ -95,6 +112,10 @@ def demo_data() -> ActiveData | None:
 def data_label(data: ActiveData) -> str:
     if data.source == "demo":
         return tx("Demo · Kaggle store-item sales", "Demo · vendite negozio-articolo Kaggle")
+    ws = data.meta.get("workspace") or {}
+    if ws:
+        name = (ws.get("company") or {}).get("name") or tx("Company folder", "Cartella aziendale")
+        return f"{name} · " + tx("analysed on ", "analisi del ") + str(ws.get("analysed_at", ""))[:10]
     return tx("Your data · ", "I tuoi dati · ") + data.meta.get("file_name", "")
 
 
@@ -115,11 +136,57 @@ def detail_note(data: ActiveData) -> str:
 
 
 def active_data() -> ActiveData | None:
-    """The upload of this session if the user switched to it, otherwise the demo."""
+    """The upload of this session if the user switched to it, otherwise the demo.
+
+    With a company folder the last saved analysis is reopened at the first page view, and the
+    Kaggle demo is shown only when the user asks for it on the Data page.
+    """
+    folder = workspace()
+    if folder is not None and not st.session_state.get("ws_checked"):
+        st.session_state["ws_checked"] = True
+        if st.session_state.get("upload_results") is None:
+            from src.workspace import load_results
+
+            saved = load_results(folder)
+            if saved is not None:
+                set_company_results(*saved)
     up = st.session_state.get("upload_results")
     if st.session_state.get("active_source") == "upload" and up is not None:
         return up
+    if folder is not None and st.session_state.get("active_source") != "demo":
+        return None
     return demo_data()
+
+
+def set_company_results(tables: dict[str, pd.DataFrame], meta: dict) -> None:
+    """Make an analysis of the company folder the active dataset of this session."""
+    st.session_state["upload_results"] = ActiveData("upload", meta.get("file_name", ""), tables, meta)
+    st.session_state["active_source"] = "upload"
+    st.session_state.pop("scenario_key", None)
+
+
+def analyse_company() -> bool:
+    """Read the company folder, run the analysis, save it and show it. Errors are shown to the user."""
+    from i18n import translate_message
+    from website import track
+
+    from src.readers import InputError
+    from src.workspace import analyse, company_config
+
+    folder = workspace()
+    bar = st.progress(0.0, text=tx("Reading the files…", "Lettura dei file…"))
+    try:
+        config.clear()
+        tables, meta, company = analyse(folder, company_config(folder), progress=lambda m, f: bar.progress(
+            min(max(f, 0.0), 1.0), text=tx("Analysing… ", "Analisi in corso… ") + f"{f:.0%}"))
+    except (InputError, ValueError) as exc:
+        bar.empty()
+        st.error(tx("The analysis stopped: ", "L'analisi si è fermata: ") + translate_message(str(exc)))
+        return False
+    set_company_results(tables, meta)
+    track("analysis_run", series=int((meta.get("detail") or {}).get("n_series", 0)), kind="folder")
+    bar.progress(1.0, text=tx("Done", "Fatto"))
+    return True
 
 
 # --------------------------------------------------------------------------- scenario

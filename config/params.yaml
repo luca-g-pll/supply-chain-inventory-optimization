@@ -17,13 +17,14 @@ paths:
 # the input contract in docs/07_data_dictionary.md §0.
 input:
   source: demo                   # demo | file
-  path: null                     # used when source = file (.csv, .xlsx, .parquet)
+  path: null                     # used when source = file (any format of src/readers.py)
   sheet: null                    # Excel sheet name or index (default: first sheet)
   item_master: null              # optional file with price / cost / lead time per item
   column_map: {}                 # e.g. {date: Data, item: SKU, quantity: Qta, store: Negozio}
   date_format: auto              # auto | ISO | dayfirst | monthfirst
   missing_days_as_zero: true     # a day with no row = zero sales
   negative_quantity: clip        # clip (returns -> 0) | reject
+  granularity: auto              # auto | daily | weekly | monthly: totals per week / month are spread over their days
   limits:                        # dashboard upload (≈ 1 minute at the limit); larger -> python -m src.partition
     max_file_mb: 300
     max_rows: 10000000
@@ -92,6 +93,23 @@ promotions:
   default_discount: 0.20         # discount assumed when the file only says "promo: yes"
   post_promo_days: 7             # week after a promotion: customers stocked up, demand may dip
   shrinkage_days: 14             # items with few promo days borrow the average lift of all items
+
+# Purchase history (optional file, docs/08_methodology.md §6.12): real costs, suppliers and lead times.
+purchases:
+  cost_window_days: 90           # unit cost = median purchase cost of the last 90 days of each item
+  min_lead_time_orders: 2        # receipts needed before an item's own lead time replaces its supplier's
+  min_orders_for_pack: 3         # purchases needed before a common multiple of the quantities is read as the pack
+  open_order_max_days: 60        # an order with no receipt date older than this is not counted as on its way
+
+# Stock health on the Orders page: what to stop buying and what to clear.
+stock_health:
+  excess_cover_days: 90          # stock that covers more than 90 days of forecast = excess
+  horizon_days: 28               # days of forecast used to measure the cover; no expected sale in them = dead stock
+
+# Company folder used when the software is started with the launcher (docs/13_product.md).
+workspace:
+  folder_name: Demand Planner    # created in the user's Documents; holds data/, results/ and settings.yaml
+  max_scan_mb: 300               # larger files are listed but not read (use the batch mode)
 
 # New products (docs/08_methodology.md §6.11): fewer than input.min_history_days of sales.
 # They are left out of the comparison on the past (no history to test on) but planned from a similar product.

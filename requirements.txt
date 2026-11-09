@@ -14,3 +14,5 @@ matplotlib==3.11.2
 plotly==7.1.0
 streamlit==1.64.0
 openpyxl==3.1.5
+xlrd==2.0.2          # old .xls workbooks
+odfpy==1.4.1         # OpenDocument .ods sheets

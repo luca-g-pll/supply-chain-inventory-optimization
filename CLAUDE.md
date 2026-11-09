@@ -13,9 +13,13 @@ Python 3.11+ · pandas / NumPy · LightGBM · statsmodels · DuckDB · Streamlit
 - `python -m src.pipeline --all [--input file.csv]` — full analysis from the command line
 - `python -m src.partition --input big.csv --workers 2` — large files in batches
 - `python -m src.sample_data` — rebuild the invented sample datasets
+- `python launcher.py` — product mode: set up, start the dashboard on a company folder, open the browser
+- `python -m src.workspace --analyse` — analyse the company folder without the dashboard
+- `python scripts/build_standalone.py` — standalone program in `dist/` (needs `requirements-build.txt`)
 
 ## Layout
-- `src/` analysis engine (ingest, forecast, policy, simulation, promotions, replenishment, constraints, cold start)
+- `src/` analysis engine (readers, ingest, purchases, workspace, forecast, policy, simulation, promotions,
+  replenishment, constraints, cold start, exports)
 - `app/` dashboard: `streamlit_app.py`, pages in `views/`, texts in `i18n.py`, warnings panel in `limits.py`
 - `config/params.yaml` every business assumption (single source) · `docs/` design documents 01–12 · `tests/`
 
@@ -25,6 +29,8 @@ Python 3.11+ · pandas / NumPy · LightGBM · statsmodels · DuckDB · Streamlit
 - Forecasts without leakage: features at least `horizon` days old, models chosen on validation, scored on test
 - ruff with 120 columns; vectorised NumPy code may update arrays in place for speed
 - Every feature change also updates the "Warnings and limits" panel (`app/limits.py`) and README §12
+- Two modes, one switch: `PLANNER_WORKSPACE` set (launcher / standalone) = company folder on disk; unset = hosted
+  demo, which must keep writing nothing to disk (`src.workspace.workspace_dir()` is the only test)
 - The Kaggle daily data must not be redistributed; the sample data are invented
 - Commit only when asked; the user pushes from PyCharm
 

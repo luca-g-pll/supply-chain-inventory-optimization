@@ -22,7 +22,9 @@ from i18n import is_it, tx
 from newproducts import new_products_section
 
 from src.constraints import Constraints, project_constrained, read_supplier_terms, terms_from_frame
+from src.exports import orders_workbook
 from src.ingest import InputError, read_any
+from src.readers import SUPPORTED
 from src.replenishment import (
     PLAN_DAYS,
     apply_planned_promotions,
@@ -30,6 +32,7 @@ from src.replenishment import (
     lead_time_sums,
     read_stock_file,
     risks_from_short,
+    stock_health,
 )
 from src.series import natural_sorted
 
@@ -139,10 +142,13 @@ cost = par["unit_cost"].to_numpy(dtype="float64")
 
 # --------------------------------------------------------------------------- starting stock
 st.subheader(tx("Stock today", "Giacenze di oggi"))
-src_opts = {"estimated": tx("Estimated by the software", "Stimate dal software"),
-            "file": tx("Upload my stock", "Carico le mie giacenze")}
-stock_src = st.segmented_control(tx("Stock", "Giacenze"), list(src_opts), format_func=src_opts.get, default="estimated",
-                                 key="ord_stock_src", label_visibility="collapsed") or "estimated"
+ws_stock = data.t("ws_stock")
+src_opts = ({"folder": tx("From the company folder", "Dalla cartella aziendale")} if len(ws_stock) else {}) | {
+    "estimated": tx("Estimated by the software", "Stimate dal software"),
+    "file": tx("Upload my stock", "Carico le mie giacenze")}
+stock_src = st.segmented_control(tx("Stock", "Giacenze"), list(src_opts), format_func=src_opts.get,
+                                 default=next(iter(src_opts)), key="ord_stock_src",
+                                 label_visibility="collapsed") or next(iter(src_opts))
 st_ = par[["store", "item", "channel"]].merge(state_tbl, on=["store", "item", "channel"], how="left")
 on_hand = st_["on_hand"].fillna(0).to_numpy(dtype="float64")
 backlog = st_["backlog"].fillna(0).to_numpy(dtype="float64")
@@ -159,19 +165,29 @@ if stock_src == "estimated":
         f"({start - pd.Timedelta(days=1):%d/%m/%Y} su questo calendario). I giorni da allora a ieri sono proiettati "
         "con la previsione. Sostituiscile con le tue giacenze reali per una lista d'ordini reale."))
 else:
-    st.caption(tx("Columns: item, store, stock on hand; optional: quantity on order and its arrival date. "
-                  "Italian or English names (giacenza, ordinato, data arrivo…).",
-                  "Colonne: articolo, negozio, giacenza; facoltative: quantità ordinata e data di arrivo. "
-                  "Nomi in italiano o inglese (giacenza, ordinato, data arrivo…)."))
-    up = st.file_uploader(tx("Stock file", "File giacenze"), type=["csv", "xlsx"], key="ord_stock_file")
-    if up is not None:
-        try:
-            stock = read_stock_file(read_any(io.BytesIO(up.getvalue()), filename=up.name),
-                                    sc.stores[0] if len(data.stores) == 1 else None)
-        except InputError as exc:
-            st.error(tx("Could not read the stock file: ", "Impossibile leggere il file giacenze: ") + str(exc))
-            st.stop()
-        m = par[["store", "item"]].merge(stock, on=["store", "item"], how="left")
+    stock = None
+    if stock_src == "folder":
+        stock = ws_stock
+        st.caption(tx("Stock read from the stock file of the company folder (with the open purchase orders, when the "
+                      "purchase file has them).",
+                      "Giacenze lette dal file giacenze della cartella aziendale (con gli ordini d'acquisto aperti, "
+                      "quando il file acquisti li riporta)."))
+    else:
+        st.caption(tx("Columns: item, store, stock on hand; optional: quantity on order and its arrival date. "
+                      "Italian or English names (giacenza, ordinato, data arrivo…).",
+                      "Colonne: articolo, negozio, giacenza; facoltative: quantità ordinata e data di arrivo. "
+                      "Nomi in italiano o inglese (giacenza, ordinato, data arrivo…)."))
+        up = st.file_uploader(tx("Stock file", "File giacenze"), type=[e.lstrip(".") for e in SUPPORTED],
+                              key="ord_stock_file")
+        if up is not None:
+            try:
+                stock = read_stock_file(read_any(io.BytesIO(up.getvalue()), filename=up.name),
+                                        sc.stores[0] if len(data.stores) == 1 else None)
+            except InputError as exc:
+                st.error(tx("Could not read the stock file: ", "Impossibile leggere il file giacenze: ") + str(exc))
+                st.stop()
+    if stock is not None:
+        m = par[["store", "item"]].merge(stock.drop_duplicates(["store", "item"]), on=["store", "item"], how="left")
         found = m["on_hand"].notna().to_numpy()
         on_hand = np.where(found, m["on_hand"].fillna(0), 0.0)
         backlog = np.zeros(n)
@@ -260,6 +276,9 @@ if st.session_state.get("ord_terms_key") != terms_key:
     st.session_state["plan_budget"] = 0.0
     if sample_terms:
         _set_terms(read_supplier_terms(read_any(SAMPLE_TERMS)))
+    elif len(data.t("ws_terms")):
+        _set_terms(data.t("ws_terms").assign(**{c: data.t("ws_terms")[c].map(list) for c in ("order_days", "delivery_days")}))
+        st.session_state["ord_cons_open"] = True
 terms_df = st.session_state["ord_terms"]
 terms_df = terms_df[terms_df["supplier"].isin(suppliers)] if len(terms_df) else _blank_terms()
 DAY_NAMES = DAYS[LANG]
@@ -486,9 +505,9 @@ COLS = {
 LINE_COLS = ["store", "item", "name", "qty", "notes_txt", "unit_cost", "value", "arrival", "on_hand", "on_order",
              "cover_days"]
 
-tab_today, tab_cal, tab_risk, tab_item = st.tabs([tx("Today's orders", "Ordini di oggi"), tx("Calendar", "Calendario"),
-                                                  tx("Risks and postponed", "Rischi e rinvii"),
-                                                  tx("By item", "Per articolo")])
+tab_today, tab_cal, tab_risk, tab_item, tab_excess = st.tabs([
+    tx("Today's orders", "Ordini di oggi"), tx("Calendar", "Calendario"), tx("Risks and postponed", "Rischi e rinvii"),
+    tx("By item", "Per articolo"), tx("Excess stock", "Scorte in eccesso")])
 with tab_today:
     if today_orders.empty:
         st.info(tx("No order today: every item is above its reorder point.",
@@ -511,9 +530,23 @@ with tab_today:
                 st.dataframe(lines[LINE_COLS], hide_index=True, column_config=COLS)
                 csv_download(lines[["supplier"] + LINE_COLS], tx("Download this order (CSV)", "Scarica questo ordine (CSV)"),
                              f"order_{today:%Y%m%d}_{sup[:20].replace(' ', '_')}.csv", f"dl_ord_{sup}")
-        csv_download(today_orders[["supplier"] + LINE_COLS], tx("Download all of today's orders (CSV)",
-                                                                "Scarica tutti gli ordini di oggi (CSV)"),
-                     f"orders_{today:%Y%m%d}.csv", "dl_ord_all")
+        x1, x2 = st.columns(2)
+        with x1:
+            csv_download(today_orders[["supplier"] + LINE_COLS], tx("Download all of today's orders (CSV)",
+                                                                    "Scarica tutti gli ordini di oggi (CSV)"),
+                         f"orders_{today:%Y%m%d}.csv", "dl_ord_all")
+        xl_cols = ["supplier", "store", "item", "name", "qty", "unit_cost", "value", "arrival", "notes_txt"]
+        xl_labels = {"supplier": tx("Supplier", "Fornitore"), "store": tx("Store", "Negozio"), "item": tx("Item", "Articolo"),
+                     "name": tx("Description", "Descrizione"), "qty": tx("Quantity", "Quantità"),
+                     "unit_cost": tx("Unit cost", "Costo unitario"), "value": tx("Value", "Valore"),
+                     "arrival": tx("Arrives", "Arriva"), "notes_txt": tx("Notes", "Note"), "lines": tx("Lines", "Righe"),
+                     "units": tx("Units", "Pezzi")}
+        x2.download_button(
+            tx("Today's orders, one sheet per supplier (Excel)", "Ordini di oggi, un foglio per fornitore (Excel)"),
+            orders_workbook(today_orders[xl_cols].assign(arrival=today_orders["arrival"].dt.date), xl_labels,
+                            tx("Summary", "Riepilogo")),
+            f"orders_{today:%Y%m%d}.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            key="dl_ord_xlsx", icon=":material/table_view:")
     st.caption(tx(
         "Rule (P2, calibrated to the target fill rate): order when stock on hand + on order falls to the forecast of "
         "the lead time + safety stock; the quantity is the economic lot, in multiples. Values at unit cost.",
@@ -648,3 +681,42 @@ with tab_item:
         f"Negozio {channel_label(p['channel'])} · fornitore {p['supplier']} · consegna in {int(p['lead_time'])} giorni · "
         f"lotto {int(p['order_qty'])} pezzi · scorta di sicurezza {ss[row]:.0f} pezzi · vendite previste "
         f"{F[row, :7].sum():.0f} pezzi nei prossimi 7 giorni."))
+
+with tab_excess:
+    hc = cfg.stock_health
+    stock_today = daily["on_hand_end"][:, k_today - 1] if k_today > 0 else on_hand
+    health = stock_health(par, stock_today, F_ext[:, k_today:], cost, hc.excess_cover_days, hc.horizon_days)
+    health = health.merge(par[["store", "item", "name", "supplier"]], on=["store", "item"], how="left")
+    if stock_src == "estimated":
+        st.info(tx("These are estimated stocks, built by the reorder rule itself: excess shows up only with your real "
+                   "stock. Upload the stock file (or put it in the company folder).",
+                   "Queste sono giacenze stimate, create dalla regola di riordino stessa: l'eccesso si vede solo con le "
+                   "giacenze reali. Carica il file giacenze (o mettilo nella cartella aziendale)."),
+                icon=":material/info:")
+    if health.empty:
+        st.success(tx(f"No excess: no item has more than {hc.excess_cover_days} days of expected sales in stock.",
+                      f"Nessun eccesso: nessun articolo ha in giacenza più di {hc.excess_cover_days} giorni di vendite "
+                      "previste."))
+    else:
+        h1, h2, h3 = st.columns(3)
+        h1.metric(tx("Money tied up in excess", "Soldi fermi in eccesso"), euro(health["excess_value"].sum()),
+                  help=tx("Units above the cover limit, at unit cost", "Pezzi oltre il limite di copertura, al costo unitario"))
+        h2.metric(tx("Items with excess", "Articoli in eccesso"), f"{int((health['status'] == 'excess').sum())}")
+        h3.metric(tx("Items not selling", "Articoli fermi"), f"{int((health['status'] == 'dead').sum())}")
+        states = {"excess": tx("excess", "eccesso"), "dead": tx("not selling", "fermo")}
+        st.dataframe(health.assign(status=health["status"].map(states))[
+            ["store", "item", "name", "supplier", "status", "on_hand", "cover_days", "excess_units", "excess_value"]],
+            hide_index=True, column_config={
+                **COLS, "status": tx("State", "Stato"), "on_hand": NUM(tx("Stock today", "Giacenza oggi"), format="%.0f"),
+                "cover_days": NUM(tx("Days of cover", "Giorni di copertura"), format="%.0f"),
+                "excess_units": NUM(tx("Units in excess", "Pezzi in eccesso"), format="%.0f"),
+                "excess_value": NUM(tx("Value in excess", "Valore in eccesso"), format="euro")})
+        csv_download(health, tx("Download the list (CSV)", "Scarica l'elenco (CSV)"), "excess_stock.csv", "dl_excess")
+    st.caption(tx(
+        f"Excess: stock that covers more than {hc.excess_cover_days} days of the sales expected in the next "
+        f"{hc.horizon_days} days; the units above that cover are counted. Not selling: stock on hand and no sale "
+        "expected. Actions: stop reordering, a promotion, a transfer to a store that sells it, a return to the supplier.",
+        f"Eccesso: giacenza che copre più di {hc.excess_cover_days} giorni delle vendite previste nei prossimi "
+        f"{hc.horizon_days} giorni; si contano i pezzi oltre quella copertura. Fermo: giacenza presente e nessuna vendita "
+        "prevista. Azioni: sospendere i riordini, una promozione, un trasferimento a un negozio che lo vende, un reso "
+        "al fornitore."))

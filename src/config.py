@@ -53,6 +53,7 @@ class InputConfig:
     date_format: Literal["auto", "ISO", "dayfirst", "monthfirst"] = "auto"
     missing_days_as_zero: bool = True
     negative_quantity: Literal["clip", "reject"] = "clip"
+    granularity: Literal["auto", "daily", "weekly", "monthly"] = "auto"
     limits: LimitsConfig = field(default_factory=LimitsConfig)
     min_history_days: int = 56
 
@@ -151,6 +152,26 @@ class ScaleConfig:
 
 
 @dataclass(frozen=True)
+class PurchasesConfig:
+    cost_window_days: int = 90         # unit cost = median purchase cost of the last 90 days of each item
+    min_lead_time_orders: int = 2      # receipts needed before an item's own lead time replaces the supplier's
+    min_orders_for_pack: int = 3       # purchases needed before a common multiple is read as the pack size
+    open_order_max_days: int = 60      # an order without a receipt date older than this is not counted as on its way
+
+
+@dataclass(frozen=True)
+class StockHealthConfig:
+    excess_cover_days: int = 90        # stock that covers more than this many days of forecast is excess
+    horizon_days: int = 28             # days of forecast used to measure the cover
+
+
+@dataclass(frozen=True)
+class WorkspaceConfig:
+    folder_name: str = "Demand Planner"   # company folder created in the user's Documents
+    max_scan_mb: float = 300.0            # files larger than this are listed but not read
+
+
+@dataclass(frozen=True)
 class PromotionsConfig:
     enabled: bool = True
     min_discount: float = 0.08         # a day is a promotion when the price is at least 8% below the regular price
@@ -227,6 +248,9 @@ class Config:
     cold_start: ColdStartConfig = field(default_factory=ColdStartConfig)
     site: SiteConfig = field(default_factory=SiteConfig)
     analytics: AnalyticsConfig = field(default_factory=AnalyticsConfig)
+    purchases: PurchasesConfig = field(default_factory=PurchasesConfig)
+    stock_health: StockHealthConfig = field(default_factory=StockHealthConfig)
+    workspace: WorkspaceConfig = field(default_factory=WorkspaceConfig)
     raw: dict[str, Any] = field(default_factory=dict, repr=False, compare=False)
 
     def replace(self, **changes: Any) -> Config:
@@ -350,12 +374,14 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
         date_format=i.get("date_format", "auto"),
         missing_days_as_zero=bool(i.get("missing_days_as_zero", True)),
         negative_quantity=i.get("negative_quantity", "clip"),
+        granularity=i.get("granularity", "auto"),
         limits=limits,
         min_history_days=int(i.get("min_history_days", 56)),
     )
     _check(inp.source in ("demo", "file"), "input.source must be demo or file")
     _check(inp.source == "demo" or inp.path is not None, "input.path is required when input.source = file")
     _check(inp.date_format in ("auto", "ISO", "dayfirst", "monthfirst"), "input.date_format is invalid")
+    _check(inp.granularity in ("auto", "daily", "weekly", "monthly"), "input.granularity is invalid")
     _check(inp.negative_quantity in ("clip", "reject"), "input.negative_quantity must be clip or reject")
     _check(inp.min_history_days >= 14, "input.min_history_days must be >= 14")
 
@@ -510,6 +536,26 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
                                 path=str(an.get("path", "data/analytics/events.jsonl")),
                                 plausible_domain=str(an.get("plausible_domain") or ""))
 
+    pu = raw.get("purchases", {})
+    purchases = PurchasesConfig(
+        cost_window_days=int(pu.get("cost_window_days", 90)),
+        min_lead_time_orders=int(pu.get("min_lead_time_orders", 2)),
+        min_orders_for_pack=int(pu.get("min_orders_for_pack", 3)),
+        open_order_max_days=int(pu.get("open_order_max_days", 60)),
+    )
+    _check(purchases.cost_window_days >= 1, "purchases.cost_window_days must be >= 1")
+    _check(purchases.min_orders_for_pack >= 2, "purchases.min_orders_for_pack must be >= 2")
+    sh = raw.get("stock_health", {})
+    stock_health = StockHealthConfig(
+        excess_cover_days=int(sh.get("excess_cover_days", 90)),
+        horizon_days=int(sh.get("horizon_days", 28)),
+    )
+    _check(stock_health.excess_cover_days >= 1, "stock_health.excess_cover_days must be >= 1")
+    _check(stock_health.horizon_days >= 7, "stock_health.horizon_days must be >= 7")
+    ws = raw.get("workspace", {})
+    workspace = WorkspaceConfig(folder_name=str(ws.get("folder_name", "Demand Planner")),
+                                max_scan_mb=float(ws.get("max_scan_mb", 300.0)))
+
     return Config(
         root=root,
         paths=paths,
@@ -529,5 +575,8 @@ def _build(raw: dict[str, Any], root: Path) -> Config:
         cold_start=cold_start,
         site=site,
         analytics=analytics,
+        purchases=purchases,
+        stock_health=stock_health,
+        workspace=workspace,
         raw=raw,
     )

@@ -1,0 +1,3 @@
+-r requirements.txt
+# Standalone program (scripts/build_standalone.py)
+pyinstaller==6.22.3

@@ -1,6 +1,6 @@
 """Input adapter: turn any daily sales file into the canonical long format.
 
-Pipeline: ``read_any`` -> ``guess_mapping`` / ``ColumnMapping`` -> ``standardise``
+Pipeline: ``read_any`` (``src.readers``) -> ``guess_mapping`` / ``ColumnMapping`` -> ``standardise``
 -> ``validate``. The Kaggle demo goes through the same path (its ``sales``
 column is mapped to ``quantity``), so the adapter is exercised on every run.
 
@@ -12,9 +12,7 @@ flagged as *assumed*.
 
 from __future__ import annotations
 
-import csv
 import hashlib
-import io
 import re
 import unicodedata
 from dataclasses import dataclass, field
@@ -26,6 +24,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import InputConfig, InventoryParams, PricesConfig, PromotionsConfig
+from src.readers import InputError, as_bytes, read_table, sheet_names
 from src.series import DemandMatrix, natural_sorted
 
 REQUIRED = ("date", "item", "quantity")
@@ -74,97 +73,26 @@ _PHYSICAL = {"physical", "store", "negozio", "fisico", "retail", "offline", "bri
              "punto_vendita", "pv", "instore", "in_store", "fisica"}
 
 
-class InputError(ValueError):
-    """A problem with the user's file, with a message meant for the user."""
-
-
 # --------------------------------------------------------------------------- reading
 def file_hash(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def _as_bytes(source: str | Path | bytes | BinaryIO) -> bytes:
-    if isinstance(source, (str, Path)):
-        return Path(source).read_bytes()
-    if isinstance(source, (bytes, bytearray)):
-        return bytes(source)
-    pos = source.tell() if hasattr(source, "tell") else None
-    data = source.read()
-    if pos is not None and hasattr(source, "seek"):
-        source.seek(pos)
-    return data
-
-
-def _extension(source, filename: str | None) -> str:
-    name = filename or getattr(source, "name", None) or (str(source) if isinstance(source, (str, Path)) else "")
-    ext = Path(str(name)).suffix.lower()
-    if not ext:
-        raise InputError("Cannot tell the file type: use a .csv, .xlsx or .parquet file.")
-    return ext
-
-
-def _decode_sample(data: bytes) -> tuple[str, str]:
-    for encoding in ("utf-8-sig", "cp1252", "latin-1"):
-        try:
-            return data[:65536].decode(encoding), encoding
-        except UnicodeDecodeError:
-            continue
-    raise InputError("The file is not readable text (unknown encoding).")
-
-
-def _sniff_delimiter(sample: str) -> str:
-    try:
-        return csv.Sniffer().sniff(sample, delimiters=",;\t|").delimiter
-    except csv.Error:
-        first_line = sample.splitlines()[0] if sample else ""
-        counts = {d: first_line.count(d) for d in ",;\t|"}
-        best = max(counts, key=counts.get)
-        return best if counts[best] > 0 else ","
-
-
 def read_any(source: str | Path | bytes | BinaryIO, filename: str | None = None,
              sheet: str | int | None = None) -> pd.DataFrame:
-    """Read a ``.csv`` (delimiter and encoding sniffed), ``.xlsx`` or ``.parquet`` file.
+    """Read a sales, purchase or reference file in any supported format (``src.readers.SUPPORTED``).
 
-    CSV columns are read as text and converted later by ``standardise`` (this keeps
-    leading zeros in codes and handles decimal commas). Raises ``InputError``.
+    Text columns are read as text and converted later by ``standardise`` (this keeps
+    leading zeros in codes and handles decimal commas). Notes about title rows, wide
+    tables and renamed formats are in ``df.attrs["import_notes"]``. Raises ``InputError``.
     """
-    ext = _extension(source, filename)
-    try:
-        if ext in (".csv", ".txt", ".tsv"):
-            data = _as_bytes(source)
-            sample, encoding = _decode_sample(data)
-            sep = "\t" if ext == ".tsv" else _sniff_delimiter(sample)
-            df = pd.read_csv(io.BytesIO(data), sep=sep, dtype=str, encoding=encoding,
-                             skipinitialspace=True)
-        elif ext in (".xlsx", ".xlsm"):
-            df = pd.read_excel(io.BytesIO(_as_bytes(source)), sheet_name=0 if sheet is None else sheet,
-                               engine="openpyxl")
-        elif ext == ".xls":
-            raise InputError("Old .xls files are not supported: save the file as .xlsx or .csv.")
-        elif ext in (".parquet", ".pq"):
-            df = pd.read_parquet(io.BytesIO(_as_bytes(source)))
-        else:
-            raise InputError(f"Unsupported file type {ext!r}: use .csv, .xlsx or .parquet.")
-    except InputError:
-        raise
-    except Exception as exc:  # pandas / openpyxl / pyarrow errors
-        raise InputError(f"Could not read the file: {exc}") from exc
-    df.columns = [str(c).strip() for c in df.columns]
-    if df.empty or len(df.columns) == 0:
-        raise InputError("The file has no rows.")
-    return df
+    return read_table(source, filename, sheet)
 
 
-def list_sheets(source: str | Path | bytes | BinaryIO) -> list[str]:
-    """Sheet names of an Excel workbook (for the sheet picker)."""
-    from openpyxl import load_workbook
-
-    try:
-        wb = load_workbook(io.BytesIO(_as_bytes(source)), read_only=True)
-    except Exception as exc:
-        raise InputError(f"Could not open the workbook: {exc}") from exc
-    return list(wb.sheetnames)
+def list_sheets(source: str | Path | bytes | BinaryIO, filename: str | None = None) -> list[str]:
+    """Sheet names of an Excel / OpenDocument workbook (for the sheet picker)."""
+    name = filename or getattr(source, "name", None) or (str(source) if isinstance(source, (str, Path)) else "")
+    return sheet_names(as_bytes(source), Path(str(name)).suffix.lower() or ".xlsx")
 
 
 # --------------------------------------------------------------------------- mapping
@@ -408,6 +336,13 @@ def standardise(raw: pd.DataFrame, mapping: ColumnMapping, cfg: InputConfig, pri
     df = df.groupby(["store", "item", "date"], as_index=False, sort=False)["sales"].sum()
     if len(df) < n_before:
         warnings.append(f"{n_before - len(df):,} rows with the same day, store and item were summed.")
+    granularity = detect_granularity(df["date"]) if cfg.granularity == "auto" else cfg.granularity
+    notes["granularity"] = granularity
+    if granularity != "daily":
+        df = expand_periods(df, granularity)
+        period = "month" if granularity == "monthly" else "week"
+        warnings.append(f"The file has one total per {period}: each total was spread evenly over the days of its "
+                        f"{period}. Reorder quantities stay valid; day-of-week patterns and promotions cannot be read.")
 
     matrix = DemandMatrix.from_long(df)
     sales = matrix.to_long()
@@ -455,8 +390,9 @@ def standardise(raw: pd.DataFrame, mapping: ColumnMapping, cfg: InputConfig, pri
                          "quantity": qty[keep], "unit_price": attrs["unit_price"],
                          "promo": parse_promo_values(raw.loc[keep, mapping.promo]) if mapping.promo else 0.0})
     promo_cfg = promotions or PromotionsConfig()
-    promo, promo_source, promo_notes = promo_from_rows(rows, promo_cfg, has_flag=mapping.promo is not None,
-                                                       has_price=mapping.unit_price is not None)
+    daily = granularity == "daily"
+    promo, promo_source, promo_notes = promo_from_rows(rows, promo_cfg, has_flag=daily and mapping.promo is not None,
+                                                       has_price=daily and mapping.unit_price is not None)
     if promo_source is not None:
         promo = promo.merge(sales[["date", "store", "item"]], on=["date", "store", "item"])
         promo_notes.append(promo_note(promo, promo_source, promo_cfg))
@@ -467,6 +403,43 @@ def standardise(raw: pd.DataFrame, mapping: ColumnMapping, cfg: InputConfig, pri
     return StandardisedData(sales=sales, item_master=master, stores=stores, source=source,
                             file_name=file_name, file_hash=file_hash_value, notes=notes,
                             promo=promo if promo_source is not None else None)
+
+
+def detect_granularity(dates: pd.Series) -> str:
+    """``daily``, ``weekly`` or ``monthly`` from the distinct dates of a file.
+
+    Monthly: the dates are about a month apart. Weekly: a week apart and always on the
+    same weekday. Anything else is daily (missing days are days without sales).
+    """
+    days = pd.DatetimeIndex(pd.Series(dates).dropna().unique()).sort_values()
+    if len(days) < 3:
+        return "daily"
+    gaps = np.diff(days.values).astype("timedelta64[D]").astype(int)
+    typical = float(np.median(gaps))
+    if typical >= 27:
+        return "monthly"
+    if 6 <= typical <= 8 and days.dayofweek.nunique() == 1:
+        return "weekly"
+    return "daily"
+
+
+def expand_periods(df: pd.DataFrame, granularity: str) -> pd.DataFrame:
+    """One row per week or month ``[store, item, date, sales]`` -> one row per day, total spread evenly.
+
+    A monthly date stands for its calendar month, a weekly date for the 7 days starting on it.
+    """
+    dates = pd.DatetimeIndex(df["date"])
+    if granularity == "monthly":
+        start = dates.to_period("M").start_time
+        n = dates.days_in_month.to_numpy()
+    else:
+        start, n = dates, np.full(len(df), 7)
+    rep = np.repeat(np.arange(len(df)), n)
+    offset = np.arange(len(rep)) - np.repeat(np.cumsum(n) - n, n)
+    out = pd.DataFrame({"store": df["store"].to_numpy()[rep], "item": df["item"].to_numpy()[rep],
+                        "date": start[rep] + pd.to_timedelta(offset, unit="D"),
+                        "sales": (df["sales"].to_numpy() / n)[rep]})
+    return out.groupby(["store", "item", "date"], as_index=False, sort=False)["sales"].sum()
 
 
 def current_item_values(attrs: pd.DataFrame, window_days: int = 90) -> pd.DataFrame:
@@ -541,8 +514,13 @@ def item_assumptions(master: pd.DataFrame, prices: PricesConfig, inventory: Inve
 
 
 def merge_item_master(data: StandardisedData, master_raw: pd.DataFrame, prices: PricesConfig,
-                      inventory: InventoryParams, mapping: dict[str, str | None] | None = None) -> StandardisedData:
-    """Override price / cost / lead time with an item-master file (FR-53)."""
+                      inventory: InventoryParams, mapping: dict[str, str | None] | None = None,
+                      source: str = "item_master") -> StandardisedData:
+    """Override price / cost / lead time with an item-master file (FR-53).
+
+    ``source`` is the label recorded in ``price_source`` / ``cost_source`` (``purchases`` when the
+    values come from the purchase history).
+    """
     mapping = mapping or guess_mapping(master_raw.columns)
     if not mapping.get("item"):
         raise InputError("The item master needs an item column.")
@@ -556,9 +534,7 @@ def merge_item_master(data: StandardisedData, master_raw: pd.DataFrame, prices: 
 
     master = data.item_master.set_index("item").copy()
     common = master.index.intersection(upd.index)
-    for fld, source_col, source in (("unit_price", "price_source", "item_master"),
-                                    ("unit_cost", "cost_source", "item_master"),
-                                    ("lead_time_days", None, None)):
+    for fld, source_col in (("unit_price", "price_source"), ("unit_cost", "cost_source"), ("lead_time_days", None)):
         new = upd.loc[common, fld]
         new = new[new.notna() & (new > 0)]
         if len(new):
@@ -577,7 +553,7 @@ def merge_item_master(data: StandardisedData, master_raw: pd.DataFrame, prices: 
             master.loc[new.index, fld] = new
     master = _fill_item_master(master.reset_index(), prices, inventory)
     notes = dict(data.notes)
-    notes["item_master_items"] = int(len(common))
+    notes[f"{source}_items"] = int(len(common))
     return StandardisedData(data.sales, master, data.stores, data.source, data.file_name, data.file_hash, notes,
                             data.promo)
 

@@ -1,7 +1,7 @@
 """Privacy policy: what the app does with uploaded files and with the anonymous usage counts."""
 
 import streamlit as st
-from common import config
+from common import config, workspace
 from i18n import tx
 from website import tracking_on
 
@@ -18,6 +18,17 @@ if not cfg.site.owner or not contact:
                   "publishing the app; this page shows them.",
                   "Per chi pubblica l'app: imposta `site.owner` e `site.contact_email` in `config/params.yaml` prima "
                   "di pubblicarla; questa pagina li mostra."), icon=":material/build:")
+
+folder = workspace()
+if folder is not None:
+    st.info(tx(
+        f"**This copy runs on your computer.** It reads the files of your company folder (`{folder}`) and saves the "
+        "last analysis and your settings there, so they are found at the next start. Nothing is sent to anyone: to "
+        "delete the data, delete the folder. The table below describes the hosted demo, where nothing is saved.",
+        f"**Questa copia gira sul tuo computer.** Legge i file della cartella aziendale (`{folder}`) e vi salva l'ultima "
+        "analisi e le tue impostazioni, per ritrovarle al prossimo avvio. Niente viene inviato a nessuno: per cancellare "
+        "i dati basta cancellare la cartella. La tabella qui sotto descrive la demo online, dove non viene salvato "
+        "nulla."), icon=":material/computer:")
 
 st.markdown(tx(f"""
 ### In short

@@ -203,7 +203,8 @@ else:
 with st.expander(tx("Load a promotion calendar from a file (optional)", "Carica un calendario promozioni da file (facoltativo)")):
     st.caption(tx("Columns: item, start, end, discount (store optional). CSV or Excel, Italian or English names.",
                   "Colonne: articolo, inizio, fine, sconto (negozio facoltativo). CSV o Excel, nomi in italiano o inglese."))
-    up = st.file_uploader(tx("Promotion calendar", "Calendario promozioni"), type=["csv", "xlsx"], key="pr_upload")
+    up = st.file_uploader(tx("Promotion calendar", "Calendario promozioni"),
+                          type=["csv", "xlsx", "xls", "ods", "json", "md", "txt"], key="pr_upload")
 
 key = f"{data.source}:{data.meta.get('file_name', '')}"
 if st.session_state.get("pr_plan_key") != key:
@@ -215,6 +216,11 @@ if st.session_state.get("pr_plan_key") != key:
     start = plan_today + pd.Timedelta(days=21)
     st.session_state["pr_plan"] = pd.DataFrame({"item": [top], "store": [ALL], "start": [start.date()],
                                                 "end": [(start + pd.Timedelta(days=6)).date()], "discount": [25.0]})
+    folder_cal = data.t("ws_promo_calendar")                      # calendar found in the company folder
+    if len(folder_cal):
+        st.session_state["pr_plan"] = folder_cal.assign(
+            store=folder_cal["store"].replace("", ALL), start=pd.to_datetime(folder_cal["start"]).dt.date,
+            end=pd.to_datetime(folder_cal["end"]).dt.date, discount=(folder_cal["discount"] * 100).round(1))
 
 
 def _read_calendar(file) -> pd.DataFrame:
