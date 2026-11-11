@@ -32,5 +32,6 @@ ignore = ["E501", "B008", "B905"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]             # launcher.py lives at the root, outside the installed package
 addopts = "-q"
 filterwarnings = ["ignore::DeprecationWarning"]
