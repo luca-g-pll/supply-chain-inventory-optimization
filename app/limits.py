@@ -56,12 +56,14 @@ LIMITS: list[tuple[str, str, str, str]] = [
      "quantità comprate)."),
     ("Installation", "Installazione",
      "The double-click launcher needs Python 3.11+ on the computer and the internet at the first start only. The "
-     "standalone program needs neither, but it is built separately for Windows and macOS and is not signed: the "
-     "operating system asks for a confirmation the first time. It runs on one computer for one user; there is no "
+     "standalone program needs neither, but it is built separately for Windows and macOS (by hand or with the "
+     "manual GitHub workflow), has no installer and is not signed: the operating system asks for a confirmation the "
+     "first time. It runs on one computer for one user; there is no "
      "automatic update.",
      "L'avvio a doppio clic richiede Python 3.11+ sul computer e internet solo al primo avvio. Il programma autonomo "
-     "non richiede nessuno dei due, ma va costruito a parte per Windows e per macOS e non è firmato: il sistema "
-     "operativo chiede una conferma la prima volta. Gira su un computer per un utente; non c'è aggiornamento "
+     "non richiede nessuno dei due, ma va costruito a parte per Windows e per macOS (a mano o con il workflow "
+     "manuale su GitHub), non ha un installer e non è firmato: il sistema operativo chiede una conferma la prima "
+     "volta. Gira su un computer per un utente; non c'è aggiornamento "
      "automatico."),
     ("Costs and prices", "Costi e prezzi",
      "The cost of an order and the cost of holding stock never come from the sales file: they are assumptions "

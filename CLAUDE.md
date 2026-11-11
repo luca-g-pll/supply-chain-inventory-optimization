@@ -15,7 +15,8 @@ Python 3.11+ · pandas / NumPy · LightGBM · statsmodels · DuckDB · Streamlit
 - `python -m src.sample_data` — rebuild the invented sample datasets
 - `python launcher.py` — product mode: set up, start the dashboard on a company folder, open the browser
 - `python -m src.workspace --analyse` — analyse the company folder without the dashboard
-- `python scripts/build_standalone.py` — standalone program in `dist/` (needs `requirements-build.txt`)
+- `python scripts/build_standalone.py` — standalone program in `dist/` (needs `requirements-build.txt`);
+  `python scripts/smoke_standalone.py` checks it; `.github/workflows/build-standalone.yml` builds it on GitHub (manual)
 
 ## Layout
 - `src/` analysis engine (readers, ingest, purchases, workspace, forecast, policy, simulation, promotions,

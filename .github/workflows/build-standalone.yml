@@ -1,0 +1,58 @@
+name: Build standalone program
+
+# Started by hand only (Actions tab -> "Build standalone program" -> Run workflow). It never runs by itself
+# and changes nothing in the repository: the result is a zip to download from the run page.
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Operating system to build for
+        type: choice
+        options: [windows, macos, both]
+        default: windows
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {name: windows, os: windows-latest}
+          - {name: macos, os: macos-latest}
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - name: Skip the system that was not asked for
+        id: want
+        shell: bash
+        run: echo "run=${{ inputs.target == 'both' || inputs.target == matrix.name }}" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.want.outputs.run == 'true'
+      - uses: actions/setup-python@v5
+        if: steps.want.outputs.run == 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        if: steps.want.outputs.run == 'true'
+        run: pip install -r requirements-build.txt
+      - name: LightGBM on macOS
+        if: steps.want.outputs.run == 'true' && runner.os == 'macOS'
+        run: python scripts/fix_lightgbm_macos.py
+      - name: Build
+        if: steps.want.outputs.run == 'true'
+        run: python scripts/build_standalone.py
+      - name: Check that the program works (analysis + dashboard)
+        if: steps.want.outputs.run == 'true'
+        run: python scripts/smoke_standalone.py
+      - uses: actions/upload-artifact@v4
+        if: steps.want.outputs.run == 'true'
+        with:
+          name: DemandPlanner-${{ matrix.name }}
+          path: dist/DemandPlanner
+          if-no-files-found: error
+          retention-days: 30

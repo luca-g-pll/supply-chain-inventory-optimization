@@ -530,7 +530,9 @@ it just opens the browser. Close the window to stop it.
 **No Python on the computer?** Build the standalone program once (`pip install -r requirements-build.txt`, then
 `python scripts/build_standalone.py`): `dist/DemandPlanner/` holds one executable with Python and every component
 inside. Copy or zip the folder; nothing has to be installed where it runs. Build on Windows for Windows and on a Mac
-for macOS.
+for macOS. Without a Windows PC: on GitHub open **Actions → Build standalone program → Run workflow**; the run builds
+the program on a Windows (or macOS) machine, checks that it analyses a sample file and serves the dashboard
+(`scripts/smoke_standalone.py`) and leaves a zip to download. The workflow starts only by hand.
 
 **The company folder** (`Documents/Demand Planner`, created at the first start):
 

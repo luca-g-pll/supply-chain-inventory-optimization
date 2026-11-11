@@ -27,6 +27,11 @@ difference in the dashboard hangs on that one test, so the hosted demo is unchan
   inside. `packaging/planner_app.py` is its entry point; it turns off the process pool of joblib
   (`JOBLIB_MULTIPROCESSING=0`), because a frozen program would start itself again instead of a worker. The build is
   per operating system and unsigned.
+- `DemandPlanner --analyse` analyses the company folder without the dashboard (scheduled refresh).
+- `scripts/smoke_standalone.py` checks a build: analysis of a sample file, then the dashboard must answer.
+- `.github/workflows/build-standalone.yml` builds and checks the program on a Windows or macOS machine of GitHub and
+  publishes it as a downloadable zip. It is started by hand (`workflow_dispatch`), has read-only permissions and
+  writes nothing to the repository. An installer and code signing are not part of it yet.
 
 ## 3. Reading the company's files (`src/readers.py`)
 

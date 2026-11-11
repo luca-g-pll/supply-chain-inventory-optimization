@@ -2,7 +2,9 @@
 
 It does what ``launcher.py`` does for a source checkout, without the setup step: creates the company
 folder, starts the dashboard on this computer only and opens the browser. Python and every
-component are inside the program folder.
+component are inside the program folder. With ``--analyse`` it analyses the company folder and
+stops, without the dashboard. Environment: ``PLANNER_WORKSPACE`` (company folder), ``PLANNER_PORT``,
+``PLANNER_NO_BROWSER``.
 """
 
 from __future__ import annotations
@@ -40,6 +42,10 @@ def main() -> int:
     os.environ.setdefault("JOBLIB_MULTIPROCESSING", "0")
     folder = launcher.company_folder(None)
     os.environ[launcher.ENV_VAR] = str(folder)
+    if "--analyse" in sys.argv[1:] or "--analyze" in sys.argv[1:]:
+        from src.workspace import main as analyse_folder  # no dashboard: for a scheduled refresh
+
+        return analyse_folder(["--folder", str(folder), "--analyse"])
     browser = not os.environ.get("PLANNER_NO_BROWSER")
     last = launcher.last_port(folder)
     if last and launcher.is_running(last):
