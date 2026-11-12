@@ -11,6 +11,7 @@ from src.cold_start import (
     name_similarity,
     new_series_params,
     suggest_analogs,
+    update_choices,
 )
 from src.config import ColdStartConfig, load_config
 from src.ingest import ColumnMapping, standardise
@@ -145,3 +146,20 @@ def test_cold_start_can_be_switched_off():  # T-N8
     cfg = load_config(overrides={"cold_start": {"enabled": False}})
     assert cfg.cold_start.enabled is False
     assert len(suggest_analogs(dm, np.array([], dtype=int), master, CFG)[0]) == 0
+
+
+def test_choices_outside_the_scenario_are_kept():  # T-N9
+    """A new product left out of the scenario keeps its similar product when the scenario includes it again."""
+    every = pd.DataFrame({"item": ["NEW-1", "NEW-2", "NEW-3"], "analog": ["A", "B", "C"],
+                          "scale_pct": [80.0, 60.0, 120.0], "confirmed": [False, True, False]})
+    shown = every[every["item"].isin(["NEW-1", "NEW-3"])].reset_index(drop=True)      # scenario without NEW-2
+    edited = shown.assign(analog=["Z", "C"], confirmed=[True, False])
+    saved = update_choices(every, edited)
+    assert saved["item"].tolist() == ["NEW-1", "NEW-2", "NEW-3"]
+    assert saved.set_index("item")["analog"].to_dict() == {"NEW-1": "Z", "NEW-2": "B", "NEW-3": "C"}
+    assert saved.set_index("item").loc["NEW-2", ["scale_pct", "confirmed"]].tolist() == [60.0, True]
+    assert saved.set_index("item").loc["NEW-1", "confirmed"]
+    assert list(saved.columns) == list(every.columns) and saved["scale_pct"].dtype == every["scale_pct"].dtype
+    # nothing shown (no new product in the scenario): the table is unchanged; unknown rows are ignored
+    assert update_choices(every, every.iloc[:0]) is every
+    assert update_choices(every, pd.DataFrame({"item": ["OTHER"], "analog": ["Q"]})).equals(every)

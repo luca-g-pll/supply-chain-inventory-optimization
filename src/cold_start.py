@@ -225,6 +225,21 @@ def blend_forecasts(new_series: pd.DataFrame, own: pd.DataFrame, established: pd
     return pd.concat(rows, ignore_index=True)
 
 
+def update_choices(full: pd.DataFrame, edited: pd.DataFrame) -> pd.DataFrame:
+    """Write the rows the user edited back into the full table of choices, matched by ``item``.
+
+    The dashboard shows only the new products of the scenario in use; the products left out of
+    it must keep the similar product chosen for them, so they are not replaced by the edited rows.
+    """
+    if full.empty or edited.empty:
+        return full
+    out = full.set_index("item")
+    rows = edited.set_index("item")
+    rows = rows.loc[rows.index.intersection(out.index)]
+    out.loc[rows.index, rows.columns] = rows
+    return out.reset_index()[list(full.columns)]
+
+
 def item_cv(summary: pd.DataFrame) -> pd.Series:
     """Daily coefficient of variation per item (from the static policy rows: σ_d = σ_L / √L)."""
     s = summary[(summary["policy"] == "P1_static_sq") & (summary["variant"] == "fixed")]

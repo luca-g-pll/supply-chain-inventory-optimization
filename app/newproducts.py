@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from zlib import crc32
+
 import pandas as pd
 import streamlit as st
 from i18n import tx
 
-from src.cold_start import AVERAGE, blend_forecasts, item_cv, new_series_params
+from src.cold_start import AVERAGE, blend_forecasts, item_cv, new_series_params, update_choices
 from src.series import natural_sorted
 
 NUM = st.column_config.NumberColumn
@@ -63,8 +65,9 @@ def new_products_section(data, sc, cfg, channels: list[str]) -> tuple[pd.DataFra
             "confidence": items["confidence"].map(confidence_text),
             "why": [reason_text(r, c) for r, c in zip(items["reasons"], items["correlation"])],
             "confirmed": False})
-    choices = st.session_state.get(key, pd.DataFrame())
-    choices = choices[choices["item"].isin(series["item"])] if len(choices) else choices
+    # the table in the session holds every new product; the page edits the ones of the scenario in use
+    every = st.session_state.get(key, pd.DataFrame())
+    choices = every[every["item"].isin(series["item"])].reset_index(drop=True) if len(every) else every
     same_item = series[series["rule"] == "same_item"]
     to_confirm = int((~choices["confirmed"]).sum()) if len(choices) else 0
 
@@ -87,7 +90,7 @@ def new_products_section(data, sc, cfg, channels: list[str]) -> tuple[pd.DataFra
                 disabled=["item", "name", "age_days", "units", "growth_pct", "confidence", "why"],
                 column_order=["item", "analog", "scale_pct", "confirmed", "confidence", "why", "name", "age_days",
                               "units", "growth_pct"],
-                key=f"{key}:editor", column_config={
+                key=f"{key}:editor:{crc32(','.join(choices['item']).encode())}", column_config={
                     "item": tx("New product", "Prodotto nuovo"), "name": tx("Description", "Descrizione"),
                     "age_days": NUM(tx("Days of sales", "Giorni di vendita"), format="%.0f"),
                     "units": NUM(tx("Units sold", "Pezzi venduti"), format="%.0f"),
@@ -106,7 +109,7 @@ def new_products_section(data, sc, cfg, channels: list[str]) -> tuple[pd.DataFra
                                               "tanto (primi 3 mesi, al massimo +50%)")),
                     "confidence": tx("Confidence", "Affidabilità"), "why": tx("Why this one", "Perché questo"),
                     "confirmed": st.column_config.CheckboxColumn(tx("Confirmed", "Confermato"))})
-            st.session_state[key] = edited
+            st.session_state[key] = update_choices(every, edited)
             choices = edited
         if len(same_item):
             st.caption(tx(f"{len(same_item)} series are new only in some stores: they use the same product in the "
